@@ -1,0 +1,72 @@
+#portfolio-wrapper {
+  padding-top: 30px;
+}
+
+#popup-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: 10px; */
+}
+.popup-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999999;
+  pointer-events: unset !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  width: 100%;
+  max-width: 700px;
+  padding: 10px;
+  border: none;
+  animation: show-popup 0.75s ease forwards;
+}
+@media (max-width: 730px) {
+  .popup-content {
+    width: calc(100% - 40px) !important;
+  }
+}
+@keyframes show-popup {
+  from {
+    opacity: 0.4;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.poped-up-item {
+  display: block;
+  margin-bottom: 0 !important;
+}
+
+.popup-image-box {
+  max-width: 700px;
+  display: block;
+}
+.popup-image-box img {
+  width: 100%;
+}
+
+.close-popup-btn {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  display: inline-block;
+  background-color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.close-popup-btn img {
+  display: block;
+  width: 100%;
+}

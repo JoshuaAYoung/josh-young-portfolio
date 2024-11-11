@@ -1,0 +1,51 @@
+div {
+  display: inline-block;
+  font-weight: 700;
+  vertical-align: top;
+}
+div {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  margin-right: 8px;
+}
+div {
+  margin-bottom: 5px;
+}
+div {
+  display: inline-block;
+  font-weight: 700;
+  vertical-align: top;
+}
+div {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  margin-right: 8px;
+}
+div {
+  margin-bottom: 5px;
+}
+
+p {
+  vertical-align: super;
+  font-size: smaller;
+}
+p {
+  margin-bottom: 30px;
+}
+p {
+  margin-bottom: 0;
+}
+p {
+  margin-bottom: 15px;
+}
+p {
+  margin-bottom: 30px;
+}
+p {
+  margin-bottom: 0;
+}
+p {
+  margin-bottom: 15px;
+}
