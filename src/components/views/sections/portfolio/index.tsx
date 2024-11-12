@@ -11,26 +11,26 @@ import PortfolioItem2 from './items/PortfolioItem2';
 import PortfolioItem3 from './items/PortfolioItem3';
 
 // Images
-import portfolio1 from '../../../assets/images/portfolio/portfolio1.jpg';
-import portfolio2 from '../../../assets/images/portfolio/portfolio2.jpg';
-import portfolio3 from '../../../assets/images/portfolio/portfolio3.jpg';
-import portfolio4 from '../../../assets/images/portfolio/portfolio4.jpg';
-import portfolio5 from '../../../assets/images/portfolio/portfolio5.jpg';
-import portfolio6 from '../../../assets/images/portfolio/portfolio6.jpg';
-import portfolio7 from '../../../assets/images/portfolio/portfolio6.jpg';
+import portfolio1 from '../../../../assets/images/portfolio/portfolio1.jpg';
+import portfolio2 from '../../../../assets/images/portfolio/portfolio2.jpg';
+import portfolio3 from '../../../../assets/images/portfolio/portfolio3.jpg';
+import portfolio4 from '../../../../assets/images/portfolio/portfolio4.jpg';
+import portfolio5 from '../../../../assets/images/portfolio/portfolio5.jpg';
+import portfolio6 from '../../../../assets/images/portfolio/portfolio6.jpg';
+import portfolio7 from '../../../../assets/images/portfolio/portfolio7.jpg';
 // --> Portfolio items
-import portfolioItem1 from '../../../assets/images/portfolio/items/item_03.jpg';
-import portfolioItem2 from '../../../assets/images/portfolio/items/item_02.jpg';
+import portfolioItem1 from '../../../../assets/images/portfolio/items/item_01.jpg';
+import portfolioItem2 from '../../../../assets/images/portfolio/items/item_02.jpg';
 // --> Icon Images
-import backArrow from '../../../assets/images/close-left-arrow.png';
-import closeIcon from '../../../assets/images/close.png';
+import backArrow from '../../../../assets/images/close-left-arrow.png';
+import closeIcon from '../../../../assets/images/close.png';
 
 // Styles
 import './portfolio.css';
 
 // Data
-import portfolioData from '../../../data/portfolio.json';
-import { PortfolioItemType } from '../../../types/portfolio.types';
+import portfolioData from '../../../../data/portfolio.json';
+import { PortfolioItemType } from '../../../../types/portfolio.types';
 
 // --------------
 
@@ -76,7 +76,7 @@ function Portfolio() {
     selectedCategory === 'all'
       ? portfolioData.portfolioItems
       : portfolioData.portfolioItems.filter(
-          (item) => item.category === selectedCategory
+          (item: PortfolioItemType) => item.category === selectedCategory,
         );
 
   /**
@@ -97,7 +97,7 @@ function Portfolio() {
   /**
    * Close Opened portfolio item and show the portfolio grid images
    */
-  const handlCloseItem = () => {
+  const handleCloseItem = () => {
     setPortfolioItem(0);
   };
 
@@ -111,7 +111,7 @@ function Portfolio() {
   };
 
   /**
-   * Closed the opened items by reseting the {openPortfolio} variable to 0
+   * Closed the opened items by resetting the {openPortfolio} variable to 0
    */
   const handleClosePopup = () => {
     setOpenPortfolio(0);
@@ -126,7 +126,8 @@ function Portfolio() {
               <>
                 <div
                   className="category-filter"
-                  onClick={handleToggleFilterBtns}>
+                  onClick={handleToggleFilterBtns}
+                >
                   <div className="category-filter-icon"></div>
                 </div>
                 <motion.div
@@ -152,41 +153,36 @@ function Portfolio() {
                   }}
                   animate={isFilterOpen ? 'expanded' : 'collapsed'}
                   initial="collapsed"
-                  className={
-                    'category-filter-list button-group filters-button-group visible'
-                  }>
-                  {portfolioData.filter.map((flBtn, i) => (
+                  className="category-filter-list button-group filters-button-group visible"
+                >
+                  {portfolioData.filter.map((flBtn, i: number) => (
                     <div
                       key={'filter-btn-' + i}
-                      className={
-                        'button ' +
-                        (selectedCategory === flBtn.category
-                          ? 'is-checked'
-                          : '')
-                      }
-                      onClick={() => handleFilterImages(flBtn.category)}>
+                      className={`button ${selectedCategory === flBtn.category ? 'is-checked' : ''}`}
+                      onClick={() => handleFilterImages(flBtn.category)}
+                    >
                       {flBtn.text}
                     </div>
                   ))}
                 </motion.div>
                 <div className="portfolio-load-content-holder"></div>
                 <motion.div className="grid" id="portfolio-grid" layout>
-                  {filteredImages.map((item, i) => (
+                  {filteredImages.map((item: PortfolioItemType, i: number) => (
                     <AnimatePresence key={'portfolio-item-' + i}>
                       <motion.div
-                        // layout
                         animate={{ scale: 1, opacity: 1 }}
                         initial={{ scale: 0, opacity: 0 }}
                         exit={{ scale: 0, opacity: 0 }}
                         transition={{ duration: 0.5 }}
                         id={'p-item-' + (i + 1)}
-                        className="grid-item element-item p-one-third">
+                        className="grid-item element-item p-one-third"
+                      >
                         <a
                           className="item-link ajax-portfolio"
                           style={{ position: 'relative' }}
                           data-id={i + 1}
                           onClick={() => {
-                            // according to action type we wil fire the function
+                            // according to action type we will fire the function
                             if (
                               item?.action?.type === 'item' &&
                               typeof item?.action?.number === 'number'
@@ -198,7 +194,8 @@ function Portfolio() {
                             ) {
                               handleOpenPopup(item.action.number);
                             }
-                          }}>
+                          }}
+                        >
                           <img src={images[item.order]} alt="" />
                           <div className="portfolio-text-holder">
                             <div className="portfolio-text-wrapper">
@@ -222,7 +219,8 @@ function Portfolio() {
                 <div
                   className="close-icon"
                   role="button"
-                  onClick={handlCloseItem}>
+                  onClick={handleCloseItem}
+                >
                   <img src={backArrow} alt="back arrow" />
                 </div>
                 {portfolioItem === 1 ? (
@@ -245,20 +243,23 @@ function Portfolio() {
         open={openPortfolio !== 0}
         closeOnDocumentClick
         onClose={handleClosePopup}
-        modal>
+        modal
+      >
         <div className="my-popup">
           <div
             className="close-popup-btn"
             role="button"
-            onClick={handleClosePopup}>
+            onClick={handleClosePopup}
+          >
             <img src={closeIcon} alt="close icon" />
           </div>
           {openPortfolio === 1 ? (
-            <p className="block-right poped-up-item" onClick={close}>
+            <p className="block-right poped-up-item" onClick={handleClosePopup}>
               <iframe
                 src="https://player.vimeo.com/video/199192931"
                 width="100%"
-                allow="autoplay; fullscreen"></iframe>
+                allow="autoplay; fullscreen"
+              ></iframe>
             </p>
           ) : openPortfolio === 2 ? (
             <div className="popup-image-box">

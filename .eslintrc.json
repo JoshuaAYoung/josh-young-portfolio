@@ -1,12 +1,5 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -14,8 +7,17 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "extends": ["airbnb", "prettier", "plugin:react/recommended"],
-  "plugins": ["react", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:react/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
     "prettier/prettier": "warn",
     "no-use-before-define": "off",
@@ -33,6 +35,7 @@
     "no-restricted-globals": "off",
     "react/jsx-props-no-spreading": "off",
     "no-shadow": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "import/no-unresolved": "error"
   }
 }

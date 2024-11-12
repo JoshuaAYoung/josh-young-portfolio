@@ -1,22 +1,35 @@
-import { useRef, useEffect, useState } from 'react';
-
-// Plugins
+import React, { useRef, useEffect, useState } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import skillsData from '../../../data/skills.json';
 
-// Data
-import skillsData from '../../data/skills.json';
+// Type definitions for skillsData
+type CircleProgress = {
+  title: string;
+  percentage: number;
+};
 
-// ------------------
+type HorizontalProgress = {
+  title: string;
+  percentage: number;
+};
+
+type SkillsData = {
+  title: string;
+  circleProgress: CircleProgress[];
+  horizontalProgress: HorizontalProgress[];
+};
+
+// ---------------
 
 function Skills() {
   const circleProgressBarRef = useRef<HTMLDivElement>(null);
   const [circleProgress, setCircleProgress] = useState<number[]>(
-    new Array(skillsData.circleProgress.length).fill(0)
+    new Array(skillsData.circleProgress.length).fill(0),
   );
   const normalProgressBarRef = useRef<HTMLDivElement>(null);
   const [normalProgress, setNormalProgress] = useState<number[]>(
-    new Array(skillsData.horizontalProgress.length).fill(0)
+    new Array(skillsData.horizontalProgress.length).fill(0),
   );
 
   useEffect(() => {
@@ -26,7 +39,9 @@ function Skills() {
     const handleScroll = () => {
       if (window.scrollY >= progressBarYPosition) {
         setCircleProgress(
-          skillsData.circleProgress.map((progress) => progress.percentage)
+          skillsData.circleProgress.map(
+            (progress: CircleProgress) => progress.percentage,
+          ),
         );
       }
     };
@@ -43,7 +58,9 @@ function Skills() {
     const handleScroll = () => {
       if (window.scrollY >= progressBarYPosition) {
         setNormalProgress(
-          skillsData.horizontalProgress.map((progress) => progress.percentage)
+          skillsData.horizontalProgress.map(
+            (progress: HorizontalProgress) => progress.percentage,
+          ),
         );
       }
     };
@@ -61,27 +78,29 @@ function Skills() {
             <h2 className="entry-title section-title">{skillsData.title}</h2>
 
             <div className="skill-circle-holder">
-              {skillsData.circleProgress.map((prog, i) => (
-                <div key={'circle-prog-' + i} className="skill-circle">
-                  <div ref={circleProgressBarRef}>
-                    <CircularProgressbar
-                      value={circleProgress[i]}
-                      text={`${prog.percentage}%`}
-                      counterClockwise
-                      strokeWidth={15}
-                      styles={buildStyles({
-                        textColor: '#F37B83',
-                        textSize: 18,
-                        pathColor: '#F37B83',
-                        trailColor: '#554247',
-                        strokeLinecap: 'butt',
-                        pathTransitionDuration: 2,
-                      })}
-                    />
+              {skillsData.circleProgress.map(
+                (prog: CircleProgress, i: number) => (
+                  <div key={'circle-prog-' + i} className="skill-circle">
+                    <div ref={circleProgressBarRef}>
+                      <CircularProgressbar
+                        value={circleProgress[i]}
+                        text={`${prog.percentage}%`}
+                        counterClockwise
+                        strokeWidth={15}
+                        styles={buildStyles({
+                          textColor: '#F37B83',
+                          textSize: 18,
+                          pathColor: '#F37B83',
+                          trailColor: '#554247',
+                          strokeLinecap: 'butt',
+                          pathTransitionDuration: 2,
+                        })}
+                      />
+                    </div>
+                    <p className="skill-circle-text">{prog.title}</p>
                   </div>
-                  <p className="skill-circle-text">{prog.title}</p>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
 
@@ -90,13 +109,14 @@ function Skills() {
               <div className="skills-holder">
                 {skillsData.horizontalProgress
                   .slice(0, Math.ceil(skillsData.horizontalProgress.length / 2))
-                  .map((skill, i) => (
+                  .map((skill: HorizontalProgress, i: number) => (
                     <div key={'skill-' + i} className="skill-holder">
                       <div className="skill-text">
                         <div className="skill">
                           <div
                             className="skill-fill"
-                            style={{ width: `${normalProgress[i]}%` }}></div>
+                            style={{ width: `${normalProgress[i]}%` }}
+                          ></div>
                         </div>
                         <span>{skill.title}</span>
                       </div>
@@ -110,7 +130,7 @@ function Skills() {
               <div className="skills-holder sec-skills-holder">
                 {skillsData.horizontalProgress
                   .slice(Math.ceil(skillsData.horizontalProgress.length / 2))
-                  .map((skill, i) => (
+                  .map((skill: HorizontalProgress, i: number) => (
                     <div key={'skill2-' + i} className="skill-holder">
                       <div className="skill-text">
                         <div className="skill">
@@ -121,11 +141,12 @@ function Skills() {
                                 normalProgress[
                                   i +
                                     Math.ceil(
-                                      skillsData.horizontalProgress.length / 2
+                                      skillsData.horizontalProgress.length / 2,
                                     )
                                 ]
                               }%`,
-                            }}></div>
+                            }}
+                          ></div>
                         </div>
                         <span>{skill.title}</span>
                       </div>

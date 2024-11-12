@@ -7,9 +7,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // Images
-import item1 from '../../../../assets/images/portfolio/items/item_01.jpg';
-import item2 from '../../../../assets/images/portfolio/items/item_02.jpg';
-import item3 from '../../../../assets/images/portfolio/items/item_03.jpg';
+import item1 from '../../../../../assets/images/portfolio/items/item_01.jpg';
+import item2 from '../../../../../assets/images/portfolio/items/item_02.jpg';
+import item3 from '../../../../../assets/images/portfolio/items/item_03.jpg';
 
 // Styles
 import './portfolio-item.css';
@@ -50,7 +50,8 @@ function PortfolioItem2() {
                 pagination={{ clickable: true }}
                 loop={true}
                 modules={[Pagination]}
-                className="portfolio-slider">
+                className="portfolio-slider"
+              >
                 <SwiperSlide>
                   <img src={item1} alt="portfolio item 1" />
                 </SwiperSlide>

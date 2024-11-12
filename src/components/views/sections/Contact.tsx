@@ -1,12 +1,6 @@
 import React, { Fragment, useState } from 'react';
-
-// Plugins
 import axios from 'axios';
-
-// Data
-import contactData from '../../data/contact.json';
-
-// ----------------
+import contactData from '../../../data/contact.json';
 
 type formDataType = {
   'your-name': string;
@@ -14,7 +8,8 @@ type formDataType = {
   'your-subject': string;
   'your-message': string;
 };
-const initialFormData = {
+
+const initialFormData: formDataType = {
   'your-name': '',
   'your-email': '',
   'your-subject': '',
@@ -45,7 +40,7 @@ function Contact() {
   const handleDataChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -71,7 +66,7 @@ function Contact() {
   };
 
   /**
-   * Submitting message when user clock send button
+   * Submitting message when user clicks send button
    *
    * @param e form submit event
    */
@@ -86,10 +81,10 @@ function Contact() {
       data: formData,
     })
       .then((r) => {
-        handleServerResponse(true, 'Message Has Been Send');
+        handleServerResponse(true, 'Message Has Been Sent');
       })
       .catch((r) => {
-        handleServerResponse(false, 'Error occuars while sending');
+        handleServerResponse(false, 'Error occurred while sending');
       });
   };
 
@@ -101,18 +96,19 @@ function Contact() {
             <h2 className="entry-title section-title">{contactData.title}</h2>
             <div className="one-half width-40">
               <p className="section-info">{contactData.description}</p>
-              {contactData.paragrapgs.map((parg, i) => (
+              {contactData.paragrapgs.map((parg: string, i: number) => (
                 <p key={'contact-parg-' + i}>{parg}</p>
               ))}
               <p>
-                {contactData.contactInfo.map((info, i) => (
-                  <Fragment key={'contact-info-' + i}>
-                    <b>{info.title}</b> {info.value} <br />
-                  </Fragment>
-                ))}
+                {contactData.contactInfo.map(
+                  (info: { title: string; value: string }, i: number) => (
+                    <Fragment key={'contact-info-' + i}>
+                      <b>{info.title}</b> {info.value} <br />
+                    </Fragment>
+                  ),
+                )}
               </p>
             </div>
-
             <div className="one-half width-55 last">
               <div className="contact-form">
                 <form action="#" method="post" onSubmit={handleSubmit}>
@@ -159,7 +155,8 @@ function Contact() {
                       placeholder="MESSAGE"
                       required
                       value={formData['your-message']}
-                      onChange={handleDataChange}></textarea>
+                      onChange={handleDataChange}
+                    ></textarea>
                   </p>
                   <p className="contact-submit-holder">
                     <input type="submit" value="SEND" />
@@ -169,8 +166,8 @@ function Contact() {
                       {serverState.submitting
                         ? 'Sending message'
                         : serverState.status
-                        ? serverState.status?.msg
-                        : ''}
+                          ? serverState.status?.msg
+                          : ''}
                     </p>
                   )}
                 </form>

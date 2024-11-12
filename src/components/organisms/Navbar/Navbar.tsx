@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 
 // Images
-import signature from '../assets/images/signature.png';
+import signature from '../../../assets/images/signature2.png';
 
 // Data
 import navData from '../../../data/navbar.json';

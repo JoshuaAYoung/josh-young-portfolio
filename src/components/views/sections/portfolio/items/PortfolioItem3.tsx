@@ -1,6 +1,6 @@
 // Images
-import servIcon1 from '../../../../assets/images/services/service1.png';
-import servIcon2 from '../../../../assets/images/services/service2.png';
+import servIcon1 from '../../../../../assets/images/services/service1.png';
+import servIcon2 from '../../../../../assets/images/services/service2.png';
 
 // Styles
 import './portfolio-item.css';

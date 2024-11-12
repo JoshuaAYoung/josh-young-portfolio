@@ -9,7 +9,7 @@ import Portfolio from '../sections/portfolio';
 import Skills from '../sections/Skills';
 
 // Components
-import Loader from '../components/Loader';
+import Loader from '../../Loader';
 
 // -------------------
 

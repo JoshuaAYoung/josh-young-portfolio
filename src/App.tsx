@@ -14,14 +14,15 @@ import '@fontsource/poppins/800.css';
 import '@fontsource/poppins/900.css';
 
 // Styles
-import '../assets/css/setup.css';
-import '../assets/css/sm-clean.css';
-import '../assets/css/common.css';
-import '../assets/css/style.css';
-import '../assets/css/responsive.css';
+import '../src/styles/reset.css';
+import '../src/styles/sm-clean.css';
+import '../src/styles/common.css';
+import '../src/styles/style.css';
+import '../src/styles/responsive.css';
+import '../src/styles/global.css';
+import '../src/styles/globalnew.css';
 
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
 import ErrorBoundary, { ErrorFallbackComponent } from './ErrorBoundary';
 import Navbar from './components/organisms/Navbar/Navbar';
@@ -46,16 +47,13 @@ function App() {
       <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Routes>
-            <Route path="/" element={<UploadPAge />} />
-            <Route path="results" element={<DataPage />} />
-            <Route path="csv" element={<CsvPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </ErrorBoundary>
       </main>
       <footer>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
-          <Footer />
+          <Navbar />
         </ErrorBoundary>
       </footer>
     </div>

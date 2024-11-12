@@ -1,5 +1,18 @@
 // Data
-import homeData from '../../data/home.json';
+import homeData from '../../../data/home.json';
+
+// Type definitions for homeData
+type SocialLink = {
+  to: string;
+  text: string;
+};
+
+type HomeData = {
+  welcomeText: string;
+  name: string;
+  text: string;
+  socialLinks: SocialLink[];
+};
 
 // ---------------
 
@@ -13,7 +26,7 @@ function Hero() {
           <p className="site-info">{homeData.text}</p>
 
           <div className="social-links">
-            {homeData.socialLinks.map((link, i) => (
+            {homeData.socialLinks.map((link: SocialLink, i: number) => (
               <a key={'social-link-' + i} href={link.to}>
                 {link.text}
               </a>
