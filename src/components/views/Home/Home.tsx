@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // Sections
-import HomeSection from '../sections/Home';
+import Hero from '../sections/Hero';
 import Service from '../sections/Service';
 import Resume from '../sections/Resume';
 import Contact from '../sections/Contact';
@@ -38,7 +38,7 @@ function Home() {
       <div>
         <div className="content-right">
           <div className="content-right-wrapper">
-            <HomeSection />
+            <Hero />
             <Service />
             <Portfolio />
             <Resume />

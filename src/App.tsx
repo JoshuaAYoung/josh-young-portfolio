@@ -37,13 +37,13 @@ function App() {
   // }, [location]);
 
   return (
-    <div id="content" className="site-content">
-      <header className="navBar" role="banner">
+    <div id="content">
+      <header role="banner">
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Navbar />
         </ErrorBoundary>
       </header>
-      <main className="appMain">
+      <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Routes>
             <Route path="/" element={<UploadPAge />} />

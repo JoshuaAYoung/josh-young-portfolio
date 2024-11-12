@@ -3,7 +3,7 @@ import homeData from '../../data/home.json';
 
 // ---------------
 
-function Home() {
+function Hero() {
   return (
     <section id="home" className="section full-width-section">
       <div className="section-wrapper block">
@@ -26,4 +26,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Hero;

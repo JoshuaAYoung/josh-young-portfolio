@@ -497,17 +497,6 @@ img.my-info-signature {
   padding-bottom: 150px;
 }
 
-.section {
-  background-color: #302729;
-  position: relative;
-  padding-top: 150px;
-}
-
-.section-wrapper {
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
 .full-width-section.section {
   padding: 0;
 }
@@ -1229,10 +1218,6 @@ p.skill-circle-text {
     10. Contact Section CSS
 ====================================== */
 
-.section#contact {
-  padding-bottom: 150px;
-}
-
 .contact-form {
   padding: 65px;
   background-color: #f37b83;
@@ -1334,41 +1319,6 @@ p.contact-submit-holder {
   padding: 10px;
   text-align: center;
   background-color: #302729;
-}
-
-/* Loader */
-.preloader {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: #362b2e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999;
-  transition: opacity 0.5s;
-}
-.preloader .loader {
-  width: 40px;
-  height: 40px;
-  border: 5px solid #f37b83;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: loading-animation 2s linear infinite;
-}
-.preloader.fadeOff {
-  opacity: 0;
-}
-
-@keyframes loading-animation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* -- */

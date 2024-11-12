@@ -30,10 +30,6 @@
     bottom: 17px;
   }
 
-  .section {
-    padding-top: 75px;
-  }
-
   .content-right-wrapper > div:last-of-type {
     padding-bottom: 75px;
   }
@@ -119,10 +115,6 @@
   .service-holder {
     margin-right: 2vw;
     margin-bottom: 2vw;
-  }
-
-  h2.section-title {
-    padding-bottom: 0;
   }
 
   .skill-holder {
@@ -234,10 +226,10 @@
 }
 
 @media screen and (max-width: 767px) {
-  .full-width-section .section-wrapper {
+  /* .full-width-section .section-wrapper {
     height: auto;
     padding: 75px 5%;
-  }
+  } */
 
   .content-right-wrapper > div:first-of-type .section-wrapper {
     padding-top: 125px;
