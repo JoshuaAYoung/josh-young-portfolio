@@ -15,7 +15,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:react/jsx-runtime"
   ],
   "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
@@ -36,6 +37,23 @@
     "react/jsx-props-no-spreading": "off",
     "no-shadow": "off",
     "no-nested-ternary": "off",
-    "import/no-unresolved": "error"
+    "import/no-unresolved": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   }
 }

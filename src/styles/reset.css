@@ -1,4 +1,3 @@
-/* Reset default browser styles */
 html,
 body,
 div,
@@ -60,16 +59,20 @@ hgroup,
 menu,
 nav,
 section,
-summary {
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
+  outline: none;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
+  background: transparent;
 }
 
-/* Additional reset styles */
 article,
 aside,
 details,
@@ -84,12 +87,9 @@ section {
   display: block;
 }
 
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
+nav ul,
+ul,
+ol {
   list-style: none;
 }
 
@@ -106,6 +106,39 @@ q:after {
   content: none;
 }
 
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  outline: none;
+  vertical-align: baseline;
+  background: transparent;
+  cursor: pointer;
+}
+
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title],
+dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -118,4 +151,14 @@ hr {
   border-top: 1px solid #cccccc;
   margin: 1em 0;
   padding: 0;
+}
+
+input,
+select {
+  vertical-align: middle;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
 }

@@ -1,13 +1,13 @@
-.notFoundImage {
+.not-found-image {
   width: 25rem;
   margin-top: 5rem;
 }
 
-.notFoundBanner h1 {
+.not-found-banner h1 {
   line-height: 4rem;
 }
 
-.notFoundImageContainer {
+.not-found-image-container {
   text-align: center;
   width: 100%;
 }

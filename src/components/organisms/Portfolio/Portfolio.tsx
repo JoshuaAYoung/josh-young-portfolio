@@ -1,36 +1,35 @@
 import { useState } from 'react';
 
 // Plugins
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 // UI Components
-import PortfolioItem1 from './items/PortfolioItem1';
-import PortfolioItem2 from './items/PortfolioItem2';
-import PortfolioItem3 from './items/PortfolioItem3';
+import PortfolioItem1 from '../../molecules/PortfolioItems/PortfolioItem1';
+import PortfolioItem2 from '../../molecules/PortfolioItems/PortfolioItem2';
+import PortfolioItem3 from '../../molecules/PortfolioItems/PortfolioItem3';
 
 // Images
-import portfolio1 from '../../../../assets/images/portfolio/portfolio1.jpg';
-import portfolio2 from '../../../../assets/images/portfolio/portfolio2.jpg';
-import portfolio3 from '../../../../assets/images/portfolio/portfolio3.jpg';
-import portfolio4 from '../../../../assets/images/portfolio/portfolio4.jpg';
-import portfolio5 from '../../../../assets/images/portfolio/portfolio5.jpg';
-import portfolio6 from '../../../../assets/images/portfolio/portfolio6.jpg';
-import portfolio7 from '../../../../assets/images/portfolio/portfolio7.jpg';
+import portfolio1 from '../../../assets/images/portfolio/portfolio1.jpg';
+import portfolio2 from '../../../assets/images/portfolio/portfolio2.jpg';
+import portfolio3 from '../../../assets/images/portfolio/portfolio3.jpg';
+import portfolio4 from '../../../assets/images/portfolio/portfolio4.jpg';
+import portfolio5 from '../../../assets/images/portfolio/portfolio5.jpg';
+import portfolio6 from '../../../assets/images/portfolio/portfolio6.jpg';
 // --> Portfolio items
-import portfolioItem1 from '../../../../assets/images/portfolio/items/item_01.jpg';
-import portfolioItem2 from '../../../../assets/images/portfolio/items/item_02.jpg';
+import portfolioItem1 from '../../../assets/images/portfolio/items/item_01.jpg';
+import portfolioItem2 from '../../../assets/images/portfolio/items/item_02.jpg';
 // --> Icon Images
-import backArrow from '../../../../assets/images/close-left-arrow.png';
-import closeIcon from '../../../../assets/images/close.png';
+import backArrow from '../../../assets/images/close-left-arrow.png';
+import closeIcon from '../../../assets/images/close.png';
 
 // Styles
-import './portfolio.css';
+import './Portfolio.css';
 
 // Data
-import portfolioData from '../../../../data/portfolio.json';
-import { PortfolioItemType } from '../../../../types/portfolio.types';
+import portfolioData from '../../../data/portfolio.json';
+import { PortfolioItemType } from '../../../types/portfolio.types';
 
 // --------------
 
@@ -42,7 +41,6 @@ function Portfolio() {
     portfolio4,
     portfolio5,
     portfolio6,
-    portfolio7,
   ];
 
   // Portfolio item to be shown (change rendered different components in item folder)
@@ -128,7 +126,7 @@ function Portfolio() {
                   className="category-filter"
                   onClick={handleToggleFilterBtns}
                 >
-                  <div className="category-filter-icon"></div>
+                  <div className="category-filter-icon" />
                 </div>
                 <motion.div
                   variants={{
@@ -157,7 +155,7 @@ function Portfolio() {
                 >
                   {portfolioData.filter.map((flBtn, i: number) => (
                     <div
-                      key={'filter-btn-' + i}
+                      key={`filter-btn-${i}`}
                       className={`button ${selectedCategory === flBtn.category ? 'is-checked' : ''}`}
                       onClick={() => handleFilterImages(flBtn.category)}
                     >
@@ -165,16 +163,16 @@ function Portfolio() {
                     </div>
                   ))}
                 </motion.div>
-                <div className="portfolio-load-content-holder"></div>
+                <div className="portfolio-load-content-holder" />
                 <motion.div className="grid" id="portfolio-grid" layout>
                   {filteredImages.map((item: PortfolioItemType, i: number) => (
-                    <AnimatePresence key={'portfolio-item-' + i}>
+                    <AnimatePresence key={`portfolio-item-${i}`}>
                       <motion.div
                         animate={{ scale: 1, opacity: 1 }}
                         initial={{ scale: 0, opacity: 0 }}
                         exit={{ scale: 0, opacity: 0 }}
                         transition={{ duration: 0.5 }}
-                        id={'p-item-' + (i + 1)}
+                        id={`p-item-${i + 1}`}
                         className="grid-item element-item p-one-third"
                       >
                         <a
@@ -259,7 +257,7 @@ function Portfolio() {
                 src="https://player.vimeo.com/video/199192931"
                 width="100%"
                 allow="autoplay; fullscreen"
-              ></iframe>
+              />
             </p>
           ) : openPortfolio === 2 ? (
             <div className="popup-image-box">

@@ -1,7 +1,10 @@
-import React from 'react';
-import signature from '../../../assets/images/signature2.png';
+// TODO
+// use real buttons and control the onPress event
+
 import resumeData from '../../../data/resume.json';
 import { markdownToHTML } from '../../../utils/converter';
+import serviceData from '../../../data/service.json';
+import './Resume.css';
 
 // Type definitions for resumeData
 type ExperiencePiece = {
@@ -36,21 +39,19 @@ function Resume() {
         <div className="content-1300">
           <div className="row">
             <div className="one-half width-55">
-              <h2 className="entry-title section-title">
-                {data.experience.title}
-              </h2>
+              <h2 className="section-title">{data.experience.title}</h2>
 
               <ul className="timeline-holder">
                 {data.experience.expPiece.map(
                   (exp: ExperiencePiece, i: number) => (
-                    <li key={'exp-' + i} className="timeline-event">
-                      <span className="timeline-circle"></span>
+                    <li key={`exp-${i}`} className="timeline-event">
+                      <span className="timeline-circle" />
                       <div
                         className="timeline-event-content"
                         dangerouslySetInnerHTML={{
                           __html: markdownToHTML(exp.description),
                         }}
-                      ></div>
+                      />
                       <div className="timeline-event-date">{exp.date}</div>
                     </li>
                   ),
@@ -59,14 +60,20 @@ function Resume() {
             </div>
 
             <div className="one-half width-40 last">
-              <h2 className="entry-title section-title">
-                {data.coverLetter.title}
-              </h2>
-              <p className="section-info">{data.coverLetter.description}</p>
-              {data.coverLetter.paragraphes.map((parg: string, i: number) => (
-                <p key={'parg-' + i}>{parg}</p>
+              <h2 className="section-title">{serviceData.title}</h2>
+              <p className="section-info">{serviceData.description}</p>
+              {serviceData.paragraphes.map((parg: string, i: number) => (
+                <p key={`p-${i}`}>{parg}</p>
               ))}
-              <img className="my-signature" src={signature} alt="signature" />
+
+              <div className="button-group-wrapper">
+                <a className="button" href="fixme.com">
+                  Download CV
+                </a>
+                <a href="#portfolio" className="button">
+                  Check My Portfolio
+                </a>
+              </div>
             </div>
           </div>
         </div>

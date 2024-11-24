@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import contactData from '../../../data/contact.json';
+import './Contact.css';
 
 type formDataType = {
   'your-name': string;
@@ -80,10 +81,10 @@ function Contact() {
       url: contactData.formspreeEndpoint,
       data: formData,
     })
-      .then((r) => {
+      .then(() => {
         handleServerResponse(true, 'Message Has Been Sent');
       })
-      .catch((r) => {
+      .catch(() => {
         handleServerResponse(false, 'Error occurred while sending');
       });
   };
@@ -93,16 +94,16 @@ function Contact() {
       <div className="section-wrapper block">
         <div className="content-1300">
           <div className="row">
-            <h2 className="entry-title section-title">{contactData.title}</h2>
+            <h2 className="section-title">{contactData.title}</h2>
             <div className="one-half width-40">
               <p className="section-info">{contactData.description}</p>
               {contactData.paragrapgs.map((parg: string, i: number) => (
-                <p key={'contact-parg-' + i}>{parg}</p>
+                <p key={`contact-parg-${i}`}>{parg}</p>
               ))}
               <p>
                 {contactData.contactInfo.map(
                   (info: { title: string; value: string }, i: number) => (
-                    <Fragment key={'contact-info-' + i}>
+                    <Fragment key={`contact-info-${i}`}>
                       <b>{info.title}</b> {info.value} <br />
                     </Fragment>
                   ),
@@ -156,7 +157,7 @@ function Contact() {
                       required
                       value={formData['your-message']}
                       onChange={handleDataChange}
-                    ></textarea>
+                    />
                   </p>
                   <p className="contact-submit-holder">
                     <input type="submit" value="SEND" />

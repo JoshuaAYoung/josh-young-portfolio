@@ -1,0 +1,152 @@
+ul.timeline-holder {
+  margin: 0;
+  padding: 0 0 0 55px;
+}
+
+li.timeline-event {
+  margin: 0 0 42px 60px;
+  position: relative;
+  padding-top: 5px;
+  list-style: none;
+  transition: 0.3s;
+}
+
+li.timeline-event:hover {
+  color: #faefff;
+}
+
+li.timeline-event:before {
+  content: '';
+  width: 3px;
+  height: calc(100% - 20px);
+  position: absolute;
+  background-color: #f37b83;
+  left: -30px;
+  top: 51px;
+}
+
+li.timeline-event:last-child:before {
+  display: none;
+}
+
+li.timeline-event:last-child {
+  margin-bottom: 0;
+}
+
+li.timeline-event span.timeline-circle:after {
+  content: '';
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  left: -8px;
+  top: 11px;
+  border-radius: 90%;
+  background-color: #f37b83;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+li.timeline-event:hover span.timeline-circle:after {
+  opacity: 1;
+}
+
+span.timeline-circle {
+  position: absolute;
+  top: 0;
+  left: -30px;
+}
+
+span.timeline-circle:before {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 90%;
+  border: 3px solid #f37b83;
+  position: absolute;
+  left: -16px;
+  top: 3px;
+  z-index: 1;
+  transition: 0.3s;
+}
+
+.timeline-event-date {
+  position: absolute;
+  left: -115px;
+  top: 2px;
+  transition: 0.3s;
+  color: #f37b83;
+  font-weight: 700;
+}
+
+li.timeline-event:hover .timeline-event-date {
+  transform: translateX(-10px);
+}
+
+.timeline-event-content {
+  line-height: 160%;
+  text-align: left;
+  margin-left: 50px;
+}
+
+.button-group-wrapper {
+  margin-top: 50px;
+}
+
+.button-group-wrapper > a {
+  margin-right: 1vw;
+}
+
+.button-group-wrapper > a:last-of-type {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .button-group-wrapper > .button {
+    display: table;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .button-group-wrapper > a:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .timeline-event-content {
+    margin-left: 10px;
+  }
+
+  li.timeline-event {
+    margin-left: 30px;
+  }
+
+  ul.timeline-holder {
+    padding-left: 70px;
+  }
+
+  .timeline-event-date {
+    left: -100px;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  li.timeline-event {
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 1360px) and (max-width: 1550px) {
+  .button-group-wrapper > .button {
+    display: table;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+
+  .button-group-wrapper > a:last-of-type {
+    margin-bottom: 0;
+  }
+}

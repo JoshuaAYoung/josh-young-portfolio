@@ -1,9 +1,9 @@
 // Images
-import servIcon1 from '../../../../../assets/images/services/service1.png';
-import servIcon2 from '../../../../../assets/images/services/service2.png';
+import servIcon1 from '../../../assets/images/services/service1.png';
+import servIcon2 from '../../../assets/images/services/service2.png';
 
 // Styles
-import './portfolio-item.css';
+import './PortfolioItem.css';
 
 // -------------------
 
@@ -13,9 +13,7 @@ function PortfolioItem3() {
       <div className="portfolio-content">
         <div className="row">
           <div className="one-half width-40">
-            <h2 className="entry-title section-title">
-              Creatures of the cosmos
-            </h2>
+            <h2 className="section-title">Creatures of the cosmos</h2>
 
             <p className="section-info">
               Two ghostly white figures in coveralls and helmets are softly
@@ -32,7 +30,9 @@ function PortfolioItem3() {
             </p>
 
             <p>
-              <a className="button">Check Project</a>
+              <a className="button" href="fixme.com">
+                Check Project
+              </a>
             </p>
           </div>
 

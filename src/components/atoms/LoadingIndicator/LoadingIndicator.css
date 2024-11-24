@@ -11,6 +11,7 @@
   z-index: 999999;
   transition: opacity 0.5s;
 }
+
 .preloader .loader {
   width: 40px;
   height: 40px;
@@ -19,6 +20,7 @@
   border-radius: 50%;
   animation: loading-animation 2s linear infinite;
 }
+
 .preloader.fadeOff {
   opacity: 0;
 }

@@ -1,0 +1,177 @@
+.section#contact {
+  padding-bottom: 150px;
+}
+
+.contact-form {
+  padding: 65px;
+  background-color: #f37b83;
+}
+
+.contact-form p {
+  margin-bottom: 15px;
+}
+
+.contact-form input[type='text'],
+.contact-form input[type='email'],
+.contact-form textarea {
+  border: 0;
+  border-bottom: 2px solid #fff;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  margin: 10px 0;
+  height: 28px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  line-height: 25px;
+  background-color: transparent;
+  color: #fff;
+}
+
+.contact-form input[name='your-name'] {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.contact-form textarea {
+  height: 150px;
+}
+
+p.contact-submit-holder {
+  margin-bottom: 0 !important;
+}
+
+.contact-form input[type='submit'] {
+  display: inline-block;
+  border: 2px solid;
+  text-align: center;
+  padding: 20px 0px;
+  font-size: 14px;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  background-color: transparent;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  width: 100%;
+  letter-spacing: 8px;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-form input[type='submit']:hover {
+  opacity: 0.8;
+}
+
+.contact-form input[type='text']::-webkit-input-placeholder,
+.contact-form input[type='email']::-webkit-input-placeholder,
+.contact-form textarea::-webkit-input-placeholder {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  opacity: 1;
+}
+
+.contact-form input[type='text']:-ms-input-placeholder,
+.contact-form input[type='email']:-ms-input-placeholder,
+.contact-form textarea:-ms-input-placeholder {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  opacity: 1;
+}
+
+.contact-form input[type='text']::placeholder,
+.contact-form input[type='email']::placeholder,
+.contact-form textarea::placeholder {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  opacity: 1;
+}
+
+p.contact-submit-holder {
+  margin-bottom: 0 !important;
+}
+
+.contact-form input[type='submit'] {
+  display: inline-block;
+  border: 2px solid;
+  text-align: center;
+  padding: 20px 0px;
+  font-size: 14px;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  background-color: transparent;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  width: 100%;
+  letter-spacing: 8px;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-form input[type='submit']:hover {
+  opacity: 0.8;
+}
+
+.contact-form input[type='text']::-webkit-input-placeholder,
+.contact-form input[type='email']::-webkit-input-placeholder,
+.contact-form textarea::-webkit-input-placeholder {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  opacity: 1;
+}
+
+.contact-form input[type='text']:-ms-input-placeholder,
+.contact-form input[type='email']:-ms-input-placeholder,
+.contact-form textarea:-ms-input-placeholder {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  opacity: 1;
+}
+
+.contact-form input[type='text']::placeholder,
+.contact-form input[type='email']::placeholder,
+.contact-form textarea::placeholder {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 25px;
+  opacity: 1;
+}
+
+.respond-message {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  text-align: center;
+  background-color: #302729;
+}
+
+@media screen and (max-width: 767px) {
+  .contact-form {
+    padding: 7%;
+  }
+
+  .contact-form input[type='submit'] {
+    font-size: 13px;
+    padding: 15px;
+  }
+}

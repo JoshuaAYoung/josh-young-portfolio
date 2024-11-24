@@ -14,18 +14,14 @@ import '@fontsource/poppins/800.css';
 import '@fontsource/poppins/900.css';
 
 // Styles
-import '../src/styles/reset.css';
-import '../src/styles/sm-clean.css';
-import '../src/styles/common.css';
-import '../src/styles/style.css';
-import '../src/styles/responsive.css';
-import '../src/styles/global.css';
-import '../src/styles/globalnew.css';
+import './styles/reset.css';
+import './styles/global.css';
 
 import { Route, Routes } from 'react-router-dom';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
-import ErrorBoundary, { ErrorFallbackComponent } from './ErrorBoundary';
+import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
 import Navbar from './components/organisms/Navbar/Navbar';
+import Home from './components/views/Home/Home';
 // import { useFGContext } from './context/FGContext';
 
 function App() {
@@ -39,23 +35,24 @@ function App() {
 
   return (
     <div id="content">
-      <header role="banner">
+      {/* <header role="banner">
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Navbar />
         </ErrorBoundary>
-      </header>
+      </header> */}
       <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </ErrorBoundary>
       </main>
-      <footer>
+      {/* <footer>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Navbar />
         </ErrorBoundary>
-      </footer>
+      </footer> */}
     </div>
   );
 }

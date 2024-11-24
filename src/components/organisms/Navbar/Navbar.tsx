@@ -6,12 +6,7 @@ import signature from '../../../assets/images/signature2.png';
 
 // Data
 import navData from '../../../data/navbar.json';
-
-// --------------
-
-type NavbarProps = {
-  isLanding: boolean;
-};
+import './Navbar.css';
 
 function Navbar() {
   const [navActive, setNavActive] = useState<boolean>(false);
@@ -40,6 +35,8 @@ function Navbar() {
     setNavActive(!navActive);
   };
 
+  console.log('navActive', navActive);
+
   return (
     <div className="content-left">
       <div className="content-left-wrapper">
@@ -50,7 +47,7 @@ function Navbar() {
               onClick={handleMenuBtnClick}
               className={navActive ? 'on' : ''}
             >
-              <div className="menu-line"></div>
+              <div className="menu-line" />
             </div>
           </div>
 
@@ -58,7 +55,7 @@ function Navbar() {
             <div className="current-num">
               <span>0{sectionNum}</span>
             </div>
-            <div className="pagination-div"></div>
+            <div className="pagination-div" />
             <div className="total-pages-num">0{navData.navLinks.length}</div>
           </div>
 
@@ -67,7 +64,7 @@ function Navbar() {
               <nav id="header-main-menu">
                 <ul className="main-menu sm sm-clean">
                   {navData.navLinks.map((link, i) => (
-                    <li key={'nav-' + i} style={{ cursor: 'pointer' }}>
+                    <li key={`nav-${i}`} style={{ cursor: 'pointer' }}>
                       <ScrollLink
                         activeClass="current"
                         smooth
@@ -87,7 +84,7 @@ function Navbar() {
 
           <div className="my-info-wrapper">
             {navData.navInfo.map((info, i) => (
-              <div className="my-info" key={'nav-info-' + i}>
+              <div className="my-info" key={`nav-info-${i}`}>
                 <p className="my-info-title">{info.title}</p>
                 <p className="my-info-content">{info.text}</p>
               </div>
@@ -97,7 +94,7 @@ function Navbar() {
 
           <div className="big-num">
             <div className="current-big-num">0{sectionNum}</div>
-            <div className="icon-scroll"></div>
+            <div className="icon-scroll" />
           </div>
         </header>
       </div>

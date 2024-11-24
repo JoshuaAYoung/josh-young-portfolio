@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
 // Sections
-import Hero from '../sections/Hero';
-import Service from '../sections/Service';
-import Resume from '../sections/Resume';
-import Contact from '../sections/Contact';
-import Portfolio from '../sections/portfolio';
-import Skills from '../sections/Skills';
+import Hero from '../../organisms/Hero/Hero';
+import Resume from '../../organisms/Resume/Resume';
+import Contact from '../../organisms/Contact/Contact';
+import Portfolio from '../../organisms/Portfolio/Portfolio';
 
 // Components
-import Loader from '../../Loader';
+import Loader from '../../atoms/LoadingIndicator/LoadingIndicator';
+import Navbar from '../../organisms/Navbar/Navbar';
+
+import './Home.css';
 
 // -------------------
 
@@ -28,21 +29,19 @@ function Home() {
     setFadeOffLoader(true);
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 5000);
   };
 
   return (
     <>
-      {loading ? <Loader fadeOffLoader={fadeOffLoader} /> : <></>}
-
+      {loading && <Loader fadeOffLoader={fadeOffLoader} />}
+      <Navbar />
       <div>
         <div className="content-right">
           <div className="content-right-wrapper">
             <Hero />
-            <Service />
             <Portfolio />
             <Resume />
-            <Skills />
             <Contact />
           </div>
         </div>
