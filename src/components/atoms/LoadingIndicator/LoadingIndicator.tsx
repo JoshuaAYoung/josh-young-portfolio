@@ -2,7 +2,7 @@
 // Test this
 // Figure out why motion was removed
 // import { motion } from 'framer-motion';
-import './LoadingIndicator.css';
+import './LoadingIndicator.scss';
 
 type LoaderProps = {
   fadeOffLoader: boolean;

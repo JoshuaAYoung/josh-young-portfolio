@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #e2e2e2;
+  --secondary-color: #e4a53e;
+  --background-light: #34343b;
+  --background-medium: #2e2e35;
+  --background-dark: #25252c;
+}
+
+html[data-theme='light'] {
+  --primary-color: #e2e2e2;
+  --secondary-color: #e4a53e;
+  --background-light: #34343b;
+  --background-medium: #2e2e35;
+  --background-dark: #25252c;
+}
+
+.big-period {
+  font-size: 1.25em;
+  color: var(--secondary-color);
+  line-height: 1em;
+}

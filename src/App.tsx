@@ -1,27 +1,28 @@
 // TODO
 // remove fgcontext if no context needed
-// reimplement GA?
+// tracking like GA but easier
 
 // fonts
-import '@fontsource/poppins/100.css';
-import '@fontsource/poppins/200.css';
-import '@fontsource/poppins/300.css';
-import '@fontsource/poppins/400.css';
-import '@fontsource/poppins/500.css';
-import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css';
-import '@fontsource/poppins/800.css';
-import '@fontsource/poppins/900.css';
+import '@fontsource/open-sans/400.css'; // Regular
+import '@fontsource/open-sans/600.css'; // SemiBold
+import '@fontsource/open-sans/700.css'; // Bold
+import '@fontsource/open-sans/800.css'; // ExtraBold
+import '@fontsource/nunito/400.css'; // Regular
+import '@fontsource/nunito/600.css'; // SemiBold
+import '@fontsource/nunito/700.css'; // Bold
+import '@fontsource/nunito/800.css'; // ExtraBold
+import '@fontsource/nunito/900.css'; // Black
 
 // Styles
-import './styles/reset.css';
-import './styles/global.css';
+import './styles/reset.scss';
+import './styles/global.scss';
 
 import { Route, Routes } from 'react-router-dom';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
 import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
 import Navbar from './components/organisms/Navbar/Navbar';
-import Home from './components/views/Home/Home';
+import Landing from './components/views/Landing/Landing';
+import Footer from './components/organisms/Footer/Footer';
 // import { useFGContext } from './context/FGContext';
 
 function App() {
@@ -35,24 +36,24 @@ function App() {
 
   return (
     <div id="content">
-      {/* <header role="banner">
+      <header role="banner">
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Navbar />
         </ErrorBoundary>
-      </header> */}
+      </header>
       <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Landing />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </ErrorBoundary>
       </main>
-      {/* <footer>
+      <footer>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
-          <Navbar />
+          <Footer />
         </ErrorBoundary>
-      </footer> */}
+      </footer>
     </div>
   );
 }

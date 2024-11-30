@@ -2,22 +2,24 @@ import { useEffect, useState } from 'react';
 
 // Sections
 import Hero from '../../organisms/Hero/Hero';
-import Resume from '../../organisms/Resume/Resume';
 import Contact from '../../organisms/Contact/Contact';
-import Portfolio from '../../organisms/Portfolio/Portfolio';
+import Projects from '../../organisms/Projects/Projects';
+import Experience from '../../organisms/Experience/Experience';
+import Skills from '../../organisms/Skills/Skills';
+import About from '../../organisms/About/About';
 
 // Components
 import Loader from '../../atoms/LoadingIndicator/LoadingIndicator';
-import Navbar from '../../organisms/Navbar/Navbar';
 
-import './Home.css';
+import './Landing.scss';
 
 // -------------------
 
-function Home() {
+function Landing() {
   const [loading, setLoading] = useState<boolean>(true);
   const [fadeOffLoader, setFadeOffLoader] = useState<boolean>(false);
 
+  // TODO How do we really do this?
   useEffect(() => {
     const loaderTimer = setTimeout(handleLoad, 750);
     return () => {
@@ -35,19 +37,16 @@ function Home() {
   return (
     <>
       {loading && <Loader fadeOffLoader={fadeOffLoader} />}
-      <Navbar />
-      <div>
-        <div className="content-right">
-          <div className="content-right-wrapper">
-            <Hero />
-            <Portfolio />
-            <Resume />
-            <Contact />
-          </div>
-        </div>
+      <div className="landing-container">
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
       </div>
     </>
   );
 }
 
-export default Home;
+export default Landing;
