@@ -8,7 +8,6 @@
     size: auto 75vh;
     position: bottom right;
     repeat: no-repeat;
-    attachment: fixed;
   }
 
   .hero-text-container {
@@ -43,9 +42,12 @@
       max-width: 240px;
     }
   }
-
-  .hero-portrait {
+  .hero-portrait-container {
     max-width: 560px;
+
+    .hero-portrait {
+      width: 100%;
+    }
   }
 
   @media screen and (min-width: 1920px) {

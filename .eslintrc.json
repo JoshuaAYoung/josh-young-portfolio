@@ -20,6 +20,7 @@
   ],
   "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
+    "react/require-default-props": "off",
     "prettier/prettier": "warn",
     "no-use-before-define": "off",
     "react/destructuring-assignment": "off",

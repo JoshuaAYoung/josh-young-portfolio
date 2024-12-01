@@ -1,15 +1,25 @@
+// TODO using framer motion, put a line under the selected item
+// animate this line to the next item
+
 import { useState } from 'react';
 import './Navbar.scss';
-import HamburgerButton from '../../atoms/HamburgerMenu/HamburgerMenu';
+import HamburgerMenu from '../../molecules/HamburgerMenu/HamburgerMenu';
 import useMediaQuery from '../../../utils/useMediaQuery';
+import ScrollLink from '../../atoms/ScrollLink/ScrollLink';
+import {
+  NAV_LINKS_DESKTOP,
+  NAV_LINKS_TABLET,
+} from '../../../constants/navigation';
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 600px)');
+  const [activeSection, setActiveSection] = useState<string>('Home');
 
-  const onMenuToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  console.log('activeSection', activeSection);
+
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+
+  const navLinks = isTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 
   return (
     <header className="navbar-container" role="banner">
@@ -18,27 +28,24 @@ function Navbar() {
           JY<span className="big-period">.</span>
         </h1>
         {isMobile ? (
-          <HamburgerButton isOpen={isOpen} onClick={onMenuToggle} />
+          <HamburgerMenu />
         ) : (
           <ul className="navbar-links-container">
-            <li className="navbar-link">
-              <a href="#home">Home</a>
-            </li>
-            <li className="navbar-link">
-              <a href="#about">About</a>
-            </li>
-            <li className="navbar-link">
-              <a href="#experience">Experience</a>
-            </li>
-            <li className="navbar-link">
-              <a href="#projects">Projects</a>
-            </li>
-            <li className="navbar-link">
-              <a href="#skills">Skills</a>
-            </li>
-            <li className="navbar-link">
-              <a href="#contact">Contact</a>
-            </li>
+            {navLinks.map((section, i) => (
+              <li
+                key={`nav-${i}`}
+                className={`navbar-list-item ${section === activeSection ? 'active' : ''}`}
+              >
+                <ScrollLink
+                  to="projects"
+                  aria-label={section.toLowerCase()}
+                  className="react-scroll-item"
+                  onClick={() => setActiveSection(section)}
+                >
+                  {section}
+                </ScrollLink>
+              </li>
+            ))}
           </ul>
         )}
       </nav>
