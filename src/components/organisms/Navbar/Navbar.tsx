@@ -19,24 +19,24 @@ function Navbar() {
     }
   };
 
-  useEffect(() => {
-    // const handleBegin = (to: string) => {
-    //     setActiveSection(to);
-    // };
+  // useEffect(() => {
+  //   // const handleBegin = (to: string) => {
+  //   //     setActiveSection(to);
+  //   // };
 
-    const handleEnd = (to: string) => {
-      console.log('end scrolling');
-      setActiveSection('');
-    };
+  //   const handleEnd = (to: string) => {
+  //     console.log('end scrolling');
+  //     setActiveSection('');
+  //   };
 
-    // Events.scrollEvent.register('begin', handleBegin);
-    Events.scrollEvent.register('end', handleEnd);
+  //   // Events.scrollEvent.register('begin', handleBegin);
+  //   Events.scrollEvent.register('end', handleEnd);
 
-    return () => {
-      Events.scrollEvent.remove('begin');
-      Events.scrollEvent.remove('end');
-    };
-  }, []);
+  //   return () => {
+  //     Events.scrollEvent.remove('begin');
+  //     Events.scrollEvent.remove('end');
+  //   };
+  // }, []);
 
   return (
     <header className="navbar-container" role="banner">
