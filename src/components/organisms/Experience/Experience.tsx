@@ -1,8 +1,12 @@
 import './Experience.scss';
-import { Element } from 'react-scroll';
+import { forwardRef } from 'react';
 
-function Experience() {
-  return <Element name="experience" className="page-section" />;
-}
+const Experience = forwardRef<HTMLElement>((props, ref) => (
+  <section ref={ref} className="page-section experience">
+    <h2 style={{ fontSize: 50, color: 'black' }}>Experience</h2>
+  </section>
+));
+
+Experience.displayName = 'Experience';
 
 export default Experience;

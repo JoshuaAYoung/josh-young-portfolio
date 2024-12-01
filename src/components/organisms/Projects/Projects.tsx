@@ -1,8 +1,12 @@
+import { forwardRef } from 'react';
 import './Projects.scss';
-import { Element } from 'react-scroll';
 
-function Portfolio() {
-  return <Element name="projects" className="page-section" />;
-}
+const Projects = forwardRef<HTMLElement>((props, ref) => (
+  <section ref={ref} className="page-section projects">
+    <h2 style={{ fontSize: 50, color: 'black' }}>Projects</h2>
+  </section>
+));
 
-export default Portfolio;
+Projects.displayName = 'Projects';
+
+export default Projects;

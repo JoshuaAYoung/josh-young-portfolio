@@ -2,25 +2,25 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
-  gap: 2rem;
+  gap: 2.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
   align-items: center;
 
   .nav-menu-list-item {
-    cursor: pointer;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
+    button {
+      color: var(--primary-color);
+      font-size: 1.6rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
 
-    &:hover {
-      color: var(--secondary-color);
+      &:hover {
+        color: var(--secondary-color);
+      }
     }
 
-    &.active {
+    &.active button {
       position: relative;
       color: var(--secondary-color);
     }
@@ -28,7 +28,7 @@
 
   .nav-menu-active-underline {
     position: absolute;
-    bottom: 0;
+    bottom: -0.6rem;
     height: 0.2rem;
     background-color: var(--secondary-color);
     transform-origin: left;

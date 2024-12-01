@@ -21,11 +21,31 @@ html[data-theme='light'] {
   line-height: 1em;
 }
 
-// TODO REMOVE THIS STYLE!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// TODO REMOVE THeSe STYLEs!!!!!!!!!!!!!!!!!!!!!!!!!!!
 .page-section {
-  height: 800px;
+  height: 1000px;
 
   &.home {
     height: 100vh;
+  }
+
+  &.about {
+    background-color: red;
+  }
+
+  &.experience {
+    background-color: orange;
+  }
+
+  &.projects {
+    background-color: yellow;
+  }
+
+  &.skills {
+    background-color: green;
+  }
+
+  &.contact {
+    background-color: blue;
   }
 }

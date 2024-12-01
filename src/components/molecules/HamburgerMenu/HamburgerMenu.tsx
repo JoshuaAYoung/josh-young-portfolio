@@ -1,25 +1,16 @@
 import { useState } from 'react';
 import './HamburgerMenu.scss';
-import ScrollLink from '../../atoms/ScrollLink/ScrollLink';
 import {
   NAV_LINKS_DESKTOP,
   NAV_LINKS_TABLET,
-  NAVBAR_HEIGHT,
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
+import { useJYContext } from '../../../context/JYContext';
+import { scrollToSection } from '../../../utils/scrollToSection';
 
-interface HamburgerMenuProps {
-  setActiveSection: (section: string) => void;
-  handleKeyDown: <T extends HTMLElement>(
-    event: React.KeyboardEvent<T>,
-    onClick: () => void,
-  ) => void;
-}
-
-function HamburgerMenu({
-  setActiveSection,
-  handleKeyDown,
-}: HamburgerMenuProps) {
+function HamburgerMenu() {
+  const { activeSection, setActiveSection, sectionRefs, setIsScrolling } =
+    useJYContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // TODO change this to whatever breakpoint we stack about and exp
@@ -28,9 +19,12 @@ function HamburgerMenu({
 
   // TODO grab the animation and stuff for the menu from Arter
 
-  const onItemClick = (section: string) => {
-    setActiveSection(section);
-    setIsOpen(false);
+  const handleNavClick = (index: number) => {
+    const targetElement = Object.values(sectionRefs)[index];
+    if (targetElement) {
+      scrollToSection(targetElement, setIsScrolling);
+      setActiveSection(navLinks[index]);
+    }
   };
 
   return (
@@ -40,30 +34,32 @@ function HamburgerMenu({
           type="button"
           id="trigger"
           onClick={() => setIsOpen(!isOpen)}
-          onKeyDown={(event) => handleKeyDown(event, () => setIsOpen(!isOpen))}
+          onKeyDown={() => setIsOpen(!isOpen)}
           className={`hamburger-menu-trigger ${isOpen ? 'menu-open' : ''}`}
           aria-pressed={isOpen}
           aria-label="toggle navigation menu"
         >
-          {/* TODO why just one?? */}
           <span />
         </button>
       </div>
       <div className={`hamburger-menu ${isOpen ? 'menu-open' : 'menu-closed'}`}>
         <nav id="hamburger-menu-nav">
           <ul className="hamburger-menu-list">
-            {navLinks.map((section, i) => (
-              <li key={`nav-${i}`}>
-                <ScrollLink
-                  to={section.toLowerCase()}
-                  onClick={() => onItemClick(section)}
-                  onKeyDown={(event) =>
-                    handleKeyDown(event, () => onItemClick(section))
-                  }
-                  offset={NAVBAR_HEIGHT}
+            {navLinks.map((section, index) => (
+              <li
+                key={`nav-${index}`}
+                className={`hamburger-menu-list-item ${section === activeSection ? 'active' : ''}`}
+              >
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleNavClick(index);
+                  }}
+                  onKeyDown={() => handleNavClick(index)}
+                  tabIndex={0}
                 >
                   {section}
-                </ScrollLink>
+                </button>
               </li>
             ))}
           </ul>

@@ -23,7 +23,6 @@ import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
 import Navbar from './components/organisms/Navbar/Navbar';
 import Landing from './components/views/Landing/Landing';
 import Footer from './components/organisms/Footer/Footer';
-// import { useFGContext } from './context/FGContext';
 
 function App() {
   // useEffect(() => {
