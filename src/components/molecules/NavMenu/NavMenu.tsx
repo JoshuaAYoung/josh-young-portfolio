@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import {
   NAV_LINKS_DESKTOP,
   NAV_LINKS_TABLET,
+  NAVBAR_HEIGHT,
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import ScrollLink from '../../atoms/ScrollLink/ScrollLink';
@@ -58,6 +59,7 @@ function NavMenu({
             onKeyDown={(event) =>
               handleKeyDown(event, () => setActiveSection(section))
             }
+            offset={NAVBAR_HEIGHT}
           >
             {section}
           </ScrollLink>

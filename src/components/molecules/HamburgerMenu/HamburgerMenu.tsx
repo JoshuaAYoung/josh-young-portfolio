@@ -4,6 +4,7 @@ import ScrollLink from '../../atoms/ScrollLink/ScrollLink';
 import {
   NAV_LINKS_DESKTOP,
   NAV_LINKS_TABLET,
+  NAVBAR_HEIGHT,
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
 
@@ -59,6 +60,7 @@ function HamburgerMenu({
                   onKeyDown={(event) =>
                     handleKeyDown(event, () => onItemClick(section))
                   }
+                  offset={NAVBAR_HEIGHT}
                 >
                   {section}
                 </ScrollLink>

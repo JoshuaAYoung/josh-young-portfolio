@@ -1,7 +1,8 @@
 import './About.scss';
+import { Element } from 'react-scroll';
 
 function About() {
-  return <section id="about" />;
+  return <Element name="about" className="page-section" />;
 }
 
 export default About;

@@ -1,7 +1,5 @@
-// TODO using framer motion, put a line under the selected item
-// animate this line to the next item
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Events } from 'react-scroll';
 import './Navbar.scss';
 import HamburgerMenu from '../../molecules/HamburgerMenu/HamburgerMenu';
 import NavMenu from '../../molecules/NavMenu/NavMenu';
@@ -9,9 +7,6 @@ import useMediaQuery from '../../../utils/useMediaQuery';
 
 function Navbar() {
   const [activeSection, setActiveSection] = useState<string>('Home');
-
-  console.log('activeSection', activeSection);
-
   const isMobile = useMediaQuery('(max-width: 600px)');
 
   const handleKeyDown = <T extends HTMLElement>(
@@ -23,6 +18,25 @@ function Navbar() {
       onClick();
     }
   };
+
+  useEffect(() => {
+    // const handleBegin = (to: string) => {
+    //     setActiveSection(to);
+    // };
+
+    const handleEnd = (to: string) => {
+      console.log('end scrolling');
+      setActiveSection('');
+    };
+
+    // Events.scrollEvent.register('begin', handleBegin);
+    Events.scrollEvent.register('end', handleEnd);
+
+    return () => {
+      Events.scrollEvent.remove('begin');
+      Events.scrollEvent.remove('end');
+    };
+  }, []);
 
   return (
     <header className="navbar-container" role="banner">

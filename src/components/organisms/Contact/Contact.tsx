@@ -1,7 +1,8 @@
 import './Contact.scss';
+import { Element } from 'react-scroll';
 
 function Contact() {
-  return <section id="contact" />;
+  return <Element name="contact" className="page-section" />;
 }
 
 export default Contact;

@@ -1,7 +1,8 @@
 import './Experience.scss';
+import { Element } from 'react-scroll';
 
 function Experience() {
-  return <section id="experience" />;
+  return <Element name="experience" className="page-section" />;
 }
 
 export default Experience;

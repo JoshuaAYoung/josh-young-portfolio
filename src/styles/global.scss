@@ -22,10 +22,10 @@ html[data-theme='light'] {
 }
 
 // TODO REMOVE THIS STYLE!!!!!!!!!!!!!!!!!!!!!!!!!!!
-section {
+.page-section {
   height: 800px;
 
-  &#home {
+  &.home {
     height: 100vh;
   }
 }

@@ -9,6 +9,7 @@ interface ScrollLinkProps {
   onClick?(): void;
   onSetActive?(to: string): void;
   onKeyDown?(event: React.KeyboardEvent<HTMLElement>): void;
+  offset?: number;
 }
 
 function ScrollLink({
@@ -20,6 +21,7 @@ function ScrollLink({
   onClick,
   onSetActive,
   onKeyDown,
+  offset,
 }: ScrollLinkProps) {
   return (
     <Link
@@ -32,6 +34,7 @@ function ScrollLink({
       onClick={onClick}
       onSetActive={onSetActive}
       onKeyDown={onKeyDown}
+      offset={offset}
     >
       {children}
     </Link>

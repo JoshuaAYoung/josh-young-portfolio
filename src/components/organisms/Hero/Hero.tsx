@@ -1,11 +1,12 @@
 import './Hero.scss';
 import { motion } from 'framer-motion';
+import { Element } from 'react-scroll';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
 
 function Hero() {
   return (
-    <section id="home">
+    <Element name="home" className="home-page-section">
       <div
         className="hero-container"
         style={{ backgroundImage: `url(${heroBackground})` }}
@@ -49,7 +50,7 @@ function Hero() {
           />
         </div>
       </div>
-    </section>
+    </Element>
   );
 }
 

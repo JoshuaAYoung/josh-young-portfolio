@@ -10,3 +10,5 @@ export const NAV_LINKS_TABLET = [
 export const NAV_LINKS_DESKTOP = NAV_LINKS_TABLET.filter(
   (link) => link !== 'Experience',
 );
+
+export const NAVBAR_HEIGHT = 70;
