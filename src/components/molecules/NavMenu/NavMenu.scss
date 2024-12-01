@@ -1,0 +1,36 @@
+.nav-menu-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+
+  .nav-menu-list-item {
+    cursor: pointer;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--secondary-color);
+    }
+
+    &.active {
+      position: relative;
+      color: var(--secondary-color);
+    }
+  }
+
+  .nav-menu-active-underline {
+    position: absolute;
+    bottom: 0;
+    height: 0.2rem;
+    background-color: var(--secondary-color);
+    transform-origin: left;
+  }
+}

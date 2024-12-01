@@ -20,3 +20,12 @@ html[data-theme='light'] {
   color: var(--secondary-color);
   line-height: 1em;
 }
+
+// TODO REMOVE THIS STYLE!!!!!!!!!!!!!!!!!!!!!!!!!!!
+section {
+  height: 800px;
+
+  &#home {
+    height: 100vh;
+  }
+}

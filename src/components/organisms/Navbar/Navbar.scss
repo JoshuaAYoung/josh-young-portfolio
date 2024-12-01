@@ -22,32 +22,4 @@
       color: #e2e2e2;
     }
   }
-
-  .navbar-links-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-
-    .navbar-list-item {
-      cursor: pointer;
-      color: var(--primary-color);
-      text-decoration: none;
-      font-size: 1.6rem;
-      font-weight: 600;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: var(--secondary-color);
-      }
-
-      &.active {
-        position: relative;
-        color: var(--secondary-color);
-      }
-    }
-  }
 }

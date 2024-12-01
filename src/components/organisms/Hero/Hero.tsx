@@ -5,7 +5,7 @@ import heroPortrait from '../../../assets/images/hero-portrait.png';
 
 function Hero() {
   return (
-    <section id="hero">
+    <section id="home">
       <div
         className="hero-container"
         style={{ backgroundImage: `url(${heroBackground})` }}

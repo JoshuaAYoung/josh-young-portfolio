@@ -4,12 +4,8 @@
 import { useState } from 'react';
 import './Navbar.scss';
 import HamburgerMenu from '../../molecules/HamburgerMenu/HamburgerMenu';
+import NavMenu from '../../molecules/NavMenu/NavMenu';
 import useMediaQuery from '../../../utils/useMediaQuery';
-import ScrollLink from '../../atoms/ScrollLink/ScrollLink';
-import {
-  NAV_LINKS_DESKTOP,
-  NAV_LINKS_TABLET,
-} from '../../../constants/navigation';
 
 function Navbar() {
   const [activeSection, setActiveSection] = useState<string>('Home');
@@ -17,9 +13,16 @@ function Navbar() {
   console.log('activeSection', activeSection);
 
   const isMobile = useMediaQuery('(max-width: 600px)');
-  const isTablet = useMediaQuery('(max-width: 768px)');
 
-  const navLinks = isTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
+  const handleKeyDown = <T extends HTMLElement>(
+    event: React.KeyboardEvent<T>,
+    onClick: () => void,
+  ) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick();
+    }
+  };
 
   return (
     <header className="navbar-container" role="banner">
@@ -28,25 +31,16 @@ function Navbar() {
           JY<span className="big-period">.</span>
         </h1>
         {isMobile ? (
-          <HamburgerMenu />
+          <HamburgerMenu
+            setActiveSection={setActiveSection}
+            handleKeyDown={handleKeyDown}
+          />
         ) : (
-          <ul className="navbar-links-container">
-            {navLinks.map((section, i) => (
-              <li
-                key={`nav-${i}`}
-                className={`navbar-list-item ${section === activeSection ? 'active' : ''}`}
-              >
-                <ScrollLink
-                  to="projects"
-                  aria-label={section.toLowerCase()}
-                  className="react-scroll-item"
-                  onClick={() => setActiveSection(section)}
-                >
-                  {section}
-                </ScrollLink>
-              </li>
-            ))}
-          </ul>
+          <NavMenu
+            setActiveSection={setActiveSection}
+            handleKeyDown={handleKeyDown}
+            activeSection={activeSection}
+          />
         )}
       </nav>
     </header>

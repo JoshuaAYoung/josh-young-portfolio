@@ -7,25 +7,30 @@ import {
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
 
-function HamburgerMenu() {
+interface HamburgerMenuProps {
+  setActiveSection: (section: string) => void;
+  handleKeyDown: <T extends HTMLElement>(
+    event: React.KeyboardEvent<T>,
+    onClick: () => void,
+  ) => void;
+}
+
+function HamburgerMenu({
+  setActiveSection,
+  handleKeyDown,
+}: HamburgerMenuProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // TODO change this to whatever breakpoint we stack about and exp
   const isTablet = useMediaQuery('(max-width: 768px)');
   const navLinks = isTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 
-  const handleKeyDown = <T extends HTMLElement>(
-    event: React.KeyboardEvent<T>,
-    onClick: () => void,
-  ) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      onClick();
-    }
-  };
-
-  // TODO fix classes!!!
   // TODO grab the animation and stuff for the menu from Arter
+
+  const onItemClick = (section: string) => {
+    setActiveSection(section);
+    setIsOpen(false);
+  };
 
   return (
     <div className="hamburger-menu-container">
@@ -50,13 +55,10 @@ function HamburgerMenu() {
               <li key={`nav-${i}`}>
                 <ScrollLink
                   to={section.toLowerCase()}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => onItemClick(section)}
                   onKeyDown={(event) =>
-                    handleKeyDown(event, () => setIsOpen(false))
+                    handleKeyDown(event, () => onItemClick(section))
                   }
-                  aria-label={section.toLowerCase()}
-                  className="hamburger-menu-item"
-                  activeClass="hamburger-menu-item-active"
                 >
                   {section}
                 </ScrollLink>
