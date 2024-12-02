@@ -29,7 +29,7 @@ function HamburgerMenu() {
 
   // TODO change this to whatever breakpoint we stack about and exp
   const belowTablet = useMediaQuery(
-    `(max-width: ${breakpoints['max-tablet']})`,
+    `(max-width: ${breakpoints['max-medium']})`,
   );
   const navLinks = belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 

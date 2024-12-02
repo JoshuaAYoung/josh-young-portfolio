@@ -15,7 +15,7 @@ function NavMenu() {
   const { activeSection, setActiveSection, sectionRefs, setIsScrolling } =
     useJYContext();
   const belowTablet = useMediaQuery(
-    `(max-width: ${breakpoints['max-tablet']})`,
+    `(max-width: ${breakpoints['max-medium']})`,
   );
   const [lineProps, setLineProps] = useState<{ left: number; width: number }>({
     left: 0,

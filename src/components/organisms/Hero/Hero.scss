@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 0 80px;
   background: {
     color: var(--background-medium);
     size: auto 75vh;
@@ -50,7 +51,11 @@
     }
   }
 
-  @media screen and (min-width: $min-desktop) {
+  @media screen and (min-width: $min-xlarge) {
     background-size: contain;
+  }
+
+  @media screen and (max-width: $max-small) {
+    padding: 0 20px;
   }
 }

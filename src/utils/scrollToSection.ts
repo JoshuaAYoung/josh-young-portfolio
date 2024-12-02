@@ -1,5 +1,5 @@
 import { animate } from 'framer-motion';
-import { NAVBAR_HEIGHT } from '../constants/navigation';
+import { STICKY_HEADER_HEIGHT } from '../constants/navigation';
 
 interface RefObject {
   current: {
@@ -16,7 +16,7 @@ export const scrollToSection = (
 ): void => {
   if (ref.current) {
     const { offsetTop } = ref.current;
-    const targetPosition = offsetTop + (offset || NAVBAR_HEIGHT * -1);
+    const targetPosition = offsetTop + (offset || STICKY_HEADER_HEIGHT * -1);
 
     if (currentAnimation) {
       currentAnimation.stop();

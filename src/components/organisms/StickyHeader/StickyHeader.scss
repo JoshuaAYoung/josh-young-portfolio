@@ -1,48 +1,48 @@
 // css variable so that this is obvious, as we're syncing this
-// with the NAVBAR_HEIGHT variable from constants
+// with the STICKY_HEADER_HEIGHT variable from constants
 :root {
-  --navbar-height: 75px;
+  --sticky-header-height: 75px;
 }
 
-@media (max-width: $max-mobile) {
+@media (max-width: $max-small) {
   :root {
-    --navbar-height: 60px;
+    --sticky-header-height: 60px;
   }
 }
 
-.navbar-container {
+.sticky-header-container {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   padding: 0 6.5rem;
-  height: var(--navbar-height);
+  height: var(--sticky-header-height);
   z-index: 9998;
   background-color: var(--background-medium);
 
-  .navbar-nav {
+  .sticky-header-nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 100%;
     align-items: center;
 
-    .navbar-logo {
+    .sticky-header-logo {
       font-size: 3rem;
       font-weight: 800;
       color: #e2e2e2;
 
-      @media screen and (max-width: $max-mobile) {
+      @media screen and (max-width: $max-small) {
         font-size: 2.4rem;
       }
     }
   }
 
-  @media screen and (max-width: $max-tablet) {
+  @media screen and (max-width: $max-large) {
     padding: 0 3rem;
   }
 
-  @media screen and (max-width: $max-mobile) {
+  @media screen and (max-width: $max-small) {
     padding: 0 2rem;
   }
 }

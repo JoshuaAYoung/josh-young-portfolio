@@ -5,7 +5,7 @@
   --menu-line-height: 3px;
 }
 
-@media (max-width: $max-mobile) {
+@media (max-width: $max-small) {
   :root {
     --wide-menu-line: 24px;
     --menu-line-height: 2px;
@@ -171,8 +171,10 @@ $menu-item-padding: 5rem;
           padding: 0 $menu-item-padding;
           position: relative;
 
-          &:hover {
-            color: var(--secondary-color);
+          @media not all and (hover: none) {
+            &:hover {
+              color: var(--secondary-color);
+            }
           }
         }
 

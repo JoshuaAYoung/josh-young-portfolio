@@ -20,7 +20,7 @@ import './styles/global.scss';
 import { Route, Routes } from 'react-router-dom';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
 import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
-import Navbar from './components/organisms/Navbar/Navbar';
+import StickyHeader from './components/organisms/StickyHeader/StickyHeader';
 import Landing from './components/views/Landing/Landing';
 import Footer from './components/organisms/Footer/Footer';
 
@@ -37,7 +37,7 @@ function App() {
     <div id="content">
       <header role="banner">
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
-          <Navbar />
+          <StickyHeader />
         </ErrorBoundary>
       </header>
       <main>

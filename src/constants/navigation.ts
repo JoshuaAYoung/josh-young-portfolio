@@ -14,5 +14,5 @@ export const NAV_LINKS_TABLET = [
 // TODO remove experience once we have the scroll animations down
 export const NAV_LINKS_DESKTOP = NAV_LINKS_TABLET;
 
-// You'll also need to change the navbar-container class height
-export const NAVBAR_HEIGHT = 75;
+// You'll also need to change the sticky-header-container class height
+export const STICKY_HEADER_HEIGHT = 75;
