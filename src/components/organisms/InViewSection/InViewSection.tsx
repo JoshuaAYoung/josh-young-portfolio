@@ -9,11 +9,13 @@ interface InViewSectionProps {
 
 const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
   ({ children, sectionKey, onInViewChange }, scrollRef) => {
+    // HOOK(S)
     const inViewRef = useRef(null);
     const isInView = useInView(inViewRef, {
       amount: 0.75,
     });
 
+    // EFFECT(S)
     useEffect(() => {
       onInViewChange(isInView);
     }, [isInView, onInViewChange]);

@@ -7,6 +7,7 @@ import useMediaQuery from '../../../utils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 function StickyHeader() {
+  // HOOK(S)
   const belowTablet = useMediaQuery(
     `(max-width: ${breakpoints['max-medium']})`,
   );

@@ -4,7 +4,9 @@ import InViewSection from '../InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 
 const Experience = forwardRef<HTMLElement>((props, ref) => {
+  // STATE
   const handleScrollSection = useJYStore((state) => state.handleScrollSection);
+
   return (
     <InViewSection
       sectionKey="Experience"

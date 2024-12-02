@@ -10,6 +10,7 @@ import useJYStore from '../../../store/useJYStore';
 import './Landing.scss';
 
 function Landing() {
+  // STATE
   const sectionRefs = useJYStore((state) => state.sectionRefs);
 
   return (

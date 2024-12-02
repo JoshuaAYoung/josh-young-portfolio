@@ -15,17 +15,19 @@ import useJYStore from '../../../store/useJYStore';
 
 function HamburgerMenu() {
   // HOOK(S)
-  const activeSection = useJYStore((state) => state.activeSection);
-  const setActiveSection = useJYStore((state) => state.setActiveSection);
-  const sectionRefs = useJYStore((state) => state.sectionRefs);
-  const setIsScrolling = useJYStore((state) => state.setIsScrolling);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const navRef = useRef<HTMLUListElement>(null);
   const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   // TODO change this to whatever breakpoint we stack about and exp
   const belowTablet = useMediaQuery(
     `(max-width: ${breakpoints['max-medium']})`,
   );
+
+  // STATE
+  const activeSection = useJYStore((state) => state.activeSection);
+  const setActiveSection = useJYStore((state) => state.setActiveSection);
+  const sectionRefs = useJYStore((state) => state.sectionRefs);
+  const setIsScrolling = useJYStore((state) => state.setIsScrolling);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // COMPUTED VAR(S)
   const navLinks = useMemo(

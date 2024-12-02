@@ -7,6 +7,7 @@ import InViewSection from '../InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
+  // STATE
   const handleScrollSection = useJYStore((state) => state.handleScrollSection);
 
   return (

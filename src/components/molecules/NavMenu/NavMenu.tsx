@@ -15,6 +15,13 @@ import useJYStore from '../../../store/useJYStore';
 
 function NavMenu() {
   // HOOK(S)
+  const navRef = useRef<HTMLUListElement>(null);
+  const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const belowTablet = useMediaQuery(
+    `(max-width: ${breakpoints['max-medium']})`,
+  );
+
+  // STATE
   const activeSection = useJYStore((state) => state.activeSection);
   const setActiveSection = useJYStore((state) => state.setActiveSection);
   const sectionRefs = useJYStore((state) => state.sectionRefs);
@@ -23,11 +30,7 @@ function NavMenu() {
     left: 0,
     width: 0,
   });
-  const navRef = useRef<HTMLUListElement>(null);
-  const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
-  const belowTablet = useMediaQuery(
-    `(max-width: ${breakpoints['max-medium']})`,
-  );
+
   // COMPUTED VAR(S)
   const navLinks = belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 
