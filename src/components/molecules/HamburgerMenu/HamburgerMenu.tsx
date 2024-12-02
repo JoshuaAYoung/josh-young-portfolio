@@ -1,23 +1,24 @@
-// TODO grab the animation and stuff for the menu from Arter
-
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import './HamburgerMenu.scss';
 import { motion } from 'framer-motion';
 import {
   NAV_LINKS_DESKTOP,
   NAV_LINKS_TABLET,
+  STICKY_HEADER_HEIGHT_LARGE,
+  STICKY_HEADER_HEIGHT_MEDIUM,
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import { useJYContext } from '../../../context/JYContext';
 import { scrollToSection } from '../../../utils/scrollToSection';
-import { breakpoints } from '../../../constants/breakpoints';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
+import { breakpoints } from '../../../constants/breakpoints';
 
 // Making this a constant so its obvious this syncs with
 // menu-item-padding in the HamburgerMenu.scss file
 const MENU_ITEM_PADDING = 50;
 
 function HamburgerMenu() {
+  // HOOK(S)
   const { activeSection, setActiveSection, sectionRefs, setIsScrolling } =
     useJYContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -26,13 +27,23 @@ function HamburgerMenu() {
     width: 0,
   });
   const navRef = useRef<HTMLUListElement>(null);
-
+  const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   // TODO change this to whatever breakpoint we stack about and exp
   const belowTablet = useMediaQuery(
     `(max-width: ${breakpoints['max-medium']})`,
   );
-  const navLinks = belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 
+  // COMPUTED VAR(S)
+  const navLinks = useMemo(
+    () => (belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP),
+    [belowTablet],
+  );
+
+  const stickyHeaderVariable =
+    (belowMobile ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) *
+    -1;
+
+  // EFFECT(S)
   useEffect(() => {
     if (navRef.current) {
       const activeItem = Array.from(navRef.current.children).find((child) =>
@@ -46,11 +57,61 @@ function HamburgerMenu() {
     }
   }, [activeSection]);
 
+  // ANIMATION
+
+  // Entire menu animation
+  const menuVariants = {
+    hidden: {
+      x: '100%',
+      transition: {
+        duration: 0.5,
+        ease: 'easeIn',
+      },
+    },
+    visible: {
+      x: '0%',
+      transition: {
+        duration: 0.5,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  // Individual menu item animation
+  const menuItemVariants = {
+    hidden: { x: '100%', transition: { duration: 0, delay: 0.5 } },
+    visible: {
+      x: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 150,
+        damping: 13,
+        duration: 0.5,
+      },
+    },
+  };
+
+  // Just for li staggered animation
+  const listVariants = {
+    hidden: {
+      opacity: 1,
+      transition: { duration: 0.5 },
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  // FUNCTION(S)
   const handleNavClick = (index: number) => {
     const targetElement = Object.values(sectionRefs)[index];
     if (targetElement) {
-      scrollToSection(targetElement, setIsScrolling);
+      scrollToSection(targetElement, setIsScrolling, stickyHeaderVariable);
       setActiveSection(navLinks[index]);
+      setIsOpen(false);
     }
   };
 
@@ -69,12 +130,24 @@ function HamburgerMenu() {
           <span />
         </button>
       </div>
-      <div className={`hamburger-menu ${isOpen ? 'menu-open' : 'menu-closed'}`}>
-        <ul className="hamburger-menu-list" ref={navRef}>
+      <motion.div
+        className="hamburger-menu"
+        initial="hidden"
+        animate={isOpen ? 'visible' : 'hidden'}
+        variants={menuVariants}
+      >
+        <motion.ul
+          className="hamburger-menu-list"
+          ref={navRef}
+          initial="hidden"
+          animate={isOpen ? 'visible' : 'hidden'}
+          variants={listVariants}
+        >
           {navLinks.map((section, index) => (
-            <li
+            <motion.li
               key={`nav-${index}`}
               className={`hamburger-menu-list-item ${section === activeSection ? 'active' : ''}`}
+              variants={menuItemVariants}
             >
               <button
                 type="button"
@@ -82,11 +155,10 @@ function HamburgerMenu() {
                   handleNavClick(index);
                 }}
                 onKeyDown={() => handleNavClick(index)}
-                tabIndex={0}
               >
                 {section}
               </button>
-            </li>
+            </motion.li>
           ))}
           <motion.div
             className="hamburger-menu-active-underline"
@@ -105,11 +177,14 @@ function HamburgerMenu() {
               bounce: 0.3,
             }}
           />
-        </ul>
-        <div className="hamburger-menu-social-container">
-          <SocialNavLinks containerClassName="hamburger-menu-social-links" />
-        </div>
-      </div>
+          <motion.div
+            variants={menuItemVariants}
+            className="hamburger-menu-social-container"
+          >
+            <SocialNavLinks containerClassName="hamburger-menu-social-links" />
+          </motion.div>
+        </motion.ul>
+      </motion.div>
     </div>
   );
 }

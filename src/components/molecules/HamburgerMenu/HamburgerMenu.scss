@@ -130,30 +130,8 @@ $menu-item-padding: 5rem;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(100%);
     flex-direction: column;
-
-    &.menu-open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0);
-      transition:
-        transform var(--transition-duration),
-        opacity 0s,
-        visibility 0s;
-    }
-
-    &.menu-closed {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(100%);
-      transition:
-        transform var(--transition-duration),
-        opacity 0s var(--transition-duration),
-        visibility 0s var(--transition-duration);
-    }
+    will-change: transform;
 
     .hamburger-menu-list {
       display: flex;
@@ -162,6 +140,7 @@ $menu-item-padding: 5rem;
 
       .hamburger-menu-list-item {
         align-self: flex-end;
+        will-change: transform;
 
         button {
           font-size: 2.4rem;
@@ -182,18 +161,19 @@ $menu-item-padding: 5rem;
           color: var(--secondary-color);
         }
       }
-
       .hamburger-menu-active-underline {
         position: absolute;
         right: $menu-item-padding;
         height: 0.2rem;
         background: var(--secondary-color);
       }
-    }
 
-    .hamburger-menu-social-container {
-      padding-right: 4rem;
-      margin-top: 3rem;
+      .hamburger-menu-social-container {
+        align-self: flex-end;
+        padding-right: 4rem;
+        margin-top: 3rem;
+        will-change: transform;
+      }
     }
   }
 }

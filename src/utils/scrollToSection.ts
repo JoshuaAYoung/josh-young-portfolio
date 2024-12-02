@@ -1,5 +1,4 @@
 import { animate } from 'framer-motion';
-import { STICKY_HEADER_HEIGHT } from '../constants/navigation';
 
 interface RefObject {
   current: {
@@ -16,7 +15,7 @@ export const scrollToSection = (
 ): void => {
   if (ref.current) {
     const { offsetTop } = ref.current;
-    const targetPosition = offsetTop + (offset || STICKY_HEADER_HEIGHT * -1);
+    const targetPosition = offsetTop + (offset || 0);
 
     if (currentAnimation) {
       currentAnimation.stop();
@@ -26,7 +25,7 @@ export const scrollToSection = (
 
     currentAnimation = animate(window.scrollY, targetPosition, {
       type: 'spring',
-      stiffness: 100,
+      stiffness: 120,
       damping: 20,
       onUpdate: (latest: number) => window.scrollTo(0, latest),
       onComplete: () => {

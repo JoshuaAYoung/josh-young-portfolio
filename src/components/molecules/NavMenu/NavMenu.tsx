@@ -17,6 +17,7 @@ function NavMenu() {
   const belowTablet = useMediaQuery(
     `(max-width: ${breakpoints['max-medium']})`,
   );
+
   const [lineProps, setLineProps] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
