@@ -3,29 +3,42 @@ import { motion } from 'framer-motion';
 import {
   NAV_LINKS_DESKTOP,
   NAV_LINKS_TABLET,
+  STICKY_HEADER_HEIGHT_LARGE,
+  STICKY_HEADER_HEIGHT_MEDIUM,
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import './NavMenu.scss';
 import { scrollToSection } from '../../../utils/scrollToSection';
-import { useJYContext } from '../../../context/JYContext';
 import { breakpoints } from '../../../constants/breakpoints';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
+import useJYStore from '../../../store/useJYStore';
 
 function NavMenu() {
-  const { activeSection, setActiveSection, sectionRefs, setIsScrolling } =
-    useJYContext();
-  const belowTablet = useMediaQuery(
-    `(max-width: ${breakpoints['max-medium']})`,
-  );
-
+  // HOOK(S)
+  const activeSection = useJYStore((state) => state.activeSection);
+  const setActiveSection = useJYStore((state) => state.setActiveSection);
+  const sectionRefs = useJYStore((state) => state.sectionRefs);
+  const setIsScrolling = useJYStore((state) => state.setIsScrolling);
   const [lineProps, setLineProps] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
   });
   const navRef = useRef<HTMLUListElement>(null);
-
+  const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const belowTablet = useMediaQuery(
+    `(max-width: ${breakpoints['max-medium']})`,
+  );
+  // COMPUTED VAR(S)
   const navLinks = belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 
+  const underlinePercentWidth = 1.2;
+  const underlineOffsetToCenter = (underlinePercentWidth - 1) / 2;
+
+  const stickyHeaderVariable =
+    (belowMobile ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) *
+    -1;
+
+  // EFFECT(S)
   useEffect(() => {
     if (navRef.current) {
       const activeItem = Array.from(navRef.current.children).find((child) =>
@@ -39,16 +52,14 @@ function NavMenu() {
     }
   }, [activeSection]);
 
+  // FUNCTION(S)
   const handleNavClick = (index: number) => {
     const targetElement = Object.values(sectionRefs)[index];
     if (targetElement) {
-      scrollToSection(targetElement, setIsScrolling);
+      scrollToSection(targetElement, setIsScrolling, stickyHeaderVariable);
       setActiveSection(navLinks[index]);
     }
   };
-
-  const underlinePercentWidth = 1.2;
-  const underlineOffsetToCenter = (underlinePercentWidth - 1) / 2;
 
   return (
     <div className="nav-menu-container">
@@ -56,14 +67,15 @@ function NavMenu() {
         {navLinks.map((section, index) => (
           <li
             key={`nav-${index}`}
-            className={`nav-menu-list-item ${section === activeSection ? 'active' : ''}`}
+            className={`nav-menu-list-item ${
+              section === activeSection ? 'active' : ''
+            }`}
           >
             <button
               type="button"
               onClick={() => {
                 handleNavClick(index);
               }}
-              onKeyDown={() => handleNavClick(index)}
               tabIndex={0}
             >
               {section}

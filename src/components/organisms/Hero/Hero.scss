@@ -6,7 +6,7 @@
   padding: 0 80px;
   background: {
     color: var(--background-medium);
-    size: auto 75vh;
+    size: auto 50vh;
     position: bottom right;
     repeat: no-repeat;
   }
@@ -18,14 +18,14 @@
       font-size: 3rem;
       font-weight: 700;
       color: var(--secondary-color);
-      font-family: 'Nunito', sans-serif;
+      line-height: 5rem;
     }
 
     .hero-text-im,
     .hero-text-josh-young {
       font-size: 6.6rem;
       font-weight: 800;
-      line-height: 6.6rem;
+      line-height: 7rem;
     }
 
     .hero-text-im {
@@ -51,7 +51,7 @@
     }
   }
 
-  @media screen and (min-width: $min-xlarge) {
+  @media screen and (min-width: $min-large) {
     background-size: contain;
   }
 

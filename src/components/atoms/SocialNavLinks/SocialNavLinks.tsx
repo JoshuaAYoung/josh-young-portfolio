@@ -5,8 +5,10 @@ import GitHubIcon from '../../../assets/icons/github.svg?react';
 
 function SocialNavLinks({
   containerClassName,
+  isOpen,
 }: {
   containerClassName?: string;
+  isOpen?: boolean;
 }) {
   return (
     <div className={`social-nav-links-container ${containerClassName}`}>
@@ -14,6 +16,7 @@ function SocialNavLinks({
         href="mailto:joshua@young.net"
         aria-label="Email"
         className="social-nav-links-anchor"
+        tabIndex={!isOpen ? -1 : 0}
       >
         <EmailIcon className="social-nav-links-image" />
       </a>
@@ -23,6 +26,7 @@ function SocialNavLinks({
         rel="noopener noreferrer"
         aria-label="LinkedIn"
         className="social-nav-links-anchor"
+        tabIndex={!isOpen ? -1 : 0}
       >
         <LinkedInIcon className="social-nav-links-image" />
       </a>
@@ -32,6 +36,7 @@ function SocialNavLinks({
         rel="noopener noreferrer"
         aria-label="GitHub"
         className="social-nav-links-anchor"
+        tabIndex={!isOpen ? -1 : 0}
       >
         <GitHubIcon className="social-nav-links-image" />
       </a>

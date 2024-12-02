@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import './HamburgerMenu.scss';
 import { motion } from 'framer-motion';
 import {
@@ -8,24 +8,18 @@ import {
   STICKY_HEADER_HEIGHT_MEDIUM,
 } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
-import { useJYContext } from '../../../context/JYContext';
 import { scrollToSection } from '../../../utils/scrollToSection';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 import { breakpoints } from '../../../constants/breakpoints';
-
-// Making this a constant so its obvious this syncs with
-// menu-item-padding in the HamburgerMenu.scss file
-const MENU_ITEM_PADDING = 50;
+import useJYStore from '../../../store/useJYStore';
 
 function HamburgerMenu() {
   // HOOK(S)
-  const { activeSection, setActiveSection, sectionRefs, setIsScrolling } =
-    useJYContext();
+  const activeSection = useJYStore((state) => state.activeSection);
+  const setActiveSection = useJYStore((state) => state.setActiveSection);
+  const sectionRefs = useJYStore((state) => state.sectionRefs);
+  const setIsScrolling = useJYStore((state) => state.setIsScrolling);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [lineProps, setLineProps] = useState<{ top: number; width: number }>({
-    top: 0,
-    width: 0,
-  });
   const navRef = useRef<HTMLUListElement>(null);
   const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   // TODO change this to whatever breakpoint we stack about and exp
@@ -42,20 +36,6 @@ function HamburgerMenu() {
   const stickyHeaderVariable =
     (belowMobile ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) *
     -1;
-
-  // EFFECT(S)
-  useEffect(() => {
-    if (navRef.current) {
-      const activeItem = Array.from(navRef.current.children).find((child) =>
-        child.classList.contains('active'),
-      );
-
-      if (activeItem && activeItem instanceof HTMLElement) {
-        const { offsetTop, offsetHeight, offsetWidth } = activeItem;
-        setLineProps({ top: offsetTop + offsetHeight, width: offsetWidth });
-      }
-    }
-  }, [activeSection]);
 
   // ANIMATION(S)
   // Entire menu animation
@@ -78,7 +58,7 @@ function HamburgerMenu() {
 
   // Individual menu item animation
   const menuItemVariants = {
-    hidden: { x: '150%', transition: { duration: 0, delay: 0.5 } },
+    hidden: { x: 150, transition: { duration: 0, delay: 0.5 } },
     visible: {
       x: 0,
       transition: {
@@ -121,7 +101,6 @@ function HamburgerMenu() {
           type="button"
           id="trigger"
           onClick={() => setIsOpen(!isOpen)}
-          onKeyDown={() => setIsOpen(!isOpen)}
           className={`hamburger-menu-trigger ${isOpen ? 'menu-open' : ''}`}
           aria-pressed={isOpen}
           aria-label="toggle navigation menu"
@@ -145,7 +124,9 @@ function HamburgerMenu() {
           {navLinks.map((section, index) => (
             <motion.li
               key={`nav-${index}`}
-              className={`hamburger-menu-list-item ${section === activeSection ? 'active' : ''}`}
+              className={`hamburger-menu-list-item ${
+                section === activeSection ? 'active' : ''
+              }`}
               variants={menuItemVariants}
             >
               <button
@@ -153,34 +134,23 @@ function HamburgerMenu() {
                 onClick={() => {
                   handleNavClick(index);
                 }}
-                onKeyDown={() => handleNavClick(index)}
+                className={`hamburger-menu-item-button ${
+                  isOpen ? 'menu-open' : ''
+                }`}
+                tabIndex={!isOpen ? -1 : 0}
               >
                 {section}
               </button>
             </motion.li>
           ))}
           <motion.div
-            className="hamburger-menu-active-underline"
-            initial={false}
-            animate={{
-              // 2 pixels higher looks about right for underline
-              top: lineProps.top - 2,
-              // account for button padding to make hitbox wider
-              width: lineProps.width - MENU_ITEM_PADDING * 2,
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 300,
-              damping: 15,
-              duration: 0.5,
-              bounce: 0.3,
-            }}
-          />
-          <motion.div
             variants={menuItemVariants}
             className="hamburger-menu-social-container"
           >
-            <SocialNavLinks containerClassName="hamburger-menu-social-links" />
+            <SocialNavLinks
+              containerClassName="hamburger-menu-social-links"
+              isOpen={isOpen}
+            />
           </motion.div>
         </motion.ul>
       </motion.div>
