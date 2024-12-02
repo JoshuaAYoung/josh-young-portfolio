@@ -57,8 +57,7 @@ function HamburgerMenu() {
     }
   }, [activeSection]);
 
-  // ANIMATION
-
+  // ANIMATION(S)
   // Entire menu animation
   const menuVariants = {
     hidden: {
@@ -79,13 +78,13 @@ function HamburgerMenu() {
 
   // Individual menu item animation
   const menuItemVariants = {
-    hidden: { x: '100%', transition: { duration: 0, delay: 0.5 } },
+    hidden: { x: '150%', transition: { duration: 0, delay: 0.5 } },
     visible: {
       x: 0,
       transition: {
         type: 'spring',
         stiffness: 150,
-        damping: 13,
+        damping: 15,
         duration: 0.5,
       },
     },
@@ -95,7 +94,7 @@ function HamburgerMenu() {
   const listVariants = {
     hidden: {
       opacity: 1,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.2 },
     },
     visible: {
       opacity: 1,
