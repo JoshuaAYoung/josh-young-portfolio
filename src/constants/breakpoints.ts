@@ -17,8 +17,8 @@ type BreakpointsType = {
  * medium: 768
  * small: 600
  */
-export const breakpoints: BreakpointsType = Object.keys(
-  breakpointNumbers,
+export const breakpoints: BreakpointsType = (
+  Object.keys(breakpointNumbers) as (keyof typeof breakpointNumbers)[]
 ).reduce((acc, key) => {
   acc[`min-${key}`] = `${breakpointNumbers[key]}px`;
   acc[`max-${key}`] = `${breakpointNumbers[key] - 1}px`;

@@ -15,11 +15,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true
+    "declaration": false,
+    "sourceMap": false
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "src/constants/breakpoints.ts"]
 }

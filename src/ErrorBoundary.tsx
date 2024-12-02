@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 interface ErrorFallbackComponentProps {
   error: Error | null;
@@ -15,10 +15,13 @@ function ErrorFallbackComponent({ error }: ErrorFallbackComponentProps) {
 
 interface ErrorBoundaryProps {
   children: ReactNode;
-  Fallback: ComponentType<{ error: Error | null }>;
+  Fallback: React.ComponentType<{ error: Error }>;
 }
 
-function ErrorBoundary({ children, Fallback }: ErrorBoundaryProps) {
+const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
+  children,
+  Fallback,
+}) => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
@@ -36,7 +39,7 @@ function ErrorBoundary({ children, Fallback }: ErrorBoundaryProps) {
     return <Fallback error={error} />;
   }
 
-  return children;
-}
+  return children as React.ReactElement;
+};
 
 export { ErrorFallbackComponent, ErrorBoundary };
