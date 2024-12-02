@@ -1,0 +1,43 @@
+.social-nav-links-container {
+  display: flex;
+  align-items: center;
+
+  .social-nav-links-anchor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover .social-nav-links-image {
+      color: var(--secondary-color);
+    }
+
+    .social-nav-links-image {
+      width: 1.5rem;
+      color: var(--primary-color);
+    }
+  }
+
+  // specific to the nav menu
+  &.nav-menu-social-links {
+    .social-nav-links-anchor {
+      width: 3rem;
+      height: 3rem;
+
+      .social-nav-links-image {
+        width: 1.5rem;
+      }
+    }
+  }
+
+  // specific to the hamburger menu
+  &.hamburger-menu-social-links {
+    .social-nav-links-anchor {
+      width: 4rem;
+      height: 4rem;
+
+      .social-nav-links-image {
+        width: 2rem;
+      }
+    }
+  }
+}

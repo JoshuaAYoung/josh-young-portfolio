@@ -1,13 +1,29 @@
-$wide-menu-line: 32px;
-$medium-menu-line: calc($wide-menu-line * 0.75);
-$short-menu-line: calc($wide-menu-line * 0.5);
+// Using CSS variables so that we can auto-change with a media query
+:root {
+  --wide-menu-line: 32px;
+  --button-size: 40px;
+  --menu-line-height: 3px;
+}
+
+@media (max-width: $max-mobile) {
+  :root {
+    --wide-menu-line: 24px;
+    --menu-line-height: 2px;
+  }
+}
+
 $button-size: 40px;
-$menu-line-top-offset: calc($wide-menu-line * -0.275);
+$medium-menu-line: calc(var(--wide-menu-line) * 0.75);
+$short-menu-line: calc(var(--wide-menu-line) * 0.5);
+$menu-line-top-offset: calc(var(--wide-menu-line) * -0.275);
 $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
+$menu-item-padding: 5rem;
 
 .hamburger-menu-container {
   display: flex;
   justify-content: flex-end;
+  height: $button-size;
+  width: $button-size;
 
   .hamburger-menu-trigger-container {
     position: absolute;
@@ -19,14 +35,14 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
       justify-content: flex-end;
       width: $button-size;
       height: $button-size;
-      padding-right: calc(($button-size - $wide-menu-line) / 2);
+      padding-right: calc(($button-size - var(--wide-menu-line)) / 2);
 
       & span,
       & span:after,
       & span:before {
         content: '';
         display: block;
-        height: 3px;
+        height: var(--menu-line-height);
         background: var(--primary-color);
         transition: var(--transition-duration);
         backface-visibility: hidden;
@@ -47,7 +63,7 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
 
         // bottom line
         &:after {
-          width: $wide-menu-line;
+          width: var(--wide-menu-line);
           top: round(up, $menu-line-bottom-offset, 1px);
           position: absolute;
         }
@@ -55,19 +71,23 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
 
       &.menu-open {
         & span {
-          width: $wide-menu-line;
+          width: var(--wide-menu-line);
           transform: rotate(45deg);
 
           &:before {
-            width: $wide-menu-line;
-            transform: translate(0px, 10px) rotate(-90deg);
+            width: var(--wide-menu-line);
+            transform: translate(0px, round(up, $menu-line-bottom-offset, 1px))
+              rotate(-90deg);
           }
 
           &:after {
-            transform: translate(0px, -10px) rotate(-90deg);
+            transform: translate(0px, round(down, $menu-line-top-offset, 1px))
+              rotate(-90deg);
           }
         }
       }
+
+      // prevent hover styling on touch devices, gets stuck orange and left justified on click
       @media not all and (hover: none) {
         &:hover {
           & span,
@@ -80,7 +100,7 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
         &:not(.menu-open):hover {
           & span {
             transform: translate(
-              calc(($wide-menu-line - $short-menu-line) * -1),
+              calc((var(--wide-menu-line) - $short-menu-line) * -1),
               0
             );
           }
@@ -90,7 +110,10 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
           }
 
           & span:after {
-            transform: translate(calc($wide-menu-line - $short-menu-line), 0);
+            transform: translate(
+              calc(var(--wide-menu-line) - $short-menu-line),
+              0
+            );
           }
         }
       }
@@ -105,11 +128,12 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
     height: 100vh;
     background-color: var(--background-dark);
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-end;
     opacity: 0;
     visibility: hidden;
     transform: translateX(100%);
+    flex-direction: column;
 
     &.menu-open {
       opacity: 1;
@@ -129,6 +153,45 @@ $menu-line-bottom-offset: calc($menu-line-top-offset * -1);
         transform var(--transition-duration),
         opacity 0s var(--transition-duration),
         visibility 0s var(--transition-duration);
+    }
+
+    .hamburger-menu-list {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+      .hamburger-menu-list-item {
+        align-self: flex-end;
+
+        button {
+          font-size: 2.4rem;
+          font-weight: 800;
+          color: var(--primary-color);
+          line-height: 4.5rem;
+          padding: 0 $menu-item-padding;
+          position: relative;
+
+          &:hover {
+            color: var(--secondary-color);
+          }
+        }
+
+        &.active button {
+          color: var(--secondary-color);
+        }
+      }
+
+      .hamburger-menu-active-underline {
+        position: absolute;
+        right: $menu-item-padding;
+        height: 0.2rem;
+        background: var(--secondary-color);
+      }
+    }
+
+    .hamburger-menu-social-container {
+      padding-right: 4rem;
+      margin-top: 3rem;
     }
   }
 }

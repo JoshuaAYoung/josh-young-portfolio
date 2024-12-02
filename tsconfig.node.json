@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["vite.config.ts"],
+  "include": ["vite.config.ts", "src/constants/breakpoints.ts"],
   "types": ["node"],
   "typeRoots": ["./node_modules/@types"]
 }

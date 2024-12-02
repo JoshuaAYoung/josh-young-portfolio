@@ -1,16 +1,24 @@
+// css variable so that this is obvious, as we're syncing this
+// with the NAVBAR_HEIGHT variable from constants
+:root {
+  --navbar-height: 75px;
+}
+
+@media (max-width: $max-mobile) {
+  :root {
+    --navbar-height: 60px;
+  }
+}
+
 .navbar-container {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   padding: 0 6.5rem;
-  height: 75px;
+  height: var(--navbar-height);
   z-index: 9998;
   background-color: var(--background-medium);
-
-  @media screen and (max-width: 768px) {
-    padding: 0 3rem;
-  }
 
   .navbar-nav {
     display: flex;
@@ -23,6 +31,18 @@
       font-size: 3rem;
       font-weight: 800;
       color: #e2e2e2;
+
+      @media screen and (max-width: $max-mobile) {
+        font-size: 2.4rem;
+      }
     }
+  }
+
+  @media screen and (max-width: $max-tablet) {
+    padding: 0 3rem;
+  }
+
+  @media screen and (max-width: $max-mobile) {
+    padding: 0 2rem;
   }
 }

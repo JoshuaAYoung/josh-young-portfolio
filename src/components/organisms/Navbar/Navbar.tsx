@@ -4,9 +4,13 @@ import './Navbar.scss';
 import HamburgerMenu from '../../molecules/HamburgerMenu/HamburgerMenu';
 import NavMenu from '../../molecules/NavMenu/NavMenu';
 import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 function Navbar() {
-  const isMobile = useMediaQuery('(max-width: 600px)');
+  // const belowTablet = useMediaQuery(
+  //   `(max-width: ${breakpoints['max-tablet']})`,
+  // );
+  const belowTablet = true;
 
   return (
     <header className="navbar-container" role="banner">
@@ -14,7 +18,7 @@ function Navbar() {
         <h1 className="navbar-logo">
           JY<span className="big-period">.</span>
         </h1>
-        {isMobile ? <HamburgerMenu /> : <NavMenu />}
+        {belowTablet ? <HamburgerMenu /> : <NavMenu />}
       </nav>
     </header>
   );

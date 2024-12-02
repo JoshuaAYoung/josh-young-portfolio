@@ -74,7 +74,7 @@
   font-weight: 700;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 720px) {
   .service-holder {
     margin-bottom: 30px !important;
     width: 100%;

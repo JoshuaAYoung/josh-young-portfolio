@@ -8,18 +8,22 @@ import useMediaQuery from '../../../utils/useMediaQuery';
 import './NavMenu.scss';
 import { scrollToSection } from '../../../utils/scrollToSection';
 import { useJYContext } from '../../../context/JYContext';
+import { breakpoints } from '../../../constants/breakpoints';
+import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 
 function NavMenu() {
   const { activeSection, setActiveSection, sectionRefs, setIsScrolling } =
     useJYContext();
-  const isTablet = useMediaQuery('(max-width: 768px)');
+  const belowTablet = useMediaQuery(
+    `(max-width: ${breakpoints['max-tablet']})`,
+  );
   const [lineProps, setLineProps] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
   });
   const navRef = useRef<HTMLUListElement>(null);
 
-  const navLinks = isTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
+  const navLinks = belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
 
   useEffect(() => {
     if (navRef.current) {
@@ -42,41 +46,48 @@ function NavMenu() {
     }
   };
 
+  const underlinePercentWidth = 1.2;
+  const underlineOffsetToCenter = (underlinePercentWidth - 1) / 2;
+
   return (
-    <ul className="nav-menu-container" ref={navRef}>
-      {navLinks.map((section, index) => (
-        <li
-          key={`nav-${index}`}
-          className={`nav-menu-list-item ${section === activeSection ? 'active' : ''}`}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              handleNavClick(index);
-            }}
-            onKeyDown={() => handleNavClick(index)}
-            tabIndex={0}
+    <div className="nav-menu-container">
+      <ul className="nav-menu-list" ref={navRef}>
+        {navLinks.map((section, index) => (
+          <li
+            key={`nav-${index}`}
+            className={`nav-menu-list-item ${section === activeSection ? 'active' : ''}`}
           >
-            {section}
-          </button>
-        </li>
-      ))}
-      <motion.div
-        className="nav-menu-active-underline"
-        initial={false}
-        animate={{
-          left: lineProps.left - lineProps.width * 0.1,
-          width: lineProps.width * 1.2,
-        }}
-        transition={{
-          type: 'spring',
-          stiffness: 400,
-          damping: 15,
-          duration: 0.5,
-          bounce: 0.3,
-        }}
-      />
-    </ul>
+            <button
+              type="button"
+              onClick={() => {
+                handleNavClick(index);
+              }}
+              onKeyDown={() => handleNavClick(index)}
+              tabIndex={0}
+            >
+              {section}
+            </button>
+          </li>
+        ))}
+        <motion.div
+          className="nav-menu-active-underline"
+          initial={false}
+          animate={{
+            left: lineProps.left - lineProps.width * underlineOffsetToCenter,
+            width: lineProps.width * underlinePercentWidth,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            damping: 15,
+            duration: 0.5,
+            bounce: 0.3,
+          }}
+        />
+      </ul>
+      <div className="nav-menu-vertical-divider" />
+      <SocialNavLinks containerClassName="nav-menu-social-links" />
+    </div>
   );
 }
 

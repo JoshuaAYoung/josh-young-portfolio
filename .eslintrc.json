@@ -38,7 +38,7 @@
     "react/jsx-props-no-spreading": "off",
     "no-shadow": "off",
     "no-nested-ternary": "off",
-    "import/no-unresolved": "error",
+    "import/no-unresolved": ["error", { "ignore": ["\\.svg\\?react$"] }],
     "sort-imports": [
       "error",
       {
