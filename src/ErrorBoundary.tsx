@@ -22,8 +22,10 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
   children,
   Fallback,
 }) => {
+  // STATE
   const [error, setError] = useState<Error | null>(null);
 
+  // EFFECT(S)
   useEffect(() => {
     const handleError = (event: ErrorEvent) => {
       setError(event.error);
