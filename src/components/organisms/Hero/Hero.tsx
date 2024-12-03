@@ -3,8 +3,9 @@ import './Hero.scss';
 import { motion } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
-import InViewSection from '../InViewSection/InViewSection';
+import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
+import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // STATE
@@ -43,7 +44,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
           <motion.span className="hero-text-josh-young">
             Josh Young<span className="big-period">.</span>
           </motion.span>
-          <motion.svg
+          <motion.svg // TODO this seems like major overkill, maybe we do this with css?
             width="105"
             height="2"
             viewBox="0 0 105 2"
@@ -64,7 +65,9 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
             />
           </motion.svg>
           <motion.div className="hero-text-headline">
-            A full-stack developer with design sense.
+            <RevealWrapper isInView={isInViewReveal}>
+              A full-stack developer with design sense.
+            </RevealWrapper>
           </motion.div>
           <motion.button className="hero-contact-button">Contact</motion.button>
         </motion.div>

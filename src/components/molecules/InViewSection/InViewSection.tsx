@@ -6,19 +6,28 @@ interface InViewSectionProps {
   sectionName: string;
   /**
    * Callback function that is triggered when the section is in view of the center point of the viewport.
-   * @param isInViewOfCenterpoint - Boolean indicating whether the section is in view of the center point.
    */
   onSectionInViewScroll: (isInViewOfCenterpoint: boolean) => void;
   /**
-   * Callback function that is triggered when any part of the section is partially on screen.
-   * @param isPartiallyOnScreen - Boolean indicating whether any part of the section is partially on screen.
+   * Callback function that is triggered when any part of the section 10% "on screen".
    */
   onSectionInViewReveal: (isPartiallyOnScreen: boolean) => void;
+  /**
+   * The amount of the section that should be on screen before the `onSectionInViewReveal` callback is triggered.
+   * Default is 0.1 (10%).
+   */
+  amountOnScreen?: number;
 }
 
 const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
   (
-    { children, sectionName, onSectionInViewScroll, onSectionInViewReveal },
+    {
+      children,
+      sectionName,
+      onSectionInViewScroll,
+      onSectionInViewReveal,
+      amountOnScreen = 0.1,
+    },
     scrollRef,
   ) => {
     // HOOK(S)
@@ -30,7 +39,7 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
     });
     const isPartiallyOnScreen = useInView(inViewRef, {
       once: true,
-      amount: 0.1,
+      amount: amountOnScreen,
     });
 
     // EFFECT(S)

@@ -1,7 +1,8 @@
 import { forwardRef, useState } from 'react';
 import './Experience.scss';
-import InViewSection from '../InViewSection/InViewSection';
+import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
+import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 
 const Experience = forwardRef<HTMLElement>((props, ref) => {
   // STATE
@@ -30,7 +31,9 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
       onSectionInViewReveal={onSectionInViewReveal}
       ref={ref}
     >
-      <h2 style={{ fontSize: 50, color: 'black' }}>Experience</h2>
+      <RevealWrapper isInView={isInViewReveal}>
+        <h2 style={{ fontSize: 50, color: 'black' }}>Experience</h2>
+      </RevealWrapper>
     </InViewSection>
   );
 });
