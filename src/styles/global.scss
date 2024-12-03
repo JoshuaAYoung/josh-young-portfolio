@@ -15,6 +15,20 @@ html[data-theme='light'] {
   --background-dark: #25252c;
 }
 
+:root {
+  background-color: var(--background-dark);
+}
+
+#content {
+  @media screen and (min-width: $min-xlarge) {
+    margin: 0 8%;
+  }
+
+  @media screen and (min-width: $min-xxlarge) {
+    margin: 0 12%;
+  }
+}
+
 .big-period {
   font-size: 1.25em;
   color: var(--secondary-color);

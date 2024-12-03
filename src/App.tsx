@@ -35,11 +35,9 @@ function App() {
 
   return (
     <div id="content">
-      <header role="banner">
-        <ErrorBoundary Fallback={ErrorFallbackComponent}>
-          <StickyHeader />
-        </ErrorBoundary>
-      </header>
+      <ErrorBoundary Fallback={ErrorFallbackComponent}>
+        <StickyHeader />
+      </ErrorBoundary>
       <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
           <Routes>

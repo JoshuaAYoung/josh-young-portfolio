@@ -13,7 +13,7 @@ interface SectionRefs {
 interface JYState {
   activeSection: string;
   setActiveSection: (section: string) => void;
-  handleScrollSection: (sectionKey: string, isInView: boolean) => void;
+  onSectionInViewScroll: (sectionKey: string, isInView: boolean) => void;
   isScrolling: boolean;
   setIsScrolling: (scrolling: boolean) => void;
   sectionRefs: SectionRefs;
@@ -26,7 +26,7 @@ const useJYStore = create<JYState>((set, get) => ({
   setActiveSection: (section) => {
     set({ activeSection: section });
   },
-  handleScrollSection: (sectionKey: string, isInView: boolean) => {
+  onSectionInViewScroll: (sectionKey: string, isInView: boolean) => {
     if (isInView && !get().isScrolling) {
       get().setActiveSection(sectionKey);
     }

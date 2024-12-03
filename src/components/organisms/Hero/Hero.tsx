@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import './Hero.scss';
 import { motion } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
@@ -8,12 +8,29 @@ import useJYStore from '../../../store/useJYStore';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // STATE
-  const handleScrollSection = useJYStore((state) => state.handleScrollSection);
+  const onSectionInViewScroll = useJYStore(
+    (state) => state.onSectionInViewScroll,
+  );
+  const [isInViewReveal, setIsInViewReveal] = useState(false);
+
+  if (isInViewReveal) {
+    console.log('Hero is revealed!');
+  }
+
+  // FUNCTION(S)
+  const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
+    if (isPartiallyOnScreen && !isInViewReveal) {
+      setIsInViewReveal(true);
+    }
+  };
 
   return (
     <InViewSection
-      sectionKey="Home"
-      onInViewChange={(isInView) => handleScrollSection('Home', isInView)}
+      sectionName="Home"
+      onSectionInViewScroll={(isInView) =>
+        onSectionInViewScroll('Home', isInView)
+      }
+      onSectionInViewReveal={onSectionInViewReveal}
       ref={ref}
     >
       <div

@@ -38,6 +38,14 @@
     }
   }
 
+  @media screen and (min-width: $min-xlarge) {
+    margin: 0 8%;
+  }
+
+  @media screen and (min-width: $min-xxlarge) {
+    margin: 0 12%;
+  }
+
   @media screen and (max-width: $max-large) {
     padding: 0 3rem;
   }

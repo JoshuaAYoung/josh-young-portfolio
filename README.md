@@ -1,30 +1,10 @@
 <img src="https://www.fire-graph.com/assets/firing-graph-logo.svg" width="15%">
 
-# Fire Graph
+### Captains log
 
-## Live App: [Fire Graph](https://fire-graph.com)
+## November 3rd, 2024
 
-[![CodeFactor](https://www.codefactor.io/repository/github/joshuaayoung/firegraph-by-jay/badge)](https://www.codefactor.io/repository/github/joshuaayoung/firegraph-by-jay)
-
-## Description
-
-Fire Graph is a platform for graphing CSV data output from Bartlett Genesis pottery kilns.
-
-## Getting Started
-
-- Install dependencies `npm install`
-- Start the application `npm start`
-
-## Built With
-
-[React](https://reactjs.org/)
-
-HTML 5
-
-CSS 3
-
-Javascript
-
-## The Author
-
-**Josh Young**
+- needed to track scrolling for reveal animations (one time, partially in view sets true) as well as for the menu (only one active at a time with no bouncing between). Accomplished this with one ref invoking useInView hook from framer motion twice. Third party hook uses react-intersection-observer under the hood and is memo'd up, so it ended up being a fairly performative and responsive solution.
+- switched over to Zustand from context as the inView and scrolling progress states change so frequently and I'd like to selectively subscribe to changes for those to avoid rerenders.
+- controlling the "in view" state locally for the reveal animation means I can easily adjust classNames in each section, with an easy sort of cascade effect (react solution). Shouldn't need to prop drill these boolean values much either since my it's a true SPA and my file structure is pretty shallow.
+-
