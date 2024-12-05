@@ -20,6 +20,10 @@ html[data-theme='light'] {
 }
 
 #content {
+  background-color: var(--background-medium);
+}
+
+#content {
   @media screen and (min-width: $min-xlarge) {
     margin: 0 8%;
   }
@@ -41,25 +45,5 @@ html[data-theme='light'] {
 
   &.home {
     height: 100vh;
-  }
-
-  &.about {
-    background-color: red;
-  }
-
-  &.experience {
-    background-color: orange;
-  }
-
-  &.projects {
-    background-color: yellow;
-  }
-
-  &.skills {
-    background-color: green;
-  }
-
-  &.contact {
-    background-color: blue;
   }
 }

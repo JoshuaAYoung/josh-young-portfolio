@@ -1,18 +1,45 @@
+// TODO if we don't end up using more than just opacity, may as well not do keyframes here
+@keyframes animatedBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .hero-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   padding: 0 80px;
-  background: {
-    color: var(--background-medium);
-    size: auto 50vh;
-    position: bottom right;
-    repeat: no-repeat;
+  background-color: var(--background-medium);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--hero-background);
+    background-size: auto 50vh;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    animation: animatedBackground 3s ease-in-out;
+    z-index: 0;
+
+    @media screen and (min-width: 1200px) {
+      background-size: contain;
+    }
   }
 
   .hero-text-container {
     max-width: 280px;
+    z-index: 1;
 
     .hero-text-hello {
       font-size: 3rem;
@@ -41,18 +68,25 @@
       font-size: 2.2rem;
       font-weight: 700;
       max-width: 240px;
+      margin-bottom: 4rem;
+
+      @media screen and (max-width: $max-large) {
+        margin-bottom: 3rem;
+      }
+    }
+
+    .hero-contact-button-wrapper {
+      padding: 1rem;
+      margin: -1rem;
     }
   }
   .hero-portrait-container {
+    z-index: 1;
     max-width: 560px;
 
     .hero-portrait {
       width: 100%;
     }
-  }
-
-  @media screen and (min-width: 1200px) {
-    background-size: contain;
   }
 
   @media screen and (max-width: $max-small) {

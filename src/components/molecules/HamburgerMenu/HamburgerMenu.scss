@@ -62,7 +62,7 @@ $menu-item-padding: 5rem;
         }
 
         // bottom line
-        &:after {
+        &::after {
           width: var(--wide-menu-line);
           top: round(up, $menu-line-bottom-offset, 1px);
           position: absolute;
@@ -80,7 +80,7 @@ $menu-item-padding: 5rem;
               rotate(-90deg);
           }
 
-          &:after {
+          &::after {
             transform: translate(0px, round(down, $menu-line-top-offset, 1px))
               rotate(-90deg);
           }

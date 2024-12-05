@@ -12,7 +12,7 @@ import './Landing.scss';
 function Landing() {
   // STATE
   const sectionRefs = useJYStore((state) => state.sectionRefs);
-
+  console.log("I'm rerendering!");
   return (
     <>
       {/* {loading && <Loader fadeOffLoader={fadeOffLoader} />} */}

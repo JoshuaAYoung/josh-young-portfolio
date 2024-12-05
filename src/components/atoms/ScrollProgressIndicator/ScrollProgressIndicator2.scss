@@ -1,0 +1,68 @@
+$container-dim: 50px; // this needs to be coord with the viewbox for the circle
+$arrow-dim: 16px;
+$fixed-right: 30px;
+
+.scroll-progress-indicator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  right: $fixed-right;
+  z-index: 9999;
+
+  .scroll-progress-indicator-content {
+    position: relative;
+    height: $container-dim;
+    width: $container-dim;
+
+    .scroll-progress-circle-svg-container {
+      transform: rotate(-90deg);
+
+      .scroll-progress-indicator-circle {
+        stroke: var(--secondary-color);
+        stroke-dashoffset: 0;
+        stroke-width: 2px;
+        fill: none;
+      }
+    }
+
+    .scroll-arrows {
+      position: absolute;
+      top: 0;
+      width: $container-dim;
+      height: $container-dim;
+      display: flex;
+      align-items: center;
+
+      .scroll-arrow {
+        position: absolute;
+        color: var(--secondary-color);
+        width: $arrow-dim;
+        height: $arrow-dim;
+        transform-origin: center;
+        right: calc(($container-dim - $arrow-dim) / 2);
+        top: calc(($container-dim - $arrow-dim - 2px) / 2);
+        display: flex;
+        align-items: center;
+
+        .arrow-first,
+        .arrow-second {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  // These must be coordinated with the #content margins from global.scss
+  @media screen and (min-width: $min-xlarge) {
+    right: calc($fixed-right + 8%);
+  }
+
+  @media screen and (min-width: $min-xxlarge) {
+    right: calc($fixed-right + 12%);
+  }
+}

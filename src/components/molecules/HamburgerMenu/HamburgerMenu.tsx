@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import './HamburgerMenu.scss';
 import { motion } from 'framer-motion';
 import {
@@ -15,7 +15,6 @@ import useJYStore from '../../../store/useJYStore';
 
 function HamburgerMenu() {
   // HOOK(S)
-  const navRef = useRef<HTMLUListElement>(null);
   const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   // TODO change this to whatever breakpoint we stack about and exp
   const belowTablet = useMediaQuery(
@@ -118,7 +117,6 @@ function HamburgerMenu() {
       >
         <motion.ul
           className="hamburger-menu-list"
-          ref={navRef}
           initial="hidden"
           animate={isOpen ? 'visible' : 'hidden'}
           variants={listVariants}

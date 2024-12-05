@@ -6,6 +6,7 @@ import heroPortrait from '../../../assets/images/hero-portrait.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
+import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // STATE
@@ -36,7 +37,11 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
     >
       <div
         className="hero-container"
-        style={{ backgroundImage: `url(${heroBackground})` }}
+        style={
+          {
+            '--hero-background': `url(${heroBackground})`,
+          } as React.CSSProperties
+        }
       >
         <motion.div className="hero-text-container">
           <motion.div className="hero-text-hello">HELLO!</motion.div>
@@ -56,10 +61,10 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
               stroke="#e4a53e"
               strokeWidth="3"
               fill="transparent"
-              initial={{ pathLength: 0 }} // Initially, the path is not drawn
-              animate={{ pathLength: 1 }} // Animates the path to full length
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
               transition={{
-                duration: 2, // Duration of the animation
+                duration: 2,
                 ease: 'easeInOut',
               }}
             />
@@ -69,7 +74,12 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
               A full-stack developer with design sense.
             </RevealWrapper>
           </motion.div>
-          <motion.button className="hero-contact-button">Contact</motion.button>
+          <RevealWrapper
+            isInView={isInViewReveal}
+            containerClassName="hero-contact-button-wrapper"
+          >
+            <SwipeButton>CONTACT</SwipeButton>
+          </RevealWrapper>
         </motion.div>
         <div className="hero-portrait-container">
           <img

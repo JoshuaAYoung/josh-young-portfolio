@@ -6,12 +6,14 @@ interface RevealWrapperProps {
   children: ReactNode;
   width?: string;
   isInView: boolean;
+  containerClassName?: string;
 }
 
 const RevealWrapper = ({
   children,
   width = 'fit-content',
   isInView,
+  containerClassName = '',
 }: RevealWrapperProps) => {
   const mainControls = useAnimation();
   const slideControls = useAnimation();
@@ -37,7 +39,10 @@ const RevealWrapper = ({
   };
 
   return (
-    <div style={{ width }} className="reveal-wrapper-container">
+    <div
+      style={{ width }}
+      className={`reveal-wrapper-container ${containerClassName}`}
+    >
       <motion.div
         initial="hidden"
         animate={mainControls}

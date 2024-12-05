@@ -23,6 +23,7 @@ import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
 import StickyHeader from './components/organisms/StickyHeader/StickyHeader';
 import Landing from './components/views/Landing/Landing';
 import Footer from './components/organisms/Footer/Footer';
+import ScrollProgressIndicator2 from './components/atoms/ScrollProgressIndicator/ScrollProgressIndicator2';
 
 function App() {
   // useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
     <div id="content">
       <ErrorBoundary Fallback={ErrorFallbackComponent}>
         <StickyHeader />
+        <ScrollProgressIndicator2 />
       </ErrorBoundary>
       <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>
