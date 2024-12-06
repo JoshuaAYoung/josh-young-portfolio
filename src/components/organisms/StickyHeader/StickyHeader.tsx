@@ -18,6 +18,8 @@ function StickyHeader() {
     offset: ['start start', 'end start'],
   });
 
+  console.log('sectionRefs.Home', sectionRefs.Home);
+
   return (
     <header className="sticky-header-container" role="banner">
       <nav className="sticky-header-nav">
