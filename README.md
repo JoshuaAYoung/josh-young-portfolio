@@ -1,5 +1,3 @@
-<img src="https://www.fire-graph.com/assets/firing-graph-logo.svg" width="15%">
-
 ### Captains log
 
 ## November 3rd, 2024
