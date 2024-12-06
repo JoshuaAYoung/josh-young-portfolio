@@ -1,5 +1,3 @@
-// animations.ts
-
 import { Variants } from 'framer-motion';
 
 export const arrowVariants: Variants = {
