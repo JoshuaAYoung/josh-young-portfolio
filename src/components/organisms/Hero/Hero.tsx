@@ -10,8 +10,8 @@ import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // STATE
-  const onSectionInViewScroll = useJYStore(
-    (state) => state.onSectionInViewScroll,
+  const onSectionInViewActive = useJYStore(
+    (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
 
@@ -29,10 +29,10 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
   return (
     <InViewSection
       sectionName="Home"
-      onSectionInViewScroll={(isInView) =>
-        onSectionInViewScroll('Home', isInView)
+      onSectionInViewActiveCallback={(isInView) =>
+        onSectionInViewActive('Home', isInView)
       }
-      onSectionInViewReveal={onSectionInViewReveal}
+      onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
     >
       <div

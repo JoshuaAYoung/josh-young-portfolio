@@ -31,7 +31,7 @@ export const useScrollToSection = () => {
     if (ref.current) {
       const { offsetTop } = ref.current;
       const targetPosition = offsetTop + (offset || stickyHeaderVariable);
-      console.log(ref);
+
       if (currentAnimation) {
         currentAnimation.stop();
       }
@@ -40,12 +40,12 @@ export const useScrollToSection = () => {
 
       // Animation settings for the page scroll
       currentAnimation = animate(window.scrollY, targetPosition, {
-        type: 'spring',
-        stiffness: 120,
-        damping: 20,
+        ease: [0.25, 0.1, 0.25, 1],
+        duration: 0.6,
         onUpdate: (latest: number) => window.scrollTo(0, latest),
         onComplete: () => {
           currentAnimation = null;
+          console.log("I'm done scrolling!");
           setIsScrolling(false);
           window.removeEventListener('wheel', handleWheel);
         },

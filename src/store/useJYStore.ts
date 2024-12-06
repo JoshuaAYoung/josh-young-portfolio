@@ -2,17 +2,17 @@ import { createRef } from 'react';
 import { create } from 'zustand';
 import { PAGE_SECTIONS } from '../constants/navigation';
 
-type NavLink = (typeof PAGE_SECTIONS)[number];
+type PageSection = (typeof PAGE_SECTIONS)[number];
 
 // Maintains SSOT for PAGE_SECTIONS
 type SectionRefs = {
-  [key in NavLink]: React.RefObject<HTMLElement>;
+  [key in PageSection]: React.RefObject<HTMLElement>;
 };
 
 interface JYState {
   activeSection: string;
   setActiveSection: (section: string) => void;
-  onSectionInViewScroll: (sectionKey: string, isInView: boolean) => void;
+  onSectionInViewActive: (sectionKey: string, isInView: boolean) => void;
   isScrolling: boolean;
   setIsScrolling: (scrolling: boolean) => void;
   sectionRefs: SectionRefs;
@@ -23,7 +23,7 @@ const useJYStore = create<JYState>((set, get) => ({
   setActiveSection: (section) => {
     set({ activeSection: section });
   },
-  onSectionInViewScroll: (sectionKey: string, isInView: boolean) => {
+  onSectionInViewActive: (sectionKey: string, isInView: boolean) => {
     if (isInView && !get().isScrolling) {
       get().setActiveSection(sectionKey);
     }

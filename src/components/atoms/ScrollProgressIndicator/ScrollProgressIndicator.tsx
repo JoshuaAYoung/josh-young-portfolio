@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { throttle } from 'lodash-es';
 import {
   motion,
@@ -26,29 +26,35 @@ const ScrollProgressIndicator: React.FC = () => {
   const sectionRefs = useJYStore((state) => state.sectionRefs);
 
   // FUNCTION(S)
-  const throttledUpdate = throttle((latest: number) => {
-    setThrottledScrollYProgress(latest);
-  }, 100);
+  const throttledUpdate = useMemo(
+    () =>
+      throttle((latest: number) => {
+        setThrottledScrollYProgress(latest);
+      }, 100),
+    [],
+  );
 
-  const handleScrollToTop = () => {
-    const homeIndex = PAGE_SECTIONS.findIndex(
-      (section: string) => section === 'Home',
-    );
-    scrollToSection(sectionRefs[homeIndex], homeIndex);
-  };
+  const handleScrollToTop = useCallback(() => {
+    const homeKey = 'Home';
+    const homeIndex = PAGE_SECTIONS.findIndex((section) => section === homeKey);
+    scrollToSection(sectionRefs[homeKey], homeIndex);
+  }, [scrollToSection, sectionRefs]);
 
-  const handleScrollToAbout = () => {
+  const handleScrollToAbout = useCallback(() => {
+    const aboutKey = 'About';
     const aboutIndex = PAGE_SECTIONS.findIndex(
-      (section: string) => section === 'About',
+      (section) => section === aboutKey,
     );
-    scrollToSection(sectionRefs[aboutIndex], aboutIndex);
-  };
+    scrollToSection(sectionRefs[aboutKey], aboutIndex);
+  }, [scrollToSection, sectionRefs]);
 
   useMotionValueEvent(scrollYProgress, 'change', throttledUpdate);
 
   // COMPUTED VAR(S)
-
-  const scrolledToTop = throttledScrollYProgress < 0.02;
+  const scrolledToTop = useMemo(
+    () => throttledScrollYProgress < 0.02,
+    [throttledScrollYProgress],
+  );
 
   // EFFECT(S)
   useEffect(() => {

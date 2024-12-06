@@ -6,8 +6,8 @@ import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 
 const Contact = forwardRef<HTMLElement>((props, ref) => {
   // STATE
-  const onSectionInViewScroll = useJYStore(
-    (state) => state.onSectionInViewScroll,
+  const onSectionInViewActive = useJYStore(
+    (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
 
@@ -25,10 +25,10 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   return (
     <InViewSection
       sectionName="Contact"
-      onSectionInViewScroll={(isInView) =>
-        onSectionInViewScroll('Contact', isInView)
+      onSectionInViewActiveCallback={(isInView) =>
+        onSectionInViewActive('Contact', isInView)
       }
-      onSectionInViewReveal={onSectionInViewReveal}
+      onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
     >
       <RevealWrapper isInView={isInViewReveal}>

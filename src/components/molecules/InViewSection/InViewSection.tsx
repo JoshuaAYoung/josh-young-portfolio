@@ -6,12 +6,14 @@ interface InViewSectionProps {
   sectionName: string;
   /**
    * Callback function that is triggered when the section is in view of the center point of the viewport.
+   * Used for settinge the active menu items currently, fires whenever section is scrolled to.
    */
-  onSectionInViewScroll: (isInViewOfCenterpoint: boolean) => void;
+  onSectionInViewActiveCallback: (isInViewOfCenterpoint: boolean) => void;
   /**
    * Callback function that is triggered when any part of the section 10% "on screen".
+   * Used for reveal animations currently, and only fires once per session.
    */
-  onSectionInViewReveal: (isPartiallyOnScreen: boolean) => void;
+  onSectionInViewRevealCallback: (isPartiallyOnScreen: boolean) => void;
   /**
    * The amount of the section that should be on screen before the `onSectionInViewReveal` callback is triggered.
    * Default is 0.1 (10%).
@@ -24,8 +26,8 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
     {
       children,
       sectionName,
-      onSectionInViewScroll,
-      onSectionInViewReveal,
+      onSectionInViewActiveCallback,
+      onSectionInViewRevealCallback,
       amountOnScreen = 0.1,
     },
     scrollRef,
@@ -33,7 +35,7 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
     // HOOK(S)
     const inViewRef = useRef(null);
     // Margin looks to see if any part of the element is in the centerpoint of the viewport.
-    // Adjust as necessary if contact section is not going active for screens with narrow aspect ratios.
+    // Adjust as necessary if contact section is not going active for landscape view on narrow aspect ratio devices.
     const isInViewOfCenterpoint = useInView(inViewRef, {
       margin: '-50% 0% -50% 0%',
     });
@@ -44,12 +46,16 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
 
     // EFFECT(S)
     useEffect(() => {
-      onSectionInViewScroll(isInViewOfCenterpoint);
-    }, [isInViewOfCenterpoint, onSectionInViewScroll]);
+      if (isInViewOfCenterpoint) {
+        onSectionInViewActiveCallback(isInViewOfCenterpoint);
+      }
+    }, [isInViewOfCenterpoint, onSectionInViewActiveCallback]);
 
     useEffect(() => {
-      onSectionInViewReveal(isPartiallyOnScreen);
-    }, [isPartiallyOnScreen, onSectionInViewReveal]);
+      if (isPartiallyOnScreen) {
+        onSectionInViewRevealCallback(isPartiallyOnScreen);
+      }
+    }, [isPartiallyOnScreen, onSectionInViewRevealCallback]);
 
     return (
       <section
