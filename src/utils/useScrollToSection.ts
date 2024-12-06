@@ -28,42 +28,48 @@ export const useScrollToSection = () => {
     activeSectionIndex: number,
     offset?: number,
   ): void => {
-    if (ref.current) {
-      const { offsetTop } = ref.current;
-      const targetPosition = offsetTop + (offset || stickyHeaderVariable);
+    if (!ref.current) return;
 
+    const { offsetTop } = ref.current;
+    const targetPosition = offsetTop + (offset || stickyHeaderVariable);
+    const currentScrollY = window.scrollY;
+
+    if (currentAnimation) {
+      currentAnimation.stop();
+    }
+
+    setIsScrolling(true);
+
+    const distance = Math.abs(targetPosition - currentScrollY);
+    const baseDuration = 0.2;
+    // This is only calculated once for every nav item click, and window.scrollY was already a req'd dep,
+    // so these calcs shouldn't be too much of a performance hit.
+    const duration = Math.min(baseDuration + distance / 10000, 1.5); // Cap at 1.5s for very long scrolls
+
+    currentAnimation = animate(currentScrollY, targetPosition, {
+      ease: [0.25, 0.1, 0.25, 1],
+      duration,
+      onUpdate: (latest: number) => window.scrollTo(0, latest),
+      onComplete: () => {
+        currentAnimation = null;
+        setIsScrolling(false);
+        window.removeEventListener('wheel', handleWheel);
+      },
+    });
+
+    const handleWheel = () => {
       if (currentAnimation) {
         currentAnimation.stop();
+        currentAnimation = null;
+        setIsScrolling(false);
       }
+      window.removeEventListener('wheel', handleWheel);
+    };
 
-      setIsScrolling(true);
+    // Listen for interruptions
+    window.addEventListener('wheel', handleWheel);
 
-      // Animation settings for the page scroll
-      currentAnimation = animate(window.scrollY, targetPosition, {
-        ease: [0.25, 0.1, 0.25, 1],
-        duration: 0.6,
-        onUpdate: (latest: number) => window.scrollTo(0, latest),
-        onComplete: () => {
-          currentAnimation = null;
-          console.log("I'm done scrolling!");
-          setIsScrolling(false);
-          window.removeEventListener('wheel', handleWheel);
-        },
-      });
-
-      const handleWheel = () => {
-        if (currentAnimation) {
-          currentAnimation.stop();
-          currentAnimation = null;
-          setIsScrolling(false);
-        }
-        window.removeEventListener('wheel', handleWheel);
-      };
-
-      window.addEventListener('wheel', handleWheel);
-
-      setActiveSection(PAGE_SECTIONS[activeSectionIndex]);
-    }
+    setActiveSection(PAGE_SECTIONS[activeSectionIndex]);
   };
 
   return {

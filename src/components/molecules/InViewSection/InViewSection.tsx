@@ -47,11 +47,13 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
     // EFFECT(S)
     useEffect(() => {
       if (isInViewOfCenterpoint) {
+        // Upstream set's global active state to use for menu button styling
         onSectionInViewActiveCallback(isInViewOfCenterpoint);
       }
     }, [isInViewOfCenterpoint, onSectionInViewActiveCallback]);
 
     useEffect(() => {
+      // Set's local "in view" state to use for reveal animations
       if (isPartiallyOnScreen) {
         onSectionInViewRevealCallback(isPartiallyOnScreen);
       }

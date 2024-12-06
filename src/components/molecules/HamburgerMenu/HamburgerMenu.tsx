@@ -7,6 +7,7 @@ import { useScrollToSection } from '../../../utils/useScrollToSection';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 import { breakpoints } from '../../../constants/breakpoints';
 import useJYStore from '../../../store/useJYStore';
+import { listVariants, menuItemVariants, menuVariants } from './animations';
 
 function HamburgerMenu() {
   // HOOK(S)
@@ -19,52 +20,13 @@ function HamburgerMenu() {
   const sectionRefs = useJYStore((state) => state.sectionRefs);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // ANIMATION(S)
-  // Entire menu animation
-  const menuVariants = {
-    hidden: {
-      x: '100%',
-      transition: {
-        duration: 0.5,
-        ease: 'easeIn',
-      },
-    },
-    visible: {
-      x: '0%',
-      transition: {
-        duration: 0.5,
-        ease: 'easeInOut',
-      },
-    },
-  };
-
-  // Individual menu item animation
-  const menuItemVariants = {
-    hidden: { x: 150, transition: { duration: 0, delay: 0.5 } },
-    visible: {
-      x: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 150,
-        damping: 15,
-        duration: 0.5,
-      },
-    },
-  };
-
-  // Just for li staggered animation
-  const listVariants = {
-    hidden: {
-      opacity: 1,
-      transition: { duration: 0.2 },
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  // COMPUTED VAR(S)
+  const filteredPageSections = PAGE_SECTIONS.filter((link) => {
+    if (aboveLg) {
+      return link !== 'Experience';
+    }
+    return true;
+  });
 
   // FUNCTION(S)
   const handleNavClick = (index: number) => {
@@ -101,30 +63,28 @@ function HamburgerMenu() {
           animate={isOpen ? 'visible' : 'hidden'}
           variants={listVariants}
         >
-          {PAGE_SECTIONS.filter((link) => aboveLg && link !== 'Experience').map(
-            (section, index) => (
-              <motion.li
-                key={`nav-${index}`}
-                className={`hamburger-menu-list-item ${
-                  section === activeSection ? 'active' : ''
+          {filteredPageSections.map((section, index) => (
+            <motion.li
+              key={`nav-${index}`}
+              className={`hamburger-menu-list-item ${
+                section === activeSection ? 'active' : ''
+              }`}
+              variants={menuItemVariants}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  handleNavClick(index);
+                }}
+                className={`hamburger-menu-item-button ${
+                  isOpen ? 'menu-open' : ''
                 }`}
-                variants={menuItemVariants}
+                tabIndex={!isOpen ? -1 : 0}
               >
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleNavClick(index);
-                  }}
-                  className={`hamburger-menu-item-button ${
-                    isOpen ? 'menu-open' : ''
-                  }`}
-                  tabIndex={!isOpen ? -1 : 0}
-                >
-                  {section}
-                </button>
-              </motion.li>
-            ),
-          )}
+                {section}
+              </button>
+            </motion.li>
+          ))}
           <motion.div
             variants={menuItemVariants}
             className="hamburger-menu-social-container"

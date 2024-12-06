@@ -1,6 +1,7 @@
 .nav-menu-container {
   display: flex;
   align-items: center;
+  z-index: 9999;
 
   .nav-menu-list {
     position: relative;

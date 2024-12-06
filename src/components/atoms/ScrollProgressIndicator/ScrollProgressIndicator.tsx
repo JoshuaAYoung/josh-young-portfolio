@@ -11,7 +11,7 @@ import Arrow from '../../../assets/icons/arrow.svg?react';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
 import useJYStore from '../../../store/useJYStore';
 import { PAGE_SECTIONS } from '../../../constants/navigation';
-import { arrowsVariant, arrowVariants, pathLengthVariants } from './Animations';
+import { arrowsVariant, arrowVariants, pathLengthVariants } from './animations';
 
 const ScrollProgressIndicator: React.FC = () => {
   // HOOK(S)
@@ -21,15 +21,19 @@ const ScrollProgressIndicator: React.FC = () => {
   const { scrollToSection } = useScrollToSection();
 
   // STATE
-  const [throttledScrollYProgress, setThrottledScrollYProgress] =
-    useState<number>(0);
+  const [isScrolledToTop, setIsScrolledToTop] = useState<boolean>(true);
   const sectionRefs = useJYStore((state) => state.sectionRefs);
 
   // FUNCTION(S)
+  // use this to handle the "barely scrolled" state
   const throttledUpdate = useMemo(
     () =>
       throttle((latest: number) => {
-        setThrottledScrollYProgress(latest);
+        if (latest > 0.02) {
+          setIsScrolledToTop(false);
+        } else {
+          setIsScrolledToTop(true);
+        }
       }, 100),
     [],
   );
@@ -50,15 +54,9 @@ const ScrollProgressIndicator: React.FC = () => {
 
   useMotionValueEvent(scrollYProgress, 'change', throttledUpdate);
 
-  // COMPUTED VAR(S)
-  const scrolledToTop = useMemo(
-    () => throttledScrollYProgress < 0.02,
-    [throttledScrollYProgress],
-  );
-
   // EFFECT(S)
   useEffect(() => {
-    if (scrolledToTop) {
+    if (isScrolledToTop) {
       arrowControls.start('arrowDrop');
       arrowControls.start('arrowFlipBack');
       pathLengthControls.start('transitionToTop');
@@ -66,17 +64,17 @@ const ScrollProgressIndicator: React.FC = () => {
       arrowControls.start('arrowFlip');
       pathLengthControls.start('transitionToScroll');
     }
-  }, [arrowControls, pathLengthControls, scrolledToTop]);
+  }, [arrowControls, pathLengthControls, isScrolledToTop]);
 
   return (
     <div className="scroll-progress-indicator-container">
       <div className="scroll-progress-indicator-content">
         <button
           className="scroll-top-button"
-          onClick={scrolledToTop ? handleScrollToAbout : handleScrollToTop}
+          onClick={isScrolledToTop ? handleScrollToAbout : handleScrollToTop}
           type="button"
           aria-label={
-            scrolledToTop ? 'Scroll to About section' : 'Scroll to Top'
+            isScrolledToTop ? 'Scroll to About section' : 'Scroll to Top'
           }
         />
         <svg
@@ -91,7 +89,7 @@ const ScrollProgressIndicator: React.FC = () => {
             className="scroll-progress-indicator-circle"
             animate={pathLengthControls}
           />
-          {!scrolledToTop && (
+          {!isScrolledToTop && (
             <motion.circle
               cx="25"
               cy="25"
@@ -113,7 +111,7 @@ const ScrollProgressIndicator: React.FC = () => {
           >
             <Arrow />
           </motion.div>
-          {scrolledToTop && (
+          {isScrolledToTop && (
             <motion.div
               className="scroll-arrow arrow-second"
               variants={arrowVariants}
