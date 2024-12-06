@@ -38,22 +38,22 @@
     }
   }
 
-  .sticky-header-border {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--secondary-color);
-    // transform-origin: left;
-  }
+  // .sticky-header-animated-background {
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: var(--background-dark);
+  //   // transform-origin: left;
+  // }
 
   @media screen and (min-width: $min-xlarge) {
-    margin: 0 8%;
+    margin: 0 var(--xlarge-content-margin);
   }
 
   @media screen and (min-width: $min-xxlarge) {
-    margin: 0 12%;
+    margin: 0 var(--xxlarge-content-margin);
   }
 
   @media screen and (max-width: $max-large) {
@@ -61,6 +61,6 @@
   }
 
   @media screen and (max-width: $max-small) {
-    padding: 0 2rem;
+    padding: 0 1.5rem 0 2rem;
   }
 }

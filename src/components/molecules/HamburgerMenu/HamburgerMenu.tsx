@@ -1,42 +1,23 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import './HamburgerMenu.scss';
 import { motion } from 'framer-motion';
-import {
-  NAV_LINKS_DESKTOP,
-  NAV_LINKS_TABLET,
-  STICKY_HEADER_HEIGHT_LARGE,
-  STICKY_HEADER_HEIGHT_MEDIUM,
-} from '../../../constants/navigation';
+import { PAGE_SECTIONS } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
-import { scrollToSection } from '../../../utils/scrollToSection';
+import { useScrollToSection } from '../../../utils/useScrollToSection';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 import { breakpoints } from '../../../constants/breakpoints';
 import useJYStore from '../../../store/useJYStore';
 
 function HamburgerMenu() {
   // HOOK(S)
-  const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   // TODO change this to whatever breakpoint we stack about and exp
-  const belowTablet = useMediaQuery(
-    `(max-width: ${breakpoints['max-medium']})`,
-  );
+  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const { scrollToSection } = useScrollToSection();
 
   // STATE
   const activeSection = useJYStore((state) => state.activeSection);
-  const setActiveSection = useJYStore((state) => state.setActiveSection);
   const sectionRefs = useJYStore((state) => state.sectionRefs);
-  const setIsScrolling = useJYStore((state) => state.setIsScrolling);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  // COMPUTED VAR(S)
-  const navLinks = useMemo(
-    () => (belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP),
-    [belowTablet],
-  );
-
-  const stickyHeaderVariable =
-    (belowMobile ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) *
-    -1;
 
   // ANIMATION(S)
   // Entire menu animation
@@ -89,8 +70,7 @@ function HamburgerMenu() {
   const handleNavClick = (index: number) => {
     const targetElement = Object.values(sectionRefs)[index];
     if (targetElement) {
-      scrollToSection(targetElement, setIsScrolling, stickyHeaderVariable);
-      setActiveSection(navLinks[index]);
+      scrollToSection(targetElement, index);
       setIsOpen(false);
     }
   };
@@ -121,28 +101,30 @@ function HamburgerMenu() {
           animate={isOpen ? 'visible' : 'hidden'}
           variants={listVariants}
         >
-          {navLinks.map((section, index) => (
-            <motion.li
-              key={`nav-${index}`}
-              className={`hamburger-menu-list-item ${
-                section === activeSection ? 'active' : ''
-              }`}
-              variants={menuItemVariants}
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  handleNavClick(index);
-                }}
-                className={`hamburger-menu-item-button ${
-                  isOpen ? 'menu-open' : ''
+          {PAGE_SECTIONS.filter((link) => aboveLg && link !== 'Experience').map(
+            (section, index) => (
+              <motion.li
+                key={`nav-${index}`}
+                className={`hamburger-menu-list-item ${
+                  section === activeSection ? 'active' : ''
                 }`}
-                tabIndex={!isOpen ? -1 : 0}
+                variants={menuItemVariants}
               >
-                {section}
-              </button>
-            </motion.li>
-          ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleNavClick(index);
+                  }}
+                  className={`hamburger-menu-item-button ${
+                    isOpen ? 'menu-open' : ''
+                  }`}
+                  tabIndex={!isOpen ? -1 : 0}
+                >
+                  {section}
+                </button>
+              </motion.li>
+            ),
+          )}
           <motion.div
             variants={menuItemVariants}
             className="hamburger-menu-social-container"

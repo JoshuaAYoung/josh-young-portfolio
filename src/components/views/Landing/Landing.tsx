@@ -12,17 +12,17 @@ import './Landing.scss';
 function Landing() {
   // STATE
   const sectionRefs = useJYStore((state) => state.sectionRefs);
-  console.log("I'm rerendering!");
+
   return (
     <>
       {/* {loading && <Loader fadeOffLoader={fadeOffLoader} />} */}
       <div className="landing-container">
-        <Hero ref={sectionRefs.homeRef} />
-        <About ref={sectionRefs.aboutRef} />
-        <Experience ref={sectionRefs.experienceRef} />
-        <Projects ref={sectionRefs.projectsRef} />
-        <Skills ref={sectionRefs.skillsRef} />
-        <Contact ref={sectionRefs.contactRef} />
+        <Hero ref={sectionRefs.Home} />
+        <About ref={sectionRefs.About} />
+        <Experience ref={sectionRefs.Experience} />
+        <Projects ref={sectionRefs.Projects} />
+        <Skills ref={sectionRefs.Skills} />
+        <Contact ref={sectionRefs.Contact} />
       </div>
     </>
   );

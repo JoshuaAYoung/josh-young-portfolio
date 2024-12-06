@@ -1,14 +1,13 @@
 import { createRef } from 'react';
 import { create } from 'zustand';
+import { PAGE_SECTIONS } from '../constants/navigation';
 
-interface SectionRefs {
-  homeRef: React.RefObject<HTMLElement>;
-  aboutRef: React.RefObject<HTMLElement>;
-  experienceRef: React.RefObject<HTMLElement>;
-  projectsRef: React.RefObject<HTMLElement>;
-  skillsRef: React.RefObject<HTMLElement>;
-  contactRef: React.RefObject<HTMLElement>;
-}
+type NavLink = (typeof PAGE_SECTIONS)[number];
+
+// Maintains SSOT for PAGE_SECTIONS
+type SectionRefs = {
+  [key in NavLink]: React.RefObject<HTMLElement>;
+};
 
 interface JYState {
   activeSection: string;
@@ -17,8 +16,6 @@ interface JYState {
   isScrolling: boolean;
   setIsScrolling: (scrolling: boolean) => void;
   sectionRefs: SectionRefs;
-  scrollYProgress: number;
-  setScrollYProgress: (scrollYProgress: number) => void;
 }
 
 const useJYStore = create<JYState>((set, get) => ({
@@ -33,16 +30,11 @@ const useJYStore = create<JYState>((set, get) => ({
   },
   isScrolling: false,
   setIsScrolling: (scrolling) => set({ isScrolling: scrolling }),
-  sectionRefs: {
-    homeRef: createRef<HTMLElement>(),
-    aboutRef: createRef<HTMLElement>(),
-    experienceRef: createRef<HTMLElement>(),
-    projectsRef: createRef<HTMLElement>(),
-    skillsRef: createRef<HTMLElement>(),
-    contactRef: createRef<HTMLElement>(),
-  },
-  scrollYProgress: 0,
-  setScrollYProgress: (scrollYProgress) => set({ scrollYProgress }),
+  // Maintains SSOT for PAGE_SECTIONS
+  sectionRefs: PAGE_SECTIONS.reduce((acc, link) => {
+    acc[link] = createRef<HTMLElement>();
+    return acc;
+  }, {} as SectionRefs),
 }));
 
 export default useJYStore;

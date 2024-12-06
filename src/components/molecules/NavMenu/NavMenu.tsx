@@ -1,45 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  NAV_LINKS_DESKTOP,
-  NAV_LINKS_TABLET,
-  STICKY_HEADER_HEIGHT_LARGE,
-  STICKY_HEADER_HEIGHT_MEDIUM,
-} from '../../../constants/navigation';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import { PAGE_SECTIONS } from '../../../constants/navigation';
 import './NavMenu.scss';
-import { scrollToSection } from '../../../utils/scrollToSection';
-import { breakpoints } from '../../../constants/breakpoints';
+import { useScrollToSection } from '../../../utils/useScrollToSection';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 import useJYStore from '../../../store/useJYStore';
 
 function NavMenu() {
   // HOOK(S)
   const navRef = useRef<HTMLUListElement>(null);
-  const belowMobile = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
-  const belowTablet = useMediaQuery(
-    `(max-width: ${breakpoints['max-medium']})`,
-  );
+  const { scrollToSection } = useScrollToSection();
 
   // STATE
   const activeSection = useJYStore((state) => state.activeSection);
-  const setActiveSection = useJYStore((state) => state.setActiveSection);
   const sectionRefs = useJYStore((state) => state.sectionRefs);
-  const setIsScrolling = useJYStore((state) => state.setIsScrolling);
   const [lineProps, setLineProps] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
   });
 
   // COMPUTED VAR(S)
-  const navLinks = belowTablet ? NAV_LINKS_TABLET : NAV_LINKS_DESKTOP;
-
   const underlinePercentWidth = 1.2;
   const underlineOffsetToCenter = (underlinePercentWidth - 1) / 2;
-
-  const stickyHeaderVariable =
-    (belowMobile ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) *
-    -1;
 
   // EFFECT(S)
   useEffect(() => {
@@ -59,15 +41,14 @@ function NavMenu() {
   const handleNavClick = (index: number) => {
     const targetElement = Object.values(sectionRefs)[index];
     if (targetElement) {
-      scrollToSection(targetElement, setIsScrolling, stickyHeaderVariable);
-      setActiveSection(navLinks[index]);
+      scrollToSection(targetElement, index);
     }
   };
 
   return (
     <div className="nav-menu-container">
       <ul className="nav-menu-list" ref={navRef}>
-        {navLinks.map((section, index) => (
+        {PAGE_SECTIONS.map((section, index) => (
           <li
             key={`nav-${index}`}
             className={`nav-menu-list-item ${
