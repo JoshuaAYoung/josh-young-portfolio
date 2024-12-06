@@ -1,5 +1,7 @@
+import { Variants } from 'framer-motion';
+
 // Entire menu animation
-export const menuVariants = {
+export const menuVariants: Variants = {
   hidden: {
     x: '100%',
     transition: {
@@ -17,7 +19,7 @@ export const menuVariants = {
 };
 
 // Individual menu item animation
-export const menuItemVariants = {
+export const menuItemVariants: Variants = {
   hidden: { x: 150, transition: { duration: 0, delay: 0.5 } },
   visible: {
     x: 0,
@@ -31,7 +33,7 @@ export const menuItemVariants = {
 };
 
 // Just for li staggered animation
-export const listVariants = {
+export const listVariants: Variants = {
   hidden: {
     opacity: 1,
     transition: { duration: 0.2 },

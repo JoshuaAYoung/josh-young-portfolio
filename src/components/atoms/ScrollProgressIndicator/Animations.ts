@@ -1,4 +1,8 @@
-export const arrowVariants = {
+// animations.ts
+
+import { Variants } from 'framer-motion';
+
+export const arrowVariants: Variants = {
   initial: { opacity: 0, y: -10, rotate: 0 },
   arrowFlipBack: {
     rotate: 0,
@@ -28,7 +32,7 @@ export const arrowVariants = {
   },
 };
 
-export const pathLengthVariants = {
+export const pathLengthVariants: Variants = {
   initial: { pathLength: 1.1 },
   transitionToScroll: {
     pathLength: 0.01,
@@ -46,6 +50,6 @@ export const pathLengthVariants = {
   },
 };
 
-export const arrowsVariant = {
+export const arrowsVariant: Variants = {
   arrowDrop: { transition: { staggerChildren: 1 } },
 };
