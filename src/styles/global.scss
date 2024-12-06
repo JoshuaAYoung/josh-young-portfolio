@@ -45,6 +45,14 @@ html[data-theme='light'] {
 .page-section {
   height: 1000px;
 
+  &:nth-child(even) {
+    background-color: var(--background-dark);
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--background-light);
+  }
+
   &.home {
     height: 100vh;
   }
