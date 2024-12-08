@@ -30,9 +30,10 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
+      title="Get In Touch"
     >
       <RevealWrapper isInView={isInViewReveal}>
-        <h2 style={{ fontSize: 50, color: 'black' }}>Contact</h2>
+        <h2 style={{ fontSize: 50, color: 'black' }}>Get In Touch</h2>
       </RevealWrapper>
     </InViewSection>
   );

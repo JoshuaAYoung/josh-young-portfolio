@@ -1,4 +1,7 @@
 // TODO if we don't end up using more than just opacity, may as well not do keyframes here
+
+@import '../../../styles/mixins';
+
 @keyframes animatedBackground {
   from {
     opacity: 0;
@@ -17,6 +20,7 @@
   padding: 0 80px;
   background-color: var(--background-medium);
   overflow: hidden;
+  gap: 6rem;
 
   &::before {
     content: '';
@@ -40,6 +44,7 @@
   .hero-text-container {
     max-width: 280px;
     z-index: 1;
+    margin-bottom: 6rem;
 
     .hero-text-hello {
       font-size: 3rem;
@@ -76,13 +81,13 @@
     }
 
     .hero-contact-button-wrapper {
-      padding: 1rem;
-      margin: -1rem;
+      @include reveal-margin;
     }
   }
+
   .hero-portrait-container {
     z-index: 1;
-    max-width: 560px;
+    max-width: 520px;
 
     .hero-portrait {
       width: 100%;

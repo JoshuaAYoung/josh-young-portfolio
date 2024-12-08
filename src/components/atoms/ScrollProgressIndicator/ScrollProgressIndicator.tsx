@@ -76,50 +76,51 @@ const ScrollProgressIndicator: React.FC = () => {
           aria-label={
             isScrolledToTop ? 'Scroll to About section' : 'Scroll to Top'
           }
-        />
-        <svg
-          viewBox="0 0 50 50"
-          className="scroll-progress-circle-svg-container"
         >
-          <motion.circle
-            cx="25"
-            cy="25"
-            r="20"
-            variants={pathLengthVariants}
-            className="scroll-progress-indicator-circle"
-            animate={pathLengthControls}
-          />
-          {!isScrolledToTop && (
+          <svg
+            viewBox="0 0 50 50"
+            className="scroll-progress-circle-svg-container"
+          >
             <motion.circle
               cx="25"
               cy="25"
               r="20"
-              style={{ pathLength: scrollYProgress }}
+              variants={pathLengthVariants}
               className="scroll-progress-indicator-circle"
+              animate={pathLengthControls}
             />
-          )}
-        </svg>
-        <motion.div
-          variants={arrowsVariant}
-          initial="initial"
-          animate={arrowControls}
-          className="scroll-arrows"
-        >
+            {!isScrolledToTop && (
+              <motion.circle
+                cx="25"
+                cy="25"
+                r="20"
+                style={{ pathLength: scrollYProgress }}
+                className="scroll-progress-indicator-circle"
+              />
+            )}
+          </svg>
           <motion.div
-            className="scroll-arrow arrow-first"
-            variants={arrowVariants}
+            variants={arrowsVariant}
+            initial="initial"
+            animate={arrowControls}
+            className="scroll-arrows"
           >
-            <Arrow />
-          </motion.div>
-          {isScrolledToTop && (
             <motion.div
-              className="scroll-arrow arrow-second"
+              className="scroll-arrow arrow-first"
               variants={arrowVariants}
             >
               <Arrow />
             </motion.div>
-          )}
-        </motion.div>
+            {isScrolledToTop && (
+              <motion.div
+                className="scroll-arrow arrow-second"
+                variants={arrowVariants}
+              >
+                <Arrow />
+              </motion.div>
+            )}
+          </motion.div>
+        </button>
       </div>
     </div>
   );

@@ -30,6 +30,7 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
+      title="Experience"
     >
       <RevealWrapper isInView={isInViewReveal}>
         <h2 style={{ fontSize: 50, color: 'black' }}>Experience</h2>

@@ -1,0 +1,42 @@
+@import '../../../styles/mixins';
+
+.about-section-container {
+  padding: 13rem;
+  font-family: 'Nunito', sans-serif;
+
+  .about-headline {
+    font-size: 2.2rem;
+    line-height: 3.6rem;
+    color: var(--secondary-color);
+  }
+
+  .about-copy {
+    margin-top: 3rem;
+    font-size: 1.6rem;
+    line-height: 3.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+  }
+
+  .about-fact-list {
+    margin: 4.5rem 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 3.5rem;
+
+    .about-fact-label {
+      color: var(--secondary-color);
+      font-weight: 800;
+    }
+  }
+
+  .about-buttons-reveal {
+    @include reveal-margin;
+
+    .about-buttons-container {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+    }
+  }
+}

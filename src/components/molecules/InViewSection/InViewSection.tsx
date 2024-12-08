@@ -1,5 +1,7 @@
 import { forwardRef, useEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
+import './InViewSection.scss';
+import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 
 interface InViewSectionProps {
   children: React.ReactNode;
@@ -19,6 +21,8 @@ interface InViewSectionProps {
    * Default is 0.1 (10%).
    */
   amountOnScreen?: number;
+  containerClassName?: string;
+  title?: string;
 }
 
 const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
@@ -29,6 +33,8 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
       onSectionInViewActiveCallback,
       onSectionInViewRevealCallback,
       amountOnScreen = 0.1,
+      containerClassName,
+      title,
     },
     scrollRef,
   ) => {
@@ -61,11 +67,24 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
 
     return (
       <section
-        ref={inViewRef}
+        ref={scrollRef}
         data-section={sectionName}
-        className={`page-section ${sectionName.toLowerCase()}`}
+        className={`page-section ${sectionName.toLowerCase()} ${containerClassName}`}
       >
-        <div ref={scrollRef as React.RefObject<HTMLDivElement>}>{children}</div>
+        <div ref={inViewRef as React.RefObject<HTMLDivElement>}>
+          {title && (
+            <RevealWrapper
+              isInView={isPartiallyOnScreen}
+              containerClassName="section-reveal-wrapper"
+            >
+              <h2 className="section-title">
+                {title}
+                <span className="big-period">.</span>
+              </h2>
+            </RevealWrapper>
+          )}
+          {children}
+        </div>
       </section>
     );
   },

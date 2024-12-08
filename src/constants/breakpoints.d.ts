@@ -11,7 +11,8 @@ type BreakpointsType = {
   | `max-${keyof typeof breakpointNumbers}`]: string;
 };
 /**
- * xlarge: 1920
+ * xxlarge: 1920
+ * xlarge: 1600
  * large: 1020
  * medium: 768
  * small: 600

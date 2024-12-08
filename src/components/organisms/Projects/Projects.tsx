@@ -30,6 +30,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
+      title="Projects"
     >
       <RevealWrapper isInView={isInViewReveal}>
         <h2 style={{ fontSize: 50, color: 'black' }}>Projects</h2>
