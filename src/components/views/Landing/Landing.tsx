@@ -1,6 +1,6 @@
 import Hero from '../../organisms/Hero/Hero';
 import Contact from '../../organisms/Contact/Contact';
-import Projects from '../../organisms/Projects/Projects';
+import Portfolio from '../../organisms/Portfolio/Portfolio';
 import Experience from '../../organisms/Experience/Experience';
 import Skills from '../../organisms/Skills/Skills';
 import About from '../../organisms/About/About';
@@ -20,7 +20,7 @@ function Landing() {
         <Hero ref={sectionRefs.Home} />
         <About ref={sectionRefs.About} />
         <Experience ref={sectionRefs.Experience} />
-        <Projects ref={sectionRefs.Projects} />
+        <Portfolio ref={sectionRefs.Portfolio} />
         <Skills ref={sectionRefs.Skills} />
         <Contact ref={sectionRefs.Contact} />
       </div>

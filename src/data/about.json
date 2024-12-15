@@ -1,0 +1,11 @@
+{
+  "firstParagraph": "I thrive at the intersection of creativity and engineering, transforming complex problems into elegant, scalable solutions. Whether it’s streamlining a backend service or crafting a frontend interface that users genuinely enjoy, I approach every challenge with curiosity and meticulous attention to detail. My work blends technical expertise with a passion for creating intuitive, high-performance solutions that are as delightful to use as they are effective.",
+  "secondParagraph": "That said, I’m all about collaboration, and my proven ability to bridge technical and creative perspectives plays a key role in the results I’ve delivered. Great software doesn’t happen in a vacuum—it’s born from diverse perspectives and teamwork. Some of my proudest achievements have come from working closely with talented designers, QE, product managers, and other engineers to turn ambitious ideas into solutions that solve real problems and deliver lasting impact.",
+  "factList": {
+    "location": "Missoula, Montana",
+    "language": "English",
+    "previous career": "Licensed Architect",
+    "favorite pasttime": "Pottery",
+    "notable achievement": "Designed and built a house"
+  }
+}

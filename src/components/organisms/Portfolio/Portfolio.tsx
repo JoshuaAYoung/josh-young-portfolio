@@ -1,10 +1,10 @@
 import { forwardRef, useState } from 'react';
-import './Projects.scss';
+import './Portfolio.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 
-const Projects = forwardRef<HTMLElement>((props, ref) => {
+const Portfolio = forwardRef<HTMLElement>((props, ref) => {
   // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
@@ -12,7 +12,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   const [isInViewReveal, setIsInViewReveal] = useState(false);
 
   if (isInViewReveal) {
-    console.log('Projects is revealed!');
+    console.log('Portfolio is revealed!');
   }
 
   // FUNCTION(S)
@@ -24,21 +24,21 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
 
   return (
     <InViewSection
-      sectionName="Projects"
+      sectionName="Portfolio"
       onSectionInViewActiveCallback={(isInView) =>
-        onSectionInViewActive('Projects', isInView)
+        onSectionInViewActive('Portfolio', isInView)
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
-      title="Projects"
+      title="Portfolio"
     >
       <RevealWrapper isInView={isInViewReveal}>
-        <h2 style={{ fontSize: 50, color: 'black' }}>Projects</h2>
+        <h2 style={{ fontSize: 50, color: 'black' }}>Portfolio</h2>
       </RevealWrapper>
     </InViewSection>
   );
 });
 
-Projects.displayName = 'Projects';
+Portfolio.displayName = 'Portfolio';
 
-export default Projects;
+export default Portfolio;

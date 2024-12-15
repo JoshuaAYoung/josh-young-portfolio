@@ -2,7 +2,7 @@ export const PAGE_SECTIONS = [
   'Home',
   'About',
   'Experience',
-  'Projects',
+  'Portfolio',
   'Skills',
   'Contact',
 ];

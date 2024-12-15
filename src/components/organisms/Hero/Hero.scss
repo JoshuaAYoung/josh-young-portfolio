@@ -1,7 +1,4 @@
 // TODO if we don't end up using more than just opacity, may as well not do keyframes here
-
-@import '../../../styles/mixins';
-
 @keyframes animatedBackground {
   from {
     opacity: 0;
@@ -78,10 +75,6 @@
       @media screen and (max-width: $max-large) {
         margin-bottom: 3rem;
       }
-    }
-
-    .hero-contact-button-wrapper {
-      @include reveal-margin;
     }
   }
 

@@ -8,6 +8,7 @@ interface RevealWrapperProps {
   width?: string;
   isInView: boolean;
   containerClassName?: string;
+  extraMargin?: boolean;
 }
 
 const RevealWrapper = ({
@@ -15,6 +16,7 @@ const RevealWrapper = ({
   width = 'fit-content',
   isInView,
   containerClassName = '',
+  extraMargin = false,
 }: RevealWrapperProps) => {
   // This should only update and cause a rerender when one of the nav menu items is clicked.
   // So relying on this to pause animations should only help.
@@ -30,14 +32,16 @@ const RevealWrapper = ({
       if (isInView) {
         await slideControls.start('grow');
         if (!isScrolling) {
-          await mainControls.start('visible');
-          await slideControls.start('visible');
+          mainControls.start('visible');
+          slideControls.start('visible');
         }
       }
     };
 
     startAnimation();
   }, [isScrolling, isInView, mainControls, slideControls]);
+
+  const duration = 0.15 + Math.random() * 0.15;
 
   const mainVariants = {
     hidden: { opacity: 0 },
@@ -46,14 +50,19 @@ const RevealWrapper = ({
 
   const slideVariants = {
     hidden: { width: 0 },
-    grow: { width: '100%', transition: { duration: 0.3, ease: 'easeOut' } },
-    visible: { left: '100%', transition: { duration: 0.3, ease: 'easeIn' } },
+    grow: { width: '100%', transition: { duration, ease: 'easeIn' } },
+    visible: {
+      left: '100%',
+      transition: { duration, ease: 'easeOut', delay: 0.1 },
+    },
   };
 
   return (
     <div
       style={{ width }}
-      className={`reveal-wrapper-container ${containerClassName}`}
+      className={`reveal-wrapper-container ${
+        extraMargin ? 'reveal-wrapper-extra-margin' : ''
+      } ${containerClassName}`}
     >
       <motion.div
         initial="hidden"

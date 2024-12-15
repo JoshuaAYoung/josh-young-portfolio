@@ -74,10 +74,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
               A full-stack developer with design sense.
             </RevealWrapper>
           </motion.div>
-          <RevealWrapper
-            isInView={isInViewReveal}
-            containerClassName="hero-contact-button-wrapper"
-          >
+          <RevealWrapper isInView={isInViewReveal} extraMargin>
             <SwipeButton>CONTACT</SwipeButton>
           </RevealWrapper>
         </motion.div>

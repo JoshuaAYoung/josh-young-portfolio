@@ -4,13 +4,21 @@ import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
+import about from '../../../data/about.json';
+import { useScrollToSection } from '../../../utils/useScrollToSection';
 
 const About = forwardRef<HTMLElement>((props, ref) => {
+  // HOOK(S)
+  const { scrollToSection } = useScrollToSection();
+
   // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
   );
+  const sectionRefs = useJYStore((state) => state.sectionRefs);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
+
+  console.log('sectionRefs', sectionRefs);
 
   if (isInViewReveal) {
     console.log('About is revealed!');
@@ -20,6 +28,14 @@ const About = forwardRef<HTMLElement>((props, ref) => {
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
       setIsInViewReveal(true);
+    }
+  };
+
+  const handleScrollToPortfolio = () => {
+    const portfolioRef = sectionRefs.Portfolio;
+    const portfolioIndex = Object.keys(sectionRefs).indexOf('Portfolio');
+    if (portfolioIndex !== -1) {
+      scrollToSection(portfolioRef, portfolioIndex);
     }
   };
 
@@ -38,52 +54,37 @@ const About = forwardRef<HTMLElement>((props, ref) => {
         isInView={isInViewReveal}
         containerClassName="about-headline"
       >
-        <p>
-          Emphasizing the team above the individual, I firmly believe in the
-          power of good communication in fostering a positive and collaborative
-          work environment. Motivated by the warm and fuzzies I get from quality
-          work, I approach each day with enthusiasm, eager problem-solving
-          skills, meticulous attention to detail, and an insatiable passion for
-          learning.
-        </p>
+        <p>{about.firstParagraph}</p>
       </RevealWrapper>
       <RevealWrapper isInView={isInViewReveal} containerClassName="about-copy">
-        <p>
-          Emphasizing the team above the individual, I firmly believe in the
-          power of good communication in fostering a positive and collaborative
-          work environment. Motivated by the warm and fuzzies I get from quality
-          work, I approach each day with enthusiasm, eager problem-solving
-          skills, meticulous attention to detail, and an insatiable passion for
-          learning.
-        </p>
+        <p>{about.secondParagraph}</p>
       </RevealWrapper>
       <RevealWrapper
         isInView={isInViewReveal}
         containerClassName="about-fact-list"
       >
         <ul>
-          <li>
-            <span className="about-fact-label">LOCATION:</span> Missoula, MT
-          </li>
-          <li>
-            <span className="about-fact-label">EMAIL:</span> joshua@young.net
-          </li>
-          <li>
-            <span className="about-fact-label">PREVIOUS CAREER:</span> Building
-            Architect
-          </li>
-          <li>
-            <span className="about-fact-label">RECENT OBSESSION:</span> Pottery
-          </li>
+          {Object.entries(about.factList).map(([key, value], index) => (
+            <li key={index}>
+              <span className="about-fact-label">{key.toUpperCase()}:</span>{' '}
+              {value}
+            </li>
+          ))}
         </ul>
       </RevealWrapper>
       <RevealWrapper
         isInView={isInViewReveal}
         containerClassName="about-buttons-reveal"
+        extraMargin
       >
         <div className="about-buttons-container">
           <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
-          <SwipeButton variant="solid-secondary">PORTFOLIO</SwipeButton>
+          <SwipeButton
+            variant="solid-secondary"
+            onClick={handleScrollToPortfolio}
+          >
+            PORTFOLIO
+          </SwipeButton>
         </div>
       </RevealWrapper>
     </InViewSection>

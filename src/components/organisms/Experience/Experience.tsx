@@ -3,6 +3,9 @@ import './Experience.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
+import ExperienceItem from '../../molecules/ExperienceItem/ExperienceItem';
+import experiences from '../../../data/experiences.json';
+import { type Experience } from '../../../types/experience.types';
 
 const Experience = forwardRef<HTMLElement>((props, ref) => {
   // STATE
@@ -22,6 +25,7 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
+  // TODO where does the reveal wrapper go on this one?
   return (
     <InViewSection
       sectionName="Experience"
@@ -32,9 +36,9 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
       ref={ref}
       title="Experience"
     >
-      <RevealWrapper isInView={isInViewReveal}>
-        <h2 style={{ fontSize: 50, color: 'black' }}>Experience</h2>
-      </RevealWrapper>
+      {experiences.map((experience, index) => (
+        <ExperienceItem key={index} experience={experience as Experience} />
+      ))}
     </InViewSection>
   );
 });
