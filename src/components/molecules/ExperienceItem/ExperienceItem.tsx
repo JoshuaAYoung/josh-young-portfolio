@@ -1,68 +1,120 @@
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
+
 import { motion, useAnimation } from 'framer-motion';
 import './ExperienceItem.scss';
-import useJYStore from '../../../store/useJYStore';
 import { Experience } from '../../../types/experience.types';
+import { useGetTransitions } from './animations';
 
 interface ExperienceItemProps {
   experience: Experience;
+  hasLine: boolean;
+  index: number;
+  revealDuration: number;
 }
 
-const ExperienceItem = ({ experience }: ExperienceItemProps) => {
-  const mainControls = useAnimation();
-  const slideControls = useAnimation();
+const ExperienceItem = ({
+  experience,
+  hasLine = true,
+  index,
+  revealDuration,
+}: ExperienceItemProps) => {
+  // HOOK(S)
+  const controls = useAnimation();
 
-  const variants = {
-    initial: { opacity: 0, y: 20 },
-    hover: { opacity: 1, y: 0 },
-  };
+  const revealDelay = index * (revealDuration + 0.2);
+  const {
+    pulseCircleVariants,
+    lineVariants,
+    paragraphVariants,
+    triangleVariants,
+  } = useGetTransitions({ revealDuration, revealDelay });
 
-  const circleVariants = {
-    initial: { borderColor: '#000' },
-    hover: { borderColor: '#f0a53e' },
-  };
+  // EFFECT(S)
+  useEffect(() => {
+    const startAnimation = async () => {
+      await controls.start('reveal');
+      controls.start('hoverOut');
+    };
 
-  // TODO move all of these inline styles to scss
-  // TODO figure out left side year (just start year? Kind of weird)
-  // TODO all copy in experience.json
-  // TODO Figure out how to animate the circle per VOLOS
-  // TODO add all of the copy from experiences prop
+    startAnimation();
+  }, [controls]);
+
+  // COMPUTED VAR(S)
+  // coordinate these with css variables
+  const circleContainerDiameter = 30;
+  const circleContainerRadius = circleContainerDiameter / 2;
+
   return (
     <motion.div
       className="experience-item-container"
-      whileHover="hover" // Triggers the "hover" variant
       initial="initial"
-      style={{
-        padding: '2rem',
-        backgroundColor: '#e4e4e4',
-        borderRadius: '8px',
-      }}
+      animate={controls}
+      whileHover="hoverIn"
     >
+      <div className="experience-item-circle-container">
+        <svg
+          viewBox={`0 0 ${circleContainerDiameter} ${circleContainerDiameter}`}
+          width={circleContainerDiameter}
+          height={circleContainerDiameter}
+        >
+          <motion.circle
+            cx={circleContainerRadius}
+            cy={circleContainerRadius}
+            r="10"
+            className="experience-item-pulse-circle"
+            variants={pulseCircleVariants}
+          />
+          <circle
+            cx={circleContainerRadius}
+            cy={circleContainerRadius}
+            r="10"
+            className="experience-item-base-circle"
+          />
+          <circle
+            cx={circleContainerRadius}
+            cy={circleContainerRadius}
+            r="7"
+            className="experience-item-hover-circle"
+          />
+        </svg>
+        {hasLine && (
+          <motion.svg
+            className="experience-item-line"
+            variants={lineVariants}
+            initial="initial"
+            animate={controls}
+          >
+            <line x1="1" y1="0" x2="1" y2="100%" />
+          </motion.svg>
+        )}
+      </div>
       <motion.div
-        className="child"
-        variants={variants} // Child reacts to parent's hover state
-        style={{
-          padding: '1rem',
-          backgroundColor: '#f0a53e',
-          borderRadius: '4px',
-        }}
-      >
-        {experience.dateStart}
-      </motion.div>
-      <motion.svg
-        width="35"
-        height="35"
-        viewBox="0 0 35 35"
+        className="experience-item-paragraph"
+        variants={paragraphVariants}
         initial="initial"
-        whileHover="hover"
-        variants={circleVariants}
-        style={{
-          border: '2px solid',
-          borderRadius: '50%',
-        }}
+        animate={controls}
+        whileHover="hoverIn"
       >
-        <motion.circle cx="17.5" cy="17.5" r="16.5" fill="none" />
-      </motion.svg>
+        <motion.svg
+          className="experience-item-triangle"
+          width="13"
+          height="26"
+          viewBox="0 0 13 26"
+          variants={triangleVariants}
+        >
+          <polygon points="13,0 13,26 0,13" />
+        </motion.svg>
+        <p className="experience-item-year-range">
+          {experience.yearRange.toUpperCase()}
+        </p>
+        <p className="experience-item-title">{experience.title}</p>
+        <p className="experience-item-company-details">
+          {`${experience.company.toUpperCase()} | ${experience.location} | ${
+            experience.dateRange
+          }`}
+        </p>
+        <p className="experience-item-description">{experience.description}</p>
+      </motion.div>
     </motion.div>
   );
 };

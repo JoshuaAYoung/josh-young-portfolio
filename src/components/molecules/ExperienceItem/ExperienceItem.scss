@@ -1,0 +1,87 @@
+:root {
+  --circle-top-spacing: 12px;
+  --circle-container-diameter: 30px; // not the actual size of the circle, we need some room for the pulse
+  --circle-container-radius: calc(var(--circle-container-diameter) / 2);
+  --line-gap: 2px;
+  --line-top-offset: calc(
+    var(--circle-top-spacing) + var(--circle-container-diameter) +
+      var(--line-gap)
+  );
+}
+
+.experience-item-container {
+  display: flex;
+  flex-direction: row;
+
+  .experience-item-circle-container {
+    padding-top: var(--circle-top-spacing);
+    position: relative;
+
+    .experience-item-base-circle {
+      stroke: none;
+      fill: var(--secondary-color);
+    }
+
+    .experience-item-hover-circle {
+      stroke: none;
+      fill: var(--background-light);
+    }
+
+    .experience-item-pulse-circle {
+      stroke: none;
+      fill: var(--primary-color);
+    }
+
+    .experience-item-line {
+      position: absolute;
+      top: var(--line-top-offset);
+      left: 14px;
+      width: 2px;
+      height: calc(
+        100% - var(--line-top-offset) + var(--circle-top-spacing) - var(
+            --line-gap
+          )
+      );
+      stroke: var(--secondary-color);
+      stroke-width: 2px;
+    }
+  }
+
+  .experience-item-paragraph {
+    background-color: var(--background-medium);
+    margin: 0 0 2rem 2rem;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.4rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    color: var(--primary-color);
+    position: relative;
+
+    .experience-item-triangle {
+      position: absolute;
+      left: -1.2rem;
+      top: 1.5rem;
+      fill: var(--background-medium);
+    }
+
+    .experience-item-company-details {
+      margin-bottom: 1rem;
+    }
+
+    .experience-item-year-range {
+      margin-bottom: 1rem;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--secondary-color);
+    }
+
+    .experience-item-title {
+      margin-bottom: 1rem;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+  }
+}

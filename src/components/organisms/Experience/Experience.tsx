@@ -2,10 +2,11 @@ import { forwardRef, useState } from 'react';
 import './Experience.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import ExperienceItem from '../../molecules/ExperienceItem/ExperienceItem';
 import experiences from '../../../data/experiences.json';
 import { type Experience } from '../../../types/experience.types';
+
+const REVEAL_DURATION = 0.3;
 
 const Experience = forwardRef<HTMLElement>((props, ref) => {
   // STATE
@@ -36,9 +37,16 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
       ref={ref}
       title="Experience"
     >
-      {experiences.map((experience, index) => (
-        <ExperienceItem key={index} experience={experience as Experience} />
-      ))}
+      {isInViewReveal &&
+        experiences.map((experience, index) => (
+          <ExperienceItem
+            key={index}
+            experience={experience as Experience}
+            hasLine={index !== experiences.length - 1}
+            index={index}
+            revealDuration={REVEAL_DURATION}
+          />
+        ))}
     </InViewSection>
   );
 });

@@ -1,42 +1,50 @@
 [
   {
-    "dateStart": "Oct 2021",
-    "yearEnd": "Software Engineer",
-    "company": "Tech Company",
+    "yearRange": "2021 - Present",
     "title": "Senior Full-Stack Engineer",
+    "company": "Slalom",
     "location": "Denver, Colorado",
+    "dateRange": "Oct 2021 - Present - 3 yrs 3 mos",
     "description": "Full-stack software engineer building enterprise scale web applications using React, React Native, Node.js, Express, GraphQL and PostgreSQL."
   },
   {
-    "yearStart": "2021",
-    "yearEnd": "Software Engineer",
-    "company": "Tech Company",
+    "yearRange": "2021 - Present",
     "title": "Senior Full-Stack Engineer",
+    "company": "Slalom",
     "location": "Denver, Colorado",
+    "dateRange": "Oct 2021 - Present - 3 yrs 3 mos",
     "description": "Full-stack software engineer building enterprise scale web applications using React, React Native, Node.js, Express, GraphQL and PostgreSQL."
   },
   {
-    "yearStart": "2021",
-    "yearEnd": "Software Engineer",
-    "company": "Tech Company",
+    "yearRange": "2021 - Present",
     "title": "Senior Full-Stack Engineer",
+    "company": "Slalom",
     "location": "Denver, Colorado",
+    "dateRange": "Oct 2021 - Present - 3 yrs 3 mos",
     "description": "Full-stack software engineer building enterprise scale web applications using React, React Native, Node.js, Express, GraphQL and PostgreSQL."
   },
   {
-    "yearStart": "2021",
-    "yearEnd": "Software Engineer",
-    "company": "Tech Company",
+    "yearRange": "2021 - Present",
     "title": "Senior Full-Stack Engineer",
+    "company": "Slalom",
     "location": "Denver, Colorado",
+    "dateRange": "Oct 2021 - Present - 3 yrs 3 mos",
     "description": "Full-stack software engineer building enterprise scale web applications using React, React Native, Node.js, Express, GraphQL and PostgreSQL."
   },
   {
-    "yearStart": "2021",
-    "yearEnd": "Software Engineer",
-    "company": "Tech Company",
+    "yearRange": "2021 - Present",
     "title": "Senior Full-Stack Engineer",
+    "company": "Slalom",
     "location": "Denver, Colorado",
+    "dateRange": "Oct 2021 - Present - 3 yrs 3 mos",
+    "description": "Full-stack software engineer building enterprise scale web applications using React, React Native, Node.js, Express, GraphQL and PostgreSQL."
+  },
+  {
+    "yearRange": "2021 - Present",
+    "title": "Senior Full-Stack Engineer",
+    "company": "Slalom",
+    "location": "Denver, Colorado",
+    "dateRange": "Oct 2021 - Present - 3 yrs 3 mos",
     "description": "Full-stack software engineer building enterprise scale web applications using React, React Native, Node.js, Express, GraphQL and PostgreSQL."
   }
 ]

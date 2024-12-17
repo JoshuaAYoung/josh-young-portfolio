@@ -1,8 +1,8 @@
 export interface Experience {
-  dateStart: string;
-  yearEnd: string;
-  company: string;
+  yearRange: string;
   title: string;
+  company: string;
   location: string;
+  dateRange: string;
   description: string;
 }
