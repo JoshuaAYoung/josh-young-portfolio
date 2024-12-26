@@ -5,11 +5,16 @@ import './NavMenu.scss';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 import useJYStore from '../../../store/useJYStore';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 function NavMenu() {
   // HOOK(S)
   const navRef = useRef<HTMLUListElement>(null);
   const { scrollToSection } = useScrollToSection();
+  const aboveXLarge = useMediaQuery(
+    `(min-width: ${breakpoints['min-xLarge']})`,
+  );
 
   // STATE
   const activeSection = useJYStore((state) => state.activeSection);
@@ -38,17 +43,22 @@ function NavMenu() {
   }, [activeSection]);
 
   // FUNCTION(S)
-  const handleNavClick = (index: number) => {
+  const handleNavClick = (section: string) => {
+    const index = PAGE_SECTIONS.indexOf(section);
     const targetElement = Object.values(sectionRefs)[index];
     if (targetElement) {
       scrollToSection(targetElement, index);
     }
   };
 
+  const pageSectionsLocal = aboveXLarge
+    ? PAGE_SECTIONS.filter((section) => section !== 'Experience')
+    : PAGE_SECTIONS;
+
   return (
     <div className="nav-menu-container">
       <ul className="nav-menu-list" ref={navRef}>
-        {PAGE_SECTIONS.map((section, index) => (
+        {pageSectionsLocal.map((section, index) => (
           <li
             key={`nav-${index}`}
             className={`nav-menu-list-item ${
@@ -58,7 +68,7 @@ function NavMenu() {
             <button
               type="button"
               onClick={() => {
-                handleNavClick(index);
+                handleNavClick(section);
               }}
               tabIndex={0}
             >
