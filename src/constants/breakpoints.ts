@@ -1,6 +1,7 @@
 const breakpointNumbers = {
-  xxlarge: 1920,
-  xlarge: 1600,
+  xxxLarge: 1920,
+  xxLarge: 1600,
+  xLarge: 1300,
   large: 1020,
   medium: 768,
   small: 600,
@@ -13,8 +14,9 @@ type BreakpointsType = {
 };
 
 /**
- * xxlarge: 1920
- * xlarge: 1600
+ * xxxLarge: 1920
+ * xxLarge: 1600
+ * xLarge: 1300
  * large: 1020
  * medium: 768
  * small: 600

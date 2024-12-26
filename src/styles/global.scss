@@ -5,8 +5,8 @@
   --background-medium: #2e2e35;
   --background-dark: #25252c;
   --transition-duration: 0.4s ease-in-out;
-  --xlarge-content-margin: 8%;
-  --xxlarge-content-margin: 12%;
+  --xxLarge-content-margin: 8%;
+  --xxxLarge-content-margin: 12%;
 }
 
 html[data-theme='light'] {
@@ -26,12 +26,12 @@ html[data-theme='light'] {
 }
 
 #content {
-  @media screen and (min-width: $min-xlarge) {
-    margin: 0 var(--xlarge-content-margin);
+  @media screen and (min-width: $min-xxLarge) {
+    margin: 0 var(--xxLarge-content-margin);
   }
 
-  @media screen and (min-width: $min-xxlarge) {
-    margin: 0 var(--xxlarge-content-margin);
+  @media screen and (min-width: $min-xxxLarge) {
+    margin: 0 var(--xxxLarge-content-margin);
   }
 }
 

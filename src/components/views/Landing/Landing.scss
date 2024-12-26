@@ -1,3 +1,24 @@
 .landing-container {
   background-color: var(--background-light);
+  @media (min-width: $min-xLarge) {
+    .landing-about-experience {
+      display: flex;
+      flex-direction: row;
+
+      // about and experience section children
+      > * {
+        flex: 1 1 0px;
+      }
+
+      // about
+      > :first-child {
+        padding-right: 4rem;
+      }
+
+      // experience
+      > :last-child {
+        padding-left: 4rem;
+      }
+    }
+  }
 }

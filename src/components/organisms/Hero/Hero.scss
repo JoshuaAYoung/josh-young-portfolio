@@ -33,7 +33,7 @@
     animation: animatedBackground 3s ease-in-out;
     z-index: 0;
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: $min-xLarge) {
       background-size: contain;
     }
   }

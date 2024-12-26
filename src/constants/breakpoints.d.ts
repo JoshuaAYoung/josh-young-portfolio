@@ -1,6 +1,7 @@
 declare const breakpointNumbers: {
-  xxLarge: number;
-  xlarge: number;
+  xxxLarge: number;
+  xxlarge: number;
+  xLarge: number;
   large: number;
   medium: number;
   small: number;
@@ -11,11 +12,11 @@ type BreakpointsType = {
   | `max-${keyof typeof breakpointNumbers}`]: string;
 };
 /**
- * xxlarge: 1920
- * xlarge: 1600
+ * xxxLarge: 1920
+ * xxLarge: 1600
+ * xLarge: 1300
  * large: 1020
  * medium: 768
  * small: 600
  */
 export declare const breakpoints: BreakpointsType;
-export { };

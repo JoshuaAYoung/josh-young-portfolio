@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { motion, useAnimation } from 'framer-motion';
 import './ExperienceItem.scss';
@@ -10,6 +10,7 @@ interface ExperienceItemProps {
   hasLine: boolean;
   index: number;
   revealDuration: number;
+  onHeightCalculated: (height: number) => void;
 }
 
 const ExperienceItem = ({
@@ -17,9 +18,11 @@ const ExperienceItem = ({
   hasLine = true,
   index,
   revealDuration,
+  onHeightCalculated,
 }: ExperienceItemProps) => {
   // HOOK(S)
   const controls = useAnimation();
+  const paragraphRef = useRef<HTMLDivElement>(null);
 
   // 0.2 gives a slight pause between the reveal
   const revealDelay = index * (revealDuration + 0.2);
@@ -38,6 +41,10 @@ const ExperienceItem = ({
       await controls.start('reveal');
       controls.start('hoverOut');
     };
+
+    if (paragraphRef.current) {
+      onHeightCalculated(paragraphRef.current.scrollHeight);
+    }
     startAnimation();
   }, [controls]);
 
@@ -98,6 +105,7 @@ const ExperienceItem = ({
         initial="initial"
         animate={controls}
         whileHover="hoverIn"
+        ref={paragraphRef}
       >
         <p className="experience-item-year-range">
           {experience.yearRange.toUpperCase()}
@@ -116,7 +124,6 @@ const ExperienceItem = ({
         height="28"
         viewBox="0 0 14 28"
         variants={triangleVariants}
-        // animate={controls}
       >
         <polygon points="14,0 14,28 0,14" />
       </motion.svg>

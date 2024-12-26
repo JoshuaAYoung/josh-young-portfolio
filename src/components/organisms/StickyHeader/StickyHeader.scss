@@ -38,12 +38,12 @@
     }
   }
 
-  @media screen and (min-width: $min-xlarge) {
-    margin: 0 var(--xlarge-content-margin);
+  @media screen and (min-width: $min-xxLarge) {
+    margin: 0 var(--xxLarge-content-margin);
   }
 
-  @media screen and (min-width: $min-xxlarge) {
-    margin: 0 var(--xxlarge-content-margin);
+  @media screen and (min-width: $min-xxxLarge) {
+    margin: 0 var(--xxxLarge-content-margin);
   }
 
   @media screen and (max-width: $max-large) {

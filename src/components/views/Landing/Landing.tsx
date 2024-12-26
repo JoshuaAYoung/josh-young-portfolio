@@ -18,8 +18,10 @@ function Landing() {
       {/* {loading && <Loader fadeOffLoader={fadeOffLoader} />} */}
       <div className="landing-container">
         <Hero ref={sectionRefs.Home} />
-        <About ref={sectionRefs.About} />
-        <Experience ref={sectionRefs.Experience} />
+        <div className="landing-about-experience">
+          <About ref={sectionRefs.About} />
+          <Experience ref={sectionRefs.Experience} />
+        </div>
         <Portfolio ref={sectionRefs.Portfolio} />
         <Skills ref={sectionRefs.Skills} />
         <Contact ref={sectionRefs.Contact} />

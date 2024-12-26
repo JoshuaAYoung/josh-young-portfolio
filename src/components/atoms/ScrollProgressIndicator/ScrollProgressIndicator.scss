@@ -80,12 +80,12 @@ $fixed-right: 30px;
     }
   }
 
-  @media screen and (min-width: $min-xlarge) {
-    right: calc($fixed-right + var(--xlarge-content-margin));
+  @media screen and (min-width: $min-xxLarge) {
+    right: calc($fixed-right + var(--xxLarge-content-margin));
   }
 
-  @media screen and (min-width: $min-xxlarge) {
-    right: calc($fixed-right + var(--xxlarge-content-margin));
+  @media screen and (min-width: $min-xxxLarge) {
+    right: calc($fixed-right + var(--xxxLarge-content-margin));
   }
 
   @media screen and (max-width: $max-small) {

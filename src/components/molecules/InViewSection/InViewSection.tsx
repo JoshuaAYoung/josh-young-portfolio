@@ -23,6 +23,8 @@ interface InViewSectionProps {
   amountOnScreen?: number;
   containerClassName?: string;
   title?: string;
+  containerStyle?: React.CSSProperties;
+  titleRef?: React.RefObject<HTMLDivElement>;
 }
 
 const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
@@ -35,6 +37,8 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
       amountOnScreen = 0.1,
       containerClassName,
       title,
+      containerStyle,
+      titleRef,
     },
     scrollRef,
   ) => {
@@ -70,18 +74,21 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
         ref={scrollRef}
         data-section={sectionName}
         className={`page-section ${sectionName.toLowerCase()} ${containerClassName}`}
+        style={containerStyle}
       >
         <div ref={inViewRef as React.RefObject<HTMLDivElement>}>
           {title && (
-            <RevealWrapper
-              isInView={isPartiallyOnScreen}
-              containerClassName="section-reveal-wrapper"
-            >
-              <h2 className="section-title">
-                {title}
-                <span className="big-period">.</span>
-              </h2>
-            </RevealWrapper>
+            <div ref={titleRef}>
+              <RevealWrapper
+                isInView={isPartiallyOnScreen}
+                containerClassName="section-reveal-wrapper"
+              >
+                <h2 className="section-title">
+                  {title}
+                  <span className="big-period">.</span>
+                </h2>
+              </RevealWrapper>
+            </div>
           )}
           {children}
         </div>
