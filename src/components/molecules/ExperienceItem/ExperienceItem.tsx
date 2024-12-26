@@ -21,12 +21,15 @@ const ExperienceItem = ({
   // HOOK(S)
   const controls = useAnimation();
 
+  // 0.2 gives a slight pause between the reveal
   const revealDelay = index * (revealDuration + 0.2);
   const {
     pulseCircleVariants,
     lineVariants,
     paragraphVariants,
     triangleVariants,
+    circleContainerVariants,
+    hoverCircleVariants,
   } = useGetTransitions({ revealDuration, revealDelay });
 
   // EFFECT(S)
@@ -35,7 +38,6 @@ const ExperienceItem = ({
       await controls.start('reveal');
       controls.start('hoverOut');
     };
-
     startAnimation();
   }, [controls]);
 
@@ -52,10 +54,11 @@ const ExperienceItem = ({
       whileHover="hoverIn"
     >
       <div className="experience-item-circle-container">
-        <svg
+        <motion.svg
           viewBox={`0 0 ${circleContainerDiameter} ${circleContainerDiameter}`}
           width={circleContainerDiameter}
           height={circleContainerDiameter}
+          variants={circleContainerVariants}
         >
           <motion.circle
             cx={circleContainerRadius}
@@ -70,13 +73,14 @@ const ExperienceItem = ({
             r="10"
             className="experience-item-base-circle"
           />
-          <circle
+          <motion.circle
             cx={circleContainerRadius}
             cy={circleContainerRadius}
-            r="7"
+            r="6"
             className="experience-item-hover-circle"
+            variants={hoverCircleVariants}
           />
-        </svg>
+        </motion.svg>
         {hasLine && (
           <motion.svg
             className="experience-item-line"
@@ -95,15 +99,6 @@ const ExperienceItem = ({
         animate={controls}
         whileHover="hoverIn"
       >
-        <motion.svg
-          className="experience-item-triangle"
-          width="13"
-          height="26"
-          viewBox="0 0 13 26"
-          variants={triangleVariants}
-        >
-          <polygon points="13,0 13,26 0,13" />
-        </motion.svg>
         <p className="experience-item-year-range">
           {experience.yearRange.toUpperCase()}
         </p>
@@ -115,6 +110,16 @@ const ExperienceItem = ({
         </p>
         <p className="experience-item-description">{experience.description}</p>
       </motion.div>
+      <motion.svg
+        className="experience-item-triangle"
+        width="14"
+        height="28"
+        viewBox="0 0 14 28"
+        variants={triangleVariants}
+        // animate={controls}
+      >
+        <polygon points="14,0 14,28 0,14" />
+      </motion.svg>
     </motion.div>
   );
 };

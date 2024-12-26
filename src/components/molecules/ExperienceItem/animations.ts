@@ -25,28 +25,70 @@ export const useGetTransitions = ({
     },
   };
 
-  const paragraphVariants: Variants = {
-    initial: { scaleX: 1, opacity: 0, transformOrigin: 'left' },
+  const circleContainerVariants: Variants = {
+    initial: {
+      scale: 1,
+      opacity: 0,
+    },
     reveal: {
-      scaleX: 1,
       opacity: 1,
-      backgroundColor: 'var(--background-medium)',
       transition: {
         duration: revealDuration,
         ease: 'easeOut',
         delay: revealDelay,
       },
     },
+    hoverIn: {
+      scale: 1.2,
+      transition: {
+        duration: hoverDuration,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const hoverCircleVariants: Variants = {
+    initial: {
+      opacity: 0,
+    },
+    hoverIn: {
+      opacity: 1,
+      transition: {
+        duration: hoverDuration,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const paragraphVariants: Variants = {
+    initial: { height: 0, scale: 1, opacity: 0, transformOrigin: 'left' },
+    reveal: {
+      scale: 1,
+      height: 'auto',
+      opacity: 1,
+      backgroundColor: 'var(--background-medium)',
+      transition: {
+        type: 'spring',
+        stiffness: 150,
+        damping: 17,
+        mass: 1.8,
+        delay: revealDelay,
+      },
+    },
     hoverOut: {
-      scaleX: 1,
+      scale: 1,
       backgroundColor: 'var(--background-medium)',
       transition: { duration: hoverDuration, ease: 'easeInOut' },
     },
     hoverIn: {
-      scaleX: 1.05,
+      scale: 1.05,
       backgroundColor: 'var(--background-dark)',
       transformOrigin: 'left',
-      transition: { duration: hoverDuration, ease: 'easeInOut' },
+      transition: {
+        type: 'spring',
+        stiffness: 250,
+        damping: 15,
+      },
     },
   };
 
@@ -64,10 +106,19 @@ export const useGetTransitions = ({
 
   const triangleVariants = {
     initial: {
+      fill: 'var(--background-medium)',
+      opacity: 0,
+    },
+    reveal: {
       opacity: 1,
+      transition: {
+        duration: revealDuration,
+        ease: 'easeOut',
+        delay: revealDelay,
+      },
     },
     hoverIn: {
-      opacity: 0,
+      fill: 'var(--background-dark)',
       transition: {
         duration: hoverDuration,
         ease: 'easeInOut',
@@ -80,5 +131,7 @@ export const useGetTransitions = ({
     paragraphVariants,
     lineVariants,
     triangleVariants,
+    circleContainerVariants,
+    hoverCircleVariants,
   };
 };

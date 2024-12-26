@@ -12,6 +12,7 @@
 .experience-item-container {
   display: flex;
   flex-direction: row;
+  position: relative;
 
   .experience-item-circle-container {
     padding-top: var(--circle-top-spacing);
@@ -51,26 +52,20 @@
     background-color: var(--background-medium);
     margin: 0 0 2rem 2rem;
     width: 100%;
-    padding: 1rem;
     font-size: 1.4rem;
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     color: var(--primary-color);
     position: relative;
-
-    .experience-item-triangle {
-      position: absolute;
-      left: -1.2rem;
-      top: 1.5rem;
-      fill: var(--background-medium);
-    }
+    overflow-y: hidden;
+    overflow-x: visible;
 
     .experience-item-company-details {
       margin-bottom: 1rem;
     }
 
     .experience-item-year-range {
-      margin-bottom: 1rem;
+      margin: 1rem 0 1rem;
       font-family: 'Open Sans', sans-serif;
       font-weight: 800;
       font-size: 1.8rem;
@@ -83,5 +78,26 @@
       font-weight: 600;
       font-size: 1.8rem;
     }
+
+    .experience-item-description {
+      margin-bottom: 1rem;
+    }
+
+    .experience-item-year-range,
+    .experience-item-title,
+    .experience-item-company-details,
+    .experience-item-description {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+
+  .experience-item-triangle {
+    position: absolute;
+    // 2rem from experience-item-paragraph left padding
+    // 13px from width of the triangle - 1px (so it doesn't butt exactly)
+    left: calc(var(--circle-container-diameter) + 2rem - 13px);
+    top: 1.5rem;
+    fill: var(--background-medium);
   }
 }
