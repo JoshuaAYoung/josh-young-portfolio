@@ -5,6 +5,8 @@ import useJYStore from '../../../store/useJYStore';
 import ExperienceItem from '../../molecules/ExperienceItem/ExperienceItem';
 import experiences from '../../../data/experiences.json';
 import { type Experience } from '../../../types/experience.types';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const REVEAL_DURATION = 0.3;
 // these all need to be coordinated with the respective elements
@@ -21,10 +23,9 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [heights, setHeights] = useState<{ [key: number]: number }>({});
   const titleRef = useRef<HTMLDivElement>(null);
-
-  if (isInViewReveal) {
-    console.log('Experience is revealed!');
-  }
+  const aboveXLarge = useMediaQuery(
+    `(min-width: ${breakpoints['min-xLarge']})`,
+  );
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -60,7 +61,8 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
     <InViewSection
       sectionName="Experience"
       onSectionInViewActiveCallback={(isInView) =>
-        onSectionInViewActive('Experience', isInView)
+        // when experience and about are side by side, skips setting experience active in nav menus
+        !aboveXLarge ? onSectionInViewActive('Experience', isInView) : null
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}

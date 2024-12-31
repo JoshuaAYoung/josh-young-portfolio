@@ -1,10 +1,21 @@
-// TODO if we don't end up using more than just opacity, may as well not do keyframes here
-@keyframes animatedBackground {
-  from {
-    opacity: 0;
+$background-height: 60vh;
+
+@keyframes revealBackground {
+  0% {
+    opacity: 0%;
   }
-  to {
-    opacity: 1;
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes moveSidewaysBackground {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    // coord with size of background image
+    background-position-x: calc($background-height * (3941 / 800));
   }
 }
 
@@ -27,15 +38,13 @@
     width: 100%;
     height: 100%;
     background-image: var(--hero-background);
-    background-size: auto 50vh;
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    animation: animatedBackground 3s ease-in-out;
+    background-size: auto $background-height;
+    background-repeat: repeat-x;
+    background-position: bottom 5px right;
+    animation:
+      revealBackground 4s ease-in-out,
+      moveSidewaysBackground 200s linear infinite;
     z-index: 0;
-
-    @media screen and (min-width: $min-xLarge) {
-      background-size: contain;
-    }
   }
 
   .hero-text-container {

@@ -34,7 +34,12 @@ export const useScrollToSection = () => {
     if (!ref.current) return;
 
     const { offsetTop } = ref.current;
-    const targetPosition = offsetTop + (offset || stickyHeaderVariable);
+
+    // for home, disregard offset and scroll to 0 (top)
+    const targetPosition =
+      activeSectionIndex !== 0
+        ? offsetTop + (offset || stickyHeaderVariable)
+        : 0;
     const currentScrollY = window.scrollY;
 
     if (currentAnimation) {

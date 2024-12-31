@@ -75,11 +75,6 @@ export const useGetTransitions = ({
         delay: revealDelay,
       },
     },
-    hoverOut: {
-      scale: 1,
-      backgroundColor: 'var(--background-medium)',
-      transition: { duration: hoverDuration, ease: 'easeInOut' },
-    },
     hoverIn: {
       scale: 1.05,
       backgroundColor: 'var(--background-dark)',

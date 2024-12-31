@@ -7,22 +7,31 @@ import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
+import { useScrollToSection } from '../../../utils/useScrollToSection';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
+  // HOOK(S)
+  const { scrollToSection } = useScrollToSection();
+
   // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
-
-  if (isInViewReveal) {
-    console.log('Hero is revealed!');
-  }
+  const sectionRefs = useJYStore((state) => state.sectionRefs);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
       setIsInViewReveal(true);
+    }
+  };
+
+  const handleScrollToPortfolio = () => {
+    const contactRef = sectionRefs.Contact;
+    const contactIndex = Object.keys(sectionRefs).indexOf('Contact');
+    if (contactIndex !== -1) {
+      scrollToSection(contactRef, contactIndex);
     }
   };
 
@@ -75,7 +84,9 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
             </RevealWrapper>
           </motion.div>
           <RevealWrapper isInView={isInViewReveal} extraMargin>
-            <SwipeButton>CONTACT</SwipeButton>
+            <SwipeButton large onClick={handleScrollToPortfolio}>
+              CONTACT
+            </SwipeButton>
           </RevealWrapper>
         </motion.div>
         <div className="hero-portrait-container">

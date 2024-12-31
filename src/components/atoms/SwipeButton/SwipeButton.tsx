@@ -6,6 +6,7 @@ interface SwipeButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   containerClassName?: string;
+  large?: boolean;
 }
 
 const SwipeButton: React.FC<SwipeButtonProps> = ({
@@ -13,10 +14,11 @@ const SwipeButton: React.FC<SwipeButtonProps> = ({
   children,
   onClick,
   containerClassName,
+  large,
 }) => {
   const compiledClassName = `swipe-button ${variant ? `${variant}` : ''} ${
     containerClassName || ''
-  }`;
+  } ${large ? 'large' : ''}`;
   return (
     <button onClick={onClick} type="button" className={compiledClassName}>
       {children}

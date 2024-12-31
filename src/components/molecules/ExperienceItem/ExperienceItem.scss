@@ -60,8 +60,13 @@
     overflow-y: hidden;
     overflow-x: visible;
 
-    .experience-item-company-details {
+    .experience-item-position-details {
       margin-bottom: 1rem;
+
+      .experience-item-company {
+        color: var(--secondary-color);
+        font-weight: 700;
+      }
     }
 
     .experience-item-year-range {
@@ -85,7 +90,7 @@
 
     .experience-item-year-range,
     .experience-item-title,
-    .experience-item-company-details,
+    .experience-item-position-details,
     .experience-item-description {
       margin-left: 1rem;
       margin-right: 1rem;

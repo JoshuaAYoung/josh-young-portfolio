@@ -37,21 +37,46 @@ const ExperienceItem = ({
 
   // EFFECT(S)
   useEffect(() => {
-    const startAnimation = async () => {
-      await controls.start('reveal');
-      controls.start('hoverOut');
-    };
-
     if (paragraphRef.current) {
       onHeightCalculated(paragraphRef.current.scrollHeight);
     }
-    startAnimation();
+    controls.start('reveal');
   }, [controls]);
 
   // COMPUTED VAR(S)
   // coordinate these with css variables
   const circleContainerDiameter = 30;
   const circleContainerRadius = circleContainerDiameter / 2;
+
+  const computeDuration = (start: string, end: string): string => {
+    const startDate = new Date(start);
+    const endDate = end === 'Present' ? new Date() : new Date(end);
+    const diffYears = endDate.getFullYear() - startDate.getFullYear();
+    const diffMonths = endDate.getMonth() - startDate.getMonth() + 1; // Include the end month
+
+    let years = diffYears;
+    let months = diffMonths;
+
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    if (months >= 12) {
+      years += Math.floor(months / 12);
+      months %= 12;
+    }
+
+    const yearStr = years > 0 ? `${years} yr${years > 1 ? 's' : ''}` : '';
+    const monthStr = months > 0 ? `${months} mo${months > 1 ? 's' : ''}` : '';
+
+    return [yearStr, monthStr].filter(Boolean).join(' ');
+  };
+
+  const computedDuration = computeDuration(
+    experience.dateStart,
+    experience.dateEnd,
+  );
 
   return (
     <motion.div
@@ -102,19 +127,17 @@ const ExperienceItem = ({
       <motion.div
         className="experience-item-paragraph"
         variants={paragraphVariants}
-        initial="initial"
-        animate={controls}
-        whileHover="hoverIn"
         ref={paragraphRef}
       >
         <p className="experience-item-year-range">
           {experience.yearRange.toUpperCase()}
         </p>
         <p className="experience-item-title">{experience.title}</p>
-        <p className="experience-item-company-details">
-          {`${experience.company.toUpperCase()} | ${experience.location} | ${
-            experience.dateRange
-          }`}
+        <p className="experience-item-position-details">
+          <span className="experience-item-company">
+            {experience.company.toUpperCase()}
+          </span>
+          {` | ${experience.location} | ${experience.dateStart} - ${experience.dateEnd} (${computedDuration})`}
         </p>
         <p className="experience-item-description">{experience.description}</p>
       </motion.div>
