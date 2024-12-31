@@ -141,7 +141,7 @@ export const useGetAnimations = () => {
         duration: 0,
       },
     },
-    end: { y: 0, opacity: 1 },
+    end: { y: 0, opacity: 0 },
   };
 
   const firstNameVariants: Variants = {

@@ -49,7 +49,9 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
       await controls.start('imIn');
       await controls.start('jyIn');
       await controls.start('lastNameIn');
-      // await controls.start('end');
+      setTimeout(() => {
+        controls.start('end');
+      }, 3000);
       setShowSwipeAnimations(true); // Show the "delete-me" div after the initial animations
     };
 
@@ -118,8 +120,8 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
             className="hero-text-divider"
             variants={dividerVariants}
           />
-          {showSwipeAnimations && false && (
-            <div className="delete-me">
+          {showSwipeAnimations && (
+            <div className="hero-swipe-container">
               <div className="hero-text-headline">
                 <RevealWrapper isInView={isInViewReveal}>
                   A full-stack developer with design sense.
