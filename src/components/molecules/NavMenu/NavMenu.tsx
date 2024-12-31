@@ -87,8 +87,6 @@ function NavMenu() {
             type: 'spring',
             stiffness: 200,
             damping: 15,
-            duration: 0.5,
-            bounce: 0.3,
           }}
         />
       </ul>

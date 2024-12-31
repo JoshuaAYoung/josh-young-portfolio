@@ -58,26 +58,16 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
           <motion.span className="hero-text-josh-young">
             Josh Young<span className="big-period">.</span>
           </motion.span>
-          <motion.svg // TODO this seems like major overkill, maybe we do this with css?
-            width="105"
-            height="2"
-            viewBox="0 0 105 2"
-            xmlns="http://www.w3.org/2000/svg"
+          <motion.div
             className="hero-text-divider"
-          >
-            <motion.path
-              d="M0 0 L105 0"
-              stroke="#e4a53e"
-              strokeWidth="3"
-              fill="transparent"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{
-                duration: 2,
-                ease: 'easeInOut',
-              }}
-            />
-          </motion.svg>
+            initial={{ width: 0 }}
+            animate={{ width: '105px' }}
+            transition={{
+              type: 'spring',
+              stiffness: 200,
+              damping: 15,
+            }}
+          />
           <motion.div className="hero-text-headline">
             <RevealWrapper isInView={isInViewReveal}>
               A full-stack developer with design sense.

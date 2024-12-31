@@ -7,7 +7,11 @@ import { useScrollToSection } from '../../../utils/useScrollToSection';
 import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
 import { breakpoints } from '../../../constants/breakpoints';
 import useJYStore from '../../../store/useJYStore';
-import { listVariants, menuItemVariants, menuVariants } from './animations';
+import {
+  listVariants,
+  menuItemVariants,
+  menuVariants,
+} from './hamburgerAnimations';
 
 function HamburgerMenu() {
   // HOOK(S)

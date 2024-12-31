@@ -1,13 +1,27 @@
 import { Variants } from 'framer-motion';
 
-export const useGetTransitions = ({
-  revealDuration,
-  revealDelay,
-}: {
-  revealDuration: number;
-  revealDelay: number;
-}) => {
+export const useGetAnimations = () => {
   const hoverDuration = 0.2;
+
+  const helloVariants: Variants = {
+    initial: {},
+  };
+
+  const imVariants: Variants = {
+    initial: {},
+  };
+
+  const helloVariants: Variants = {
+    initial: {},
+  };
+
+  const helloVariants: Variants = {
+    initial: {},
+  };
+
+  const helloVariants: Variants = {
+    initial: {},
+  };
 
   const pulseCircleVariants: Variants = {
     initial: {
@@ -122,11 +136,7 @@ export const useGetTransitions = ({
   };
 
   return {
-    pulseCircleVariants,
-    paragraphVariants,
-    lineVariants,
-    triangleVariants,
-    circleContainerVariants,
-    hoverCircleVariants,
+    helloVariants,
+    imVariants,
   };
 };

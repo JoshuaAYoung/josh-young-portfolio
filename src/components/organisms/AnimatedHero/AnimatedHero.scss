@@ -14,7 +14,7 @@ $background-height: 60vh;
     background-position-x: 0%;
   }
   100% {
-    // coord with size of background image
+    // coord with width and height of background image
     background-position-x: calc($background-height * (3941 / 800));
   }
 }
@@ -48,33 +48,62 @@ $background-height: 60vh;
   }
 
   .hero-text-container {
-    max-width: 280px;
     z-index: 1;
-    margin-bottom: 6rem;
+    width: 320px;
+    height: 450px;
+    position: relative;
+    font-size: 6.6rem;
 
     .hero-text-hello {
       font-size: 3rem;
       font-weight: 700;
       color: var(--secondary-color);
-      line-height: 5rem;
+      position: absolute;
     }
 
     .hero-text-im,
-    .hero-text-josh-young {
+    .hero-text-jy,
+    .hero-text-josh,
+    .hero-text-young,
+    .hero-text-period {
       font-size: 6.6rem;
       font-weight: 800;
       line-height: 7rem;
+      position: absolute;
     }
 
     .hero-text-im {
       color: var(--secondary-color);
+      top: 50px;
+    }
+
+    .hero-text-jy {
+      top: 130px;
+      transform-origin: bottom left;
+      padding-left: 0.5rem;
+    }
+
+    .hero-text-josh {
+      top: 50px;
+      left: 125px;
+    }
+
+    .hero-text-young {
+      top: 130px;
+      transform-origin: bottom left;
+    }
+
+    .hero-text-period {
+      top: 120px;
+      left: 215px;
     }
 
     .hero-text-divider {
-      margin: 2rem 0;
-      width: 105px;
+      left: 0;
+      top: 220px;
       height: 2px;
       background-color: var(--secondary-color);
+      position: absolute;
     }
 
     .hero-text-headline {
@@ -83,6 +112,7 @@ $background-height: 60vh;
       font-weight: 700;
       max-width: 240px;
       margin-bottom: 4rem;
+      position: absolute;
 
       @media screen and (max-width: $max-large) {
         margin-bottom: 3rem;

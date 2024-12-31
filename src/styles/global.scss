@@ -36,7 +36,7 @@ html[data-theme='light'] {
 }
 
 .big-period {
-  font-size: 1.25em;
-  color: var(--secondary-color);
-  line-height: 1em;
+  font-size: 1.25em !important;
+  color: var(--secondary-color) !important;
+  line-height: 1em !important;
 }

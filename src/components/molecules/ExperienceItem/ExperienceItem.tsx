@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import './ExperienceItem.scss';
 import { Experience } from '../../../types/experience.types';
-import { useGetTransitions } from './animations';
+import { useGetAnimations } from './experienceItemAnimations';
 
 interface ExperienceItemProps {
   experience: Experience;
@@ -33,7 +33,7 @@ const ExperienceItem = ({
     triangleVariants,
     circleContainerVariants,
     hoverCircleVariants,
-  } = useGetTransitions({ revealDuration, revealDelay });
+  } = useGetAnimations({ revealDuration, revealDelay });
 
   // EFFECT(S)
   useEffect(() => {

@@ -1,8 +1,5 @@
 // TODO
-// remove fgcontext if no context needed
 // tracking like GA but easier
-
-// fonts
 import '@fontsource/open-sans/400.css'; // Regular
 import '@fontsource/open-sans/600.css'; // SemiBold
 import '@fontsource/open-sans/700.css'; // Bold
@@ -13,7 +10,6 @@ import '@fontsource/nunito/700.css'; // Bold
 import '@fontsource/nunito/800.css'; // ExtraBold
 import '@fontsource/nunito/900.css'; // Black
 
-// Styles
 import './styles/reset.scss';
 import './styles/global.scss';
 

@@ -11,7 +11,11 @@ import Arrow from '../../../assets/icons/arrow.svg?react';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
 import useJYStore from '../../../store/useJYStore';
 import { PAGE_SECTIONS } from '../../../constants/navigation';
-import { arrowsVariant, arrowVariants, pathLengthVariants } from './animations';
+import {
+  arrowsVariant,
+  arrowVariants,
+  pathLengthVariants,
+} from './scrollProgressIndicatorAnimations';
 
 const ScrollProgressIndicator: React.FC = () => {
   // HOOK(S)
