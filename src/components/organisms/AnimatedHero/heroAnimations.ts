@@ -110,7 +110,7 @@ export const useGetAnimations = () => {
     jyIn: {
       y: [80, 0],
       scaleY: squishHeight,
-      scaleX: 2.9,
+      scaleX: 2.5,
       backgroundColor: 'var(--primary-color)',
       filter: 'blur(1px)',
       transition: {
@@ -142,7 +142,33 @@ export const useGetAnimations = () => {
   };
 
   const firstNameVariants: Variants = {
-    initial: { opacity: 0 },
+    initial: {
+      y: 80,
+      opacity: 0,
+      scaleY: 0.06,
+      scaleX: 0.8,
+    },
+    // josh starts squishes with young and pops up into place with im
+    lastNameIn: {
+      y: [80, -30, 0],
+      opacity: 1,
+      scaleY: 1,
+      scaleX: 1,
+      transition: {
+        y: {
+          type: 'tween',
+          ease: gravityUpDownCurve,
+          duration: 0.8,
+          delay: 0.06,
+        },
+        opacity: {
+          duration: 0.1,
+          delay: 0.05,
+        },
+        scaleY: { duration: 0.35, type: 'tween', ease: 'easeIn' },
+        scaleX: { duration: 0.35, type: 'tween', ease: 'easeIn' },
+      },
+    },
     end: { opacity: 1 },
   };
 
