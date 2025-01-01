@@ -6,26 +6,22 @@ export const useGetAnimations = () => {
   const imInDelay = 0.5;
   const jyInDelay = 0.4;
 
+  const squishDelay = jyInDelay + 0.68;
   const squishTransition = {
     type: 'tween',
     ease: 'easeOut',
     duration: 0.23,
-    delay: jyInDelay + 0.52,
+    delay: squishDelay,
   };
-  const squishHeight = 0.05;
+  const squishHeight = 0.04;
 
   const helloVariants: Variants = {
-    initial: { y: 220, opacity: 0, scale: 0.8 },
+    initial: { y: 220, scale: 0.5 },
     // hello pops up and stops
     helloIn: {
-      opacity: 1,
       y: [220, 160],
       scale: 1,
       transition: {
-        opacity: {
-          duration: 0.1,
-          delay: dividerInDuration + 0.3,
-        },
         y: {
           type: 'tween',
           ease: 'easeIn',
@@ -42,40 +38,36 @@ export const useGetAnimations = () => {
     },
     // hello gets hit by im and pops up high and comes back down with im
     helloUp: {
-      y: [160, -50, 85],
+      y: [160, -40, 90],
       transition: {
         y: {
           type: 'tween',
           ease: gravityUpDownCurve,
           // lower to make sure we're not going to 110 early with start of lastNameIn
           duration: 1.88,
-          delay: imInDelay + 0.04,
+          delay: imInDelay + 0.05,
         },
       },
     },
     // im hits hello on its way up from young growing
     lastNameIn: {
-      y: [85, -40, 0],
+      y: [90, -50, 0],
       transition: {
         type: 'tween',
         ease: gravityUpDownCurve,
         duration: 0.8,
-        delay: 0.1,
+        delay: 0.09,
       },
     },
     end: { y: 0, opacity: 1 },
   };
 
   const imVariants: Variants = {
-    initial: { y: 160, opacity: 0 },
+    initial: { y: 160 },
     // im pops up and hits hello
     imIn: {
-      opacity: 1,
       y: [160, 80],
       transition: {
-        opacity: {
-          delay: imInDelay + 0.1,
-        },
         y: {
           type: 'tween',
           ease: 'easeIn',
@@ -86,41 +78,42 @@ export const useGetAnimations = () => {
     },
     // jy hits im and it pops up and comes back down with hello
     jyIn: {
-      y: [80, -20, 80],
+      y: [80, -40, 88],
       transition: {
         type: 'tween',
         ease: gravityUpDownCurve,
-        duration: 0.8,
+        duration: 1.02,
         delay: jyInDelay + 0.02,
       },
     },
     // as young pops back to full size, flings im up to base position
     lastNameIn: {
-      y: [80, -30, 0],
+      y: [88, -30, 0],
       transition: {
         type: 'tween',
         ease: gravityUpDownCurve,
         duration: 0.8,
-        delay: 0.1,
+        delay: 0.06,
       },
     },
     end: { y: 0, opacity: 1 },
   };
 
   const jyVariants: Variants = {
-    initial: { y: 80, opacity: 0, scaleY: 1 },
+    initial: {
+      y: 80,
+      scaleY: 1,
+      filter: 'blur(0px)',
+      backgroundColor: 'var(--primary-color-transparent)',
+    },
     // jy pops up and hits im and stops, then get squished by im
     jyIn: {
-      opacity: 1,
       y: [80, 0],
       scaleY: squishHeight,
       scaleX: 2.9,
       backgroundColor: 'var(--primary-color)',
+      filter: 'blur(1px)',
       transition: {
-        opacity: {
-          duration: 0.2,
-          delay: jyInDelay,
-        },
         y: {
           type: 'tween',
           ease: 'easeOut',
@@ -130,8 +123,12 @@ export const useGetAnimations = () => {
         scaleY: squishTransition,
         scaleX: squishTransition,
         backgroundColor: {
+          duration: 0.04,
+          delay: squishDelay + 0.18,
+        },
+        filter: {
           duration: 0.05,
-          delay: jyInDelay + 0.68,
+          delay: squishDelay + 0.14,
         },
       },
     },
@@ -154,18 +151,18 @@ export const useGetAnimations = () => {
       opacity: 0,
       scaleY: squishHeight,
       backgroundColor: 'var(--primary-color)',
-      filter: 'blur(2px)',
+      filter: 'blur(3px)',
     },
     // jy squishes and turns to young and it grows to full size
     lastNameIn: {
       opacity: 1,
       scaleY: 1,
-      backgroundColor: 'transparent',
+      backgroundColor: 'var(--primary-color-transparent)',
       filter: 'blur(0px)',
       transition: {
         backgroundColor: {
           duration: 0.04,
-          delay: 0.05,
+          delay: 0.04,
         },
         opacity: {
           duration: 0,

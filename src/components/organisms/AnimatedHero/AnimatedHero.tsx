@@ -95,27 +95,26 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
         initial="initial"
       >
         <div className="hero-text-container">
-          <motion.div className="hero-text-hello" variants={helloVariants}>
-            HELLO!
-          </motion.div>
-          <motion.div className="hero-text-im" variants={imVariants}>
-            I'm
-          </motion.div>
-          <motion.div className="hero-text-jy" variants={jyVariants}>
-            JY
-          </motion.div>
-          <motion.div className="hero-text-josh" variants={firstNameVariants}>
-            Josh
-          </motion.div>
-          <motion.div className="hero-text-young" variants={lastNameVariants}>
-            Young
-          </motion.div>
-          <motion.div
-            className="hero-text-period big-period"
-            variants={periodVariants}
-          >
-            .
-          </motion.div>
+          <div className="hero-clip-path-container">
+            <motion.div className="hero-text-hello" variants={helloVariants}>
+              HELLO!
+            </motion.div>
+            <motion.div className="hero-text-im" variants={imVariants}>
+              I'm
+            </motion.div>
+            <motion.div className="hero-text-jy" variants={jyVariants}>
+              JY<span className="big-period">.</span>
+            </motion.div>
+            <motion.div className="hero-text-josh" variants={firstNameVariants}>
+              Josh
+            </motion.div>
+            <motion.div className="hero-text-young" variants={lastNameVariants}>
+              Young
+              <motion.span className="big-period" variants={periodVariants}>
+                .
+              </motion.span>
+            </motion.div>
+          </div>
           <motion.div
             className="hero-text-divider"
             variants={dividerVariants}

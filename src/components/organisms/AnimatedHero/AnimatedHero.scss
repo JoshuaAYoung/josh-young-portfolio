@@ -52,51 +52,59 @@ $background-height: 60vh;
     width: 320px;
     height: 450px;
     position: relative;
-    font-size: 6.6rem;
 
-    .hero-text-hello {
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--secondary-color);
+    .hero-clip-path-container {
+      clip-path: inset(-50% 0 0 0);
+      height: 220px;
+      width: 100%;
       position: absolute;
-    }
-
-    .hero-text-im,
-    .hero-text-jy,
-    .hero-text-josh,
-    .hero-text-young,
-    .hero-text-period {
       font-size: 6.6rem;
-      font-weight: 800;
-      line-height: 7rem;
-      position: absolute;
-    }
 
-    .hero-text-im {
-      color: var(--secondary-color);
-      top: 50px;
-    }
+      .hero-text-hello {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        position: absolute;
+      }
 
-    .hero-text-jy {
-      top: 130px;
-      transform-origin: bottom left;
-      padding-left: 0.5rem;
-    }
+      .hero-text-im,
+      .hero-text-jy,
+      .hero-text-josh,
+      .hero-text-young,
+      .hero-text-period {
+        font-size: 6.6rem;
+        font-weight: 800;
+        line-height: 7rem;
+        position: absolute;
+      }
 
-    .hero-text-josh {
-      top: 50px;
-      left: 125px;
-    }
+      .hero-text-im {
+        color: var(--secondary-color);
+        top: 50px;
+      }
 
-    .hero-text-young {
-      top: 130px;
-      transform-origin: bottom left;
-      border-radius: 5px;
-    }
+      .hero-text-jy {
+        top: 130px;
+        transform-origin: bottom left;
+        padding-left: 0.5rem;
+        border-radius: 5px;
+      }
 
-    .hero-text-period {
-      top: 120px;
-      left: 215px;
+      .hero-text-josh {
+        top: 50px;
+        left: 125px;
+      }
+
+      .hero-text-young {
+        top: 130px;
+        transform-origin: bottom left;
+        border-radius: 5px;
+      }
+
+      .hero-text-period {
+        top: 120px;
+        left: 215px;
+      }
     }
 
     .hero-text-divider {
@@ -113,13 +121,14 @@ $background-height: 60vh;
       left: 0;
       top: 250px;
       width: 100%;
+      font-size: 1rem;
 
       .hero-text-headline {
         font-family: 'Nunito', sans-serif;
         font-size: 2.2rem;
         font-weight: 700;
         max-width: 240px;
-        // margin-bottom: 2rem;
+        margin-bottom: 4rem;
 
         @media screen and (max-width: $max-large) {
           margin-bottom: 3rem;
