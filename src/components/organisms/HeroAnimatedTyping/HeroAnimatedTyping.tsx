@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
-import './AnimatedHero.scss';
+import './HeroAnimatedTyping.scss';
 import { motion, useAnimation } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
@@ -18,7 +18,6 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
   const {
     helloVariants,
     imVariants,
-    jyVariants,
     firstNameVariants,
     lastNameVariants,
     periodVariants,
@@ -48,11 +47,14 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
       controls.start('helloUp');
       await controls.start('imIn');
       await controls.start('jyIn');
-      await controls.start('lastNameIn');
+      controls.start('lastNameIn');
+      await controls.start('lastNameGrow');
+      await controls.start('lastNameSquish');
+      controls.start('flingPeriod');
       setTimeout(() => {
-        controls.start('end');
-      }, 3000);
-      setShowSwipeAnimations(true); // Show the "delete-me" div after the initial animations
+        controls.start('periodBack');
+        setShowSwipeAnimations(true);
+      }, 2000);
     };
 
     sequence();
@@ -99,21 +101,24 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
             <motion.div className="hero-text-hello" variants={helloVariants}>
               HELLO!
             </motion.div>
-            <motion.div className="hero-text-im" variants={imVariants}>
+            <motion.span className="hero-text-im" variants={imVariants}>
               I'm
-            </motion.div>
-            <motion.div className="hero-text-jy" variants={jyVariants}>
-              JY<span className="big-period">.</span>
-            </motion.div>
-            <motion.div className="hero-text-josh" variants={firstNameVariants}>
+            </motion.span>
+            <motion.span
+              className="hero-text-josh"
+              variants={firstNameVariants}
+            >
               Josh
-            </motion.div>
-            <motion.div className="hero-text-young" variants={lastNameVariants}>
+            </motion.span>
+            <motion.span
+              className="hero-text-young"
+              variants={lastNameVariants}
+            >
               Young
               <motion.span className="big-period" variants={periodVariants}>
                 .
               </motion.span>
-            </motion.div>
+            </motion.span>
           </div>
           <motion.div
             className="hero-text-divider"

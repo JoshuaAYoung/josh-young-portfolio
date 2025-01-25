@@ -14,6 +14,8 @@ export const useGetAnimations = () => {
     delay: squishDelay,
   };
   const squishHeight = 0.04;
+  const flingPeriodDelay = 0.1;
+  const flingPeriodDuration = 0.2;
 
   const helloVariants: Variants = {
     initial: { y: 220, scale: 0.5 },
@@ -51,7 +53,7 @@ export const useGetAnimations = () => {
     },
     // im hits hello on its way up from young growing
     lastNameIn: {
-      y: [90, -50, 0],
+      y: [90, -50, 50],
       transition: {
         type: 'tween',
         ease: gravityUpDownCurve,
@@ -59,7 +61,14 @@ export const useGetAnimations = () => {
         delay: 0.09,
       },
     },
-    end: { y: 0, opacity: 1 },
+    flingPeriod: {
+      y: 0,
+      transition: {
+        ease: 'easeIn',
+        duration: flingPeriodDuration,
+        delay: flingPeriodDelay,
+      },
+    },
   };
 
   const imVariants: Variants = {
@@ -86,9 +95,9 @@ export const useGetAnimations = () => {
         delay: jyInDelay + 0.02,
       },
     },
-    // as young pops back to full size, flings im up to base position
+    // as young pops back to full size, flings im up
     lastNameIn: {
-      y: [88, -30, 0],
+      y: [88, -30, 40],
       transition: {
         type: 'tween',
         ease: gravityUpDownCurve,
@@ -96,7 +105,14 @@ export const useGetAnimations = () => {
         delay: 0.06,
       },
     },
-    end: { y: 0, opacity: 1 },
+    flingPeriod: {
+      y: 0,
+      transition: {
+        ease: 'easeIn',
+        duration: flingPeriodDuration,
+        delay: flingPeriodDelay,
+      },
+    },
   };
 
   const jyVariants: Variants = {
@@ -138,7 +154,6 @@ export const useGetAnimations = () => {
         duration: 0,
       },
     },
-    end: { y: 0, opacity: 0 },
   };
 
   const firstNameVariants: Variants = {
@@ -148,9 +163,9 @@ export const useGetAnimations = () => {
       scaleY: 0.06,
       scaleX: 0.8,
     },
-    // josh starts squishes with young and pops up into place with im
+    // josh starts squished then grows to full size as its flung up with im
     lastNameIn: {
-      y: [80, -30, 0],
+      y: [80, -30, 40],
       opacity: 1,
       scaleY: 1,
       scaleX: 1,
@@ -169,7 +184,14 @@ export const useGetAnimations = () => {
         scaleX: { duration: 0.35, type: 'tween', ease: 'easeIn' },
       },
     },
-    end: { opacity: 1 },
+    flingPeriod: {
+      y: 0,
+      transition: {
+        ease: 'easeIn',
+        duration: flingPeriodDuration,
+        delay: flingPeriodDelay,
+      },
+    },
   };
 
   const lastNameVariants: Variants = {
@@ -180,7 +202,7 @@ export const useGetAnimations = () => {
       filter: 'blur(3px)',
     },
     // jy squishes and turns to young and it grows to full size
-    lastNameIn: {
+    lastNameGrow: {
       opacity: 1,
       scaleY: 1,
       backgroundColor: 'var(--primary-color-transparent)',
@@ -199,12 +221,41 @@ export const useGetAnimations = () => {
         },
       },
     },
-    end: { opacity: 1 },
+    // young squishes down as im and josh come back down
+    lastNameSquish: {
+      scaleY: 0.8,
+      scaleX: 1.2,
+      transition: {
+        scaleY: { duration: 0.1, type: 'tween', ease: 'easeOut', delay: 0.33 },
+        scaleX: { duration: 0.1, type: 'tween', ease: 'easeOut', delay: 0.33 },
+      },
+    },
+    flingPeriod: {
+      scaleY: 1,
+      scaleX: 1,
+      transition: {
+        scaleY: { duration: 0.1, type: 'tween', ease: 'easeIn' },
+        scaleX: { duration: 0.1, type: 'tween', ease: 'easeIn' },
+      },
+    },
   };
 
   const periodVariants: Variants = {
     initial: { opacity: 0 },
-    end: { opacity: 1 },
+    lastNameGrow: { opacity: 1 },
+    flingPeriod: {
+      opacity: 0,
+      transition: {
+        duration: 2,
+        ease: 'easeOut',
+      },
+    },
+    periodBack: {
+      opacity: 1,
+      transition: {
+        duration: 0.2,
+      },
+    },
   };
 
   const dividerVariants: Variants = {
@@ -216,12 +267,16 @@ export const useGetAnimations = () => {
         duration: dividerInDuration,
       },
     },
-    end: { opacity: 1 },
   };
 
   const portraitVariants: Variants = {
     initial: { opacity: 0 },
-    end: { opacity: 1 },
+    flingPeriod: {
+      opacity: 1,
+      transition: {
+        delay: 1.2, // .5 for each circle plus a .2 delay
+      },
+    },
   };
 
   return {

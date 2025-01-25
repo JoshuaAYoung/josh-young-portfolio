@@ -1,4 +1,5 @@
-import Hero from '../../organisms/AnimatedHero/AnimatedHero';
+// import Hero from '../../organisms/PopAnimatedHero/PopAnimatedHero';
+import Hero from '../../organisms/HeroAnimatedTyping/HeroAnimatedTyping';
 // import Hero from '../../organisms/Hero/Hero';
 import Contact from '../../organisms/Contact/Contact';
 import Portfolio from '../../organisms/Portfolio/Portfolio';

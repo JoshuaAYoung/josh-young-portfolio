@@ -1,0 +1,33 @@
+.hero-circle-container {
+  position: absolute;
+  top: 92px;
+  left: 226px;
+  width: 350px;
+  height: 280px;
+
+  .circle {
+    position: absolute;
+    transform: translateX(-50%);
+    color: var(--secondary-color);
+  }
+
+  .circle-28 {
+    left: 13px;
+    top: 80px;
+  }
+
+  .circle-56 {
+    left: 40px;
+    top: 70px;
+  }
+
+  .circle-116 {
+    left: 94px;
+    top: 52px;
+  }
+
+  .circle-260 {
+    left: 218px;
+    top: 12px;
+  }
+}
