@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import './HeroAnimatedTyping.scss';
-import { motion, useAnimation, Variants } from 'framer-motion';
+import { motion, steps, useAnimation, Variants } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -27,12 +27,13 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
 
   // EFFECT(S)
   useEffect(() => {
-    if (mounted.current) return; // Prevent starting animation if already mounted
+    if (mounted.current) return; // Prvariant starting animation if already mounted
     mounted.current = true;
 
     const sequence = async () => {
       controls.start('initial');
       await controls.start('blinkingStart');
+      controls.start('dividerGrow');
       await controls.start('helloType');
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
@@ -40,6 +41,8 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
       await controls.start('imType');
       await controls.start('joshType');
       await controls.start('youngType');
+      await controls.start('headlineType');
+      setShowSwipeAnimations(true);
       controls.start('blinkingInfinite');
     };
 
@@ -62,9 +65,15 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   };
 
   // ANIMATION(S)
-  const containerVarians = {
-    initial: { y: 90 },
+  const containerVariants = {
+    initial: { y: 155 },
     imType: {
+      y: 82,
+      transition: {
+        duration: 0,
+      },
+    },
+    youngType: {
       y: 0,
       transition: {
         duration: 0,
@@ -72,20 +81,20 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     },
   };
 
-  const getLetterVariants = (eventName: string): Variants => {
+  const getLetterVariants = (variantName: string): Variants => {
     return {
       initial: { display: 'none' },
-      [eventName]: {
+      [variantName]: {
         display: 'inline',
         transition: { duration: 0.1 },
       },
     };
   };
 
-  const getTypeStaggerVariants = (eventName: string): Variants => {
+  const getTypeStaggerVariants = (variantName: string): Variants => {
     return {
       initial: { display: 'none' },
-      [eventName]: {
+      [variantName]: {
         display: 'inline-block',
         transition: {
           staggerChildren: 0.1,
@@ -94,10 +103,10 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     };
   };
 
-  const getBreakVariants = (eventName: string): Variants => {
+  const getBreakVariants = (variantName: string): Variants => {
     return {
       initial: { display: 'none' },
-      [eventName]: {
+      [variantName]: {
         display: 'block',
         transition: {
           duration: 0,
@@ -107,14 +116,25 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   };
 
   const cursorVariants: Variants = {
+    initial: {
+      height: '3.6rem',
+      y: 5,
+    },
     blinkingStart: {
       opacity: [0, 0, 1, 1],
       transition: {
         duration: 1,
-        repeat: 1.5,
+        repeat: 1,
         repeatDelay: 0,
         ease: 'linear',
         times: [0, 0.5, 0.5, 1],
+      },
+    },
+    imType: {
+      height: '6.5rem',
+      y: 10,
+      transition: {
+        duration: 0,
       },
     },
     blinkingInfinite: {
@@ -131,11 +151,12 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
 
   const dividerVariants: Variants = {
     initial: { width: 0 },
-    helloType: {
-      width: 105,
+    dividerGrow: {
+      width: [0, 18, 36, 54, 72, 90, 108],
       transition: {
-        ease: 'linear',
-        duration: 0.5,
+        duration: 0.6,
+        ease: steps(1, 'start'),
+        times: [0, 0.16, 0.33, 0.5, 0.66, 0.83, 1],
       },
     },
   };
@@ -162,7 +183,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
         <div className="hero-text-container">
           <motion.div
             className="hero-clip-path-container"
-            variants={containerVarians}
+            variants={containerVariants}
           >
             <motion.div
               className="hero-text-hello"
@@ -227,20 +248,32 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
             className="hero-text-divider"
             variants={dividerVariants}
           />
-          {showSwipeAnimations && (
-            <div className="hero-swipe-container">
-              <div className="hero-text-headline">
-                <RevealWrapper isInView={isInViewReveal}>
-                  A full-stack developer with design sense.
-                </RevealWrapper>
-              </div>
+
+          <div className="hero-swipe-container">
+            <motion.div
+              className="hero-text-headline"
+              variants={getTypeStaggerVariants('headlineType')}
+            >
+              {'A full-stack developer with design sense.'
+                .split('')
+                .map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    variants={getLetterVariants('headlineType')}
+                    className="hero-letter"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+            </motion.div>
+            {showSwipeAnimations && (
               <RevealWrapper isInView={isInViewReveal} extraMargin>
                 <SwipeButton large onClick={handleScrollToPortfolio}>
                   CONTACT
                 </SwipeButton>
               </RevealWrapper>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <motion.div className="hero-portrait-container">
           <img

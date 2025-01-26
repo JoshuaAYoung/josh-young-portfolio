@@ -52,13 +52,14 @@ $background-height: 60vh;
     width: 320px;
     height: 450px;
     position: relative;
-    line-height: 1.25;
+    line-height: 1.2;
 
     .hero-text-hello {
       font-size: 3rem;
       font-weight: 700;
       color: var(--secondary-color);
       display: inline-block;
+      margin-bottom: 0.8rem;
     }
 
     .hero-text-im,
@@ -76,12 +77,10 @@ $background-height: 60vh;
     }
 
     .hero-letter {
-      line-height: 40px;
       display: inline-block;
     }
 
     .hero-text-cursor {
-      height: 7rem;
       width: 2px;
       background-color: var(--primary-color);
       display: inline-block;
