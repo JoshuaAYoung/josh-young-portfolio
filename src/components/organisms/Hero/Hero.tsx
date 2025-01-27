@@ -1,6 +1,5 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import './Hero.scss';
-import { motion } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -8,10 +7,15 @@ import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
+  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const aboveMd = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
+  const aboveSm = useMediaQuery(`(min-width: ${breakpoints['min-small']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -35,6 +39,17 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
+  // COMPUTED VAR(S)
+  const buttonSize = useMemo(() => {
+    if (aboveLg) {
+      return 'large';
+    }
+    if (aboveMd) {
+      return 'medium';
+    }
+    return 'small';
+  }, [aboveLg, aboveMd]);
+
   return (
     <InViewSection
       sectionName="Home"
@@ -52,33 +67,27 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
           } as React.CSSProperties
         }
       >
-        <motion.div className="hero-text-container">
-          <motion.div className="hero-text-hello">HELLO!</motion.div>
-          <motion.span className="hero-text-im">I'm </motion.span>
-          <motion.span className="hero-text-josh-young">
+        <div className="hero-text-container">
+          <span className="hero-text-hello">HELLO!</span>
+          <br />
+          <span className="hero-text-im">I'm </span>
+          <span className="hero-text-josh-young">
             Josh Young<span className="big-period">.</span>
-          </motion.span>
-          <motion.div
-            className="hero-text-divider"
-            initial={{ width: 0 }}
-            animate={{ width: '105px' }}
-            transition={{
-              type: 'spring',
-              stiffness: 200,
-              damping: 15,
-            }}
-          />
-          <motion.div className="hero-text-headline">
+          </span>
+          <div className="hero-text-divider" />
+          <div className="hero-text-headline">
             <RevealWrapper isInView={isInViewReveal}>
-              A full-stack developer with design sense.
+              <span>A full-stack developer</span>
+              {aboveSm ? <br /> : ' '}
+              <span>with design sense.</span>
             </RevealWrapper>
-          </motion.div>
+          </div>
           <RevealWrapper isInView={isInViewReveal} extraMargin>
-            <SwipeButton large onClick={handleScrollToPortfolio}>
+            <SwipeButton size={buttonSize} onClick={handleScrollToPortfolio}>
               CONTACT
             </SwipeButton>
           </RevealWrapper>
-        </motion.div>
+        </div>
         <div className="hero-portrait-container">
           <img
             src={heroPortrait}

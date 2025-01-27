@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './HeroAnimatedPop.scss';
 import { motion, useAnimation } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
@@ -10,6 +10,8 @@ import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
 import { useGetAnimations } from './heroAnimations';
 import HeroCircle from '../../atoms/HeroCircle/HeroCircle';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -26,6 +28,8 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
     dividerVariants,
     portraitVariants,
   } = useGetAnimations();
+  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const aboveMd = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -77,7 +81,16 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
-  // ANIMATION(S)
+  // COMPUTED VAR(S)
+  const buttonSize = useMemo(() => {
+    if (aboveLg) {
+      return 'large';
+    }
+    if (aboveMd) {
+      return 'medium';
+    }
+    return 'small';
+  }, [aboveLg]);
 
   return (
     <InViewSection
@@ -132,7 +145,10 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
                 </RevealWrapper>
               </div>
               <RevealWrapper isInView={isInViewReveal} extraMargin>
-                <SwipeButton large onClick={handleScrollToPortfolio}>
+                <SwipeButton
+                  size={buttonSize}
+                  onClick={handleScrollToPortfolio}
+                >
                   CONTACT
                 </SwipeButton>
               </RevealWrapper>

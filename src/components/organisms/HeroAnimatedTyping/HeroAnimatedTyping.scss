@@ -60,6 +60,10 @@ $background-height: 60vh;
       color: var(--secondary-color);
       display: inline-block;
       margin-bottom: 0.8rem;
+
+      @media screen and (max-width: $max-large) {
+        font-size: 1.6rem;
+      }
     }
 
     .hero-text-im,
@@ -127,6 +131,14 @@ $background-height: 60vh;
   .hero-portrait-container {
     z-index: 1;
     max-width: 520px;
+
+    @media screen and (max-width: $max-xLarge) {
+      max-width: 480px;
+    }
+
+    @media screen and (max-width: $max-large) {
+      max-width: 400px;
+    }
 
     .hero-portrait {
       width: 100%;

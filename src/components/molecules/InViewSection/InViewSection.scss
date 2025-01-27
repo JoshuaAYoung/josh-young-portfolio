@@ -1,6 +1,18 @@
 .page-section {
   padding: 13rem;
 
+  @media screen and (max-width: $max-large) {
+    padding: 11rem 7rem;
+  }
+
+  @media screen and (max-width: $max-medium) {
+    padding: 9rem 5rem;
+  }
+
+  @media screen and (max-width: $max-small) {
+    padding: 7rem 2rem;
+  }
+
   .section-reveal-wrapper {
     margin-bottom: 3rem;
 

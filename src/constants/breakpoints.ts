@@ -5,6 +5,7 @@ const breakpointNumbers = {
   large: 1020,
   medium: 768,
   small: 600,
+  xSmall: 500,
 };
 
 type BreakpointsType = {
@@ -20,6 +21,7 @@ type BreakpointsType = {
  * large: 1020
  * medium: 768
  * small: 600
+ * xSmall: 500
  */
 export const breakpoints: BreakpointsType = (
   Object.keys(breakpointNumbers) as (keyof typeof breakpointNumbers)[]

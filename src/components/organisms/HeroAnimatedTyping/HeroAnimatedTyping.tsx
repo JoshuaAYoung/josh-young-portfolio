@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './HeroAnimatedTyping.scss';
 import { motion, useAnimation, Variants } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
@@ -9,6 +9,8 @@ import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
 import { useGetAnimations } from './heroAnimations';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const BlinkingCursor = ({ variants }: { variants: Variants }) => {
   return (
@@ -17,6 +19,11 @@ const BlinkingCursor = ({ variants }: { variants: Variants }) => {
     </div>
   );
 };
+
+// TODO implement multipliers
+// max-large .8
+// max-medium .67
+// max-small .52
 
 const Hero = forwardRef<HTMLElement>((_props, ref) => {
   // HOOK(S)
@@ -33,6 +40,8 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     cursorHeadlineVariants,
     portraitVariants,
   } = useGetAnimations();
+  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const aboveMd = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -56,6 +65,16 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   const slowTypingSpeed = 0.1;
   const fastTypingSpeed = 0.05;
   const fastErasingSpeed = 0.03;
+
+  const buttonSize = useMemo(() => {
+    if (aboveLg) {
+      return 'large';
+    }
+    if (aboveMd) {
+      return 'medium';
+    }
+    return 'small';
+  }, [aboveLg]);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -230,6 +249,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   </motion.span>
                 ))}
               </motion.div>
+              {/* TODO Get rid of this BR and combine "with" with the rest of the headline? */}
               <motion.br variants={getBreakVariants('headlineWithType')} />
               <motion.div
                 className="hero-text-headline"
@@ -284,7 +304,10 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
             </div>
             {showSwipeAnimations && (
               <RevealWrapper isInView={isInViewReveal} extraMargin>
-                <SwipeButton large onClick={handleScrollToPortfolio}>
+                <SwipeButton
+                  size={buttonSize}
+                  onClick={handleScrollToPortfolio}
+                >
                   CONTACT
                 </SwipeButton>
               </RevealWrapper>

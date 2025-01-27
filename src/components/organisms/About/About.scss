@@ -27,11 +27,13 @@
     }
   }
 
-  .about-buttons-reveal {
-    .about-buttons-container {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
+  .about-buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    @media screen and (max-width: $max-medium) {
+      flex-direction: column;
     }
   }
 }

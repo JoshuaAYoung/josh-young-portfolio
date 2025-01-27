@@ -142,6 +142,14 @@ $background-height: 60vh;
     z-index: 1;
     max-width: 520px;
 
+    @media screen and (max-width: $max-xLarge) {
+      max-width: 480px;
+    }
+
+    @media screen and (max-width: $max-large) {
+      max-width: 400px;
+    }
+
     .hero-portrait {
       width: 100%;
     }

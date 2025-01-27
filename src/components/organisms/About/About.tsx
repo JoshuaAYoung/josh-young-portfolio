@@ -6,10 +6,13 @@ import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import about from '../../../data/about.json';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const About = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
+  const belowMd = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -72,21 +75,45 @@ const About = forwardRef<HTMLElement>((props, ref) => {
           ))}
         </ul>
       </RevealWrapper>
-      <RevealWrapper
-        isInView={isInViewReveal}
-        containerClassName="about-buttons-reveal"
-        extraMargin
-      >
+      {belowMd ? (
         <div className="about-buttons-container">
-          <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
-          <SwipeButton
-            variant="solid-secondary"
-            onClick={handleScrollToPortfolio}
+          <RevealWrapper
+            isInView={isInViewReveal}
+            containerClassName="about-buttons-reveal"
+            extraMargin
           >
-            PORTFOLIO
-          </SwipeButton>
+            <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
+          </RevealWrapper>
+          <RevealWrapper
+            isInView={isInViewReveal}
+            containerClassName="about-buttons-reveal"
+            extraMargin
+          >
+            <SwipeButton
+              variant="solid-secondary"
+              onClick={handleScrollToPortfolio}
+            >
+              PORTFOLIO
+            </SwipeButton>
+          </RevealWrapper>
         </div>
-      </RevealWrapper>
+      ) : (
+        <RevealWrapper
+          isInView={isInViewReveal}
+          containerClassName="about-buttons-reveal"
+          extraMargin
+        >
+          <div className="about-buttons-container">
+            <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
+            <SwipeButton
+              variant="solid-secondary"
+              onClick={handleScrollToPortfolio}
+            >
+              PORTFOLIO
+            </SwipeButton>
+          </div>
+        </RevealWrapper>
+      )}
     </InViewSection>
   );
 });
