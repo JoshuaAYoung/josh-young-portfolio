@@ -20,6 +20,8 @@ export const useGetAnimations = () => {
   const getLetterVariants = (
     variantName: string,
     duration: number,
+    eraseVariantName?: string,
+    eraseDuration?: number,
   ): Variants => {
     return {
       initial: { display: 'none' },
@@ -27,12 +29,21 @@ export const useGetAnimations = () => {
         display: 'inline',
         transition: { duration },
       },
+      ...(eraseVariantName &&
+        eraseDuration && {
+        [eraseVariantName]: {
+          display: 'none',
+          transition: { duration: eraseDuration },
+        },
+      }),
     };
   };
 
   const getTypeStaggerVariants = (
     variantName: string,
     stagger: number,
+    eraseVariantName?: string,
+    eraseStagger?: number,
   ): Variants => {
     return {
       initial: { display: 'none' },
@@ -42,6 +53,16 @@ export const useGetAnimations = () => {
           staggerChildren: stagger,
         },
       },
+      ...(eraseVariantName &&
+        eraseStagger && {
+        [eraseVariantName]: {
+          display: 'inline-block',
+          transition: {
+            staggerDirection: -1,
+            staggerChildren: eraseStagger,
+          },
+        },
+      }),
     };
   };
 

@@ -71,7 +71,12 @@ const ScrollProgressIndicator: React.FC = () => {
   }, [arrowControls, pathLengthControls, isScrolledToTop]);
 
   return (
-    <div className="scroll-progress-indicator-container">
+    <motion.div
+      className="scroll-progress-indicator-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: [0, 0, 1] }}
+      transition={{ duration: 3, ease: 'easeInOut', times: [0, 0.5, 1] }}
+    >
       <div className="scroll-progress-indicator-content">
         <button
           className="scroll-top-button"
@@ -126,7 +131,7 @@ const ScrollProgressIndicator: React.FC = () => {
           </motion.div>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
