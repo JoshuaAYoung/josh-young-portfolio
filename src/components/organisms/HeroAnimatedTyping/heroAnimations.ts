@@ -17,6 +17,20 @@ export const useGetAnimations = () => {
     },
   };
 
+  const getBlinkingVariant = (actualDuration: number) => {
+    const repeat = actualDuration - 1;
+    return {
+      opacity: [0, 0, 1, 1],
+      transition: {
+        duration: 1,
+        repeat,
+        repeatDelay: 0,
+        ease: 'linear',
+        times: [0, 0.5, 0.5, 1],
+      },
+    };
+  };
+
   const getLetterVariants = (
     variantName: string,
     duration: number,
@@ -83,16 +97,8 @@ export const useGetAnimations = () => {
       height: '3.6rem',
       y: 5,
     },
-    blinkingStart: {
-      opacity: [0, 0, 1, 1],
-      transition: {
-        duration: 1,
-        repeat: 1,
-        repeatDelay: 0,
-        ease: 'linear',
-        times: [0, 0.5, 0.5, 1],
-      },
-    },
+    blinkingTextLong: getBlinkingVariant(2),
+    blinkingTextShort: getBlinkingVariant(1),
     imType: {
       height: '6.5rem',
       y: 10,
@@ -120,16 +126,8 @@ export const useGetAnimations = () => {
         duration: 0,
       },
     },
-    blinkingInfinite: {
-      opacity: [0, 0, 1, 1],
-      transition: {
-        duration: 1,
-        repeat: Infinity,
-        repeatDelay: 0,
-        ease: 'linear',
-        times: [0, 0.5, 0.5, 1],
-      },
-    },
+    blinkingHeadlineLong: getBlinkingVariant(3),
+    blinkingHeadlineShort: getBlinkingVariant(1),
   };
 
   const dividerVariants: Variants = {
@@ -144,6 +142,17 @@ export const useGetAnimations = () => {
     },
   };
 
+  const portraitVariants: Variants = {
+    initial: { opacity: 0 },
+    portraitFadeIn: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+        ease: 'easeIn',
+      },
+    },
+  };
+
   return {
     containerVariants,
     getLetterVariants,
@@ -152,5 +161,6 @@ export const useGetAnimations = () => {
     cursorTextVariants,
     dividerVariants,
     cursorHeadlineVariants,
+    portraitVariants,
   };
 };

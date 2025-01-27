@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import './HeroAnimatedTyping.scss';
-import { motion, steps, useAnimation, Variants } from 'framer-motion';
+import { motion, useAnimation, Variants } from 'framer-motion';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -8,7 +8,7 @@ import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
-// import { useGetAnimations } from './heroAnimations';
+import { useGetAnimations } from './heroAnimations';
 
 const BlinkingCursor = ({ variants }: { variants: Variants }) => {
   return (
@@ -23,168 +23,16 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   const { scrollToSection } = useScrollToSection();
   const controls = useAnimation();
   const mounted = useRef(false);
-  // const {
-  //   containerVariants,
-  //   getLetterVariants,
-  //   getTypeStaggerVariants,
-  //   getBreakVariants,
-  //   cursorTextVariants,
-  //   dividerVariants,
-  //   cursorHeadlineVariants,
-  // } = useGetAnimations();
-
-  // DELETE
-  const containerVariants = {
-    initial: { y: 155 },
-    imType: {
-      y: 82,
-      transition: {
-        duration: 0,
-      },
-    },
-    youngType: {
-      y: 0,
-      transition: {
-        duration: 0,
-      },
-    },
-  };
-
-  const getBlinkingVariant = (actualDuration: number) => {
-    const repeat = actualDuration - 1;
-    return {
-      opacity: [0, 0, 1, 1],
-      transition: {
-        duration: 1,
-        repeat,
-        repeatDelay: 0,
-        ease: 'linear',
-        times: [0, 0.5, 0.5, 1],
-      },
-    };
-  };
-
-  const getLetterVariants = (
-    variantName: string,
-    duration: number,
-    eraseVariantName?: string,
-    eraseDuration?: number,
-  ): Variants => {
-    return {
-      initial: { display: 'none' },
-      [variantName]: {
-        display: 'inline',
-        transition: { duration },
-      },
-      ...(eraseVariantName &&
-        eraseDuration && {
-          [eraseVariantName]: {
-            display: 'none',
-            transition: { duration: eraseDuration },
-          },
-        }),
-    };
-  };
-
-  const getTypeStaggerVariants = (
-    variantName: string,
-    stagger: number,
-    eraseVariantName?: string,
-    eraseStagger?: number,
-  ): Variants => {
-    return {
-      initial: { display: 'none' },
-      [variantName]: {
-        display: 'inline-block',
-        transition: {
-          staggerChildren: stagger,
-        },
-      },
-      ...(eraseVariantName &&
-        eraseStagger && {
-          [eraseVariantName]: {
-            display: 'inline-block',
-            transition: {
-              staggerDirection: -1,
-              staggerChildren: eraseStagger,
-            },
-          },
-        }),
-    };
-  };
-
-  const getBreakVariants = (variantName: string): Variants => {
-    return {
-      initial: { display: 'none' },
-      [variantName]: {
-        display: 'block',
-        transition: {
-          duration: 0,
-        },
-      },
-    };
-  };
-
-  const cursorTextVariants: Variants = {
-    initial: {
-      height: '3.6rem',
-      y: 5,
-    },
-    blinkingTextLong: getBlinkingVariant(2),
-    blinkingTextShort: getBlinkingVariant(1),
-    imType: {
-      height: '6.5rem',
-      y: 10,
-      transition: {
-        duration: 0,
-      },
-    },
-    headlineFirstType: {
-      opacity: 0,
-      transition: {
-        duration: 0,
-      },
-    },
-  };
-
-  const cursorHeadlineVariants: Variants = {
-    initial: {
-      height: '2.5rem',
-      y: 5,
-      opacity: 0,
-    },
-    headlineFirstType: {
-      opacity: 1,
-      transition: {
-        duration: 0,
-      },
-    },
-    blinkingHeadlineLong: getBlinkingVariant(3),
-    blinkingHeadlineShort: getBlinkingVariant(1),
-  };
-
-  const dividerVariants: Variants = {
-    initial: { width: 0 },
-    dividerGrow: {
-      width: [0, 18, 36, 54, 72, 90, 108],
-      transition: {
-        duration: 0.6,
-        ease: steps(1, 'start'),
-        times: [0, 0.16, 0.33, 0.5, 0.66, 0.83, 1],
-      },
-    },
-  };
-
-  const portraitVariants: Variants = {
-    initial: { opacity: 0 },
-    portraitFadeIn: {
-      opacity: 1,
-      transition: {
-        duration: 1.5,
-        ease: 'easeIn',
-      },
-    },
-  };
+  const {
+    containerVariants,
+    getLetterVariants,
+    getTypeStaggerVariants,
+    getBreakVariants,
+    cursorTextVariants,
+    dividerVariants,
+    cursorHeadlineVariants,
+    portraitVariants,
+  } = useGetAnimations();
 
   // STATE
   const onSectionInViewActive = useJYStore(
