@@ -1,6 +1,6 @@
 // import Hero from '../../organisms/HeroAnimatedPop/HeroAnimatedPop';
-// import Hero from '../../organisms/HeroAnimatedTyping/HeroAnimatedTyping';
-import Hero from '../../organisms/Hero/Hero';
+import Hero from '../../organisms/HeroAnimatedTyping/HeroAnimatedTyping';
+// import Hero from '../../organisms/Hero/Hero';
 import Contact from '../../organisms/Contact/Contact';
 import Portfolio from '../../organisms/Portfolio/Portfolio';
 import Experience from '../../organisms/Experience/Experience';
