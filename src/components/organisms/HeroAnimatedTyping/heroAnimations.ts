@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { steps, Variants } from 'motion/react';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
@@ -8,45 +9,54 @@ export const useGetAnimations = () => {
   const sm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
 
   // HELPER FUNCTION(S)
-  const getResponsiveValue = (
-    value: number,
-    isCursorWidth?: boolean,
-  ): number | number[] => {
-    let multiplier = 1;
+  const getResponsiveValue = useCallback(
+    (value: number, isCursorWidth?: boolean): number | number[] => {
+      let multiplier = 1;
 
-    // order is important here as small breakpoints will return true for max-large
-    if (sm) {
-      multiplier = 0.52;
-    } else if (md) {
-      multiplier = 0.67;
-    } else if (lg) {
-      multiplier = 0.8;
-    }
-
-    let result = value * multiplier;
-
-    // creates an array of numbers that are multiples of 6
-    if (isCursorWidth) {
-      result = Math.round(result / 6) * 6;
-      const step = result / 6;
-      const widthArray = [];
-      for (let i = 0; i <= 6; i += 1) {
-        widthArray.push(step * i);
+      if (sm) {
+        multiplier = 0.52;
+      } else if (md) {
+        multiplier = 0.67;
+      } else if (lg) {
+        multiplier = 0.8;
       }
-      console.log('widthArray', widthArray);
-      return widthArray;
-    }
 
-    result = Math.round(result);
-    console.log('result', result);
-    return result;
-  };
+      let result = value * multiplier;
+
+      if (isCursorWidth) {
+        result = Math.round(result / 6) * 6;
+        const step = result / 6;
+        const widthArray = [];
+        for (let i = 0; i <= 6; i += 1) {
+          widthArray.push(step * i);
+        }
+        return widthArray;
+      }
+
+      result = Math.round(result);
+      return result;
+    },
+    [sm, md, lg],
+  );
+
+  const getResponsiveHeadlineCursor = useCallback((): {
+    height: number;
+    y: number;
+  } => {
+    if (md) {
+      return { height: 18, y: 3 };
+    }
+    if (lg) {
+      return { height: 20, y: 4 };
+    }
+    return { height: 25, y: 5 };
+  }, [md, lg]);
 
   // VARIANT(S)
   const containerVariants = {
-    initial: { y: 155 },
+    initial: { y: getResponsiveValue(155) },
     imType: {
-      y: 82,
+      y: getResponsiveValue(82),
       transition: {
         duration: 0,
       },
@@ -143,14 +153,14 @@ export const useGetAnimations = () => {
 
   const cursorTextVariants: Variants = {
     initial: {
-      height: '3.6rem',
-      y: 5,
+      height: getResponsiveValue(36),
+      y: getResponsiveValue(5),
     },
     blinkingTextLong: getBlinkingVariant(2),
     blinkingTextShort: getBlinkingVariant(1),
     imType: {
-      height: '6.5rem',
-      y: 10,
+      height: getResponsiveValue(65),
+      y: getResponsiveValue(10),
       transition: {
         duration: 0,
       },
@@ -165,8 +175,8 @@ export const useGetAnimations = () => {
 
   const cursorHeadlineVariants: Variants = {
     initial: {
-      height: '2.5rem',
-      y: 5,
+      height: getResponsiveHeadlineCursor().height,
+      y: getResponsiveHeadlineCursor().y,
       opacity: 0,
     },
     headlineFirstType: {
