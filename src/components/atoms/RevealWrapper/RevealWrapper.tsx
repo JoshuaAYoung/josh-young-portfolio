@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation } from 'motion/react';
 import './RevealWrapper.scss';
 import useJYStore from '../../../store/useJYStore';
 

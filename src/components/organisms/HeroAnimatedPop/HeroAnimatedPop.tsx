@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './HeroAnimatedPop.scss';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation } from 'motion/react';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';

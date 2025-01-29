@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef } from 'react';
-import { useInView } from 'framer-motion';
+import { useInView } from 'motion/react';
 import './InViewSection.scss';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 

@@ -1,4 +1,4 @@
-import { Variants } from 'framer-motion';
+import { Variants } from 'motion/react';
 
 // Entire menu animation
 export const menuVariants: Variants = {
@@ -20,7 +20,7 @@ export const menuVariants: Variants = {
 
 // Individual menu item animation
 export const menuItemVariants: Variants = {
-  hidden: { x: 150, transition: { duration: 0, delay: 0.5 } },
+  hidden: { x: 200, transition: { duration: 0, delay: 0.5 } },
   visible: {
     x: 0,
     transition: {

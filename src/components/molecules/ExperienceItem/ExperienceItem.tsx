@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation } from 'motion/react';
 import './ExperienceItem.scss';
 import { Experience } from '../../../types/experience.types';
 import { useGetAnimations } from './experienceItemAnimations';

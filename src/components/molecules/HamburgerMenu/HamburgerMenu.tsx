@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './HamburgerMenu.scss';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { PAGE_SECTIONS } from '../../../constants/navigation';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
-import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
+import LinkButtons from '../../atoms/LinkButtons/LinkButtons';
 import { breakpoints } from '../../../constants/breakpoints';
 import useJYStore from '../../../store/useJYStore';
 import {
@@ -93,8 +93,8 @@ function HamburgerMenu() {
             variants={menuItemVariants}
             className="hamburger-menu-social-container"
           >
-            <SocialNavLinks
-              containerClassName="hamburger-menu-social-links"
+            <LinkButtons
+              containerClassName="hamburger-menu-link-buttons"
               isOpen={isOpen}
             />
           </motion.div>

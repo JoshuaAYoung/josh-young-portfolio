@@ -1,6 +1,48 @@
-import { steps, Variants } from 'framer-motion';
+import { steps, Variants } from 'motion/react';
+import useMediaQuery from '../../../utils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 export const useGetAnimations = () => {
+  const lg = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
+  const md = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const sm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+
+  // HELPER FUNCTION(S)
+  const getResponsiveValue = (
+    value: number,
+    isCursorWidth?: boolean,
+  ): number | number[] => {
+    let multiplier = 1;
+
+    // order is important here as small breakpoints will return true for max-large
+    if (sm) {
+      multiplier = 0.52;
+    } else if (md) {
+      multiplier = 0.67;
+    } else if (lg) {
+      multiplier = 0.8;
+    }
+
+    let result = value * multiplier;
+
+    // creates an array of numbers that are multiples of 6
+    if (isCursorWidth) {
+      result = Math.round(result / 6) * 6;
+      const step = result / 6;
+      const widthArray = [];
+      for (let i = 0; i <= 6; i += 1) {
+        widthArray.push(step * i);
+      }
+      console.log('widthArray', widthArray);
+      return widthArray;
+    }
+
+    result = Math.round(result);
+    console.log('result', result);
+    return result;
+  };
+
+  // VARIANT(S)
   const containerVariants = {
     initial: { y: 155 },
     imType: {
@@ -58,9 +100,10 @@ export const useGetAnimations = () => {
     stagger: number,
     eraseVariantName?: string,
     eraseStagger?: number,
+    initialDisplay = 'none',
   ): Variants => {
     return {
-      initial: { display: 'none' },
+      initial: { display: initialDisplay },
       [variantName]: {
         display: 'inline-block',
         transition: {
@@ -90,6 +133,12 @@ export const useGetAnimations = () => {
         },
       },
     };
+  };
+
+  const initialContainerVariants: Variants = {
+    initial: {
+      height: getResponsiveValue(36),
+    },
   };
 
   const cursorTextVariants: Variants = {
@@ -133,7 +182,7 @@ export const useGetAnimations = () => {
   const dividerVariants: Variants = {
     initial: { width: 0 },
     dividerGrow: {
-      width: [0, 18, 36, 54, 72, 90, 108],
+      width: getResponsiveValue(108, true),
       transition: {
         duration: 0.6,
         ease: steps(1, 'start'),
@@ -162,5 +211,6 @@ export const useGetAnimations = () => {
     dividerVariants,
     cursorHeadlineVariants,
     portraitVariants,
+    initialContainerVariants,
   };
 };

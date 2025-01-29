@@ -1,4 +1,4 @@
-import { animate } from 'framer-motion';
+import { animate } from 'motion/react';
 import useJYStore from '../store/useJYStore';
 import {
   PAGE_SECTIONS,

@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './HeroAnimatedTyping.scss';
-import { motion, useAnimation, Variants } from 'framer-motion';
+import { motion, useAnimation, Variants } from 'motion/react';
 import heroBackground from '../../../assets/images/hero-background.png';
 import heroPortrait from '../../../assets/images/hero-portrait.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -12,18 +12,27 @@ import { useGetAnimations } from './heroAnimations';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
-const BlinkingCursor = ({ variants }: { variants: Variants }) => {
+const BlinkingCursor = ({
+  cursorVariants,
+  initialContainerVariants,
+}: {
+  cursorVariants: Variants;
+  initialContainerVariants?: Variants;
+}) => {
   return (
-    <div className="hero-cursor-container">
-      <motion.div variants={variants} className="hero-cursor" />
-    </div>
+    <motion.div
+      variants={initialContainerVariants}
+      className="hero-cursor-container"
+    >
+      <motion.div variants={cursorVariants} className="hero-cursor" />
+    </motion.div>
   );
 };
 
-// TODO implement multipliers
-// max-large .8
-// max-medium .67
-// max-small .52
+// above 202
+// lg 164
+// md 138
+// sm 106
 
 const Hero = forwardRef<HTMLElement>((_props, ref) => {
   // HOOK(S)
@@ -39,9 +48,10 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     dividerVariants,
     cursorHeadlineVariants,
     portraitVariants,
+    initialContainerVariants,
   } = useGetAnimations();
   const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
-  const aboveMd = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
+  const md = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -70,11 +80,11 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     if (aboveLg) {
       return 'large';
     }
-    if (aboveMd) {
+    if (md) {
       return 'medium';
     }
     return 'small';
-  }, [aboveLg]);
+  }, [aboveLg, md]);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -92,7 +102,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   };
 
   const infiniteTypingSequence = () => {
-    let index = 0; // To track the current string
+    let index = 0;
 
     const asyncSequence = async () => {
       const variantKey = Object.keys(headlineStrings)[index];
@@ -111,7 +121,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
       asyncSequence();
     };
 
-    asyncSequence(); // Start the loop
+    asyncSequence();
   };
 
   // EFFECT(S)
@@ -159,13 +169,16 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
         initial="initial"
       >
         <div className="hero-text-container">
-          <motion.div
-            className="hero-clip-path-container"
-            variants={containerVariants}
-          >
+          <motion.div variants={containerVariants}>
             <motion.div
               className="hero-text-hello"
-              variants={getTypeStaggerVariants('helloType', slowTypingSpeed)}
+              variants={getTypeStaggerVariants(
+                'helloType',
+                slowTypingSpeed,
+                undefined,
+                undefined,
+                'inline-block',
+              )}
             >
               {'HELLO!'.split('').map((letter, index) => (
                 <motion.span
@@ -220,17 +233,18 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                 </motion.span>
               ))}
             </motion.div>
-            <BlinkingCursor variants={cursorTextVariants} />
+            <BlinkingCursor
+              cursorVariants={cursorTextVariants}
+              initialContainerVariants={initialContainerVariants}
+            />
           </motion.div>
-          <motion.div
-            className="hero-text-divider"
-            variants={dividerVariants}
-          />
-
           <div className="hero-bottom-section">
+            <motion.div
+              className="hero-text-divider"
+              variants={dividerVariants}
+            />
             <div className="hero-headline-container">
               <motion.div
-                className="hero-text-headline"
                 variants={getTypeStaggerVariants(
                   'headlineFirstType',
                   fastTypingSpeed,
@@ -252,7 +266,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
               {/* TODO Get rid of this BR and combine "with" with the rest of the headline? */}
               <motion.br variants={getBreakVariants('headlineWithType')} />
               <motion.div
-                className="hero-text-headline"
                 variants={getTypeStaggerVariants(
                   'headlineWithType',
                   fastTypingSpeed,
@@ -273,7 +286,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
               </motion.div>
               {Object.keys(headlineStrings).map((variantKey, index) => (
                 <motion.div
-                  className="hero-text-headline"
                   variants={getTypeStaggerVariants(
                     `${variantKey}Type`,
                     fastTypingSpeed,
@@ -300,7 +312,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                     ))}
                 </motion.div>
               ))}
-              <BlinkingCursor variants={cursorHeadlineVariants} />
+              <BlinkingCursor cursorVariants={cursorHeadlineVariants} />
             </div>
             {showSwipeAnimations && (
               <RevealWrapper isInView={isInViewReveal} extraMargin>

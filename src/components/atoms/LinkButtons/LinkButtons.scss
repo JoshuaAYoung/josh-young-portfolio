@@ -1,0 +1,46 @@
+.link-buttons-container {
+  display: flex;
+  align-items: center;
+
+  .link-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+
+    @media not all and (hover: none) {
+      &:hover {
+        color: var(--secondary-color);
+      }
+    }
+
+    .link-button-image {
+      transition: color 0.3s ease;
+      width: 1.5rem;
+    }
+  }
+
+  // specific to the nav menu
+  &.nav-menu-link-buttons {
+    .link-button {
+      width: 3rem;
+      height: 3rem;
+
+      .link-button-image {
+        width: 1.5rem;
+      }
+    }
+  }
+
+  // specific to the hamburger menu
+  &.hamburger-menu-link-buttons {
+    .link-button {
+      width: 4rem;
+      height: 4rem;
+
+      .link-button-image {
+        width: 2rem;
+      }
+    }
+  }
+}

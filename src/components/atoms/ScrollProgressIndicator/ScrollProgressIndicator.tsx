@@ -5,7 +5,7 @@ import {
   useAnimation,
   useMotionValueEvent,
   useScroll,
-} from 'framer-motion';
+} from 'motion/react';
 import './ScrollProgressIndicator.scss';
 import Arrow from '../../../assets/icons/arrow.svg?react';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
@@ -17,7 +17,11 @@ import {
   pathLengthVariants,
 } from './scrollProgressIndicatorAnimations';
 
-const ScrollProgressIndicator: React.FC = () => {
+const ScrollProgressIndicator = ({
+  fadeDuration,
+}: {
+  fadeDuration?: number;
+}) => {
   // HOOK(S)
   const { scrollYProgress } = useScroll();
   const pathLengthControls = useAnimation();
@@ -75,7 +79,11 @@ const ScrollProgressIndicator: React.FC = () => {
       className="scroll-progress-indicator-container"
       initial={{ opacity: 0 }}
       animate={{ opacity: [0, 0, 1] }}
-      transition={{ duration: 3, ease: 'easeInOut', times: [0, 0.5, 1] }}
+      transition={{
+        duration: fadeDuration,
+        ease: 'easeInOut',
+        times: [0, 0.5, 1],
+      }}
     >
       <div className="scroll-progress-indicator-content">
         <button

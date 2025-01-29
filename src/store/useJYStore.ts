@@ -16,6 +16,8 @@ interface JYState {
   isScrolling: boolean;
   setIsScrolling: (scrolling: boolean) => void;
   sectionRefs: SectionRefs;
+  isDarkMode: boolean;
+  toggleDarkMode: (value: boolean) => void;
 }
 
 const useJYStore = create<JYState>((set, get) => ({
@@ -35,6 +37,14 @@ const useJYStore = create<JYState>((set, get) => ({
     acc[link] = createRef<HTMLElement>();
     return acc;
   }, {} as SectionRefs),
+  isDarkMode: true,
+  toggleDarkMode: (value) => {
+    document.documentElement.setAttribute(
+      'data-theme',
+      value ? 'dark' : 'light',
+    );
+    set({ isDarkMode: value });
+  },
 }));
 
 export default useJYStore;

@@ -30,6 +30,18 @@ $background-height: 60vh;
   overflow: hidden;
   gap: 6rem;
 
+  @media screen and (max-width: $max-large) {
+    gap: 0;
+  }
+
+  @media screen and (max-width: $max-medium) {
+    padding: 0 40px;
+  }
+
+  @media screen and (max-width: $max-small) {
+    padding: 0 20px;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -54,15 +66,41 @@ $background-height: 60vh;
     position: relative;
     line-height: 1.2;
 
+    @media screen and (max-width: $max-large) {
+      min-width: 240px;
+      max-width: 260px;
+    }
+
+    @media screen and (max-width: $max-medium) {
+      max-width: 220px;
+      min-width: 200px;
+      margin-bottom: 0;
+    }
+
+    @media screen and (max-width: $max-small) {
+      max-width: 160px;
+      min-width: 145px;
+    }
+
     .hero-text-hello {
       font-size: 3rem;
       font-weight: 700;
       color: var(--secondary-color);
       display: inline-block;
       margin-bottom: 0.8rem;
+      display: inline-block;
 
       @media screen and (max-width: $max-large) {
+        font-size: 2.4rem;
+      }
+
+      @media screen and (max-width: $max-medium) {
+        font-size: 2rem;
+      }
+
+      @media screen and (max-width: $max-small) {
         font-size: 1.6rem;
+        margin-bottom: 0.2rem;
       }
     }
 
@@ -74,6 +112,18 @@ $background-height: 60vh;
       font-size: 6.6rem;
       font-weight: 800;
       display: inline-block;
+
+      @media screen and (max-width: $max-large) {
+        font-size: 5.3rem;
+      }
+
+      @media screen and (max-width: $max-medium) {
+        font-size: 4.4rem;
+      }
+
+      @media screen and (max-width: $max-small) {
+        font-size: 3.4rem;
+      }
     }
 
     .hero-text-im {
@@ -99,19 +149,45 @@ $background-height: 60vh;
     }
 
     .hero-text-divider {
-      left: 0;
-      top: 220px;
       height: 2px;
       background-color: var(--secondary-color);
-      position: absolute;
+      margin-bottom: 2.5rem;
+
+      @media screen and (max-width: $max-large) {
+        width: 86px;
+      }
+
+      @media screen and (max-width: $max-medium) {
+        width: 72px;
+        top: 220px;
+      }
+
+      @media screen and (max-width: $max-small) {
+        width: 65px;
+        margin: 2.5rem 0 3rem;
+        top: 220px;
+        margin-bottom: 3rem;
+      }
     }
 
     .hero-bottom-section {
       position: absolute;
       left: 0;
-      top: 250px;
+      top: 220px;
       width: 100%;
       font-size: 1rem;
+
+      @media screen and (max-width: $max-large) {
+        top: 182px;
+      }
+
+      @media screen and (max-width: $max-medium) {
+        top: 156px;
+      }
+
+      @media screen and (max-width: $max-small) {
+        top: 182px;
+      }
 
       .hero-headline-container {
         font-family: 'Nunito', sans-serif;
@@ -123,6 +199,15 @@ $background-height: 60vh;
 
         @media screen and (max-width: $max-large) {
           margin-bottom: 3rem;
+          font-size: 1.8rem;
+        }
+
+        @media screen and (max-width: $max-medium) {
+          font-size: 1.6rem;
+        }
+
+        @media screen and (max-width: $max-small) {
+          max-width: 140px;
         }
       }
     }
@@ -135,17 +220,21 @@ $background-height: 60vh;
     @media screen and (max-width: $max-xLarge) {
       max-width: 480px;
     }
-
     @media screen and (max-width: $max-large) {
       max-width: 400px;
+    }
+    @media screen and (max-width: $max-medium) {
+      max-width: 340px;
+    }
+    @media screen and (max-width: $max-small) {
+      max-width: 280px;
+    }
+    @media screen and (max-width: $max-xSmall) {
+      margin-left: -3vw;
     }
 
     .hero-portrait {
       width: 100%;
     }
-  }
-
-  @media screen and (max-width: $max-small) {
-    padding: 0 20px;
   }
 }

@@ -1,5 +1,5 @@
 import './HeroCircle.scss';
-import { AnimationControls, motion } from 'framer-motion';
+import { AnimationControls, motion } from 'motion/react';
 import { useGetAnimations } from './heroCircleAnimations';
 
 interface HeroCircleProps {

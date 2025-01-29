@@ -1,4 +1,4 @@
-import { Variants } from 'framer-motion';
+import { Variants } from 'motion/react';
 
 export const useGetAnimations = () => {
   const gravityUpDownCurve = [0.3, 0, 0.1, 1];

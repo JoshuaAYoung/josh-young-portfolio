@@ -14,6 +14,7 @@ import './styles/reset.scss';
 import './styles/global.scss';
 
 import { Route, Routes } from 'react-router-dom';
+// import { MotionGlobalConfig } from 'motion/react';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
 import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
 import StickyHeader from './components/organisms/StickyHeader/StickyHeader';
@@ -30,11 +31,13 @@ function App() {
   //   });
   // }, [location]);
 
+  // MotionGlobalConfig.skipAnimations = true;
+
   return (
     <div id="content">
       <ErrorBoundary Fallback={ErrorFallbackComponent}>
-        <StickyHeader />
-        <ScrollProgressIndicator />
+        <StickyHeader fadeDuration={2} />
+        <ScrollProgressIndicator fadeDuration={2} />
       </ErrorBoundary>
       <main>
         <ErrorBoundary Fallback={ErrorFallbackComponent}>

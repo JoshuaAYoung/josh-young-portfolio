@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { PAGE_SECTIONS } from '../../../constants/navigation';
 import './NavMenu.scss';
 import { useScrollToSection } from '../../../utils/useScrollToSection';
-import SocialNavLinks from '../../atoms/SocialNavLinks/SocialNavLinks';
+import LinkButtons from '../../atoms/LinkButtons/LinkButtons';
 import useJYStore from '../../../store/useJYStore';
 import useMediaQuery from '../../../utils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
@@ -91,7 +91,7 @@ function NavMenu() {
         />
       </ul>
       <div className="nav-menu-vertical-divider" />
-      <SocialNavLinks containerClassName="nav-menu-social-links" />
+      <LinkButtons containerClassName="nav-menu-link-buttons" />
     </div>
   );
 }

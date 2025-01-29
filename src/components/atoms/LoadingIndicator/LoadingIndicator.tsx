@@ -1,7 +1,7 @@
 // TODO
 // Test this
 // Figure out why motion was removed
-// import { motion } from 'framer-motion';
+// import { motion } from 'motion/react';
 import './LoadingIndicator.scss';
 
 type LoaderProps = {
