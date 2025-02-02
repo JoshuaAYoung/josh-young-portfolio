@@ -187,6 +187,12 @@ export const useGetAnimations = () => {
     },
     blinkingHeadlineLong: getBlinkingVariant(3),
     blinkingHeadlineShort: getBlinkingVariant(1),
+    blinkingHeadlineOff: {
+      opacity: 0,
+      transition: {
+        duration: 0,
+      },
+    },
   };
 
   const dividerVariants: Variants = {

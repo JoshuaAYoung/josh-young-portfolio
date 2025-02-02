@@ -29,16 +29,15 @@ const BlinkingCursor = ({
   );
 };
 
-// above 202
-// lg 164
-// md 138
-// sm 106
-
 const Hero = forwardRef<HTMLElement>((_props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
   const controls = useAnimation();
-  const mounted = useRef(false);
+  const isTextLoopFinished = useRef(true);
+  const isMainAnimationFinished = useRef(false);
+  const isMainAnimationRunning = useRef(false);
+  const textLoopIndex = useRef(0);
+  const textLoopFullCounter = useRef(0);
 
   const {
     containerVariants,
@@ -67,15 +66,13 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   const [secondHeadlineText, setSecondHeadlineText] = useState('with ');
   const sectionRefs = useJYStore((state) => state.sectionRefs);
 
-  console.log('activeSection', activeSection);
-
   // COMPUTED VAR(S)
   const headlineStrings: { [key: string]: string } = {
     headlineOne: 'design sense.',
-    headlineTwo: 'a pottery obsession.',
+    headlineTwo: 'pottery skills.',
     headlineThree: 'twin dad vibes.',
-    headlineFour: 'controller skills.',
-    headlineFive: 'bookish vibes.',
+    headlineFour: 'controller finesse.',
+    headlineFive: 'a reading habit.',
     headlineSix: '3d printer chops.',
   };
 
@@ -102,42 +99,65 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     }
   };
 
-  const startHeadlineAnimationLoop = () => {
-    let loopCounter = 0;
-    let index = 0;
+  const startHeadlineAnimationLoop = async () => {
+    // first, if we're finished with 1 or more animations and the animation is done, we need to erase
+    if (isTextLoopFinished.current && textLoopFullCounter.current !== 0) {
+      await controls.start(
+        `${Object.keys(headlineStrings)[textLoopIndex.current]}Erase`,
+      );
 
-    const asyncSequence = async () => {
-      const times = 4;
-      // const times = Object.keys(headlineStrings).length * 1 + 1;
-      if (loopCounter >= times) return; // Stop after 'times' loops
-
-      const variantKey = Object.keys(headlineStrings)[index];
-      await controls.start(`${variantKey}Type`);
-
-      if (index === 0) {
-        setShowSwipeAnimations(true);
-      }
-
-      await controls.start('blinkingHeadlineLong');
-      await controls.start(`${variantKey}Erase`);
       await new Promise((resolve) => {
         setTimeout(resolve, 500);
       });
 
-      index = (index + 1) % Object.keys(headlineStrings).length;
+      textLoopIndex.current =
+        (textLoopIndex.current + 1) % Object.keys(headlineStrings).length;
+    }
+
+    let loopCounter = 0;
+    isTextLoopFinished.current = false;
+
+    const asyncSequence = async () => {
+      const times = Object.keys(headlineStrings).length * 1;
+      if (loopCounter >= times) return;
+
+      const variantKey = Object.keys(headlineStrings)[textLoopIndex.current];
+      await controls.start(`${variantKey}Type`);
+
+      if (textLoopIndex.current === 0) {
+        setShowSwipeAnimations(true);
+      }
+
+      // if (loopCounter >= times - 1 || activeSection !== 'Home') {
+      if (loopCounter >= times - 1) {
+        isTextLoopFinished.current = true;
+        loopCounter += 1;
+        controls.start('blinkingHeadlineOff');
+        return;
+      }
+
+      await controls.start('blinkingHeadlineLong');
+
+      await controls.start(`${variantKey}Erase`);
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 500);
+      });
+      // loop counter incremented to restart at first string
+      textLoopIndex.current =
+        (textLoopIndex.current + 1) % (Object.keys(headlineStrings).length + 1);
       loopCounter += 1;
       asyncSequence();
     };
 
     asyncSequence();
+    textLoopFullCounter.current += 1;
   };
 
   // EFFECT(S)
   useEffect(() => {
-    // if (mounted.current) return;
-    // mounted.current = true;
-
     const sequence = async () => {
+      isMainAnimationRunning.current = true;
       controls.stop();
       controls.start('initial');
       await controls.start('blinkingTextLong');
@@ -154,7 +174,18 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     };
 
     const runSequence = async () => {
-      await sequence();
+      if (!isMainAnimationFinished.current && !isMainAnimationRunning.current) {
+        await sequence();
+      }
+
+      // trigger the headline animation loop if activeSection is 'Home'
+      if (
+        activeSection === 'Home' &&
+        isTextLoopFinished.current &&
+        isMainAnimationFinished.current
+      ) {
+        startHeadlineAnimationLoop();
+      }
     };
 
     runSequence();
@@ -287,6 +318,12 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   'headlineWithType',
                   fastTypingSpeed,
                 )}
+                onAnimationComplete={(definition) => {
+                  if (definition === 'headlineWithType') {
+                    isMainAnimationFinished.current = true;
+                    isMainAnimationRunning.current = false;
+                  }
+                }}
               >
                 {secondHeadlineText.split('').map((letter, index) => (
                   <motion.span
