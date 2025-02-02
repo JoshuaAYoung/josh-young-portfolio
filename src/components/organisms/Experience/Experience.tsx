@@ -5,7 +5,7 @@ import useJYStore from '../../../store/useJYStore';
 import ExperienceItem from '../../molecules/ExperienceItem/ExperienceItem';
 import experiences from '../../../data/experiences.json';
 import { type Experience } from '../../../types/experience.types';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 const REVEAL_DURATION = 0.3;

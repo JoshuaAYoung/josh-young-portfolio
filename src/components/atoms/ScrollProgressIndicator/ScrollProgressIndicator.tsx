@@ -8,7 +8,7 @@ import {
 } from 'motion/react';
 import './ScrollProgressIndicator.scss';
 import Arrow from '../../../assets/icons/arrow.svg?react';
-import { useScrollToSection } from '../../../utils/useScrollToSection';
+import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import useJYStore from '../../../store/useJYStore';
 import { PAGE_SECTIONS } from '../../../constants/navigation';
 import {

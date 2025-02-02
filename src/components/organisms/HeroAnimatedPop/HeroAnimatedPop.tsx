@@ -7,10 +7,10 @@ import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
-import { useScrollToSection } from '../../../utils/useScrollToSection';
+import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import { useGetAnimations } from './heroAnimations';
 import HeroCircle from '../../atoms/HeroCircle/HeroCircle';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 const Hero = forwardRef<HTMLElement>((props, ref) => {

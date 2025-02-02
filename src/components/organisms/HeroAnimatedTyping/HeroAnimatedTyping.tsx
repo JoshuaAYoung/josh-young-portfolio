@@ -7,9 +7,9 @@ import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
-import { useScrollToSection } from '../../../utils/useScrollToSection';
+import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import { useGetAnimations } from './heroAnimations';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 const BlinkingCursor = ({
@@ -39,6 +39,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   const { scrollToSection } = useScrollToSection();
   const controls = useAnimation();
   const mounted = useRef(false);
+
   const {
     containerVariants,
     getLetterVariants,
@@ -52,24 +53,30 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   } = useGetAnimations();
   const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
   const md = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const sm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
   );
-  const [isInViewReveal, setIsInViewReveal] = useState(false);
+  const activeSection = useJYStore((state) => state.activeSection);
   const [showSwipeAnimations, setShowSwipeAnimations] = useState(false);
+  const [firstHeadlineText, setFirstHeadlineText] = useState(
+    'A full-stack developer',
+  );
+  const [secondHeadlineText, setSecondHeadlineText] = useState('with ');
   const sectionRefs = useJYStore((state) => state.sectionRefs);
+
+  console.log('activeSection', activeSection);
 
   // COMPUTED VAR(S)
   const headlineStrings: { [key: string]: string } = {
-    headlineOne: ' design sense.',
-    headlineTwo: ' a pottery passion.',
-    headlineThree: ' twin daughters.',
-    headlineFour: ' controller skills.',
-    headlineFive: ' bookish vibes.',
-    headlineSix: ' 3d printer chops.',
-    headlineSeven: ' a lot of hobbies.',
+    headlineOne: 'design sense.',
+    headlineTwo: 'a pottery obsession.',
+    headlineThree: 'twin dad vibes.',
+    headlineFour: 'controller skills.',
+    headlineFive: 'bookish vibes.',
+    headlineSix: '3d printer chops.',
   };
 
   const slowTypingSpeed = 0.1;
@@ -87,12 +94,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   }, [aboveLg, md]);
 
   // FUNCTION(S)
-  const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
-    if (isPartiallyOnScreen && !isInViewReveal) {
-      setIsInViewReveal(true);
-    }
-  };
-
   const handleScrollToPortfolio = () => {
     const contactRef = sectionRefs.Contact;
     const contactIndex = Object.keys(sectionRefs).indexOf('Contact');
@@ -101,16 +102,22 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     }
   };
 
-  const infiniteTypingSequence = () => {
+  const startHeadlineAnimationLoop = () => {
+    let loopCounter = 0;
     let index = 0;
 
     const asyncSequence = async () => {
-      const variantKey = Object.keys(headlineStrings)[index];
+      const times = 4;
+      // const times = Object.keys(headlineStrings).length * 1 + 1;
+      if (loopCounter >= times) return; // Stop after 'times' loops
 
+      const variantKey = Object.keys(headlineStrings)[index];
       await controls.start(`${variantKey}Type`);
+
       if (index === 0) {
         setShowSwipeAnimations(true);
       }
+
       await controls.start('blinkingHeadlineLong');
       await controls.start(`${variantKey}Erase`);
       await new Promise((resolve) => {
@@ -118,6 +125,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
       });
 
       index = (index + 1) % Object.keys(headlineStrings).length;
+      loopCounter += 1;
       asyncSequence();
     };
 
@@ -126,10 +134,11 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
 
   // EFFECT(S)
   useEffect(() => {
-    if (mounted.current) return;
-    mounted.current = true;
+    // if (mounted.current) return;
+    // mounted.current = true;
 
     const sequence = async () => {
+      controls.stop();
       controls.start('initial');
       await controls.start('blinkingTextLong');
       controls.start('dividerGrow');
@@ -142,12 +151,21 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
       await controls.start('blinkingTextShort');
       await controls.start('headlineFirstType');
       await controls.start('headlineWithType');
-
-      infiniteTypingSequence();
     };
 
-    sequence();
-  }, [controls]);
+    const runSequence = async () => {
+      await sequence();
+    };
+
+    runSequence();
+  }, [controls, activeSection]);
+
+  useEffect(() => {
+    if (sm) {
+      setFirstHeadlineText('A full-stack');
+      setSecondHeadlineText('developer with');
+    }
+  }, [sm]);
 
   return (
     <InViewSection
@@ -155,7 +173,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
       onSectionInViewActiveCallback={(isInView) =>
         onSectionInViewActive('Home', isInView)
       }
-      onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
     >
       <motion.div
@@ -250,7 +267,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   fastTypingSpeed,
                 )}
               >
-                {'A full-stack developer'.split('').map((letter, index) => (
+                {firstHeadlineText.split('').map((letter, index) => (
                   <motion.span
                     key={index}
                     variants={getLetterVariants(
@@ -271,7 +288,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   fastTypingSpeed,
                 )}
               >
-                {'with'.split('').map((letter, index) => (
+                {secondHeadlineText.split('').map((letter, index) => (
                   <motion.span
                     key={index}
                     variants={getLetterVariants(
@@ -280,10 +297,13 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                     )}
                     className="hero-letter"
                   >
-                    {letter}
+                    {letter === ' ' ? '\u00A0' : letter}
                   </motion.span>
                 ))}
               </motion.div>
+              {sm && (
+                <motion.br variants={getBreakVariants('headlineOneType')} />
+              )}
               {Object.keys(headlineStrings).map((variantKey, index) => (
                 <motion.div
                   variants={getTypeStaggerVariants(
@@ -315,7 +335,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
               <BlinkingCursor cursorVariants={cursorHeadlineVariants} />
             </div>
             {showSwipeAnimations && (
-              <RevealWrapper isInView={isInViewReveal} extraMargin>
+              <RevealWrapper isInView extraMargin>
                 <SwipeButton
                   size={buttonSize}
                   onClick={handleScrollToPortfolio}

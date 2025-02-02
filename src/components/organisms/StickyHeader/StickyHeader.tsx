@@ -2,7 +2,7 @@ import './StickyHeader.scss';
 import { motion } from 'motion/react';
 import HamburgerMenu from '../../molecules/HamburgerMenu/HamburgerMenu';
 import NavMenu from '../../molecules/NavMenu/NavMenu';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 function StickyHeader({ fadeDuration }: { fadeDuration?: number }) {

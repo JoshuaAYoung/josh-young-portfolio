@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { steps, Variants } from 'motion/react';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 export const useGetAnimations = () => {

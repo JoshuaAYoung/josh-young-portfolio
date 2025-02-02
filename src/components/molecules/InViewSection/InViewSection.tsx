@@ -15,7 +15,7 @@ interface InViewSectionProps {
    * Callback function that is triggered when any part of the section 10% "on screen".
    * Used for reveal animations currently, and only fires once per session.
    */
-  onSectionInViewRevealCallback: (isPartiallyOnScreen: boolean) => void;
+  onSectionInViewRevealCallback?: (isPartiallyOnScreen: boolean) => void;
   /**
    * The amount of the section that should be on screen before the `onSectionInViewReveal` callback is triggered.
    * Default is 0.1 (10%).
@@ -64,7 +64,7 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
 
     useEffect(() => {
       // Set's local "in view" state to use for reveal animations
-      if (isPartiallyOnScreen) {
+      if (isPartiallyOnScreen && onSectionInViewRevealCallback) {
         onSectionInViewRevealCallback(isPartiallyOnScreen);
       }
     }, [isPartiallyOnScreen, onSectionInViewRevealCallback]);

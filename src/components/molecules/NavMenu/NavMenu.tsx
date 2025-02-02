@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { PAGE_SECTIONS } from '../../../constants/navigation';
 import './NavMenu.scss';
-import { useScrollToSection } from '../../../utils/useScrollToSection';
+import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import LinkButtons from '../../atoms/LinkButtons/LinkButtons';
 import useJYStore from '../../../store/useJYStore';
-import useMediaQuery from '../../../utils/useMediaQuery';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 function NavMenu() {
