@@ -19,17 +19,19 @@ export const menuVariants: Variants = {
 };
 
 // Individual menu item animation
-export const menuItemVariants: Variants = {
-  hidden: { x: 200, transition: { duration: 0, delay: 0.5 } },
-  visible: {
-    x: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 150,
-      damping: 15,
-      duration: 0.5,
+export const getMenuItemVariants = (xOffset: number): Variants => {
+  return {
+    hidden: { x: xOffset, transition: { duration: 0, delay: 0.5 } },
+    visible: {
+      x: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 150,
+        damping: 15,
+        duration: 0.5,
+      },
     },
-  },
+  };
 };
 
 // Just for li staggered animation

@@ -50,9 +50,14 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     portraitVariants,
     initialContainerVariants,
   } = useGetAnimations();
-  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
-  const md = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
-  const sm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const aboveLgWidth = useMediaQuery(
+    `(min-width: ${breakpoints['min-large']})`,
+  );
+  const mdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const smWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const smHeight = useMediaQuery(
+    `(max-height: ${breakpoints['max-sm-height']})`,
+  );
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -81,14 +86,14 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   const fastErasingSpeed = 0.03;
 
   const buttonSize = useMemo(() => {
-    if (aboveLg) {
-      return 'large';
+    if (smWidth || smHeight) {
+      return 'small';
     }
-    if (md) {
+    if (mdWidth) {
       return 'medium';
     }
-    return 'small';
-  }, [aboveLg, md]);
+    return 'large';
+  }, [aboveLgWidth, mdWidth]);
 
   // FUNCTION(S)
   const handleScrollToPortfolio = () => {
@@ -192,11 +197,11 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   }, [controls, activeSection]);
 
   useEffect(() => {
-    if (sm) {
+    if (smWidth) {
       setFirstHeadlineText('A full-stack');
       setSecondHeadlineText('developer with');
     }
-  }, [sm]);
+  }, [smWidth]);
 
   return (
     <InViewSection
@@ -338,7 +343,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   </motion.span>
                 ))}
               </motion.div>
-              {sm && (
+              {smWidth && (
                 <motion.br variants={getBreakVariants('headlineOneType')} />
               )}
               {Object.keys(headlineStrings).map((variantKey, index) => (

@@ -8,6 +8,9 @@ import { breakpoints } from '../../../constants/breakpoints';
 function StickyHeader({ fadeDuration }: { fadeDuration?: number }) {
   // HOOK(S)
   const belowMd = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const belowSmHeight = useMediaQuery(
+    `(max-height: ${breakpoints['max-sm-height']})`,
+  );
 
   return (
     <motion.header
@@ -25,7 +28,7 @@ function StickyHeader({ fadeDuration }: { fadeDuration?: number }) {
         <h1 className="sticky-header-logo">
           JY<span className="big-period">.</span>
         </h1>
-        {belowMd ? <HamburgerMenu /> : <NavMenu />}
+        {belowMd || belowSmHeight ? <HamburgerMenu /> : <NavMenu />}
       </nav>
     </motion.header>
   );

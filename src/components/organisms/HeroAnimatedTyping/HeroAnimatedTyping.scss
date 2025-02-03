@@ -42,6 +42,10 @@ $background-height: 60vh;
     padding: 0 20px;
   }
 
+  @media screen and (max-height: $max-sm-height) {
+    padding: 40px 20px 0;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -83,6 +87,14 @@ $background-height: 60vh;
     @media screen and (max-width: $max-small) {
       max-width: 160px;
       min-width: 145px;
+      height: 310px;
+    }
+
+    @media screen and (max-height: $max-sm-height) {
+      max-width: 220px;
+      min-width: 200px;
+      height: 310px;
+      padding-top: 30px;
     }
 
     .hero-text-hello {
@@ -101,7 +113,7 @@ $background-height: 60vh;
         font-size: 2rem;
       }
 
-      @media screen and (max-width: $max-small) {
+      @media screen and (max-width: $max-small), (max-height: $max-sm-height) {
         font-size: 1.6rem;
         margin-bottom: 0.2rem;
       }
@@ -124,7 +136,7 @@ $background-height: 60vh;
         font-size: 4.4rem;
       }
 
-      @media screen and (max-width: $max-small) {
+      @media screen and (max-width: $max-small), (max-height: $max-sm-height) {
         font-size: 3.4rem;
       }
     }
@@ -170,10 +182,15 @@ $background-height: 60vh;
         top: 105px;
       }
 
+      // coordinate with the padding on the hero-text-container
+      @media screen and (max-height: $max-sm-height) {
+        top: 135px;
+      }
+
       .hero-text-divider {
         height: 2px;
         background-color: var(--secondary-color);
-        margin-bottom: 2.5rem;
+        margin: 0 0 2.5rem;
 
         @media screen and (max-width: $max-large) {
           width: 86px;
@@ -186,7 +203,11 @@ $background-height: 60vh;
         @media screen and (max-width: $max-small) {
           width: 65px;
           margin: 2.5rem 0 3rem;
-          margin-bottom: 3rem;
+        }
+
+        @media screen and (max-height: $max-sm-height) {
+          width: 65px;
+          margin: 1rem 0 1.5rem;
         }
       }
 
@@ -210,6 +231,11 @@ $background-height: 60vh;
         @media screen and (max-width: $max-small) {
           max-width: 140px;
         }
+
+        @media screen and (max-height: $max-sm-height) {
+          max-width: 240px;
+          font-size: 1.6rem;
+        }
       }
     }
   }
@@ -229,6 +255,9 @@ $background-height: 60vh;
     }
     @media screen and (max-width: $max-small) {
       max-width: 280px;
+    }
+    @media screen and (max-height: $max-sm-height) {
+      max-width: 220px;
     }
     @media screen and (max-width: $max-xSmall) {
       margin-left: -3vw;

@@ -5,6 +5,7 @@ declare const breakpointNumbers: {
   large: number;
   medium: number;
   small: number;
+  'sm-height': number;
   xSmall: number;
 };
 type BreakpointsType = {
@@ -19,6 +20,7 @@ type BreakpointsType = {
  * large: 1020
  * medium: 768
  * small: 600
+ * sm-height: 500
  * xSmall: 500
  */
 export declare const breakpoints: BreakpointsType;

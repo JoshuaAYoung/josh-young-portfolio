@@ -5,7 +5,7 @@
   --menu-line-height: 3px;
 }
 
-@media (max-width: $max-small) {
+@media (max-width: $max-small), (max-height: $max-sm-height) {
   :root {
     --wide-menu-line: 24px;
     --menu-line-height: 2px;
@@ -138,6 +138,10 @@ $menu-item-padding: 5rem;
       flex-direction: column;
       position: relative;
       align-items: flex-end;
+
+      @media screen and (max-height: $max-sm-height) {
+        padding-right: 40px;
+      }
 
       .hamburger-menu-list-item {
         display: flex;

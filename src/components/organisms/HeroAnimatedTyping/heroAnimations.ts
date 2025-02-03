@@ -7,13 +7,18 @@ export const useGetAnimations = () => {
   const lg = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
   const md = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const sm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const smHeight = useMediaQuery(
+    `(max-height: ${breakpoints['max-sm-height']})`,
+  );
+
+  console.log('smHeight1', smHeight);
 
   // HELPER FUNCTION(S)
   const getResponsiveValue = useCallback(
     (value: number, isCursorWidth?: boolean): number | number[] => {
       let multiplier = 1;
 
-      if (sm) {
+      if (sm || smHeight) {
         multiplier = 0.52;
       } else if (md) {
         multiplier = 0.67;
@@ -36,21 +41,21 @@ export const useGetAnimations = () => {
       result = Math.round(result);
       return result;
     },
-    [sm, md, lg],
+    [sm, md, lg, smHeight],
   );
 
   const getResponsiveHeadlineCursor = useCallback((): {
     height: number;
     y: number;
   } => {
-    if (md) {
+    if (md || smHeight) {
       return { height: 18, y: 3 };
     }
     if (lg) {
       return { height: 20, y: 4 };
     }
     return { height: 25, y: 5 };
-  }, [md, lg]);
+  }, [md, lg, smHeight]);
 
   // VARIANT(S)
   const containerVariants = {
