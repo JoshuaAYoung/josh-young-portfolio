@@ -12,7 +12,7 @@ import { breakpoints } from '../../../constants/breakpoints';
 const About = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
-  const belowMd = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -75,7 +75,7 @@ const About = forwardRef<HTMLElement>((props, ref) => {
           ))}
         </ul>
       </RevealWrapper>
-      {belowMd ? (
+      {maxMdWidth ? (
         <div className="about-buttons-container">
           <RevealWrapper
             isInView={isInViewReveal}

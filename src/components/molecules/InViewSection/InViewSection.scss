@@ -16,15 +16,17 @@
   .section-reveal-wrapper {
     margin-bottom: 3rem;
 
-    .section-title {
-      font-size: 4.8rem;
-      color: var(--primary-color);
-    }
+    // See global.scss for .section-title
   }
 
   &.home {
     height: 100vh;
     padding: 0;
+  }
+
+  &.portfolio {
+    padding-right: 7rem;
+    padding-left: 7rem;
   }
 
   // TODO remove height

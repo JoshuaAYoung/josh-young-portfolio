@@ -1,0 +1,25 @@
+.portfolio-container {
+  background-color: var(--background-dark);
+  padding: 7rem;
+
+  .portfolio-grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .portfolio-grid-item {
+      flex: 1 1 calc(33.333% - 1rem); /* Default to 3 items per row */
+      background-color: var(--secondary-color);
+      padding: 1rem;
+      box-sizing: border-box;
+
+      @media (max-width: $max-large) {
+        flex: 1 1 calc(50% - 1rem); /* 2 items per row */
+      }
+
+      @media (max-width: $max-medium) {
+        flex: 1 1 100%; /* 1 item per row */
+      }
+    }
+  }
+}

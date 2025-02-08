@@ -13,9 +13,9 @@ import { breakpoints } from '../../../constants/breakpoints';
 const Hero = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
-  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
-  const aboveMd = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
-  const aboveSm = useMediaQuery(`(min-width: ${breakpoints['min-small']})`);
+  const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const minMdWidth = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
+  const minSmWidth = useMediaQuery(`(min-width: ${breakpoints['min-small']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -41,14 +41,14 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
 
   // COMPUTED VAR(S)
   const buttonSize = useMemo(() => {
-    if (aboveLg) {
+    if (minLgWidth) {
       return 'large';
     }
-    if (aboveMd) {
+    if (minMdWidth) {
       return 'medium';
     }
     return 'small';
-  }, [aboveLg, aboveMd]);
+  }, [minLgWidth, minMdWidth, minSmWidth]);
 
   return (
     <InViewSection
@@ -78,7 +78,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
           <div className="hero-text-headline">
             <RevealWrapper isInView={isInViewReveal}>
               <span>A full-stack developer</span>
-              {aboveSm ? <br /> : ' '}
+              {minSmWidth ? <br /> : ' '}
               <span>with design sense.</span>
             </RevealWrapper>
           </div>

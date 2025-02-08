@@ -23,9 +23,7 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [heights, setHeights] = useState<{ [key: number]: number }>({});
   const titleRef = useRef<HTMLDivElement>(null);
-  const aboveXLarge = useMediaQuery(
-    `(min-width: ${breakpoints['min-xLarge']})`,
-  );
+  const minXlWidth = useMediaQuery(`(min-width: ${breakpoints['min-xLarge']})`);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -62,7 +60,7 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
       sectionName="Experience"
       onSectionInViewActiveCallback={(isInView) =>
         // when experience and about are side by side, skips setting experience active in nav menus
-        !aboveXLarge ? onSectionInViewActive('Experience', isInView) : null
+        !minXlWidth ? onSectionInViewActive('Experience', isInView) : null
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}

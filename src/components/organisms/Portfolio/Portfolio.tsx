@@ -2,18 +2,20 @@ import { forwardRef, useState } from 'react';
 import './Portfolio.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const Portfolio = forwardRef<HTMLElement>((props, ref) => {
+  // HOOK(S)
+  const minXlWidth = useMediaQuery(`(min-width: ${breakpoints['min-xLarge']})`);
+  const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
+  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+
   // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
-
-  if (isInViewReveal) {
-    console.log('Portfolio is revealed!');
-  }
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -30,11 +32,21 @@ const Portfolio = forwardRef<HTMLElement>((props, ref) => {
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
-      title="Portfolio"
     >
-      <RevealWrapper isInView={isInViewReveal}>
-        <h2 style={{ fontSize: 50, color: 'black' }}>Portfolio</h2>
-      </RevealWrapper>
+      <div className="portfolio-container">
+        <h2 className="section-title">
+          Portfolio
+          <span className="big-period">.</span>
+        </h2>
+        <div className="portfolio-grid-container">
+          <div className="portfolio-grid-item">Item 1</div>
+          <div className="portfolio-grid-item">Item 2</div>
+          <div className="portfolio-grid-item">Item 3</div>
+          <div className="portfolio-grid-item">Item 4</div>
+          <div className="portfolio-grid-item">Item 5</div>
+          <div className="portfolio-grid-item">Item 6</div>
+        </div>
+      </div>
     </InViewSection>
   );
 });

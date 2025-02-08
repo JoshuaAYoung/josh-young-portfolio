@@ -28,8 +28,8 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
     dividerVariants,
     portraitVariants,
   } = useGetAnimations();
-  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
-  const aboveMd = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
+  const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const minMdWidth = useMediaQuery(`(min-width: ${breakpoints['min-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -83,14 +83,14 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
 
   // COMPUTED VAR(S)
   const buttonSize = useMemo(() => {
-    if (aboveLg) {
+    if (minLgWidth) {
       return 'large';
     }
-    if (aboveMd) {
+    if (minMdWidth) {
       return 'medium';
     }
     return 'small';
-  }, [aboveLg]);
+  }, [minLgWidth, minMdWidth]);
 
   return (
     <InViewSection

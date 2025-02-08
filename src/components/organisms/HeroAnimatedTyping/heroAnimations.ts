@@ -4,25 +4,23 @@ import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
 export const useGetAnimations = () => {
-  const lg = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
-  const md = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
-  const sm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
-  const smHeight = useMediaQuery(
+  const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
+  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const maxSmHeight = useMediaQuery(
     `(max-height: ${breakpoints['max-sm-height']})`,
   );
-
-  console.log('smHeight1', smHeight);
 
   // HELPER FUNCTION(S)
   const getResponsiveValue = useCallback(
     (value: number, isCursorWidth?: boolean): number | number[] => {
       let multiplier = 1;
 
-      if (sm || smHeight) {
+      if (maxSmWidth || maxSmHeight) {
         multiplier = 0.52;
-      } else if (md) {
+      } else if (maxMdWidth) {
         multiplier = 0.67;
-      } else if (lg) {
+      } else if (maxLgWidth) {
         multiplier = 0.8;
       }
 
@@ -41,21 +39,21 @@ export const useGetAnimations = () => {
       result = Math.round(result);
       return result;
     },
-    [sm, md, lg, smHeight],
+    [maxSmWidth, maxMdWidth, maxLgWidth, maxSmHeight],
   );
 
   const getResponsiveHeadlineCursor = useCallback((): {
     height: number;
     y: number;
   } => {
-    if (md || smHeight) {
+    if (maxMdWidth || maxSmHeight) {
       return { height: 18, y: 3 };
     }
-    if (lg) {
+    if (maxLgWidth) {
       return { height: 20, y: 4 };
     }
     return { height: 25, y: 5 };
-  }, [md, lg, smHeight]);
+  }, [maxMdWidth, maxLgWidth, maxSmHeight]);
 
   // VARIANT(S)
   const containerVariants = {

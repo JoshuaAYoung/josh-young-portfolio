@@ -16,8 +16,8 @@ import {
 function HamburgerMenu() {
   // HOOK(S)
   // TODO change this to whatever breakpoint we stack about and exp
-  const aboveLg = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
-  const belowSmHeight = useMediaQuery(
+  const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const maxSmHeight = useMediaQuery(
     `(max-height: ${breakpoints['max-sm-height']})`,
   );
   const { scrollToSection } = useScrollToSection();
@@ -29,14 +29,14 @@ function HamburgerMenu() {
 
   // COMPUTED VAR(S)
   const filteredPageSections = PAGE_SECTIONS.filter((link) => {
-    if (aboveLg) {
+    if (minLgWidth) {
       return link !== 'Experience';
     }
     return true;
   });
 
   // coordinate offset with padding style on the hamburger-menu-list
-  const menuItemVariants = getMenuItemVariants(belowSmHeight ? 240 : 200);
+  const menuItemVariants = getMenuItemVariants(maxSmHeight ? 240 : 200);
 
   // FUNCTION(S)
   const handleNavClick = (index: number) => {

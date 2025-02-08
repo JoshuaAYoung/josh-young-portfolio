@@ -12,9 +12,7 @@ function NavMenu() {
   // HOOK(S)
   const navRef = useRef<HTMLUListElement>(null);
   const { scrollToSection } = useScrollToSection();
-  const aboveXLarge = useMediaQuery(
-    `(min-width: ${breakpoints['min-xLarge']})`,
-  );
+  const minXlWidth = useMediaQuery(`(min-width: ${breakpoints['min-xLarge']})`);
 
   // STATE
   const activeSection = useJYStore((state) => state.activeSection);
@@ -51,7 +49,7 @@ function NavMenu() {
     }
   };
 
-  const pageSectionsLocal = aboveXLarge
+  const pageSectionsLocal = minXlWidth
     ? PAGE_SECTIONS.filter((section) => section !== 'Experience')
     : PAGE_SECTIONS;
 

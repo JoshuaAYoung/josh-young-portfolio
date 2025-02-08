@@ -17,12 +17,12 @@ interface RefObject {
 let currentAnimation: ReturnType<typeof animate> | null = null;
 
 export const useScrollToSection = () => {
-  const belowSm = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   const setIsScrolling = useJYStore((state) => state.setIsScrolling);
   const setActiveSection = useJYStore((state) => state.setActiveSection);
   // TODO change 90 for smaller breakpoints based on the section padding
   const stickyHeaderVariable =
-    ((belowSm ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) -
+    ((maxSmWidth ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) -
       90) *
     -1;
 
