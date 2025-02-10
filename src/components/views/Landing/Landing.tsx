@@ -2,7 +2,7 @@
 import Hero from '../../organisms/HeroAnimatedTyping/HeroAnimatedTyping';
 // import Hero from '../../organisms/Hero/Hero';
 import Contact from '../../organisms/Contact/Contact';
-import Portfolio from '../../organisms/Portfolio/Portfolio';
+import Projects from '../../organisms/Projects/Projects';
 import Experience from '../../organisms/Experience/Experience';
 import Skills from '../../organisms/Skills/Skills';
 import About from '../../organisms/About/About';
@@ -24,7 +24,7 @@ function Landing() {
           <About ref={sectionRefs.About} />
           <Experience ref={sectionRefs.Experience} />
         </div>
-        <Portfolio ref={sectionRefs.Portfolio} />
+        <Projects ref={sectionRefs.Projects} />
         <Skills ref={sectionRefs.Skills} />
         <Contact ref={sectionRefs.Contact} />
       </div>

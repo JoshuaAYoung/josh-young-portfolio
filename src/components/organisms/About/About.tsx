@@ -4,7 +4,7 @@ import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
-import about from '../../../data/about.json';
+import { aboutData } from '../../../data/about';
 import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
@@ -34,11 +34,11 @@ const About = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
-  const handleScrollToPortfolio = () => {
-    const portfolioRef = sectionRefs.Portfolio;
-    const portfolioIndex = Object.keys(sectionRefs).indexOf('Portfolio');
-    if (portfolioIndex !== -1) {
-      scrollToSection(portfolioRef, portfolioIndex);
+  const handleScrollToProjects = () => {
+    const projectsRef = sectionRefs.Projects;
+    const projectsIndex = Object.keys(sectionRefs).indexOf('Projects');
+    if (projectsIndex !== -1) {
+      scrollToSection(projectsRef, projectsIndex);
     }
   };
 
@@ -57,17 +57,17 @@ const About = forwardRef<HTMLElement>((props, ref) => {
         isInView={isInViewReveal}
         containerClassName="about-headline"
       >
-        <p>{about.firstParagraph}</p>
+        <p>{aboutData.firstParagraph}</p>
       </RevealWrapper>
       <RevealWrapper isInView={isInViewReveal} containerClassName="about-copy">
-        <p>{about.secondParagraph}</p>
+        <p>{aboutData.secondParagraph}</p>
       </RevealWrapper>
       <RevealWrapper
         isInView={isInViewReveal}
         containerClassName="about-fact-list"
       >
         <ul>
-          {Object.entries(about.factList).map(([key, value], index) => (
+          {Object.entries(aboutData.factList).map(([key, value], index) => (
             <li key={index}>
               <span className="about-fact-label">{key.toUpperCase()}:</span>{' '}
               {value}
@@ -91,9 +91,9 @@ const About = forwardRef<HTMLElement>((props, ref) => {
           >
             <SwipeButton
               variant="solid-secondary"
-              onClick={handleScrollToPortfolio}
+              onClick={handleScrollToProjects}
             >
-              PORTFOLIO
+              PROJECTS
             </SwipeButton>
           </RevealWrapper>
         </div>
@@ -107,9 +107,9 @@ const About = forwardRef<HTMLElement>((props, ref) => {
             <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
             <SwipeButton
               variant="solid-secondary"
-              onClick={handleScrollToPortfolio}
+              onClick={handleScrollToProjects}
             >
-              PORTFOLIO
+              PROJECTS
             </SwipeButton>
           </div>
         </RevealWrapper>

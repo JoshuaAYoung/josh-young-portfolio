@@ -3,7 +3,7 @@ import './Experience.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import ExperienceItem from '../../molecules/ExperienceItem/ExperienceItem';
-import experiences from '../../../data/experiences.json';
+import { experienceData } from '../../../data/experiences';
 import { type Experience } from '../../../types/experience.types';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
@@ -53,7 +53,7 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
     SECTION_VERTICAL_PADDING * 2 +
     SECTION_TITLE_BOTTOM_MARGIN +
     titleHeight +
-    PARAGRAPH_ITEM_BOTTOM_MARGIN * experiences.length;
+    PARAGRAPH_ITEM_BOTTOM_MARGIN * experienceData.length;
 
   return (
     <InViewSection
@@ -69,11 +69,11 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
       titleRef={titleRef}
     >
       {isInViewReveal &&
-        experiences.map((experience, index) => (
+        experienceData.map((experience, index) => (
           <ExperienceItem
             key={index}
             experience={experience as Experience}
-            hasLine={index !== experiences.length - 1}
+            hasLine={index !== experienceData.length - 1}
             index={index}
             revealDuration={REVEAL_DURATION}
             onHeightCalculated={(height) =>

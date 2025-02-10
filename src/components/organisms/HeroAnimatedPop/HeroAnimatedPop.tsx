@@ -73,7 +73,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
-  const handleScrollToPortfolio = () => {
+  const handleScrollToContact = () => {
     const contactRef = sectionRefs.Contact;
     const contactIndex = Object.keys(sectionRefs).indexOf('Contact');
     if (contactIndex !== -1) {
@@ -145,10 +145,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
                 </RevealWrapper>
               </div>
               <RevealWrapper isInView={isInViewReveal} extraMargin>
-                <SwipeButton
-                  size={buttonSize}
-                  onClick={handleScrollToPortfolio}
-                >
+                <SwipeButton size={buttonSize} onClick={handleScrollToContact}>
                   CONTACT
                 </SwipeButton>
               </RevealWrapper>

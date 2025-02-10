@@ -93,7 +93,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   }, [maxSmWidth, maxSmHeight, maxMdWidth]);
 
   // FUNCTION(S)
-  const handleScrollToPortfolio = () => {
+  const handleScrollToContact = () => {
     const contactRef = sectionRefs.Contact;
     const contactIndex = Object.keys(sectionRefs).indexOf('Contact');
     if (contactIndex !== -1) {
@@ -375,10 +375,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
             </div>
             {showSwipeAnimations && (
               <RevealWrapper isInView extraMargin>
-                <SwipeButton
-                  size={buttonSize}
-                  onClick={handleScrollToPortfolio}
-                >
+                <SwipeButton size={buttonSize} onClick={handleScrollToContact}>
                   CONTACT
                 </SwipeButton>
               </RevealWrapper>
