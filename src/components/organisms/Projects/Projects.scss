@@ -1,28 +1,43 @@
+:root {
+  --project-gap: 6rem;
+
+  @media (max-width: $max-xLarge) {
+    --project-gap: 4rem;
+  }
+
+  @media (max-width: $max-large) {
+    --project-gap: 5rem;
+  }
+}
+
 .projects-container {
   background-color: var(--background-dark);
-  padding: 7rem;
+  padding: 6.5rem;
 
   .projects-grid-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--project-gap);
+    margin-top: 3.5rem;
 
     .projects-grid-item {
-      flex: 1 1 calc(33.333% - 1rem); /* Default to 3 items per row */
+      flex: 1 1 calc(33.333% - var(--project-gap));
       background-color: var(--secondary-color);
       padding: 1rem;
       box-sizing: border-box;
       position: relative;
       overflow: hidden;
-      background-color: #f0f0f0; /* Default background color */
+      background-color: #f0f0f0;
       transition: transform 0.3s ease;
+      border: 3px solid var(--background-light);
+      aspect-ratio: 1 / 1;
 
       @media (max-width: $max-large) {
-        flex: 1 1 calc(50% - 1rem); /* 2 items per row */
+        flex: 1 1 calc(50% - var(--project-gap));
       }
 
       @media (max-width: $max-medium) {
-        flex: 1 1 100%; /* 1 item per row */
+        flex: 1 1 100%;
       }
 
       &:hover .projects-grid-overlay {
@@ -35,7 +50,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 165, 0, 0.9);
+        background-color: rgba(var(--secondary-color-rgb), 0.92);
         display: flex;
         flex-direction: column;
         justify-content: center;

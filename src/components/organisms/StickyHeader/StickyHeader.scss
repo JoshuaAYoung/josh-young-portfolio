@@ -30,7 +30,7 @@
     .sticky-header-logo {
       font-size: 3rem;
       font-weight: 800;
-      color: #e2e2e2;
+      color: var(--primary-color);
 
       @media screen and (max-width: $max-small), (max-height: $max-sm-height) {
         font-size: 2.4rem;

@@ -61,12 +61,17 @@ export const useGetAnimations = ({
   };
 
   const paragraphVariants: Variants = {
-    initial: { height: 0, scale: 1, opacity: 0, transformOrigin: 'left' },
+    initial: {
+      height: 0,
+      scale: 1,
+      opacity: 0,
+      transformOrigin: 'left',
+      backgroundColor: 'var(--background-medium)',
+    },
     reveal: {
       scale: 1,
       height: 'auto',
       opacity: 1,
-      backgroundColor: 'var(--background-medium)',
       transition: {
         type: 'spring',
         stiffness: 150,

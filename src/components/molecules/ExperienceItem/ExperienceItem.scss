@@ -30,7 +30,8 @@
 
     .experience-item-pulse-circle {
       stroke: none;
-      fill: #f2b966;
+      fill: var(--secondary-color);
+      filter: brightness(112%) saturate(80%);
     }
 
     .experience-item-line {

@@ -61,38 +61,35 @@ $background-height: 60vh;
       revealBackground 4s ease-in-out,
       moveSidewaysBackground 200s linear infinite;
     z-index: 0;
+    filter: var(--invert-filter);
   }
 
   .hero-text-container {
     z-index: 1;
-    max-width: 280px;
-    min-width: 260px;
+    width: 280px;
     height: 450px;
     position: relative;
     line-height: 1.2;
+    flex-shrink: 0;
 
     @media screen and (max-width: $max-large) {
-      min-width: 240px;
-      max-width: 260px;
+      width: 240px;
       height: 400px;
     }
 
     @media screen and (max-width: $max-medium) {
-      max-width: 220px;
-      min-width: 200px;
+      width: 200px;
       margin-bottom: 0;
       height: 310px;
     }
 
     @media screen and (max-width: $max-small) {
-      max-width: 160px;
-      min-width: 145px;
+      width: 140px;
       height: 310px;
     }
 
     @media screen and (max-height: $max-sm-height) {
-      max-width: 220px;
-      min-width: 200px;
+      width: 200px;
       height: 310px;
       padding-top: 30px;
     }
@@ -263,7 +260,8 @@ $background-height: 60vh;
       margin-left: -3vw;
     }
 
-    .hero-portrait {
+    .picture,
+    img {
       width: 100%;
     }
   }

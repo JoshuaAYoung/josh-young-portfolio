@@ -2,7 +2,8 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './HeroAnimatedTyping.scss';
 import { motion, useAnimation, Variants } from 'motion/react';
 import heroBackground from '../../../assets/images/hero-background.png';
-import heroPortrait from '../../../assets/images/hero-portrait.png';
+import heroPortraitDark from '../../../assets/images/hero-portrait-dark.png';
+import heroPortraitLight from '../../../assets/images/hero-portrait-light.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
@@ -61,6 +62,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     (state) => state.onSectionInViewActive,
   );
   const activeSection = useJYStore((state) => state.activeSection);
+  const isDarkMode = useJYStore((state) => state.isDarkMode);
   const [showSwipeAnimations, setShowSwipeAnimations] = useState(false);
   const [firstHeadlineText, setFirstHeadlineText] = useState(
     'A full-stack developer',
@@ -386,11 +388,17 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
           className="hero-portrait-container"
           variants={portraitVariants}
         >
-          <img
-            src={heroPortrait}
-            alt="josh young portrait"
-            className="hero-portrait"
-          />
+          <picture>
+            {isDarkMode ? (
+              <source srcSet={heroPortraitDark} />
+            ) : (
+              <source srcSet={heroPortraitLight} />
+            )}
+            <img
+              src={isDarkMode ? heroPortraitDark : heroPortraitLight}
+              alt="josh young portrait"
+            />
+          </picture>
         </motion.div>
       </motion.div>
     </InViewSection>
