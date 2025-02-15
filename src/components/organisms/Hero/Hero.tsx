@@ -1,7 +1,7 @@
 import { forwardRef, useMemo, useState } from 'react';
 import './Hero.scss';
 import heroBackground from '../../../assets/images/hero-background.png';
-import heroPortrait from '../../../assets/images/hero-portrait.png';
+import heroPortrait from '../../../assets/images/hero-portrait-dark.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';

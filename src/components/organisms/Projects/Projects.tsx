@@ -2,15 +2,17 @@ import { forwardRef, useState } from 'react';
 import './Projects.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import useMediaQuery from '../../../globalUtils/useMediaQuery';
-import { breakpoints } from '../../../constants/breakpoints';
+// import useMediaQuery from '../../../globalUtils/useMediaQuery';
+// import { breakpoints } from '../../../constants/breakpoints';
 import GitHubIcon from '../../../assets/icons/github.svg?react';
+import LinkIcon from '../../../assets/icons/link.svg?react';
+import { projectData } from '../../../data/projects';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
-  const minXlWidth = useMediaQuery(`(min-width: ${breakpoints['min-xLarge']})`);
-  const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
-  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  // const minXlWidth = useMediaQuery(`(min-width: ${breakpoints['min-xLarge']})`);
+  // const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
+  // const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -40,29 +42,43 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
           <span className="big-period">.</span>
         </h2>
         <div className="projects-grid-container">
-          <div className="projects-grid-item">
-            <div className="projects-grid-overlay">
-              <div className="projects-grid-overlay-title">Project 1</div>
-              <div className="projects-grid-overlay-description">
-                This is a great project.
+          {projectData.map((project, index) => (
+            <div
+              className="projects-grid-item"
+              key={index}
+              style={{ backgroundImage: `url(${project.backgroundUrl})` }}
+            >
+              <div className="projects-grid-overlay">
+                <div className="projects-grid-title-container">
+                  <h3 className="projects-grid-title">{project.title}</h3>
+                  <div className="projects-grid-title-divider" />
+                </div>
+                <p className="projects-grid-description">
+                  {project.description}
+                </p>
+                <div className="projects-grid-button-container">
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="projects-grid-link"
+                  >
+                    <GitHubIcon className="projects-grid-button" />
+                  </a>
+                  <a
+                    href={project.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Demo"
+                    className="projects-grid-link"
+                  >
+                    <LinkIcon className="projects-grid-button" />
+                  </a>
+                </div>
               </div>
-              <a
-                href="https://github.com/joshuaayoung"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="projects-grid-overlay-link"
-              >
-                <GitHubIcon className="projects-grid-overlay-button" />
-              </a>
             </div>
-            Item 1
-          </div>
-          <div className="projects-grid-item">Item 2</div>
-          <div className="projects-grid-item">Item 3</div>
-          <div className="projects-grid-item">Item 4</div>
-          <div className="projects-grid-item">Item 5</div>
-          <div className="projects-grid-item">Item 6</div>
+          ))}
         </div>
       </div>
     </InViewSection>

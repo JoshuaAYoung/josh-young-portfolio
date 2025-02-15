@@ -31,6 +31,8 @@
       transition: transform 0.3s ease;
       border: 3px solid var(--background-light);
       aspect-ratio: 1 / 1;
+      background-size: cover;
+      cursor: pointer;
 
       @media (max-width: $max-large) {
         flex: 1 1 calc(50% - var(--project-gap));
@@ -54,26 +56,59 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         opacity: 0;
         transition: opacity 0.3s ease;
-      }
+        padding: 10%;
+        container-type: inline-size;
 
-      .projects-grid-overlay-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-color);
+        .projects-grid-title-container {
+          margin-bottom: 4%;
 
-        @media not all and (hover: none) {
-          &:hover {
-            color: var(--secondary-color);
+          .projects-grid-title {
+            font-size: clamp(1.8rem, 9cqw, 2.8rem);
+            color: var(--background-dark);
+            font-weight: 800;
+          }
+
+          .projects-grid-title-divider {
+            width: 80%;
+            height: 1px;
+            background-color: var(--background-dark);
           }
         }
 
-        .projects-grid-overlay-button {
-          transition: color 0.3s ease;
-          width: 1.5rem;
+        .projects-grid-description {
+          font-size: clamp(1.2rem, 6cqw, 1.8rem);
+          color: var(--background-dark);
+          font-weight: 600;
+          font-family: 'Nunito', sans-serif;
+        }
+
+        .projects-grid-button-container {
+          position: absolute;
+          bottom: 5%;
+          right: 5%;
+          display: flex;
+          gap: 1.5rem;
+
+          .projects-grid-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+
+            @media not all and (hover: none) {
+              &:hover {
+                color: var(--secondary-color);
+              }
+            }
+
+            .projects-grid-button {
+              transition: color 0.3s ease;
+              width: 2rem;
+            }
+          }
         }
       }
     }

@@ -1,4 +1,6 @@
-export const experienceData = [
+import { Experience } from '../types/experience.types';
+
+export const experienceData: Experience[] = [
   {
     yearRange: '2021 - Present',
     title: 'Senior Full-Stack Engineer',
