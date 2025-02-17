@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { motion, useAnimation } from 'motion/react';
 import './ExperienceItem.scss';
@@ -10,7 +10,7 @@ interface ExperienceItemProps {
   hasLine: boolean;
   index: number;
   revealDuration: number;
-  onHeightCalculated: (height: number) => void;
+  isInViewReveal: boolean;
 }
 
 const ExperienceItem = ({
@@ -18,11 +18,10 @@ const ExperienceItem = ({
   hasLine = true,
   index,
   revealDuration,
-  onHeightCalculated,
+  isInViewReveal,
 }: ExperienceItemProps) => {
   // HOOK(S)
   const controls = useAnimation();
-  const paragraphRef = useRef<HTMLDivElement>(null);
 
   // 0.2 gives a slight pause between the reveal
   const revealDelay = index * (revealDuration + 0.2);
@@ -37,11 +36,10 @@ const ExperienceItem = ({
 
   // EFFECT(S)
   useEffect(() => {
-    if (paragraphRef.current) {
-      onHeightCalculated(paragraphRef.current.scrollHeight);
+    if (isInViewReveal) {
+      controls.start('reveal');
     }
-    controls.start('reveal');
-  }, [controls]);
+  }, [controls, isInViewReveal]);
 
   // COMPUTED VAR(S)
   // coordinate these with css variables
@@ -79,78 +77,99 @@ const ExperienceItem = ({
   );
 
   return (
-    <motion.div
-      className="experience-item-container"
-      initial="initial"
-      animate={controls}
-      whileHover="hoverIn"
-    >
-      <div className="experience-item-circle-container">
-        <motion.svg
-          viewBox={`0 0 ${circleContainerDiameter} ${circleContainerDiameter}`}
-          width={circleContainerDiameter}
-          height={circleContainerDiameter}
-          variants={circleContainerVariants}
-        >
-          <motion.circle
-            cx={circleContainerRadius}
-            cy={circleContainerRadius}
-            r="10"
-            className="experience-item-pulse-circle"
-            variants={pulseCircleVariants}
-          />
-          <circle
-            cx={circleContainerRadius}
-            cy={circleContainerRadius}
-            r="10"
-            className="experience-item-base-circle"
-          />
-          <motion.circle
-            cx={circleContainerRadius}
-            cy={circleContainerRadius}
-            r="6"
-            className="experience-item-hover-circle"
-            variants={hoverCircleVariants}
-          />
-        </motion.svg>
-        {hasLine && (
-          <motion.svg
-            className="experience-item-line"
-            variants={lineVariants}
-            initial="initial"
-            animate={controls}
-          >
-            <line x1="1" y1="0" x2="1" y2="100%" />
-          </motion.svg>
-        )}
-      </div>
+    <div className="experience-item-container">
       <motion.div
-        className="experience-item-paragraph"
-        variants={paragraphVariants}
-        ref={paragraphRef}
+        className="experience-item visible"
+        initial="initial"
+        animate={controls}
+        whileHover="hoverIn"
       >
-        <p className="experience-item-year-range">
-          {experience.yearRange.toUpperCase()}
-        </p>
-        <p className="experience-item-title">{experience.title}</p>
-        <p className="experience-item-position-details">
-          <span className="experience-item-company">
-            {experience.company.toUpperCase()}
-          </span>
-          {` | ${experience.location} | ${experience.dateStart} - ${experience.dateEnd} (${computedDuration})`}
-        </p>
-        <p className="experience-item-description">{experience.description}</p>
+        <div className="experience-item-circle-container">
+          <motion.svg
+            viewBox={`0 0 ${circleContainerDiameter} ${circleContainerDiameter}`}
+            width={circleContainerDiameter}
+            height={circleContainerDiameter}
+            variants={circleContainerVariants}
+          >
+            <motion.circle
+              cx={circleContainerRadius}
+              cy={circleContainerRadius}
+              r="10"
+              className="experience-item-pulse-circle"
+              variants={pulseCircleVariants}
+            />
+            <circle
+              cx={circleContainerRadius}
+              cy={circleContainerRadius}
+              r="10"
+              className="experience-item-base-circle"
+            />
+            <motion.circle
+              cx={circleContainerRadius}
+              cy={circleContainerRadius}
+              r="6"
+              className="experience-item-hover-circle"
+              variants={hoverCircleVariants}
+            />
+          </motion.svg>
+          {hasLine && (
+            <motion.svg
+              className="experience-item-line"
+              variants={lineVariants}
+              initial="initial"
+              animate={controls}
+            >
+              <line x1="1" y1="0" x2="1" y2="100%" />
+            </motion.svg>
+          )}
+        </div>
+        <motion.div
+          className="experience-item-paragraph"
+          variants={paragraphVariants}
+        >
+          <p className="experience-item-year-range">
+            {experience.yearRange.toUpperCase()}
+          </p>
+          <p className="experience-item-title">{experience.title}</p>
+          <p className="experience-item-position-details">
+            <span className="experience-item-company">
+              {experience.company.toUpperCase()}
+            </span>
+            {` | ${experience.location} | ${experience.dateStart} - ${experience.dateEnd} (${computedDuration})`}
+          </p>
+          <p className="experience-item-description">
+            {experience.description}
+          </p>
+        </motion.div>
+        <motion.svg
+          className="experience-item-triangle"
+          width="14"
+          height="28"
+          viewBox="0 0 14 28"
+          variants={triangleVariants}
+        >
+          <polygon points="14,0 14,28 0,14" />
+        </motion.svg>
       </motion.div>
-      <motion.svg
-        className="experience-item-triangle"
-        width="14"
-        height="28"
-        viewBox="0 0 14 28"
-        variants={triangleVariants}
-      >
-        <polygon points="14,0 14,28 0,14" />
-      </motion.svg>
-    </motion.div>
+      {/* hidden copy of the paragraph to make height of section static */}
+      <div className="experience-item hidden" aria-hidden="true">
+        <div className="experience-item-paragraph">
+          <p className="experience-item-year-range">
+            {experience.yearRange.toUpperCase()}
+          </p>
+          <p className="experience-item-title">{experience.title}</p>
+          <p className="experience-item-position-details">
+            <span className="experience-item-company">
+              {experience.company.toUpperCase()}
+            </span>
+            {` | ${experience.location} | ${experience.dateStart} - ${experience.dateEnd} (${computedDuration})`}
+          </p>
+          <p className="experience-item-description">
+            {experience.description}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

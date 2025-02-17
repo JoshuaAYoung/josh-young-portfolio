@@ -38,7 +38,7 @@
   }
 
   &:hover {
-    color: var(--background-dark);
+    color: var(--high-contrast);
 
     &::after {
       bottom: -30px;
@@ -49,14 +49,14 @@
   &.outline-dark {
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
-    background-color: var(--background-dark);
+    background-color: var(--high-contrast);
 
     &::after {
       background: var(--primary-color);
     }
 
     &:hover {
-      color: var(--background-dark);
+      color: var(--high-contrast);
 
       &::after {
         background: var(--primary-color);
@@ -65,18 +65,18 @@
   }
 
   &.solid-secondary {
-    color: var(--background-dark);
+    color: var(--high-contrast);
     background-color: var(--secondary-color);
 
     &::after {
-      background: var(--background-dark);
+      background: var(--high-contrast);
     }
 
     &:hover {
       color: var(--secondary-color);
 
       &::after {
-        background: var(--background-dark);
+        background: var(--high-contrast);
       }
     }
   }

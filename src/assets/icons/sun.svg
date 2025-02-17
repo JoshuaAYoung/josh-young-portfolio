@@ -4,7 +4,7 @@
 <style type="text/css">
 	.st0{fill-rule:evenodd;clip-rule:evenodd;}
 </style>
-<title>Togggle Light Mode</title>
+<title>Toggle Light Mode</title>
 <circle class="st0" cx="400" cy="400.1" r="200"/>
 <path class="st0" d="M150,400c0-27.6-22.4-50-50-50H50c-27.6,0-50,22.4-50,50s22.4,50,50,50h50C127.7,450,150,427.6,150,400z"/>
 <path class="st0" d="M152.6,576.7l-35.4,35.4c-19.5,19.5-19.5,51.2,0,70.7c19.5,19.5,51.2,19.5,70.7,0l35.4-35.4

@@ -32,7 +32,6 @@
       border: 3px solid var(--background-light);
       aspect-ratio: 1 / 1;
       background-size: cover;
-      cursor: pointer;
 
       @media (max-width: $max-large) {
         flex: 1 1 calc(50% - var(--project-gap));
@@ -67,20 +66,20 @@
 
           .projects-grid-title {
             font-size: clamp(1.8rem, 9cqw, 2.8rem);
-            color: var(--background-dark);
+            color: var(--high-contrast);
             font-weight: 800;
           }
 
           .projects-grid-title-divider {
             width: 80%;
             height: 1px;
-            background-color: var(--background-dark);
+            background-color: var(--high-contrast);
           }
         }
 
         .projects-grid-description {
           font-size: clamp(1.2rem, 6cqw, 1.8rem);
-          color: var(--background-dark);
+          color: var(--high-contrast);
           font-weight: 600;
           font-family: 'Nunito', sans-serif;
         }
@@ -96,11 +95,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
+            color: var(--high-contrast);
 
             @media not all and (hover: none) {
               &:hover {
-                color: var(--secondary-color);
+                color: var(--primary-color);
               }
             }
 

@@ -6,6 +6,7 @@
   --background-light: #34343b;
   --background-medium: #2e2e35;
   --background-dark: #25252c;
+  --high-contrast: var(--background-dark);
   --transition-duration: 0.4s ease-in-out;
   --xxLarge-content-margin: 8%;
   --xxxLarge-content-margin: 12%;
@@ -14,11 +15,13 @@
 
 html[data-theme='light'] {
   --primary-color: #25252c;
+  --primary-color-transparent: #25252c00;
   --secondary-color: #f2635b;
   --secondary-color-rgb: 242, 99, 91;
   --background-light: #ffffff;
   --background-medium: #f4f4f6;
   --background-dark: #e1e0e6;
+  --high-contrast: var(--background-light);
   --invert-filter: hue-rotate(-40deg) brightness(550%) saturate(40%);
 }
 
