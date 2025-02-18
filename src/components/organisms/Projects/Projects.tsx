@@ -7,6 +7,7 @@ import useJYStore from '../../../store/useJYStore';
 import GitHubIcon from '../../../assets/icons/github.svg?react';
 import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';
+import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -37,10 +38,13 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
       ref={ref}
     >
       <div className="projects-container">
-        <h2 className="section-title">
-          Projects
-          <span className="big-period">.</span>
-        </h2>
+        <div className="projects-header-container">
+          <h2 className="section-title">
+            Projects
+            <span className="big-period">.</span>
+          </h2>
+          <ProjectsMenu />
+        </div>
         <div className="projects-grid-container">
           {projectData.map((project, index) => (
             <div
@@ -66,15 +70,17 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   >
                     <GitHubIcon className="projects-grid-button" />
                   </a>
-                  <a
-                    href={project.demoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Demo"
-                    className="projects-grid-link"
-                  >
-                    <LinkIcon className="projects-grid-button" />
-                  </a>
+                  {project.demoLink && (
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Demo"
+                      className="projects-grid-link"
+                    >
+                      <LinkIcon className="projects-grid-button" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

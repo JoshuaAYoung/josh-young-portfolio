@@ -15,7 +15,6 @@ import {
 
 function HamburgerMenu() {
   // HOOK(S)
-  // TODO change this to whatever breakpoint we stack about and exp
   const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
   const maxSmHeight = useMediaQuery(
     `(max-height: ${breakpoints['max-sm-height']})`,

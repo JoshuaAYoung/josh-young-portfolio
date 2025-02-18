@@ -1,0 +1,187 @@
+$button-size: 40px;
+$menu-line-height: 4px;
+$wide-menu-line: 24px;
+$short-menu-line: calc($wide-menu-line / 2);
+$bottom-line-top-offset: calc($short-menu-line + 2px);
+$menu-line-bottom-gap: 8px;
+$menu-item-padding: 5rem;
+
+.projects-menu-container {
+  display: flex;
+  justify-content: flex-end;
+  height: $button-size;
+  width: $button-size;
+
+  .projects-menu-trigger-container {
+    position: absolute;
+
+    .projects-menu-trigger {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      width: $button-size;
+      height: $button-size;
+      padding-right: calc(
+        ($button-size - $wide-menu-line - $menu-line-bottom-gap) / 2
+      );
+      padding-top: calc(
+        ($button-size - $bottom-line-top-offset - $menu-line-height) / 2
+      );
+
+      & span,
+      & span:after,
+      & span:before {
+        content: '';
+        display: block;
+        height: 3px;
+        background: var(--primary-color);
+        transition: var(--transition-duration);
+        backface-visibility: hidden;
+        right: 0;
+      }
+
+      // top line
+      & span {
+        width: $wide-menu-line;
+        position: relative;
+
+        // bottom right line
+        &:before {
+          width: $short-menu-line;
+          top: $bottom-line-top-offset;
+          position: absolute;
+        }
+
+        // bottom left line
+        &::after {
+          width: $short-menu-line;
+          top: $bottom-line-top-offset;
+          right: calc($short-menu-line + $menu-line-bottom-gap);
+          position: absolute;
+        }
+      }
+
+      &.menu-open {
+        // top line
+        & span {
+          width: calc($wide-menu-line + 6px);
+          transform: rotate(45deg);
+          transform: translate(0px, 7px) rotate(45deg);
+
+          // bottom right line
+          &:before {
+            width: calc($wide-menu-line + 6px);
+            transform: rotate(-90deg);
+            top: 0;
+          }
+
+          // bottom left line
+          &::after {
+            width: calc($wide-menu-line + 6px);
+            transform: rotate(-90deg);
+            top: 0;
+            right: 0;
+          }
+        }
+      }
+
+      // prevent hover styling on touch devices, gets stuck orange and left justified on click
+      @media not all and (hover: none) {
+        &:hover {
+          & span,
+          & span:after,
+          & span:before {
+            background: var(--secondary-color);
+          }
+        }
+
+        &:not(.menu-open):hover {
+          // top line
+          & span {
+            width: calc($wide-menu-line + 6px);
+          }
+
+          // bottom left line
+          & span:after {
+            transform: translate($menu-line-bottom-gap, 0);
+          }
+        }
+      }
+    }
+  }
+
+  // .projects-menu {
+  //   position: fixed;
+  //   top: 0;
+  //   right: 0;
+  //   width: 100vw;
+  //   height: 100vh;
+  //   background-color: var(--background-dark);
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: flex-end;
+  //   flex-direction: column;
+  //   will-change: transform;
+
+  //   .projects-menu-list {
+  //     display: flex;
+  //     flex-direction: column;
+  //     position: relative;
+  //     align-items: flex-end;
+
+  //     @media screen and (max-height: $max-sm-height) {
+  //       padding-right: 40px;
+  //     }
+
+  //     .projects-menu-list-item {
+  //       display: flex;
+  //       width: 100%;
+  //       justify-content: flex-end;
+  //       will-change: transform;
+  //       position: relative;
+
+  //       .projects-menu-item-button {
+  //         font-size: 2.4rem;
+  //         font-weight: 800;
+  //         color: var(--primary-color);
+  //         line-height: 4.5rem;
+  //         position: relative;
+  //         margin: 0 $menu-item-padding;
+  //         transition: color 0.75s;
+
+  //         &::after {
+  //           content: '';
+  //           position: absolute;
+  //           bottom: 0;
+  //           right: 0;
+  //           height: 2px;
+  //           background: var(--secondary-color);
+  //           width: 0;
+  //           transition: width 1s cubic-bezier(0.5, -0.5, 0.25, 1.5);
+  //         }
+
+  //         @media not all and (hover: none) {
+  //           &:hover {
+  //             color: var(--secondary-color);
+  //           }
+  //         }
+  //       }
+
+  //       &.active .projects-menu-item-button {
+  //         color: var(--secondary-color);
+
+  //         &.menu-open::after {
+  //           width: 100%;
+  //         }
+  //       }
+  //     }
+
+  //     .projects-menu-social-container {
+  //       align-self: flex-end;
+  //       padding-right: 4rem;
+  //       margin-top: 3rem;
+  //       will-change: transform;
+  //     }
+  //   }
+  // }
+}

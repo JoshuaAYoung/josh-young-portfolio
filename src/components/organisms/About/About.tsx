@@ -21,12 +21,6 @@ const About = forwardRef<HTMLElement>((props, ref) => {
   const sectionRefs = useJYStore((state) => state.sectionRefs);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
 
-  console.log('sectionRefs', sectionRefs);
-
-  if (isInViewReveal) {
-    console.log('About is revealed!');
-  }
-
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
