@@ -78,7 +78,6 @@ $menu-item-padding: 5rem;
           // bottom left line
           &::after {
             width: calc($wide-menu-line + 6px);
-            transform: rotate(-90deg);
             top: 0;
             right: 0;
           }
