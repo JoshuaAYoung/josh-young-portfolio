@@ -36,6 +36,7 @@ function ProjectsMenu({
           aria-pressed={isOpen}
           aria-label="toggle navigation menu"
         >
+          // TODO turn this into a down arrow instead of an X on click
           <span />
         </button>
       </div>
