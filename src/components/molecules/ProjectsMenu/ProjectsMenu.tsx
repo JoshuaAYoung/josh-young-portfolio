@@ -3,8 +3,16 @@ import './ProjectsMenu.scss';
 import { motion } from 'motion/react';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import useJYStore from '../../../store/useJYStore';
+import { projectCategoryData } from '../../../data/projects';
+import { ProjectCategory } from '../../../types/projects.types';
 
-function ProjectsMenu() {
+function ProjectsMenu({
+  activeCategory,
+  onCategoryChange,
+}: {
+  activeCategory: ProjectCategory;
+  onCategoryChange: (category: ProjectCategory) => void;
+}) {
   // HOOK(S)
 
   // STATE
@@ -31,7 +39,7 @@ function ProjectsMenu() {
           <span />
         </button>
       </div>
-      {/* <motion.div
+      <motion.div
         className="projects-menu"
         initial="hidden"
         animate={isOpen ? 'visible' : 'hidden'}
@@ -43,39 +51,30 @@ function ProjectsMenu() {
           animate={isOpen ? 'visible' : 'hidden'}
           variants={listVariants}
         >
-          {projectCategories.map((section, index) => (
+          {projectCategoryData.map((category, index) => (
             <motion.li
               key={`nav-${index}`}
               className={`projects-menu-list-item ${
-                section === activeSection ? 'active' : ''
+                activeCategory === category ? 'active' : ''
               }`}
               variants={menuItemVariants}
             >
               <button
                 type="button"
                 onClick={() => {
-                  handleNavClick(index);
+                  onCategoryChange(category);
                 }}
                 className={`projects-menu-item-button ${
                   isOpen ? 'menu-open' : ''
                 }`}
                 tabIndex={!isOpen ? -1 : 0}
               >
-                {section}
+                {category}
               </button>
             </motion.li>
           ))}
-          <motion.div
-            variants={menuItemVariants}
-            className="projects-menu-social-container"
-          >
-            <LinkButtons
-              containerClassName="projects-menu-link-buttons"
-              isOpen={isOpen}
-            />
-          </motion.div>
         </motion.ul>
-      </motion.div> */}
+      </motion.div>
     </div>
   );
 }

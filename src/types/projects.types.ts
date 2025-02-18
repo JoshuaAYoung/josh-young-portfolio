@@ -20,4 +20,13 @@ export type ProjectItemType = {
   description: string;
   githubLink?: string;
   demoLink?: string;
+  categories?: ProjectCategory[];
 };
+
+export enum ProjectCategory {
+  ALL = 'All',
+  PROFESSIONAL = 'Professional',
+  PERSONAL = 'Personal',
+  NATIVE = 'Native',
+  WEB = 'Web',
+}

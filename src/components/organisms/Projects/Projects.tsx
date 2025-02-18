@@ -8,6 +8,7 @@ import GitHubIcon from '../../../assets/icons/github.svg?react';
 import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';
 import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
+import { ProjectCategory } from '../../../types/projects.types';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -20,6 +21,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -43,7 +45,12 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
             Projects
             <span className="big-period">.</span>
           </h2>
-          <ProjectsMenu />
+          <ProjectsMenu
+            activeCategory={activeCategory}
+            onCategoryChange={(category: ProjectCategory) =>
+              setActiveCategory(category)
+            }
+          />
         </div>
         <div className="projects-grid-container">
           {projectData.map((project, index) => (
@@ -61,15 +68,17 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   {project.description}
                 </p>
                 <div className="projects-grid-button-container">
-                  <a
-                    href={project.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                    className="projects-grid-link"
-                  >
-                    <GitHubIcon className="projects-grid-button" />
-                  </a>
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub"
+                      className="projects-grid-link"
+                    >
+                      <GitHubIcon className="projects-grid-button" />
+                    </a>
+                  )}
                   {project.demoLink && (
                     <a
                       href={project.demoLink}
