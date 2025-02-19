@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import './Projects.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
@@ -23,12 +23,25 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
 
+  // COMPUTED VAR(S)
+  const filteredProjectData = useMemo(() => {
+    if (activeCategory === ProjectCategory.ALL) {
+      return projectData;
+    }
+    return projectData.filter((project) =>
+      project.categories.includes(activeCategory),
+    );
+  }, [activeCategory]);
+
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
       setIsInViewReveal(true);
     }
   };
+
+  // TODO animation for reveal (drop and stop each row)
+  // Animation for active category change (looks at volos)
 
   return (
     <InViewSection
@@ -53,7 +66,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
           />
         </div>
         <div className="projects-grid-container">
-          {projectData.map((project, index) => (
+          {filteredProjectData.map((project, index) => (
             <div
               className="projects-grid-item"
               key={index}

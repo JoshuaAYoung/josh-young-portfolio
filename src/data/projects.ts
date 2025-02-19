@@ -14,7 +14,7 @@ export const projectData: ProjectItemType[] = [
     techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
     githubLink: '',
     demoLink: '',
-    categories: [ProjectCategory.Web],
+    categories: [ProjectCategory.WEB],
   },
   {
     backgroundUrl: fireGraphScreenshot,
@@ -24,7 +24,7 @@ export const projectData: ProjectItemType[] = [
     techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
     githubLink: '',
     demoLink: '',
-    categories: [ProjectCategory.Web],
+    categories: [ProjectCategory.WEB],
   },
   {
     backgroundUrl: fireGraphScreenshot,
@@ -34,7 +34,7 @@ export const projectData: ProjectItemType[] = [
     techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
     githubLink: '',
     demoLink: '',
-    categories: [ProjectCategory.Web],
+    categories: [ProjectCategory.WEB],
   },
   {
     backgroundUrl: fireGraphScreenshot,
@@ -44,7 +44,7 @@ export const projectData: ProjectItemType[] = [
     techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
     githubLink: '',
     demoLink: '',
-    categories: [ProjectCategory.Web],
+    categories: [ProjectCategory.WEB],
   },
   {
     backgroundUrl: fireGraphScreenshot,
@@ -54,7 +54,7 @@ export const projectData: ProjectItemType[] = [
     techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
     githubLink: '',
     demoLink: '',
-    categories: [ProjectCategory.Web],
+    categories: [ProjectCategory.WEB],
   },
   {
     backgroundUrl: fireGraphScreenshot,
@@ -64,7 +64,7 @@ export const projectData: ProjectItemType[] = [
     techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
     githubLink: '',
     demoLink: '',
-    categories: [ProjectCategory.Web],
+    categories: [ProjectCategory.WEB],
   },
 ];
 

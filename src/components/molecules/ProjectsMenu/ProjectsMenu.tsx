@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './ProjectsMenu.scss';
 import { motion } from 'motion/react';
-import useMediaQuery from '../../../globalUtils/useMediaQuery';
-import useJYStore from '../../../store/useJYStore';
 import { projectCategoryData } from '../../../data/projects';
 import { ProjectCategory } from '../../../types/projects.types';
+import { listVariants, menuVariants } from './projectsMenuAnimations';
 
 function ProjectsMenu({
   activeCategory,
@@ -13,30 +12,54 @@ function ProjectsMenu({
   activeCategory: ProjectCategory;
   onCategoryChange: (category: ProjectCategory) => void;
 }) {
-  // HOOK(S)
-
   // STATE
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
-  // COMPUTED VAR(S)
+  // EFFECT(S)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Check if the click is outside the menu and trigger
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        triggerRef.current &&
+        !triggerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
 
-  // coordinate offset with padding style on the hamburger-menu-list
-  // const menuItemVariants = getMenuItemVariants(maxSmHeight ? 240 : 200);
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   // FUNCTION(S)
+  const handleTriggerClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="projects-menu-container">
       <div className="projects-menu-trigger-container">
         <button
+          ref={triggerRef}
           type="button"
           id="trigger"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleTriggerClick}
           className={`projects-menu-trigger ${isOpen ? 'menu-open' : ''}`}
           aria-pressed={isOpen}
           aria-label="toggle navigation menu"
         >
-          // TODO turn this into a down arrow instead of an X on click
           <span />
         </button>
       </div>
@@ -45,7 +68,17 @@ function ProjectsMenu({
         initial="hidden"
         animate={isOpen ? 'visible' : 'hidden'}
         variants={menuVariants}
+        ref={menuRef}
       >
+        <svg
+          className="projects-menu-triangle"
+          width="24"
+          height="12"
+          viewBox="0 0 24 12"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon points="0,12 24,12 12,0" />
+        </svg>
         <motion.ul
           className="projects-menu-list"
           initial="hidden"
@@ -53,26 +86,23 @@ function ProjectsMenu({
           variants={listVariants}
         >
           {projectCategoryData.map((category, index) => (
-            <motion.li
+            <li
               key={`nav-${index}`}
               className={`projects-menu-list-item ${
                 activeCategory === category ? 'active' : ''
               }`}
-              variants={menuItemVariants}
             >
               <button
                 type="button"
                 onClick={() => {
                   onCategoryChange(category);
                 }}
-                className={`projects-menu-item-button ${
-                  isOpen ? 'menu-open' : ''
-                }`}
+                className="projects-menu-item-button"
                 tabIndex={!isOpen ? -1 : 0}
               >
                 {category}
               </button>
-            </motion.li>
+            </li>
           ))}
         </motion.ul>
       </motion.div>
