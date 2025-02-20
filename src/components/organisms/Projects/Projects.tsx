@@ -1,5 +1,6 @@
 import { forwardRef, useMemo, useState } from 'react';
 import './Projects.scss';
+import { AnimatePresence, motion } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 // import useMediaQuery from '../../../globalUtils/useMediaQuery';
@@ -40,8 +41,30 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
+  const projectVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    // TODO try out spring animation here or some easing
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    exit: {
+      opacity: 0,
+      scale: 0,
+      transition: { duration: 0.4 },
+    },
+  };
+
+  // TODO add some easing to the hover animations
+  const hoverDownVariants = {
+    initial: { opacity: 0, y: -20 },
+    hoverIn: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
+
+  const hoverUpVariants = {
+    initial: { opacity: 0, y: 20 },
+    hoverIn: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
+
   // TODO animation for reveal (drop and stop each row)
-  // Animation for active category change (looks at volos)
+  // Animate the title down, line static, and paragraph and buttons up from opacity 0
 
   return (
     <InViewSection
@@ -65,49 +88,71 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
             }
           />
         </div>
-        <div className="projects-grid-container">
-          {filteredProjectData.map((project, index) => (
-            <div
-              className="projects-grid-item"
-              key={index}
-              style={{ backgroundImage: `url(${project.backgroundUrl})` }}
-            >
-              <div className="projects-grid-overlay">
-                <div className="projects-grid-title-container">
-                  <h3 className="projects-grid-title">{project.title}</h3>
-                  <div className="projects-grid-title-divider" />
-                </div>
-                <p className="projects-grid-description">
-                  {project.description}
-                </p>
-                <div className="projects-grid-button-container">
-                  {project.githubLink && (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="GitHub"
-                      className="projects-grid-link"
+        <motion.div className="projects-grid-container">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filteredProjectData.map((project, index) => (
+              <motion.div
+                className="projects-grid-item"
+                key={`${project.title}-${index}`}
+                style={{ backgroundImage: `url(${project.backgroundUrl})` }}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                whileHover="hoverIn"
+                variants={projectVariants}
+                layout
+              >
+                <div className="projects-grid-overlay">
+                  <div className="projects-grid-title-container">
+                    <motion.h3
+                      className="projects-grid-title"
+                      animate="initial"
+                      variants={hoverDownVariants}
                     >
-                      <GitHubIcon className="projects-grid-button" />
-                    </a>
-                  )}
-                  {project.demoLink && (
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Demo"
-                      className="projects-grid-link"
-                    >
-                      <LinkIcon className="projects-grid-button" />
-                    </a>
-                  )}
+                      {project.title}
+                    </motion.h3>
+                    <div className="projects-grid-title-divider" />
+                  </div>
+                  <motion.p
+                    className="projects-grid-description"
+                    animate="initial"
+                    variants={hoverUpVariants}
+                  >
+                    {project.description}
+                  </motion.p>
+                  <motion.div
+                    className="projects-grid-button-container"
+                    animate="initial"
+                    variants={hoverUpVariants}
+                  >
+                    {project.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub"
+                        className="projects-grid-link"
+                      >
+                        <GitHubIcon className="projects-grid-button" />
+                      </a>
+                    )}
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Demo"
+                        className="projects-grid-link"
+                      >
+                        <LinkIcon className="projects-grid-button" />
+                      </a>
+                    )}
+                  </motion.div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </InViewSection>
   );

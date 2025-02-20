@@ -1,13 +1,13 @@
 :root {
-  --project-gap: 6rem;
+  --project-gap: 3rem;
 
-  @media (max-width: $max-xLarge) {
-    --project-gap: 4rem;
-  }
+  // @media (max-width: $max-xLarge) {
+  //   --project-gap: 2rem;
+  // }
 
-  @media (max-width: $max-large) {
-    --project-gap: 5rem;
-  }
+  // @media (max-width: $max-large) {
+  //   --project-gap: 5rem;
+  // }
 }
 
 .projects-container {
@@ -21,43 +21,35 @@
   }
 
   .projects-grid-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: var(--project-gap);
     margin-top: 3.5rem;
 
     .projects-grid-item {
-      flex: 1 1 calc(33.333% - var(--project-gap));
-      background-color: var(--secondary-color);
-      padding: 1rem;
-      box-sizing: border-box;
       position: relative;
-      overflow: hidden;
       background-color: #f0f0f0;
-      transition: transform 0.3s ease;
-      border: 3px solid var(--background-light);
       aspect-ratio: 1 / 1;
       background-size: cover;
+      box-shadow: var(--box-shadow);
 
-      @media (max-width: $max-large) {
-        flex: 1 1 calc(50% - var(--project-gap));
-      }
+      &:hover {
+        box-shadow: var(--box-shadow-hover);
+        transition: box-shadow 0.3s ease;
 
-      @media (max-width: $max-medium) {
-        flex: 1 1 100%;
-      }
-
-      &:hover .projects-grid-overlay {
-        left: 0;
+        .projects-grid-overlay {
+          opacity: 1;
+        }
       }
 
       .projects-grid-overlay {
         position: absolute;
+        opacity: 0;
         top: 0;
-        left: -100%;
+        left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(var(--secondary-color-rgb), 0.92);
+        background-color: rgba(var(--secondary-color-rgb), 0.94);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -68,16 +60,18 @@
 
         .projects-grid-title-container {
           margin-bottom: 4%;
+          width: fit-content;
 
           .projects-grid-title {
             font-size: clamp(1.8rem, 9cqw, 2.8rem);
             color: var(--high-contrast);
             font-weight: 800;
+            margin-bottom: 2px;
           }
 
           .projects-grid-title-divider {
             width: 80%;
-            height: 1px;
+            height: 2px;
             background-color: var(--high-contrast);
           }
         }
