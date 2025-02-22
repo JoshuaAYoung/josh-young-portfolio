@@ -99,71 +99,69 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
           />
         </div>
         <motion.div className="projects-grid-container" layout>
-          {filteredProjectData.length > 0 ? (
-            <AnimatePresence mode="popLayout" initial={false}>
-              {filteredProjectData.map((project, index) => (
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filteredProjectData.map((project, index) => (
+              <motion.div
+                className="projects-grid-item"
+                key={`${project.title}-${index}`}
+                style={{ backgroundImage: `url(${project.backgroundUrl})` }}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                whileHover="hoverIn"
+                variants={projectVariants}
+                layout
+              >
                 <motion.div
-                  className="projects-grid-item"
-                  key={`${project.title}-${index}`}
-                  style={{ backgroundImage: `url(${project.backgroundUrl})` }}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  whileHover="hoverIn"
-                  variants={projectVariants}
-                  layout
+                  className="projects-grid-overlay"
+                  variants={overlayVariants}
                 >
-                  <motion.div
-                    className="projects-grid-overlay"
-                    variants={overlayVariants}
+                  <div className="projects-grid-title-container">
+                    <motion.h3
+                      className="projects-grid-title"
+                      variants={hoverDownVariants}
+                    >
+                      {project.title}
+                    </motion.h3>
+                    <div className="projects-grid-title-divider" />
+                  </div>
+                  <motion.p
+                    className="projects-grid-description"
+                    variants={hoverUpVariants}
                   >
-                    <div className="projects-grid-title-container">
-                      <motion.h3
-                        className="projects-grid-title"
-                        variants={hoverDownVariants}
+                    {project.description}
+                  </motion.p>
+                  <motion.div
+                    className="projects-grid-button-container"
+                    variants={hoverUpVariants}
+                  >
+                    {project.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub"
+                        className="projects-grid-link"
                       >
-                        {project.title}
-                      </motion.h3>
-                      <div className="projects-grid-title-divider" />
-                    </div>
-                    <motion.p
-                      className="projects-grid-description"
-                      variants={hoverUpVariants}
-                    >
-                      {project.description}
-                    </motion.p>
-                    <motion.div
-                      className="projects-grid-button-container"
-                      variants={hoverUpVariants}
-                    >
-                      {project.githubLink && (
-                        <a
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="GitHub"
-                          className="projects-grid-link"
-                        >
-                          <GitHubIcon className="projects-grid-button" />
-                        </a>
-                      )}
-                      {project.demoLink && (
-                        <a
-                          href={project.demoLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="Demo"
-                          className="projects-grid-link"
-                        >
-                          <LinkIcon className="projects-grid-button" />
-                        </a>
-                      )}
-                    </motion.div>
+                        <GitHubIcon className="projects-grid-button" />
+                      </a>
+                    )}
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Demo"
+                        className="projects-grid-link"
+                      >
+                        <LinkIcon className="projects-grid-button" />
+                      </a>
+                    )}
                   </motion.div>
                 </motion.div>
-              ))}
-            </AnimatePresence>
-          ) : null}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
     </InViewSection>
