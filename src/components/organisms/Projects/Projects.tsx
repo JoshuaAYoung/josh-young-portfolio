@@ -1,6 +1,6 @@
 import { forwardRef, useMemo, useState } from 'react';
 import './Projects.scss';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, Variants } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 // import useMediaQuery from '../../../globalUtils/useMediaQuery';
@@ -41,30 +41,40 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
-  const projectVariants = {
+  const hoverInTransition = { duration: 0.3, ease: 'easeOut' };
+
+  const projectVariants: Variants = {
     hidden: { opacity: 0, scale: 0 },
     // TODO try out spring animation here or some easing
     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    hoverIn: {
+      boxShadow: 'var(--box-shadow-hover)',
+      transition: hoverInTransition,
+    },
     exit: {
       opacity: 0,
       scale: 0,
-      transition: { duration: 0.4 },
+      transition: { duration: 0.2 },
     },
   };
 
   // TODO add some easing to the hover animations
-  const hoverDownVariants = {
-    initial: { opacity: 0, y: -20 },
-    hoverIn: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  const hoverDownVariants: Variants = {
+    visible: { opacity: 0, y: -20 },
+    hoverIn: { opacity: 1, y: 0, transition: hoverInTransition },
   };
 
-  const hoverUpVariants = {
-    initial: { opacity: 0, y: 20 },
-    hoverIn: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  const hoverUpVariants: Variants = {
+    visible: { opacity: 0, y: 20 },
+    hoverIn: { opacity: 1, y: 0, transition: hoverInTransition },
+  };
+
+  const overlayVariants: Variants = {
+    visible: { opacity: 0 },
+    hoverIn: { opacity: 1, transition: hoverInTransition },
   };
 
   // TODO animation for reveal (drop and stop each row)
-  // Animate the title down, line static, and paragraph and buttons up from opacity 0
 
   return (
     <InViewSection
@@ -88,7 +98,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
             }
           />
         </div>
-        <motion.div className="projects-grid-container">
+        <motion.div className="projects-grid-container" layout>
           {filteredProjectData.length > 0 ? (
             <AnimatePresence mode="popLayout" initial={false}>
               {filteredProjectData.map((project, index) => (
@@ -103,11 +113,13 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   variants={projectVariants}
                   layout
                 >
-                  <div className="projects-grid-overlay">
+                  <motion.div
+                    className="projects-grid-overlay"
+                    variants={overlayVariants}
+                  >
                     <div className="projects-grid-title-container">
                       <motion.h3
                         className="projects-grid-title"
-                        animate="initial"
                         variants={hoverDownVariants}
                       >
                         {project.title}
@@ -116,14 +128,12 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                     </div>
                     <motion.p
                       className="projects-grid-description"
-                      animate="initial"
                       variants={hoverUpVariants}
                     >
                       {project.description}
                     </motion.p>
                     <motion.div
                       className="projects-grid-button-container"
-                      animate="initial"
                       variants={hoverUpVariants}
                     >
                       {project.githubLink && (
@@ -149,7 +159,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                         </a>
                       )}
                     </motion.div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </AnimatePresence>

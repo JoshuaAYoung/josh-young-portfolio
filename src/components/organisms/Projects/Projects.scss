@@ -1,6 +1,7 @@
 :root {
   --project-gap: 3rem;
 
+  // TODO redo this checking all breakpoints
   // @media (max-width: $max-xLarge) {
   //   --project-gap: 2rem;
   // }
@@ -33,18 +34,8 @@
       background-size: cover;
       box-shadow: var(--box-shadow);
 
-      &:hover {
-        box-shadow: var(--box-shadow-hover);
-        transition: box-shadow 0.3s ease;
-
-        .projects-grid-overlay {
-          opacity: 1;
-        }
-      }
-
       .projects-grid-overlay {
         position: absolute;
-        opacity: 0;
         top: 0;
         left: 0;
         width: 100%;
@@ -54,7 +45,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        transition: all 0.3s ease-out;
         padding: 10%;
         container-type: inline-size;
 
