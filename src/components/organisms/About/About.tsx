@@ -8,6 +8,7 @@ import { aboutData } from '../../../data/about';
 import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
+import resumePDF from '../../../assets/pdfs/resume.pdf';
 
 const About = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -34,6 +35,15 @@ const About = forwardRef<HTMLElement>((props, ref) => {
     if (projectsIndex !== -1) {
       scrollToSection(projectsRef, projectsIndex);
     }
+  };
+
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = resumePDF;
+    link.download = 'resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -98,7 +108,9 @@ const About = forwardRef<HTMLElement>((props, ref) => {
           extraMargin
         >
           <div className="about-buttons-container">
-            <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
+            <SwipeButton variant="outline-dark" onClick={handleDownloadCV}>
+              DOWNLOAD CV
+            </SwipeButton>
             <SwipeButton
               variant="solid-secondary"
               onClick={handleScrollToProjects}

@@ -65,16 +65,8 @@ $fixed-right: 30px;
           transform-origin: center;
           right: calc(($container-dim - $arrow-dim) / 2);
           top: calc(($container-dim - $arrow-dim - 2px) / 2);
-          display: flex;
-          align-items: center;
-
-          .arrow-first,
-          .arrow-second {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-          }
+          display: block;
+          margin: auto;
         }
       }
     }
