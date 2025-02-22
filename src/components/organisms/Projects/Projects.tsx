@@ -10,6 +10,7 @@ import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';
 import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
 import { ProjectCategory } from '../../../types/projects.types';
+import TechStackIcons from '../../molecules/TechStackIcons/TechStackIcons';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -131,6 +132,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   >
                     {project.description}
                   </motion.p>
+                  <TechStackIcons techStack={project.techStack} />
                   <motion.div
                     className="projects-grid-button-container"
                     variants={hoverUpVariants}
