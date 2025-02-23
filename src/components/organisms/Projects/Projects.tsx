@@ -75,6 +75,19 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   };
 
   // TODO animation for reveal (drop and stop each row)
+  // TODO handle click for mobile in lieu of hover
+
+  //   <motion.div
+  //   variants={projectVariants}
+  //   initial="hidden"
+  //   animate="visible"
+  //   exit="exit"
+  //   whileHover={!isTouchDevice() ? "hoverIn" : undefined} // Only use whileHover on non-touch
+  //   onTapStart={() => setHovered(true)} // Simulate hover on mobile
+  //   onTapCancel={() => setHovered(false)}
+  // >
+  //   Content here
+  // </motion.div>
 
   return (
     <InViewSection
