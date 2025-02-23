@@ -1,14 +1,19 @@
-import { TechStack } from '../../../types/projects.types';
+import { SVGIconComponent } from '../../../types/projects.types';
+import './TechStackIcons.scss';
 
-function TechStackIcons({ techStack }: { techStack: TechStack[] }) {
+function TechStackIcons({
+  techStack,
+  projectKey,
+}: {
+  techStack: SVGIconComponent[];
+  projectKey: string;
+}) {
   return (
-    <div>
-      {techStack.map((stack) => (
-        <img
-          key={stack}
-          src={`/images/tech-stack-icons/${stack}.svg`}
-          alt={stack}
-          className="projects-grid-tech-stack-icon"
+    <div className="project-tech-stack-container">
+      {techStack.map((IconComponent, index) => (
+        <IconComponent
+          key={`${projectKey}-${index}`}
+          className="project-tech-stack-icon"
         />
       ))}
     </div>

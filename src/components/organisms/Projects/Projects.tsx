@@ -126,13 +126,15 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                     </motion.h3>
                     <div className="projects-grid-title-divider" />
                   </div>
-                  <motion.p
-                    className="projects-grid-description"
-                    variants={hoverUpVariants}
-                  >
-                    {project.description}
-                  </motion.p>
-                  <TechStackIcons techStack={project.techStack} />
+                  <motion.div variants={hoverUpVariants}>
+                    <p className="projects-grid-description">
+                      {project.description}
+                    </p>
+                    <TechStackIcons
+                      techStack={project.techStack}
+                      projectKey={`${project.title}-${index}`}
+                    />
+                  </motion.div>
                   <motion.div
                     className="projects-grid-button-container"
                     variants={hoverUpVariants}

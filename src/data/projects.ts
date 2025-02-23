@@ -1,14 +1,13 @@
-import {
-  ProjectCategory,
-  ProjectItemType,
-  TechStack,
-} from '../types/projects.types';
+import { ProjectCategory, ProjectItemType } from '../types/projects.types';
 import fireGraphScreenshot from '../assets/images/project-fire-graph.png';
 import npmmScreenshot from '../assets/images/project-npmm.png';
 import portfolioScreenshot from '../assets/images/project-portfolio.png';
 import cloverScreenshot from '../assets/images/project-clover.png';
 import teamUSAScreenshot from '../assets/images/project-team-usa.png';
 import nutrienHubScreenshot from '../assets/images/project-nutrien-hub.png';
+import ExpressIcon from '../assets/icons/express.svg?react';
+import CSSIcon from '../assets/icons/css.svg?react';
+import ReactIcon from '../assets/icons/react.svg?react';
 
 export const projectData: ProjectItemType[] = [
   {
@@ -16,7 +15,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Nutrien Hub',
     description:
       'My personal portfolio website built with Next.js, TypeScript, and SCSS. It showcases my projects, skills, and experiences.',
-    techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
+    techStack: [ExpressIcon, CSSIcon, ReactIcon],
     githubLink: '',
     demoLink: '',
     categories: [
@@ -30,7 +29,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Fire Graph',
     description:
       'My personal portfolio website built with Next.js, TypeScript, and SCSS. It showcases my projects, skills, and experiences.',
-    techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
+    techStack: [ExpressIcon, CSSIcon, ReactIcon],
     githubLink: '',
     demoLink: '',
     categories: [ProjectCategory.WEB, ProjectCategory.PERSONAL],
@@ -40,7 +39,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Clover',
     description:
       'My personal portfolio website built with Next.js, TypeScript, and SCSS. It showcases my projects, skills, and experiences.',
-    techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
+    techStack: [ExpressIcon, CSSIcon],
     githubLink: '',
     demoLink: '',
     categories: [ProjectCategory.WEB, ProjectCategory.PROFESSIONAL],
@@ -50,7 +49,7 @@ export const projectData: ProjectItemType[] = [
     title: 'NPMM',
     description:
       'My personal portfolio website built with Next.js, TypeScript, and SCSS. It showcases my projects, skills, and experiences.',
-    techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
+    techStack: [ExpressIcon, CSSIcon],
     githubLink: '',
     demoLink: '',
     categories: [ProjectCategory.WEB, ProjectCategory.PERSONAL],
@@ -60,7 +59,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Portfolio',
     description:
       'My personal portfolio website built with Next.js, TypeScript, and SCSS. It showcases my projects, skills, and experiences.',
-    techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
+    techStack: [CSSIcon, ReactIcon],
     githubLink: '',
     demoLink: '',
     categories: [ProjectCategory.WEB, ProjectCategory.PERSONAL],
@@ -70,7 +69,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Team USA App',
     description:
       'My personal portfolio website built with Next.js, TypeScript, and SCSS. It showcases my projects, skills, and experiences.',
-    techStack: [TechStack.CSS, TechStack.EXPRESS, TechStack.REACT],
+    techStack: [CSSIcon, ReactIcon],
     githubLink: '',
     demoLink: '',
     categories: [ProjectCategory.NATIVE, ProjectCategory.PROFESSIONAL],

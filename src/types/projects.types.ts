@@ -1,22 +1,11 @@
-export enum TechStack {
-  JAVASCRIPT = 'JavaScript',
-  CSS = 'CSS',
-  JQUERY = 'jQuery',
-  REACT = 'React',
-  REACTNATIVE = 'React Native',
-  TYPESCRIPT = 'TypeScript',
-  EXPRESS = 'Express',
-  GRAPHQL = 'GraphQL',
-  NODE = 'Node.js',
-  POSTGRESQL = 'PostgreSQL',
-  REDUX = 'Redux',
-  SEQUELIZE = 'Sequelize',
-}
+import { FunctionComponent, SVGProps } from 'react';
+
+export type SVGIconComponent = FunctionComponent<SVGProps<SVGSVGElement>>;
 
 export type ProjectItemType = {
   backgroundUrl: string;
   title: string;
-  techStack: TechStack[];
+  techStack: SVGIconComponent[];
   description: string;
   githubLink?: string;
   demoLink?: string;
