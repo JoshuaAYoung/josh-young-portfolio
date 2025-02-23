@@ -67,11 +67,13 @@ export const useGetAnimations = ({
       opacity: 0,
       transformOrigin: 'left',
       backgroundColor: 'var(--background-medium)',
+      borderRadius: '0px',
     },
     reveal: {
       scale: 1,
       height: 'auto',
       opacity: 1,
+      borderRadius: '0px',
       transition: {
         type: 'spring',
         stiffness: 150,
@@ -85,6 +87,7 @@ export const useGetAnimations = ({
       backgroundColor: 'var(--background-dark)',
       transformOrigin: 'left',
       boxShadow: 'var(--box-shadow-hover)',
+      borderRadius: '20px',
       transition: {
         type: 'spring',
         stiffness: 250,

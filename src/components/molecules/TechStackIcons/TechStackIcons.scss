@@ -1,5 +1,10 @@
 .project-tech-stack-container {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+
   .project-tech-stack-icon {
-    width: 1.5rem;
+    width: 2rem;
+    color: var(--high-contrast);
   }
 }

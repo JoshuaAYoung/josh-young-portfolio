@@ -42,32 +42,31 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
-  const hoverInTransition = { duration: 0.3, ease: 'easeOut' };
+  const hoverInTransition = { duration: 0.2, ease: 'easeOut' };
 
   const projectVariants: Variants = {
-    hidden: { opacity: 0, scale: 0 },
-    // TODO try out spring animation here or some easing
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    hidden: { opacity: 0, scale: 0, borderRadius: '0px' },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      borderRadius: '0px',
+      transition: { duration: 0.4 },
+    },
     hoverIn: {
       boxShadow: 'var(--box-shadow-hover)',
-      transition: hoverInTransition,
+      scale: 1.07,
+      borderRadius: '20px',
+      transition: {
+        type: 'spring',
+        stiffness: 250,
+        damping: 14,
+      },
     },
     exit: {
       opacity: 0,
       scale: 0,
-      transition: { duration: 0.2 },
+      transition: hoverInTransition,
     },
-  };
-
-  // TODO add some easing to the hover animations
-  const hoverDownVariants: Variants = {
-    visible: { opacity: 0, y: -20 },
-    hoverIn: { opacity: 1, y: 0, transition: hoverInTransition },
-  };
-
-  const hoverUpVariants: Variants = {
-    visible: { opacity: 0, y: 20 },
-    hoverIn: { opacity: 1, y: 0, transition: hoverInTransition },
   };
 
   const overlayVariants: Variants = {
@@ -118,15 +117,9 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   variants={overlayVariants}
                 >
                   <div className="projects-grid-title-container">
-                    <motion.h3
-                      className="projects-grid-title"
-                      variants={hoverDownVariants}
-                    >
-                      {project.title}
-                    </motion.h3>
-                    <div className="projects-grid-title-divider" />
+                    <h3 className="projects-grid-title">{project.title}</h3>
                   </div>
-                  <motion.div variants={hoverUpVariants}>
+                  <div>
                     <p className="projects-grid-description">
                       {project.description}
                     </p>
@@ -134,11 +127,8 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                       techStack={project.techStack}
                       projectKey={`${project.title}-${index}`}
                     />
-                  </motion.div>
-                  <motion.div
-                    className="projects-grid-button-container"
-                    variants={hoverUpVariants}
-                  >
+                  </div>
+                  <div className="projects-grid-button-container">
                     {project.githubLink && (
                       <a
                         href={project.githubLink}
@@ -161,7 +151,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                         <LinkIcon className="projects-grid-button" />
                       </a>
                     )}
-                  </motion.div>
+                  </div>
                 </motion.div>
               </motion.div>
             ))}
