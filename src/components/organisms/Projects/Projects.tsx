@@ -116,7 +116,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
             {filteredProjectData.map((project, index) => (
               <motion.div
                 className="projects-grid-item"
-                key={`${project.title}-${index}`}
+                key={project.title}
                 style={{ backgroundImage: `url(${project.backgroundUrl})` }}
                 initial="hidden"
                 animate="visible"
