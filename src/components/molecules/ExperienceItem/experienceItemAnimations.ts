@@ -87,7 +87,7 @@ export const useGetAnimations = ({
       backgroundColor: 'var(--background-dark)',
       transformOrigin: 'left',
       boxShadow: 'var(--box-shadow-hover)',
-      borderRadius: '20px',
+      borderRadius: '25px',
       transition: {
         type: 'spring',
         stiffness: 250,

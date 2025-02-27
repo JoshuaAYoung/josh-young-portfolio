@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useState } from 'react';
 import './Projects.scss';
 import { AnimatePresence, motion, Variants } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -24,6 +24,8 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const activeSection = useJYStore((state) => state.activeSection);
 
   // COMPUTED VAR(S)
   const filteredProjectData = useMemo(() => {
@@ -35,12 +37,21 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     );
   }, [activeCategory]);
 
+  const isTouchDevice = 'ontouchstart' in window;
+
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
       setIsInViewReveal(true);
     }
   };
+
+  // EFFECT(S)
+  useEffect(() => {
+    if (activeSection !== 'Projects') {
+      setHoveredProject(null);
+    }
+  }, [activeSection]);
 
   const hoverInTransition = { duration: 0.2, ease: 'easeOut' };
 
@@ -75,19 +86,6 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   };
 
   // TODO animation for reveal (drop and stop each row)
-  // TODO handle click for mobile in lieu of hover
-
-  //   <motion.div
-  //   variants={projectVariants}
-  //   initial="hidden"
-  //   animate="visible"
-  //   exit="exit"
-  //   whileHover={!isTouchDevice() ? "hoverIn" : undefined} // Only use whileHover on non-touch
-  //   onTapStart={() => setHovered(true)} // Simulate hover on mobile
-  //   onTapCancel={() => setHovered(false)}
-  // >
-  //   Content here
-  // </motion.div>
 
   return (
     <InViewSection
@@ -118,11 +116,20 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                 className="projects-grid-item"
                 key={project.title}
                 style={{ backgroundImage: `url(${project.backgroundUrl})` }}
-                initial="hidden"
-                animate="visible"
+                initial={
+                  hoveredProject === project.title ? 'visible' : 'hidden'
+                }
+                animate={
+                  hoveredProject === project.title ? 'hoverIn' : 'visible'
+                }
                 exit="exit"
                 whileHover="hoverIn"
                 variants={projectVariants}
+                onTap={
+                  isTouchDevice
+                    ? () => setHoveredProject(project.title)
+                    : undefined
+                }
                 layout
               >
                 <motion.div
