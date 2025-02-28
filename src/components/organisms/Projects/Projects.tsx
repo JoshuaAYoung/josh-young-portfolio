@@ -84,7 +84,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     },
     hoverIn: {
       boxShadow: 'var(--box-shadow-hover)',
-      scale: 1.07,
+      scale: 1.05,
       borderRadius: '20px',
       transition: {
         type: 'spring',

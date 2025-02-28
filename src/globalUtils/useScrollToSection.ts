@@ -23,7 +23,7 @@ export const useScrollToSection = () => {
   // TODO change 90 for smaller breakpoints based on the section padding
   const stickyHeaderVariable =
     ((maxSmWidth ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) -
-      90) *
+      75) *
     -1;
 
   const scrollToSection = (

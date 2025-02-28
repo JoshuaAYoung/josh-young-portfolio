@@ -132,7 +132,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
         setShowSwipeAnimations(true);
       }
 
-      // if (loopCounter >= times - 1 || activeSection !== 'Home') {
       if (loopCounter >= times - 1) {
         isTextLoopFinished.current = true;
         loopCounter += 1;
