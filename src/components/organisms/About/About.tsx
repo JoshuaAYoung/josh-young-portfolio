@@ -55,71 +55,75 @@ const About = forwardRef<HTMLElement>((props, ref) => {
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
       title="About"
-      containerClassName="about-section-container"
     >
-      <RevealWrapper
-        isInView={isInViewReveal}
-        containerClassName="about-headline"
-      >
-        <p>{aboutData.firstParagraph}</p>
-      </RevealWrapper>
-      <RevealWrapper isInView={isInViewReveal} containerClassName="about-copy">
-        <p>{aboutData.secondParagraph}</p>
-      </RevealWrapper>
-      <RevealWrapper
-        isInView={isInViewReveal}
-        containerClassName="about-fact-list"
-      >
-        <ul>
-          {Object.entries(aboutData.factList).map(([key, value], index) => (
-            <li key={index}>
-              <span className="about-fact-label">{key.toUpperCase()}:</span>{' '}
-              {value}
-            </li>
-          ))}
-        </ul>
-      </RevealWrapper>
-      {maxMdWidth ? (
-        <div className="about-buttons-container">
-          <RevealWrapper
-            isInView={isInViewReveal}
-            containerClassName="about-buttons-reveal"
-            extraMargin
-          >
-            <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
-          </RevealWrapper>
-          <RevealWrapper
-            isInView={isInViewReveal}
-            containerClassName="about-buttons-reveal"
-            extraMargin
-          >
-            <SwipeButton
-              variant="solid-secondary"
-              onClick={handleScrollToProjects}
-            >
-              PROJECTS
-            </SwipeButton>
-          </RevealWrapper>
-        </div>
-      ) : (
+      <div className="about-container">
         <RevealWrapper
           isInView={isInViewReveal}
-          containerClassName="about-buttons-reveal"
-          extraMargin
+          containerClassName="about-headline"
         >
-          <div className="about-buttons-container">
-            <SwipeButton variant="outline-dark" onClick={handleDownloadCV}>
-              DOWNLOAD CV
-            </SwipeButton>
-            <SwipeButton
-              variant="solid-secondary"
-              onClick={handleScrollToProjects}
-            >
-              PROJECTS
-            </SwipeButton>
-          </div>
+          <p>{aboutData.firstParagraph}</p>
         </RevealWrapper>
-      )}
+        <RevealWrapper
+          isInView={isInViewReveal}
+          containerClassName="about-copy"
+        >
+          <p>{aboutData.secondParagraph}</p>
+        </RevealWrapper>
+        <RevealWrapper
+          isInView={isInViewReveal}
+          containerClassName="about-fact-list"
+        >
+          <ul>
+            {Object.entries(aboutData.factList).map(([key, value], index) => (
+              <li key={index}>
+                <span className="about-fact-label">{key.toUpperCase()}:</span>{' '}
+                {value}
+              </li>
+            ))}
+          </ul>
+        </RevealWrapper>
+        {maxMdWidth ? (
+          <div className="about-buttons-container">
+            <RevealWrapper
+              isInView={isInViewReveal}
+              containerClassName="about-buttons-reveal"
+              extraMargin
+            >
+              <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
+            </RevealWrapper>
+            <RevealWrapper
+              isInView={isInViewReveal}
+              containerClassName="about-buttons-reveal"
+              extraMargin
+            >
+              <SwipeButton
+                variant="solid-secondary"
+                onClick={handleScrollToProjects}
+              >
+                PROJECTS
+              </SwipeButton>
+            </RevealWrapper>
+          </div>
+        ) : (
+          <RevealWrapper
+            isInView={isInViewReveal}
+            containerClassName="about-buttons-reveal"
+            extraMargin
+          >
+            <div className="about-buttons-container">
+              <SwipeButton variant="outline-dark" onClick={handleDownloadCV}>
+                DOWNLOAD CV
+              </SwipeButton>
+              <SwipeButton
+                variant="solid-secondary"
+                onClick={handleScrollToProjects}
+              >
+                PROJECTS
+              </SwipeButton>
+            </div>
+          </RevealWrapper>
+        )}
+      </div>
     </InViewSection>
   );
 });

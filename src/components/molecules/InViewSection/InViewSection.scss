@@ -1,5 +1,6 @@
 .page-section {
   // coordinate this with padding const in Experience.tsx view
+  // and the unique padding in the projects.scss
   padding: 10rem 13rem 5rem;
 
   @media screen and (max-width: $max-large) {
@@ -16,20 +17,9 @@
     padding-left: 2rem;
   }
 
+  // See global.scss for .section-title
   .section-reveal-wrapper {
     margin-bottom: 3rem;
-
-    // See global.scss for .section-title
-  }
-
-  &.home {
-    height: 100vh;
-    padding: 0;
-  }
-
-  &.projects {
-    padding-right: 6.5rem;
-    padding-left: 6.5rem;
   }
 
   // TODO remove height

@@ -21,7 +21,6 @@ interface InViewSectionProps {
    * Default is 0.1 (10%).
    */
   amountOnScreen?: number;
-  containerClassName?: string;
   title?: string;
   containerStyle?: React.CSSProperties;
   titleRef?: React.RefObject<HTMLDivElement>;
@@ -35,7 +34,6 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
       onSectionInViewActiveCallback,
       onSectionInViewRevealCallback,
       amountOnScreen = 0.1,
-      containerClassName,
       title,
       containerStyle,
       titleRef,
@@ -73,7 +71,7 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
       <section
         ref={scrollRef}
         data-section={sectionName}
-        className={`page-section ${sectionName.toLowerCase()} ${containerClassName}`}
+        className={`page-section ${sectionName.toLowerCase()}`}
         style={containerStyle}
       >
         <div ref={inViewRef as React.RefObject<HTMLDivElement>}>

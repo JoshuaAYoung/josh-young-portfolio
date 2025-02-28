@@ -19,6 +19,11 @@ $background-height: 60vh;
   }
 }
 
+.page-section.home {
+  height: 100vh;
+  padding: 0;
+}
+
 .hero-container {
   position: relative;
   display: flex;

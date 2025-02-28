@@ -11,9 +11,35 @@
   // }
 }
 
+.page-section.projects {
+  padding-right: 6.5rem;
+  padding-left: 6.5rem;
+
+  @media screen and (max-width: $max-large) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
 .projects-container {
   background-color: var(--background-dark);
   padding: 6.5rem;
+
+  @media screen and (max-width: $max-large) {
+    // larger bottom padding for full width
+    // right and left padding to match other section padding
+    padding: 6.5rem 7rem 9rem;
+  }
+
+  // TODO adjust top and bottom padding for smaller screens after text size changes
+  @media screen and (max-width: $max-medium) {
+    padding: 6.5rem 5rem 9rem;
+  }
+
+  // TODO adjust top and bottom padding for smaller screens after text size changes
+  @media screen and (max-width: $max-small) {
+    padding: 6.5rem 3rem 9rem;
+  }
 
   .projects-header-container {
     display: flex;
