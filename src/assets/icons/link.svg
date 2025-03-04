@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23"><defs><style>.cls-2{fill:none;stroke:currentColor;stroke-linecap:round;stroke-miterlimit:10;stroke-width:3.19px;}</style></defs><title>Live Demo</title><g id="Layer_2" data-name="Layer 2"><g id="Main"><path class="cls-2" d="M20.44,12.93v6.43a2,2,0,0,1-2,2H3.64a2,2,0,0,1-2-2V4.6a2.05,2.05,0,0,1,2.05-2h6.43"/><line class="cls-2" x1="10.86" y1="12.14" x2="21.4" y2="1.59"/><line class="cls-2" x1="21.4" y1="1.59" x2="15.01" y2="1.59"/><line class="cls-2" x1="21.4" y1="1.59" x2="21.4" y2="7.99"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23">
+  <defs>
+    <style>
+      .cls-2 {
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 3.19px;
+      }
+    </style>
+  </defs>
+  <title>Live Demo</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Main">
+      <path class="cls-2" d="M20.44,12.93v6.43a2,2,0,0,1-2,2H3.64a2,2,0,0,1-2-2V4.6a2.05,2.05,0,0,1,2.05-2h6.43"/>
+      <line class="cls-2" x1="10.86" y1="12.14" x2="21.4" y2="1.59"/>
+      <line class="cls-2" x1="21.4" y1="1.59" x2="15.01" y2="1.59"/>
+      <line class="cls-2" x1="21.4" y1="1.59" x2="21.4" y2="7.99"/>
+    </g>
+  </g>
+</svg>
