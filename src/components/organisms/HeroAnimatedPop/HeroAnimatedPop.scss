@@ -1,4 +1,4 @@
-$background-height: 60vh;
+$background-height-egg: 60vh;
 
 @keyframes revealBackground {
   0% {
@@ -15,11 +15,11 @@ $background-height: 60vh;
   }
   100% {
     // coord with width and height of background image
-    background-position-x: calc($background-height * (3941 / 800));
+    background-position-x: calc($background-height-egg * (3941 / 800));
   }
 }
 
-.hero-container {
+.hero-container-egg {
   position: relative;
   display: flex;
   justify-content: center;
@@ -38,77 +38,72 @@ $background-height: 60vh;
     width: 100%;
     height: 100%;
     background-image: var(--hero-background);
-    background-size: auto $background-height;
+    background-size: auto $background-height-egg;
     background-repeat: repeat-x;
     background-position: bottom 5px right;
     animation:
       revealBackground 4s ease-in-out,
       moveSidewaysBackground 200s linear infinite;
     z-index: 0;
+    filter: var(--invert-filter);
   }
 
-  .hero-text-container {
+  .hero-text-container-egg {
     z-index: 1;
     width: 320px;
     height: 450px;
     position: relative;
 
-    .hero-clip-path-container {
+    .hero-clip-path-container-egg {
       clip-path: inset(-50% 0 0 0);
       height: 220px;
       width: 100%;
       position: absolute;
       font-size: 6.6rem;
 
-      .hero-text-hello {
+      .hero-text-hello-egg {
         font-size: 3rem;
         font-weight: 700;
         color: var(--secondary-color);
         position: absolute;
       }
 
-      .hero-text-im,
-      .hero-text-jy,
-      .hero-text-josh,
-      .hero-text-young,
-      .hero-text-period {
+      .hero-text-im-egg,
+      .hero-text-jy-egg,
+      .hero-text-josh-egg,
+      .hero-text-young-egg {
         font-size: 6.6rem;
         font-weight: 800;
         line-height: 7rem;
         position: absolute;
       }
 
-      .hero-text-im {
+      .hero-text-im-egg {
         color: var(--secondary-color);
         top: 50px;
       }
 
-      .hero-text-jy {
+      .hero-text-jy-egg {
         top: 130px;
         transform-origin: bottom left;
         padding-left: 0.5rem;
         border-radius: 5px;
       }
 
-      .hero-text-josh {
+      .hero-text-josh-egg {
         top: 50px;
         left: 125px;
         transform-origin: bottom left;
       }
 
-      .hero-text-young {
+      .hero-text-young-egg {
         top: 130px;
         transform-origin: bottom left;
         border-radius: 5px;
       }
-
-      .hero-text-period {
-        top: 120px;
-        left: 215px;
-      }
     }
 
-    .hero-text-divider {
+    .hero-text-divider-egg {
       left: 0;
       top: 220px;
       height: 2px;
@@ -117,14 +112,14 @@ $background-height: 60vh;
       position: absolute;
     }
 
-    .hero-swipe-container {
+    .hero-swipe-container-egg {
       position: absolute;
       left: 0;
       top: 250px;
       width: 100%;
       font-size: 1rem;
 
-      .hero-text-headline {
+      .hero-text-headline-egg {
         font-family: 'Nunito', sans-serif;
         font-size: 2.2rem;
         font-weight: 700;
@@ -138,7 +133,7 @@ $background-height: 60vh;
     }
   }
 
-  .hero-portrait-container {
+  .hero-portrait-container-egg {
     z-index: 1;
     max-width: 520px;
 
@@ -150,7 +145,8 @@ $background-height: 60vh;
       max-width: 400px;
     }
 
-    .hero-portrait {
+    .picture,
+    img {
       width: 100%;
     }
   }

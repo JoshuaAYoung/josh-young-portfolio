@@ -5,6 +5,8 @@ import SunIcon from '../../../assets/icons/sun.svg?react';
 import MoonIcon from '../../../assets/icons/moon.svg?react';
 import EasterEggIcon from '../../../assets/icons/easter-egg.svg?react';
 import useJYStore from '../../../store/useJYStore';
+import { breakpoints } from '../../../constants/breakpoints';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 
 function LinkButtons({
   containerClassName,
@@ -13,8 +15,14 @@ function LinkButtons({
   containerClassName?: string;
   isOpen?: boolean;
 }) {
+  // HOOK(S)
+  const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+
+  // STATE
   const isDarkMode = useJYStore((state) => state.isDarkMode);
+  const isEasterEgg = useJYStore((state) => state.isEasterEgg);
   const toggleDarkMode = useJYStore((state) => state.toggleDarkMode);
+  const toggleEasterEgg = useJYStore((state) => state.toggleEasterEgg);
 
   return (
     <div className={`link-buttons-container ${containerClassName}`}>
@@ -59,15 +67,17 @@ function LinkButtons({
           <MoonIcon className="link-button-image" />
         </button>
       )}
-      <button
-        onClick={() => toggleDarkMode(false)}
-        aria-label="Open Easter Egg Menu"
-        className="link-button"
-        tabIndex={!isOpen ? -1 : 0}
-        type="button"
-      >
-        <EasterEggIcon className="link-button-image" />
-      </button>
+      {minLgWidth && (
+        <button
+          onClick={() => toggleEasterEgg(!isEasterEgg)}
+          aria-label="Toggle Easter Egg Hero"
+          className="link-button"
+          tabIndex={!isOpen ? -1 : 0}
+          type="button"
+        >
+          <EasterEggIcon className="link-button-image" />
+        </button>
+      )}
     </div>
   );
 }

@@ -159,7 +159,7 @@ export const useGetAnimations = () => {
       height: getResponsiveValue(36),
       y: getResponsiveValue(5),
     },
-    blinkingTextLong: getBlinkingVariant(2),
+    blinkingTextLong: getBlinkingVariant(1.5),
     blinkingTextShort: getBlinkingVariant(1),
     imType: {
       height: getResponsiveValue(65),

@@ -18,6 +18,8 @@ interface JYState {
   sectionRefs: SectionRefs;
   isDarkMode: boolean;
   toggleDarkMode: (value: boolean) => void;
+  isEasterEgg: boolean;
+  toggleEasterEgg: (value: boolean) => void;
 }
 
 const useJYStore = create<JYState>((set, get) => ({
@@ -44,6 +46,10 @@ const useJYStore = create<JYState>((set, get) => ({
       value ? 'dark' : 'light',
     );
     set({ isDarkMode: value });
+  },
+  isEasterEgg: false,
+  toggleEasterEgg: (value) => {
+    set({ isEasterEgg: value });
   },
 }));
 

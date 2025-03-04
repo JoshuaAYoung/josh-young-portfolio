@@ -2,7 +2,8 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './HeroAnimatedPop.scss';
 import { motion, useAnimation } from 'motion/react';
 import heroBackground from '../../../assets/images/hero-background.png';
-import heroPortrait from '../../../assets/images/hero-portrait.png';
+import heroPortraitDark from '../../../assets/images/hero-portrait-dark.png';
+import heroPortraitLight from '../../../assets/images/hero-portrait-light.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
@@ -13,7 +14,7 @@ import HeroCircle from '../../atoms/HeroCircle/HeroCircle';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 
-const Hero = forwardRef<HTMLElement>((props, ref) => {
+const HeroEasterEgg = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
   const controls = useAnimation();
@@ -38,6 +39,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [showSwipeAnimations, setShowSwipeAnimations] = useState(false);
   const sectionRefs = useJYStore((state) => state.sectionRefs);
+  const isDarkMode = useJYStore((state) => state.isDarkMode);
 
   // EFFECT(S)
   useEffect(() => {
@@ -102,7 +104,7 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
       ref={ref}
     >
       <motion.div
-        className="hero-container"
+        className="hero-container-egg"
         style={
           {
             '--hero-background': `url(${heroBackground})`,
@@ -111,22 +113,31 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
         animate={controls}
         initial="initial"
       >
-        <div className="hero-text-container">
+        <div className="hero-text-container-egg">
           <HeroCircle controls={controls} />
-          <div className="hero-clip-path-container">
-            <motion.div className="hero-text-hello" variants={helloVariants}>
+          <div className="hero-clip-path-container-egg">
+            <motion.div
+              className="hero-text-hello-egg"
+              variants={helloVariants}
+            >
               HELLO!
             </motion.div>
-            <motion.div className="hero-text-im" variants={imVariants}>
+            <motion.div className="hero-text-im-egg" variants={imVariants}>
               I'm
             </motion.div>
-            <motion.div className="hero-text-jy" variants={jyVariants}>
+            <motion.div className="hero-text-jy-egg" variants={jyVariants}>
               JY<span className="big-period">.</span>
             </motion.div>
-            <motion.div className="hero-text-josh" variants={firstNameVariants}>
+            <motion.div
+              className="hero-text-josh-egg"
+              variants={firstNameVariants}
+            >
               Josh
             </motion.div>
-            <motion.div className="hero-text-young" variants={lastNameVariants}>
+            <motion.div
+              className="hero-text-young-egg"
+              variants={lastNameVariants}
+            >
               Young
               <motion.span className="big-period" variants={periodVariants}>
                 .
@@ -134,12 +145,12 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
             </motion.div>
           </div>
           <motion.div
-            className="hero-text-divider"
+            className="hero-text-divider-egg"
             variants={dividerVariants}
           />
           {showSwipeAnimations && (
-            <div className="hero-swipe-container">
-              <div className="hero-text-headline">
+            <div className="hero-swipe-container-egg">
+              <div className="hero-text-headline-egg">
                 <RevealWrapper isInView={isInViewReveal}>
                   A full-stack developer with design sense.
                 </RevealWrapper>
@@ -153,20 +164,26 @@ const Hero = forwardRef<HTMLElement>((props, ref) => {
           )}
         </div>
         <motion.div
-          className="hero-portrait-container"
+          className="hero-portrait-container-egg"
           variants={portraitVariants}
         >
-          <img
-            src={heroPortrait}
-            alt="josh young portrait"
-            className="hero-portrait"
-          />
+          <picture>
+            {isDarkMode ? (
+              <source srcSet={heroPortraitDark} />
+            ) : (
+              <source srcSet={heroPortraitLight} />
+            )}
+            <img
+              src={isDarkMode ? heroPortraitDark : heroPortraitLight}
+              alt="josh young portrait"
+            />
+          </picture>
         </motion.div>
       </motion.div>
     </InViewSection>
   );
 });
 
-Hero.displayName = 'Hero';
+HeroEasterEgg.displayName = 'HeroEasterEgg';
 
-export default Hero;
+export default HeroEasterEgg;

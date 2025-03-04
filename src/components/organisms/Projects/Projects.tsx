@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 import './Projects.scss';
-import { AnimatePresence, motion, useAnimation, Variants } from 'motion/react';
+import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
 // import useMediaQuery from '../../../globalUtils/useMediaQuery';
@@ -11,12 +11,14 @@ import { projectData } from '../../../data/projects';
 import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
 import { ProjectCategory } from '../../../types/projects.types';
 import TechStackIcons from '../../molecules/TechStackIcons/TechStackIcons';
+import {
+  getProjectRevealVariants,
+  overlayVariants,
+  projectVariants,
+} from './projectsAnimations';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
-  // const minXlWidth = useMediaQuery(`(min-width: ${breakpoints['min-xLarge']})`);
-  // const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
-  // const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const controls = useAnimation();
 
   // STATE
@@ -65,62 +67,6 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
 
     startAnimation();
   }, [controls, isInViewReveal]);
-
-  const hoverInTransition = { duration: 0.2, ease: 'easeOut' };
-
-  const projectVariants: Variants = {
-    hidden: { opacity: 0, scale: 0, borderRadius: '0px' },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      borderRadius: '0px',
-      transition: { duration: 0.4 },
-    },
-    reveal: {
-      opacity: 1,
-      scale: 1,
-      borderRadius: '0px',
-      transition: { duration: 1, delay: 1 },
-    },
-    hoverIn: {
-      boxShadow: 'var(--box-shadow-hover)',
-      scale: 1.05,
-      borderRadius: '20px',
-      transition: {
-        type: 'spring',
-        stiffness: 250,
-        damping: 14,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0,
-      transition: hoverInTransition,
-    },
-  };
-
-  const getProjectRevealVariants = (index: number): Variants => {
-    return {
-      hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-      },
-      reveal: {
-        opacity: 1,
-        transition: {
-          duration: 0.8,
-          // +3 gives a nice initial delay for the user to scroll section into view
-          delay: (index + 3) * 0.1,
-          ease: 'easeIn',
-        },
-      },
-    };
-  };
-
-  const overlayVariants: Variants = {
-    visible: { opacity: 0 },
-    hoverIn: { opacity: 1, transition: hoverInTransition },
-  };
 
   return (
     <InViewSection
