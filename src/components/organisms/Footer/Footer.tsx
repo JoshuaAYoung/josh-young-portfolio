@@ -36,8 +36,9 @@ function Footer() {
           <EmailIconCircle className="footer-link-button-image" />
         </a>
       </div>
-      {/* TODO add JY logo instead of a slash */}
-      <div className="footer-slash" />
+      <h1 className="footer-logo">
+        JY<span className="big-period">.</span>
+      </h1>
       <p className="footer-copyright">
         {copyrightInitial}
         <span className="footer-copyright-name">Josh Young</span>

@@ -221,6 +221,17 @@ export const useGetAnimations = () => {
     },
   };
 
+  const contactButtonVariants: Variants = {
+    initial: { opacity: 0 },
+    contactReveal: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: 'easeIn',
+      },
+    },
+  };
+
   return {
     containerVariants,
     getLetterVariants,
@@ -231,5 +242,6 @@ export const useGetAnimations = () => {
     cursorHeadlineVariants,
     portraitVariants,
     initialContainerVariants,
+    contactButtonVariants,
   };
 };

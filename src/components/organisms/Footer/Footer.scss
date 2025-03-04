@@ -1,17 +1,29 @@
 .footer-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 3rem 0;
+  padding: 3rem 4rem;
   border-top: 1px solid var(--secondary-color);
 
   @media screen and (max-width: $max-large) {
-    padding: 2rem 0;
+    padding: 2rem 3rem;
+  }
+
+  @media screen and (max-width: $max-small) {
+    padding: 1.6rem 3rem 2rem;
+    flex-direction: column;
   }
 
   .footer-links-container {
     display: flex;
     align-items: center;
+    order: 1;
+
+    @media screen and (max-width: $max-small) {
+      order: 2;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
 
     .footer-link-button {
       display: flex;
@@ -43,17 +55,19 @@
     }
   }
 
-  .footer-slash {
-    width: 2px;
-    height: 50px;
-    background-color: var(--primary-color);
-    transform: rotate(20deg);
-    margin: 0 4rem;
+  .footer-logo {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    order: 2;
 
     @media screen and (max-width: $max-large) {
-      width: 2px;
-      height: 40px;
-      margin: 0 3rem;
+      font-size: 2.4rem;
+    }
+
+    @media screen and (max-width: $max-small) {
+      order: 1;
+      margin-bottom: 1rem;
     }
   }
 
@@ -61,6 +75,7 @@
     font-family: 'Nunito', sans-serif;
     font-size: 2rem;
     font-weight: 400;
+    order: 3;
 
     @media screen and (max-width: $max-large) {
       font-size: 1.6rem;

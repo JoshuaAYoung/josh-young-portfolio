@@ -108,13 +108,14 @@
           bottom: 5%;
           right: 5%;
           display: flex;
-          gap: 1.5rem;
 
           .projects-grid-link {
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--high-contrast);
+            width: 3.5rem;
+            height: 3.5rem;
 
             @media not all and (hover: none) {
               &:hover {

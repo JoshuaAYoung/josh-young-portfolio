@@ -16,6 +16,8 @@ import {
   arrowVariants,
   pathLengthVariants,
 } from './scrollProgressIndicatorAnimations';
+import { breakpoints } from '../../../constants/breakpoints';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
 
 const ScrollProgressIndicator = ({
   fadeDuration,
@@ -27,18 +29,43 @@ const ScrollProgressIndicator = ({
   const pathLengthControls = useAnimation();
   const arrowControls = useAnimation();
   const { scrollToSection } = useScrollToSection();
+  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
 
   // STATE
   const [isScrolledToTop, setIsScrolledToTop] = useState<boolean>(true);
+  const [isScrolledToBottom, setIsScrollToBottom] = useState<boolean>(false);
   const sectionRefs = useJYStore((state) => state.sectionRefs);
+
+  // COMPUTED VAR(S)
+  // handle the indicator overlapping the footer content
+  const bottomOffset = useMemo(() => {
+    if (isScrolledToBottom && maxSmWidth) {
+      return '170px';
+    }
+    if (isScrolledToBottom && minLgWidth) {
+      return '130px';
+    }
+    if (isScrolledToBottom) {
+      return '100px';
+    }
+    return '20px';
+  }, [isScrolledToBottom, maxSmWidth, minLgWidth]);
 
   // FUNCTION(S)
   // use this to handle the "barely scrolled" state
   const throttledUpdate = useMemo(
     () =>
       throttle((latest: number) => {
+        console.log(latest);
         if (latest > 0.02) {
           setIsScrolledToTop(false);
+
+          if (latest >= 0.99) {
+            setIsScrollToBottom(true);
+          } else {
+            setIsScrollToBottom(false);
+          }
         } else {
           setIsScrolledToTop(true);
         }
@@ -77,12 +104,20 @@ const ScrollProgressIndicator = ({
   return (
     <motion.div
       className="scroll-progress-indicator-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: [0, 0, 1] }}
+      initial={{ opacity: 0, bottom: '20px' }}
+      animate={{
+        opacity: [0, 0, 1],
+        bottom: bottomOffset,
+      }}
       transition={{
-        duration: fadeDuration,
-        ease: 'easeInOut',
-        times: [0, 0.5, 1],
+        opacity: {
+          duration: fadeDuration,
+          ease: 'easeInOut',
+          times: [0, 0.5, 1],
+        },
+        bottom: {
+          duration: 0.1,
+        },
       }}
     >
       <div className="scroll-progress-indicator-content">

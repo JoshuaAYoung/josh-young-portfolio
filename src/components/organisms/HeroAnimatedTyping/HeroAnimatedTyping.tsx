@@ -6,7 +6,6 @@ import heroPortraitDark from '../../../assets/images/hero-portrait-dark.png';
 import heroPortraitLight from '../../../assets/images/hero-portrait-light.png';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
 import { useGetAnimations } from './heroAnimations';
@@ -50,6 +49,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
     cursorHeadlineVariants,
     portraitVariants,
     initialContainerVariants,
+    contactButtonVariants,
   } = useGetAnimations();
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
@@ -63,7 +63,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
   );
   const activeSection = useJYStore((state) => state.activeSection);
   const isDarkMode = useJYStore((state) => state.isDarkMode);
-  const [showSwipeAnimations, setShowSwipeAnimations] = useState(false);
   const [firstHeadlineText, setFirstHeadlineText] = useState(
     'A full-stack developer',
   );
@@ -129,7 +128,7 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
       await controls.start(`${variantKey}Type`);
 
       if (textLoopIndex.current === 0) {
-        setShowSwipeAnimations(true);
+        controls.start('contactReveal');
       }
 
       if (loopCounter >= times - 1) {
@@ -374,13 +373,11 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
               ))}
               <BlinkingCursor cursorVariants={cursorHeadlineVariants} />
             </div>
-            {showSwipeAnimations && (
-              <RevealWrapper isInView extraMargin>
-                <SwipeButton size={buttonSize} onClick={handleScrollToContact}>
-                  CONTACT
-                </SwipeButton>
-              </RevealWrapper>
-            )}
+            <motion.div variants={contactButtonVariants}>
+              <SwipeButton size={buttonSize} onClick={handleScrollToContact}>
+                CONTACT
+              </SwipeButton>
+            </motion.div>
           </div>
         </div>
         <motion.div
