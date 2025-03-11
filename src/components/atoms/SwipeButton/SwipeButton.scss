@@ -80,4 +80,19 @@
       }
     }
   }
+
+  &.extra-wide {
+    &::after {
+      transform: rotate(-2deg);
+      top: -40px;
+      bottom: 150%;
+    }
+
+    &:hover {
+      &::after {
+        bottom: -30px;
+        transform: rotate(0deg);
+      }
+    }
+  }
 }

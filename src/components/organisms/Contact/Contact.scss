@@ -1,0 +1,194 @@
+// TODO fix gaps at different breakpoints
+// Reorder the contact info to below the map for column flex
+
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  width: 100%;
+
+  @media screen and (max-width: $max-large) {
+    flex-direction: column;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 50%;
+
+    @media screen and (max-width: $max-xLarge) {
+      min-width: 60%;
+    }
+
+    .contact-form-name-email {
+      display: flex;
+      flex-direction: row;
+      gap: 4rem;
+
+      @media screen and (max-width: $max-xSmall) {
+        gap: 2rem;
+      }
+    }
+
+    .contact-sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      font-size: 1.6rem;
+      background-color: var(--background-dark);
+      padding: 1.2rem 1.4rem;
+      font-family: 'Nunito', sans-serif;
+      color: var(--primary-color);
+      border: 1px solid var(--background-dark);
+
+      &::placeholder {
+        color: var(--primary-color);
+      }
+
+      &:focus {
+        background-color: var(--background-medium);
+        border: 1px solid var(--secondary-color);
+      }
+    }
+
+    textarea {
+      resize: none;
+      flex-grow: 1;
+    }
+
+    .contact-submit-button {
+      margin-top: 2rem;
+    }
+  }
+  .contact-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    flex-grow: 0;
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      background-color: var(--secondary-color);
+      color: var(--high-contrast);
+      padding: 3.4rem 4.8rem;
+
+      @media screen and (max-width: $max-xLarge) and (min-width: $min-large) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      @media screen and (max-width: $max-xLarge) {
+        padding: 3rem 4rem;
+      }
+
+      @media screen and (max-width: $max-large) and (min-width: $min-medium) {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      @media screen and (max-width: $max-xSmall) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      // @media screen and (min-width: $min-xLarge) and (max-width: $max-xxLarge) {
+      //   padding: 3rem 4rem;
+      // }
+
+      .contact-info-item {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+
+        &.location {
+          grid-column: span 2;
+
+          @media screen and (max-width: $max-xLarge) {
+            grid-column: span 1;
+          }
+
+          @media screen and (max-width: $max-xSmall) {
+            grid-column: span 1;
+          }
+
+          @media screen and (max-width: $max-medium) and (min-width: $min-xSmall) {
+            grid-column: span 2;
+          }
+        }
+
+        .contact-info-icon {
+          flex-shrink: 0;
+        }
+
+        .contact-info-text-container {
+          align-items: flex-start;
+          justify-content: center;
+          display: flex;
+          flex-direction: column;
+
+          .contact-info-title {
+            font-size: 2rem;
+            font-weight: 600;
+
+            @media screen and (max-width: $max-xLarge) {
+              font-size: 1.8rem;
+            }
+          }
+
+          .contact-info-text {
+            font-size: 1.6rem;
+            font-weight: 300;
+
+            @media screen and (max-width: $max-xLarge) {
+              font-size: 1.4rem;
+            }
+
+            .contact-info-break {
+              @media screen and (min-width: $min-xLarge) {
+                display: none;
+              }
+
+              @media screen and (max-width: $max-medium) and (min-width: $min-xSmall) {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .contact-map-container {
+      max-height: 300px;
+      min-height: 200px;
+      width: 100%;
+      overflow: hidden;
+
+      picture {
+        display: block;
+        height: 100%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+
+        @media screen and (max-width: $max-xSmall) {
+          height: 200px;
+        }
+      }
+    }
+  }
+}

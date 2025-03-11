@@ -28,6 +28,10 @@
   }
 
   &.contact {
-    height: 1000px;
+    padding-bottom: 8rem;
+
+    @media screen and (max-width: $max-large) {
+      padding-bottom: 7rem;
+    }
   }
 }

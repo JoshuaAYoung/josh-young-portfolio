@@ -57,7 +57,6 @@ const ScrollProgressIndicator = ({
   const throttledUpdate = useMemo(
     () =>
       throttle((latest: number) => {
-        console.log(latest);
         if (latest > 0.02) {
           setIsScrolledToTop(false);
 
