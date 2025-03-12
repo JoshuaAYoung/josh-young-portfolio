@@ -3,8 +3,6 @@ import './Projects.scss';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-// import useMediaQuery from '../../../globalUtils/useMediaQuery';
-// import { breakpoints } from '../../../constants/breakpoints';
 import GitHubIcon from '../../../assets/icons/github.svg?react';
 import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';

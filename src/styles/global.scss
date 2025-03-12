@@ -11,10 +11,19 @@
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
   --box-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.15),
     0 2px 8px rgba(0, 0, 0, 0.1);
+  --header-footer-padding-x: 6.5rem;
 
   --transition-duration: 0.4s ease-in-out;
   --xxLarge-content-margin: 8%;
   --xxxLarge-content-margin: 12%;
+
+  @media screen and (max-width: $max-large) {
+    --header-footer-padding-x: 3rem;
+  }
+
+  @media screen and (max-width: $max-small), (max-height: $max-sm-height) {
+    --header-footer-padding-x: 2rem;
+  }
 }
 
 html[data-theme='light'] {

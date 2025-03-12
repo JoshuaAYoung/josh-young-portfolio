@@ -1,17 +1,23 @@
 import { forwardRef, useState } from 'react';
 import './Contact.scss';
+import { motion } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import EmailIcon from '../../../assets/icons/email.svg?react';
 import PhoneIcon from '../../../assets/icons/phone.svg?react';
 import LocationIcon from '../../../assets/icons/location.svg?react';
-import LinkedInIcon from '../../../assets/icons/linkedin.svg?react';
 import missoulaMapDark from '../../../assets/images/missoula-map-dark.png';
 import missoulaMapLight from '../../../assets/images/missoula-map-light.png';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
+import { getContactRevealVariants } from './contactAnimations';
 
 const Contact = forwardRef<HTMLElement>((props, ref) => {
+  // HOOK(S)
+  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+
   // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
@@ -54,7 +60,13 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
       title="Get In Touch"
     >
       <div className="contact-container">
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <motion.form
+          className="contact-form"
+          onSubmit={handleSubmit}
+          initial="hidden"
+          variants={getContactRevealVariants(0)}
+          animate="reveal"
+        >
           <div className="contact-form-name-email">
             <label htmlFor="name" className="contact-sr-only">
               Name
@@ -104,7 +116,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
             id="message"
             name="message"
             placeholder="Message"
-            rows={4}
+            rows={6}
             value={formData.message}
             onChange={handleChange}
             required
@@ -115,27 +127,47 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
             onClick={handleSubmit}
             extraWide
             containerClassName="contact-submit-button"
+            size={maxMdWidth ? 'small' : 'medium'}
           >
             SEND MESSAGE
           </SwipeButton>
-        </form>
+        </motion.form>
         <div className="contact-info-container">
-          <div className="contact-info">
-            <a href="tel:+13039136955" className="contact-info-item">
+          <motion.div
+            className="contact-info"
+            initial="hidden"
+            variants={getContactRevealVariants(minLgWidth ? 1 : 2)}
+            animate="reveal"
+          >
+            <a
+              href="tel:+13039136955"
+              className="contact-info-item"
+              aria-label="Call Me"
+            >
               <PhoneIcon className="contact-info-icon" width="3rem" />
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Phone</h3>
                 <p className="contact-info-text">(303) 913-6955</p>
               </div>
             </a>
-            <a href="mailto:joshua@young.net" className="contact-info-item">
+            <a
+              href="mailto:joshua@young.net"
+              className="contact-info-item"
+              aria-label="Email Me"
+            >
               <EmailIcon className="contact-info-icon" width="3.6rem" />
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Email</h3>
                 <p className="contact-info-text">joshua@young.net</p>
               </div>
             </a>
-            <div className="contact-info-item location">
+            <a
+              href="https://maps.app.goo.gl/r8YG1kfwabzJ5CFt7"
+              className="contact-info-item location"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Google Maps Location"
+            >
               <LocationIcon className="contact-info-icon" width="2.8rem" />
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Location</h3>
@@ -145,21 +177,14 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
                   <br className="contact-info-break" /> Missoula, MT 59801
                 </p>
               </div>
-            </div>
-            {/* <a
-              href="https://www.linkedin.com/in/joshayoung/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-info-item"
-            >
-              <LinkedInIcon className="contact-info-icon" width="3.2rem" />
-              <div className="contact-info-text-container">
-                <h3 className="contact-info-title">LinkedIn</h3>
-                <p className="contact-info-text">joshayoung</p>
-              </div>
-            </a> */}
-          </div>
-          <div className="contact-map-container">
+            </a>
+          </motion.div>
+          <motion.div
+            className="contact-map-container"
+            initial="hidden"
+            variants={getContactRevealVariants(minLgWidth ? 2 : 1)}
+            animate="reveal"
+          >
             <picture>
               {isDarkMode ? (
                 <source srcSet={missoulaMapDark} />
@@ -171,7 +196,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
                 alt="josh young portrait"
               />
             </picture>
-          </div>
+          </motion.div>
         </div>
       </div>
     </InViewSection>

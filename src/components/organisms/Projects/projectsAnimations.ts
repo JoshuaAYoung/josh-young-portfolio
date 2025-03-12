@@ -35,17 +35,26 @@ export const projectVariants: Variants = {
 
 export const getProjectRevealVariants = (index: number): Variants => {
   return {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
     },
     reveal: {
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.8,
-        // +3 gives a nice initial delay for the user to scroll section into view
-        delay: (index + 3) * 0.1,
-        ease: 'easeIn',
+        y: {
+          duration: 0.4,
+          // +3 gives a nice initial delay for the user to scroll section into view
+          delay: (index + 3) * 0.1,
+          ease: 'easeOut',
+        },
+        opacity: {
+          duration: 0.8,
+          // +3 gives a nice initial delay for the user to scroll section into view
+          delay: (index + 3) * 0.1,
+          ease: 'easeIn',
+        },
       },
     },
   };

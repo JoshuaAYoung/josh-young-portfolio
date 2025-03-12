@@ -15,7 +15,6 @@ import './styles/reset.scss';
 import './styles/global.scss';
 
 import { Route, Routes } from 'react-router-dom';
-// import { MotionGlobalConfig } from 'motion/react';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
 import { ErrorBoundary, ErrorFallbackComponent } from './ErrorBoundary';
 import StickyHeader from './components/organisms/StickyHeader/StickyHeader';
@@ -24,16 +23,6 @@ import Footer from './components/organisms/Footer/Footer';
 import ScrollProgressIndicator from './components/atoms/ScrollProgressIndicator/ScrollProgressIndicator';
 
 function App() {
-  // useEffect(() => {
-  //   ReactGA.send({
-  //     hitType: 'pageview',
-  //     page: location.pathname,
-  //     title: location.pathname,
-  //   });
-  // }, [location]);
-
-  // MotionGlobalConfig.skipAnimations = true;
-
   return (
     <div id="content">
       <ErrorBoundary Fallback={ErrorFallbackComponent}>

@@ -35,23 +35,20 @@ function Landing() {
   }, [maxLgWidth, maxMdWidth, maxSmWidth, maxSmHeight]);
 
   return (
-    <>
-      {/* {loading && <Loader fadeOffLoader={fadeOffLoader} />} */}
-      <div className="landing-container">
-        {isEasterEgg && minLgWidth ? (
-          <HeroEasterEgg ref={sectionRefs.Home} />
-        ) : (
-          <Hero ref={sectionRefs.Home} key={key} />
-        )}
-        <div className="landing-about-experience">
-          <About ref={sectionRefs.About} />
-          <Experience ref={sectionRefs.Experience} />
-        </div>
-        <Projects ref={sectionRefs.Projects} />
-        <Skills ref={sectionRefs.Skills} />
-        <Contact ref={sectionRefs.Contact} />
+    <div className="landing-container">
+      {isEasterEgg && minLgWidth ? (
+        <HeroEasterEgg ref={sectionRefs.Home} />
+      ) : (
+        <Hero ref={sectionRefs.Home} key={key} />
+      )}
+      <div className="landing-about-experience">
+        <About ref={sectionRefs.About} />
+        <Experience ref={sectionRefs.Experience} />
       </div>
-    </>
+      <Projects ref={sectionRefs.Projects} />
+      <Skills ref={sectionRefs.Skills} />
+      <Contact ref={sectionRefs.Contact} />
+    </div>
   );
 }
 

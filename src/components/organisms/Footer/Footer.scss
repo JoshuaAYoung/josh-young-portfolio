@@ -2,15 +2,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 4rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: var(--header-footer-padding-x);
+  padding-right: var(--header-footer-padding-x);
   border-top: 1px solid var(--secondary-color);
 
   @media screen and (max-width: $max-large) {
-    padding: 2rem 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   @media screen and (max-width: $max-small) {
-    padding: 1.6rem 3rem 2rem;
+    padding-top: 1.6rem;
+    padding-bottom: 2rem;
     flex-direction: column;
   }
 

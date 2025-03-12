@@ -28,7 +28,9 @@ function StickyHeader({ fadeDuration }: { fadeDuration?: number }) {
         <h1 className="sticky-header-logo">
           JY<span className="big-period">.</span>
         </h1>
-        {maxMdWidth || maxSmHeight ? <HamburgerMenu /> : <NavMenu />}
+        <div className="sticky-header-menu">
+          {maxMdWidth || maxSmHeight ? <HamburgerMenu /> : <NavMenu />}
+        </div>
       </nav>
     </motion.header>
   );

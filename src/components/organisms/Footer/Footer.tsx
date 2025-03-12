@@ -30,7 +30,7 @@ function Footer() {
         </a>
         <a
           href="mailto:joshua@young.net"
-          aria-label="Email"
+          aria-label="Email Me"
           className="footer-link-button"
         >
           <EmailIconCircle className="footer-link-button-image" />

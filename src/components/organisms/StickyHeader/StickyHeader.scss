@@ -15,7 +15,10 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: 0 6.5rem;
+  padding-left: var(--header-footer-padding-x);
+  padding-right: var(--header-footer-padding-x);
+  padding-top: 0;
+  padding-bottom: 0;
   height: var(--sticky-header-height);
   z-index: 9998;
   background-color: var(--background-medium);
@@ -36,6 +39,12 @@
         font-size: 2.4rem;
       }
     }
+
+    .sticky-header-menu {
+      @media screen and (max-width: $max-small), (max-height: $max-sm-height) {
+        margin-right: -0.5rem;
+      }
+    }
   }
 
   @media screen and (min-width: $min-xxLarge) {
@@ -44,13 +53,5 @@
 
   @media screen and (min-width: $min-xxxLarge) {
     margin: 0 var(--xxxLarge-content-margin);
-  }
-
-  @media screen and (max-width: $max-large) {
-    padding: 0 3rem;
-  }
-
-  @media screen and (max-width: $max-small), (max-height: $max-sm-height) {
-    padding: 0 1.5rem 0 2rem;
   }
 }
