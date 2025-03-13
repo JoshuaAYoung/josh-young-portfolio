@@ -8,19 +8,14 @@
   }
 
   @media screen and (max-width: $max-medium) {
-    padding-right: 5rem;
-    padding-left: 5rem;
+    padding: 7rem 5rem 2rem;
   }
 
   @media screen and (max-width: $max-small) {
-    padding-right: 2rem;
-    padding-left: 2rem;
+    padding: 5rem 2rem 2rem;
   }
 
-  // See global.scss for .section-title
-  .section-reveal-wrapper {
-    margin-bottom: 3rem;
-  }
+  // See global.scss for .section-title and .section-reveal-wrapper
 
   // TODO remove height
   &.skills {

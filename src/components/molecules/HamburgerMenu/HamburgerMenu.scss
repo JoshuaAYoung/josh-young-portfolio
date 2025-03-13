@@ -1,13 +1,15 @@
 // Using CSS variables so that we can auto-change with a media query
 :root {
-  --wide-menu-line: 32px;
+  --wide-menu-line: 30px;
   --menu-line-height: 3px;
+  --menu-line-radius: 2px;
 }
 
 @media (max-width: $max-small), (max-height: $max-sm-height) {
   :root {
     --wide-menu-line: 24px;
     --menu-line-height: 2px;
+    --menu-line-radius: 1px;
   }
 }
 
@@ -46,6 +48,7 @@ $menu-item-padding: 5rem;
         transition: var(--transition-duration);
         backface-visibility: hidden;
         right: 0;
+        border-radius: var(--menu-line-radius);
       }
 
       // middle line

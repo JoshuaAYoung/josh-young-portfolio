@@ -14,6 +14,7 @@ const About = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const { scrollToSection } = useScrollToSection();
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -107,7 +108,11 @@ const About = forwardRef<HTMLElement>((props, ref) => {
               containerClassName="about-buttons-reveal"
               extraMargin
             >
-              <SwipeButton variant="outline-dark" onClick={handleDownloadCV}>
+              <SwipeButton
+                variant="outline-dark"
+                onClick={handleDownloadCV}
+                size={maxSmWidth ? 'small' : 'medium'}
+              >
                 DOWNLOAD CV
               </SwipeButton>
             </RevealWrapper>
@@ -119,6 +124,7 @@ const About = forwardRef<HTMLElement>((props, ref) => {
               <SwipeButton
                 variant="solid-secondary"
                 onClick={handleScrollToProjects}
+                size={maxSmWidth ? 'small' : 'medium'}
               >
                 PROJECTS
               </SwipeButton>

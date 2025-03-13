@@ -14,6 +14,7 @@ import {
   overlayVariants,
   projectVariants,
 } from './projectsAnimations';
+import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -24,11 +25,12 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
   );
+  const activeSection = useJYStore((state) => state.activeSection);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [isInitialMount, setIsInitialMount] = useState(true);
-  const activeSection = useJYStore((state) => state.activeSection);
+  const [tapLocked, setTapLocked] = useState(false);
 
   // COMPUTED VAR(S)
   const filteredProjectData = useMemo(() => {
@@ -47,6 +49,21 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
       setIsInViewReveal(true);
     }
+  };
+
+  const handleButtonClick = (link: string | undefined) => {
+    if (link) window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleProjectTap = (projectTitle: string) => {
+    // Prevents taps on the buttons from triggering onTap and setting
+    // tapLocked which disables the button clicks
+    if (hoveredProject === projectTitle) {
+      return;
+    }
+
+    setTapLocked(true);
+    setHoveredProject(projectTitle);
   };
 
   // EFFECT(S)
@@ -100,10 +117,12 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     >
       <div className="projects-container">
         <div className="projects-header-container">
-          <h2 className="section-title">
-            Projects
-            <span className="big-period">.</span>
-          </h2>
+          <RevealWrapper isInView={isInViewReveal}>
+            <h2 className="section-title">
+              Projects
+              <span className="big-period">.</span>
+            </h2>
+          </RevealWrapper>
           <ProjectsMenu
             activeCategory={activeCategory}
             onCategoryChange={(category: ProjectCategory) =>
@@ -136,9 +155,14 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   ref={(el) =>
                     hoveredProjectRefs.current.set(project.title, el)
                   }
+                  onAnimationComplete={(definition) => {
+                    if (definition === 'hoverIn' && isTouchDevice) {
+                      setTapLocked(false);
+                    }
+                  }}
                   onTap={
                     isTouchDevice
-                      ? () => setHoveredProject(project.title)
+                      ? () => handleProjectTap(project.title)
                       : undefined
                   }
                 >
@@ -160,26 +184,26 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                     </div>
                     <div className="projects-grid-button-container">
                       {project.githubLink && (
-                        <a
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={() => handleButtonClick(project.githubLink)}
+                          disabled={tapLocked && isTouchDevice}
                           aria-label="GitHub"
                           className="projects-grid-link"
+                          type="button"
                         >
                           <GitHubIcon className="projects-grid-button" />
-                        </a>
+                        </button>
                       )}
                       {project.demoLink && (
-                        <a
-                          href={project.demoLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={() => handleButtonClick(project.demoLink)}
+                          disabled={tapLocked && isTouchDevice}
                           aria-label="Demo"
                           className="projects-grid-link"
+                          type="button"
                         >
                           <LinkIcon className="projects-grid-button" />
-                        </a>
+                        </button>
                       )}
                     </div>
                   </motion.div>

@@ -66,7 +66,27 @@ html[data-theme='light'] {
   line-height: 0 !important;
 }
 
+.section-reveal-wrapper {
+  margin-bottom: 3rem;
+
+  @media screen and (max-width: $max-medium) {
+    margin-bottom: 2.4rem;
+  }
+
+  @media screen and (max-width: $max-small) {
+    margin-bottom: 1.8rem;
+  }
+}
+
 .section-title {
   font-size: 4.8rem;
   color: var(--primary-color);
+
+  @media screen and (max-width: $max-medium) {
+    font-size: 4rem;
+  }
+
+  @media screen and (max-width: $max-xSmall) {
+    font-size: 3.6rem;
+  }
 }
