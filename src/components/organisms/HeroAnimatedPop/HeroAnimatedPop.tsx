@@ -156,7 +156,13 @@ const HeroEasterEgg = forwardRef<HTMLElement>((props, ref) => {
                 </RevealWrapper>
               </div>
               <RevealWrapper isInView={isInViewReveal} extraMargin>
-                <SwipeButton size={buttonSize} onClick={handleScrollToContact}>
+                <SwipeButton
+                  size={buttonSize}
+                  onClick={handleScrollToContact}
+                  containerClassName={
+                    !isDarkMode ? 'hero-contact-button-egg' : ''
+                  }
+                >
                   CONTACT
                 </SwipeButton>
               </RevealWrapper>

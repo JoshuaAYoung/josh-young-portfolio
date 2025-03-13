@@ -374,7 +374,11 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
               <BlinkingCursor cursorVariants={cursorHeadlineVariants} />
             </div>
             <motion.div variants={contactButtonVariants}>
-              <SwipeButton size={buttonSize} onClick={handleScrollToContact}>
+              <SwipeButton
+                size={buttonSize}
+                onClick={handleScrollToContact}
+                containerClassName={!isDarkMode ? 'hero-contact-button' : ''}
+              >
                 CONTACT
               </SwipeButton>
             </motion.div>

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useMemo, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import './Projects.scss';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -18,6 +18,7 @@ import {
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const controls = useAnimation();
+  const hoveredProjectRefs = useRef(new Map<string, HTMLDivElement | null>());
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -66,6 +67,28 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
     startAnimation();
   }, [controls, isInViewReveal]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const activeRef = hoveredProject
+        ? hoveredProjectRefs.current.get(hoveredProject)
+        : null;
+
+      if (activeRef && !activeRef.contains(event.target as Node)) {
+        setHoveredProject(null);
+      }
+    };
+
+    if (hoveredProject) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [hoveredProject]);
+
   return (
     <InViewSection
       sectionName="Projects"
@@ -110,6 +133,9 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
                   exit="exit"
                   whileHover="hoverIn"
                   variants={projectVariants}
+                  ref={(el) =>
+                    hoveredProjectRefs.current.set(project.title, el)
+                  }
                   onTap={
                     isTouchDevice
                       ? () => setHoveredProject(project.title)

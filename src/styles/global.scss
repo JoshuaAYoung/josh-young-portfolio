@@ -4,6 +4,7 @@
   --secondary-color: #e4a53e;
   --secondary-color-rgb: 228, 165, 62;
   --background-light: #34343b;
+  --background-light-translucent: #34343b95;
   --background-medium: #2e2e35;
   --background-dark: #25252c;
   --high-contrast: var(--background-dark);
@@ -32,6 +33,7 @@ html[data-theme='light'] {
   --secondary-color: #f2635b;
   --secondary-color-rgb: 242, 99, 91;
   --background-light: #ffffff;
+  --background-light-translucent: #ffffff95;
   --background-medium: #f4f4f6;
   --background-dark: #e1e0e6;
   --high-contrast: var(--background-light);

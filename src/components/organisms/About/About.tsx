@@ -21,6 +21,7 @@ const About = forwardRef<HTMLElement>((props, ref) => {
   );
   const sectionRefs = useJYStore((state) => state.sectionRefs);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -46,6 +47,10 @@ const About = forwardRef<HTMLElement>((props, ref) => {
     document.body.removeChild(link);
   };
 
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <InViewSection
       sectionName="About"
@@ -57,18 +62,31 @@ const About = forwardRef<HTMLElement>((props, ref) => {
       title="About"
     >
       <div className="about-container">
-        <RevealWrapper
-          isInView={isInViewReveal}
-          containerClassName="about-headline"
-        >
-          <p>{aboutData.firstParagraph}</p>
-        </RevealWrapper>
-        <RevealWrapper
-          isInView={isInViewReveal}
-          containerClassName="about-copy"
-        >
-          <p>{aboutData.secondParagraph}</p>
-        </RevealWrapper>
+        <div className={`about-text-container ${isExpanded ? 'expanded' : ''}`}>
+          <RevealWrapper
+            isInView={isInViewReveal}
+            containerClassName="about-headline"
+          >
+            <p>{aboutData.firstParagraph}</p>
+          </RevealWrapper>
+          <RevealWrapper
+            isInView={isInViewReveal}
+            containerClassName="about-copy"
+          >
+            <p>{aboutData.secondParagraph}</p>
+          </RevealWrapper>
+        </div>
+        {maxMdWidth && !isExpanded && (
+          <div className="contact-expand-container">
+            <button
+              type="button"
+              className="contact-expand-button"
+              onClick={toggleExpand}
+            >
+              Read More
+            </button>
+          </div>
+        )}
         <RevealWrapper
           isInView={isInViewReveal}
           containerClassName="about-fact-list"
@@ -89,7 +107,9 @@ const About = forwardRef<HTMLElement>((props, ref) => {
               containerClassName="about-buttons-reveal"
               extraMargin
             >
-              <SwipeButton variant="outline-dark">DOWNLOAD CV</SwipeButton>
+              <SwipeButton variant="outline-dark" onClick={handleDownloadCV}>
+                DOWNLOAD CV
+              </SwipeButton>
             </RevealWrapper>
             <RevealWrapper
               isInView={isInViewReveal}

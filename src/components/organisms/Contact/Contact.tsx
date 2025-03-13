@@ -65,7 +65,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
           onSubmit={handleSubmit}
           initial="hidden"
           variants={getContactRevealVariants(0)}
-          animate="reveal"
+          animate={isInViewReveal ? 'reveal' : undefined}
         >
           <div className="contact-form-name-email">
             <label htmlFor="name" className="contact-sr-only">
@@ -137,7 +137,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
             className="contact-info"
             initial="hidden"
             variants={getContactRevealVariants(minLgWidth ? 1 : 2)}
-            animate="reveal"
+            animate={isInViewReveal ? 'reveal' : undefined}
           >
             <a
               href="tel:+13039136955"
@@ -183,7 +183,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
             className="contact-map-container"
             initial="hidden"
             variants={getContactRevealVariants(minLgWidth ? 2 : 1)}
-            animate="reveal"
+            animate={isInViewReveal ? 'reveal' : undefined}
           >
             <picture>
               {isDarkMode ? (
