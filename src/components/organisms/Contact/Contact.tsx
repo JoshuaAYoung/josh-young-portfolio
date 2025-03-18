@@ -75,7 +75,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               type="text"
               id="name"
               name="name"
-              placeholder="Name"
+              placeholder="* Name"
               value={formData.name}
               onChange={handleChange}
               required
@@ -88,7 +88,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               type="email"
               id="email"
               name="email"
-              placeholder="Email"
+              placeholder="* Email"
               value={formData.email}
               onChange={handleChange}
               required
@@ -103,19 +103,19 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
             type="text"
             id="subject"
             name="subject"
-            placeholder="Subject"
+            placeholder="* Subject"
             value={formData.subject}
             onChange={handleChange}
             required
             aria-labelledby="subject"
           />
           <label htmlFor="message" className="contact-sr-only">
-            Message
+            Message *
           </label>
           <textarea
             id="message"
             name="message"
-            placeholder="Message"
+            placeholder="* Message"
             rows={6}
             value={formData.message}
             onChange={handleChange}
