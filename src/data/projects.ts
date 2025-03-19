@@ -15,7 +15,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Nutrien Hub',
     description:
       'Contributed to frontend and backend development of the Nutrien Ag Solutions HUB, a cross-platform app that helps farmers track weather, manage farms, and handle finances, integrating real-time data and secure account management.',
-    techStack: [ExpressIcon, CSSIcon, ReactIcon], // TS, React, React native, Postgres, GQL, node
+    techStack: [ExpressIcon, CSSIcon, ReactIcon], // TS, React, React Native, Postgres, GQL, Node
     demoLink: 'https://nutrienagsolutions.com/digital-hub',
     categories: [
       ProjectCategory.NATIVE,
@@ -27,7 +27,7 @@ export const projectData: ProjectItemType[] = [
     backgroundUrl: fireGraphScreenshot,
     title: 'Fire Graph',
     description:
-      'A React web app that analyzes and parses raw CSV output from kiln controllers in an attempt to help the global pottery community visualize their firing data and troubleshoot kiln issues. Designs from scratch.',
+      'A simple-to-use React web utility that parses and heavily analyzes raw CSV output from kiln controllers in an attempt to help the global pottery community visualize their firing data and troubleshoot kiln issues.',
     techStack: [ExpressIcon, CSSIcon, ReactIcon], // TS, React
     githubLink: 'https://github.com/JoshuaAYoung/firegraph-by-jay',
     demoLink: 'https://fire-graph.com',
@@ -38,7 +38,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Clover',
     description:
       'Frontend development of a React-powered website for Clover, a leading point-of-sale platform. Enhanced user experience with seamless navigation, responsive design, and robust features for business management.',
-    techStack: [ExpressIcon, CSSIcon], // JS, react, redux, postgres
+    techStack: [ExpressIcon, CSSIcon], // JS, React, Redux, Postgres
     demoLink: 'https://clover.com',
     categories: [ProjectCategory.WEB, ProjectCategory.PROFESSIONAL],
   },
@@ -47,7 +47,7 @@ export const projectData: ProjectItemType[] = [
     title: 'NPMM',
     description:
       'Designed and developed NPMM, a React app allowing developers to browse and save npm packages, with seamless installation via a custom CLI. Contributed as a full-stack developer and sole designer in a team of 4.',
-    techStack: [ExpressIcon, CSSIcon], // JS, react, redux, postgres
+    techStack: [ExpressIcon, CSSIcon], // JS, React, Redux, Postgres
     githubLink: 'https://github.com/dannydi12/npmm-client',
     demoLink: 'https://npmm.dev',
     categories: [ProjectCategory.WEB, ProjectCategory.PERSONAL],
@@ -57,7 +57,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Portfolio',
     description:
       'Yes, this website. Meta, I know. While I gathered inspiration from all over the internet, the design and every line in the codebase was built from scratch, including all of the animations.',
-    techStack: [CSSIcon, ReactIcon], // TS, react, zustand, framer-motion
+    techStack: [CSSIcon, ReactIcon], // TS, React, Zustand, Framer Motion
     githubLink: 'https://github.com/JoshuaAYoung/josh-young-portfolio',
     categories: [ProjectCategory.WEB, ProjectCategory.PERSONAL],
   },
@@ -66,7 +66,7 @@ export const projectData: ProjectItemType[] = [
     title: 'Team USA App',
     description:
       'Contributed to frontend development of the Team USA mobile app, a central platform for delivering news, events, and exclusive Olympic & Paralympic content. Features include athlete bios, results tracking, live streaming, and a customizable experience.',
-    techStack: [CSSIcon, ReactIcon], // Ts, React native, redux
+    techStack: [CSSIcon, ReactIcon], // TS, React Native, Redux
     demoLink:
       'https://download.cnet.com/team-usa-app/3000-2117_4-76457756.html',
     categories: [ProjectCategory.NATIVE, ProjectCategory.PROFESSIONAL],
