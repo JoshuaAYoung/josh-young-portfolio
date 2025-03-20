@@ -1,6 +1,6 @@
 import './LinkButtons.scss';
 import LinkedInIcon from '../../../assets/icons/linkedin.svg?react';
-import GitHubIcon from '../../../assets/icons/github.svg?react';
+import GitHubIcon from '../../../assets/icons/tech/github.svg?react';
 import SunIcon from '../../../assets/icons/sun.svg?react';
 import MoonIcon from '../../../assets/icons/moon.svg?react';
 import EasterEggIcon from '../../../assets/icons/easter-egg.svg?react';

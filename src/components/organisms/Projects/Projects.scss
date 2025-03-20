@@ -101,7 +101,7 @@
         }
 
         .projects-grid-description {
-          font-size: clamp(1.2rem, 6cqw, 1.6rem);
+          font-size: clamp(1.2rem, 5.5cqw, 1.8rem);
           color: var(--high-contrast);
           font-weight: 600;
           font-family: 'Nunito', sans-serif;
@@ -112,14 +112,16 @@
           bottom: 5%;
           right: 5%;
           display: flex;
+          justify-content: flex-end;
+          width: 50%;
 
           .projects-grid-link {
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--high-contrast);
-            width: 3.5rem;
-            height: 3.5rem;
+            width: clamp(3.5rem, 11cqw, 4.2rem);
+            height: clamp(3.5rem, 11cqw, 4.2rem);
 
             @media not all and (hover: none) {
               &:hover {
@@ -129,7 +131,7 @@
 
             .projects-grid-button {
               transition: color 0.3s ease;
-              width: 2rem;
+              width: 60%;
             }
           }
         }

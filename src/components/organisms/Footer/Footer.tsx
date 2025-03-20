@@ -1,7 +1,7 @@
 import './Footer.scss';
 import EmailIconCircle from '../../../assets/icons/email-circle.svg?react';
 import LinkedInIconCircle from '../../../assets/icons/linkedin-circle.svg?react';
-import GithubIcon from '../../../assets/icons/github.svg?react';
+import GithubIcon from '../../../assets/icons/tech/github.svg?react';
 
 function Footer() {
   const currentYear = new Date().getFullYear();

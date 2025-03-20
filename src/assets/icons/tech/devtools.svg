@@ -1,0 +1,11 @@
+<svg viewBox="0 0 90.91 82.57" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <defs>
+    <style>.cls-1{fill:currentColor;}</style>
+  </defs>
+  <title>Devtools</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Main">
+      <path class="cls-1" d="M77.93,33.78l13-7.51L45.46,0,0,26.28l13,7.5L0,41.29l13,7.5L0,56.3,45.46,82.57,90.91,56.29l-13-7.5,13-7.51ZM5.08,26.28,45.46,2.94,85.83,26.27l-10.44,6-13,7.5-2.54,1.47-14.4,8.33L31.05,41.29l-2.54-1.47-13-7.51Zm80.75,30L45.46,79.63,5.08,56.3l10.45-6,29.93,17.3,29.93-17.3Z"/>
+    </g>
+  </g>
+</svg>

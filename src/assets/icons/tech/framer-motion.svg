@@ -1,0 +1,11 @@
+<svg viewBox="0 0 61.26 61.26" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <defs>
+    <style>.cls-1{fill:currentColor;}</style>
+  </defs>
+  <title>Framer Motion</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Main">
+      <path class="cls-1" d="M30.63,0A30.63,30.63,0,1,0,61.26,30.63,30.63,30.63,0,0,0,30.63,0ZM4.9,39.86l7.83-14.14a8.07,8.07,0,0,1,7.06-4.16h4.52L14.17,39.86Zm11,0,10.14-18.3h9.27L25.18,39.86Zm22.66-4.3a8.36,8.36,0,0,1-7.3,4.3H26.92l10.14-18.3h9.27Zm13.24-4.93A4.6,4.6,0,1,1,56.41,26,4.6,4.6,0,0,1,51.81,30.63Z"/>
+    </g>
+  </g>
+</svg>

@@ -3,7 +3,7 @@ import './Projects.scss';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import GitHubIcon from '../../../assets/icons/github.svg?react';
+import GitHubIcon from '../../../assets/icons/tech/github.svg?react';
 import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';
 import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
@@ -28,7 +28,9 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   const activeSection = useJYStore((state) => state.activeSection);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(
+    'Nutrien Hub',
+  );
   const [isInitialMount, setIsInitialMount] = useState(true);
   const [tapLocked, setTapLocked] = useState(false);
 

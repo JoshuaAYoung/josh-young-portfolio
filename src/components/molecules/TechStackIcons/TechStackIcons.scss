@@ -1,10 +1,19 @@
 .project-tech-stack-container {
   display: flex;
-  margin-top: 1rem;
-  gap: 1rem;
+  margin-top: clamp(1.4rem, 5cqw, 2.4rem);
+  gap: 2rem;
+  flex: 1 1 auto;
+
+  &.icons-4 {
+    gap: 1.5rem;
+  }
+
+  &.icons-5 {
+    gap: 1.2rem;
+  }
 
   .project-tech-stack-icon {
-    width: 2rem;
+    height: clamp(2.4rem, 10cqw, 3rem);
     color: var(--high-contrast);
   }
 }

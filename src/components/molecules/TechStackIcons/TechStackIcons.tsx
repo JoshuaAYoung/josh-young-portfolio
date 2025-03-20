@@ -9,7 +9,7 @@ function TechStackIcons({
   projectKey: string;
 }) {
   return (
-    <div className="project-tech-stack-container">
+    <div className={`project-tech-stack-container icons-${techStack.length}`}>
       {techStack.map((IconComponent, index) => (
         <IconComponent
           key={`${projectKey}-${index}`}
