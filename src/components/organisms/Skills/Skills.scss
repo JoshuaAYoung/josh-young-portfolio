@@ -1,0 +1,24 @@
+.container {
+  // width: 100%;
+  width: 100%;
+  height: auto;
+  position: relative;
+
+  .orbit-container {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    .skills-center-background {
+      color: var(--secondary-color);
+    }
+
+    .skills-icon {
+      .skills-icon-background {
+        color: var(--secondary-color);
+      }
+    }
+  }
+}
