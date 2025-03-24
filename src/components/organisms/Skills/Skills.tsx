@@ -1,5 +1,5 @@
-import { forwardRef, useMemo, useState } from 'react';
-import { motion } from 'motion/react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { motion, useAnimation, Variants } from 'motion/react';
 import './Skills.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
@@ -7,12 +7,28 @@ import SkillsHexagon from '../../../assets/icons/tech/skills-hexagon.svg?react';
 import SkillsCenter from '../../../assets/icons/tech/skills-center-circle.svg?react';
 import SkillsCategory from '../../../assets/icons/tech/skills-category-circle.svg?react';
 import CircularText from '../../atoms/CircularText/CircularText';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
+import { SkillsIcon } from '../../../types/skills.types';
+import { skillsData } from '../../../data/skills';
 
-const Skills = forwardRef<HTMLElement>((props, ref) => {
+const Skills = forwardRef<HTMLElement>((_, ref) => {
+  // HOOK(S)
+  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const controls = useAnimation();
+
+  // STATE
   const onSectionInViewActive = useJYStore(
     (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
+  const [hoveredSkillIndex, setHoveredSkillIndex] = useState<number | null>(
+    null,
+  );
+  const [isInitialMount, setIsInitialMount] = useState(true);
+  const [connectedHoveredIndexes, setConnectedHoveredIndexes] = useState<
+    number[] | null
+  >(null);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -21,144 +37,159 @@ const Skills = forwardRef<HTMLElement>((props, ref) => {
     }
   };
 
-  // SVG ICONS
-  const icon1 = <circle cx="0" cy="0" r="10" fill="blue" />;
-  const icon2 = <rect x="-7.5" y="-7.5" width="15" height="15" fill="green" />;
-  const icon3 = <polygon points="0,-10 8,5 -8,5" fill="orange" />;
-  const icon4 = <circle cx="0" cy="0" r="10" fill="red" />;
+  const handleMouseEnter = (index: number) => {
+    if (!isInitialMount) {
+      const connectedIndexes = [];
+      let currentIndex = skillsData[index].connectedIndex;
 
-  const orbitRadii = [150, 256, 362, 468];
+      while (
+        currentIndex !== undefined &&
+        skillsData[currentIndex].layer !== 1
+      ) {
+        connectedIndexes.push(currentIndex);
+        currentIndex = skillsData[currentIndex].connectedIndex!;
+      }
+      if (currentIndex !== undefined) {
+        connectedIndexes.push(currentIndex); // Add the layer 1 index
+      }
 
-  const iconsData = useMemo(
-    () => [
-      { label: 'Backend', icon: icon1, layer: 1, angle: 0 }, // 0
-      { label: 'Devtools', icon: icon1, layer: 1, angle: 90 }, // 1
-      { label: 'Frontend', icon: icon1, layer: 1, angle: 180 }, // 2
-      //
-      {
-        label: 'Python',
-        icon: icon2,
-        layer: 2,
-        angle: 328.5,
-        connectedIndex: 0,
-      }, // 3
-      {
-        label: 'PostgreSQL',
-        icon: icon2,
-        layer: 2,
-        angle: 352,
-        connectedIndex: 0,
-      }, // 4
-      {
-        label: 'TypeScript', // Backend
-        icon: icon2,
-        layer: 2,
-        angle: 14,
-        connectedIndex: 0,
-      }, // 5
+      console.log(connectedIndexes);
 
-      { label: 'CI/CD', icon: icon2, layer: 2, angle: 51, connectedIndex: 1 }, // 6
-      { label: 'GitHub', icon: icon2, layer: 2, angle: 71, connectedIndex: 1 }, // 7
-      { label: 'AWS', icon: icon2, layer: 2, angle: 95, connectedIndex: 1 }, // 8
-      { label: 'Auth0', icon: icon2, layer: 2, angle: 117, connectedIndex: 1 }, // 9
-      { label: 'CSS3', icon: icon2, layer: 2, angle: 148.5, connectedIndex: 2 }, // 10
-      {
-        label: 'TypeScript', // Frontend
-        icon: icon2,
-        layer: 2,
-        angle: 171.5,
-        connectedIndex: 2,
-      }, // 11
-      {
-        label: 'HTML5',
-        icon: icon2,
-        layer: 2,
-        angle: 195.5,
-        connectedIndex: 2,
-      }, // 12
-      //
-      {
-        label: 'Node.js',
-        icon: icon3,
-        layer: 3,
-        angle: 12,
-        connectedIndex: 5,
-      }, // 13
-      {
-        label: 'GraphQL',
-        icon: icon3,
-        layer: 3,
-        angle: 30,
-        connectedIndex: 5,
-      }, // 14
-      {
-        label: 'jQuery',
-        icon: icon3,
-        layer: 3,
-        angle: 155.5,
-        connectedIndex: 11,
-      }, // 15
-      {
-        label: 'React',
-        icon: icon3,
-        layer: 3,
-        angle: 179.5,
-        connectedIndex: 11,
-      }, // 16
+      setHoveredSkillIndex(index);
+      setConnectedHoveredIndexes(connectedIndexes);
+    }
+  };
 
-      {
-        label: 'Express',
-        icon: icon4,
-        layer: 4,
-        angle: 6.5,
-        connectedIndex: 13,
-      }, // 17
-      {
-        label: 'Sequelize',
-        icon: icon4,
-        layer: 4,
-        angle: 17.5,
-        connectedIndex: 13,
-      }, // 18
-      { label: 'Expo', icon: icon4, layer: 4, angle: 149, connectedIndex: 16 }, // 19
-      {
-        label: 'Framer Motion',
-        icon: icon4,
-        layer: 4,
-        angle: 163,
-        connectedIndex: 16,
-      }, // 20
-      {
-        label: 'Redux',
-        icon: icon4,
-        layer: 4,
-        angle: 175.5,
-        connectedIndex: 16,
-      }, // 21
-      { label: 'Jest', icon: icon4, layer: 4, angle: 188, connectedIndex: 16 }, // 22
-    ],
-    [],
+  const handleMouseLeave = () => {
+    if (!isInitialMount) {
+      setHoveredSkillIndex(null);
+    }
+  };
+
+  // EFFECT(S)
+  useEffect(() => {
+    const startAnimation = async () => {
+      if (isInViewReveal) {
+        await controls.start('reveal');
+        setIsInitialMount(false);
+        controls.start('visible');
+      }
+    };
+
+    startAnimation();
+  }, [controls, isInViewReveal]);
+
+  const getLineVariants: (icon: SkillsIcon) => Variants = (icon) => {
+    return {
+      hidden: { pathLength: 0 },
+      reveal: {
+        pathLength: 1,
+        transition: {
+          delay: icon.layer * 1,
+          duration: 1,
+          ease: 'easeOut',
+        },
+      },
+    };
+  };
+
+  const skillIconVariants: Variants = {
+    hidden: {
+      color: 'var(--background-light)',
+    },
+    reveal: {
+      color: 'var(--background-light)',
+    },
+    visible: {
+      color: 'var(--background-light)',
+      transition: {
+        duration: 0.2,
+        ease: 'easeInOut',
+      },
+    },
+    hover: {
+      color: 'var(--primary-color)',
+      transition: {
+        duration: 0.2,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const getSkillVariants: (icon: SkillsIcon) => Variants = useCallback(
+    (icon) => {
+      const xPosition = maxMdWidth ? icon.x.vertical : icon.x.horizontal;
+      const yPosition = maxMdWidth ? icon.y.vertical : icon.y.horizontal;
+
+      return {
+        hidden: {
+          opacity: 0,
+          scale: 0,
+          borderRadius: '0px',
+          color: 'var(--secondary-color)',
+          stroke: '#1b1b21',
+          x: xPosition,
+          y: yPosition,
+        },
+        reveal: {
+          opacity: 1,
+          scale: 1,
+          color: 'var(--secondary-color)',
+          stroke: '#1b1b21',
+          x: xPosition,
+          y: yPosition,
+          transition: {
+            delay: icon.layer * 1,
+            duration: 0.5,
+            ease: 'easeOut',
+          },
+        },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          color: 'var(--secondary-color)',
+          stroke: '#1b1b21',
+          transition: {
+            duration: 0.2,
+            ease: 'easeInOut',
+          },
+        },
+        hover: {
+          scale: 1.3,
+          color: 'var(--background-dark)',
+          stroke: '#1b1b21',
+          transition: {
+            duration: 0.2,
+            ease: 'easeInOut',
+          },
+        },
+      };
+    },
+    [maxMdWidth],
   );
 
-  const width = 1000;
-  const height = 466;
-  const centerX = width / 2;
-  const centerY = 172;
+  const longSide = 1000;
+  const shortSide = 480;
+  const centerX = maxMdWidth ? 287 : longSide / 2;
+  const centerY = maxMdWidth ? longSide / 2 : 179;
 
-  const computedPositions = useMemo(
-    () =>
-      iconsData.map(({ layer, angle }) => {
-        const radians = (angle * Math.PI) / 180;
-        const orbitRadius = orbitRadii[layer - 1];
-        return {
-          x: centerX + orbitRadius * Math.cos(radians),
-          y: centerY + orbitRadius * Math.sin(radians),
-        };
-      }),
-    [iconsData],
-  );
+  // KEEP IN CASE WE NEED TO RECALCULATE
+  // const orbitRadii = [150, 256, 362, 468];
+  // const responsiveRotation = maxMdWidth ? 90 : 0;
 
-  console.log('computedPositions', computedPositions);
+  // const computedPositions = useMemo(
+  //   () =>
+  //     skillsData.map(({ layer, angle, label }) => {
+  //       const radians = ((angle + responsiveRotation) * Math.PI) / 180;
+  //       const orbitRadius = orbitRadii[layer - 1];
+  //       return {
+  //         x: centerX + orbitRadius * Math.cos(radians),
+  //         y: centerY + orbitRadius * Math.sin(radians),
+  //         label,
+  //       };
+  //     }),
+  //   [skillsData],
+  // );
 
   return (
     <InViewSection
@@ -171,10 +202,13 @@ const Skills = forwardRef<HTMLElement>((props, ref) => {
       title="Skills"
     >
       <div className="container">
-        <svg
+        <motion.svg
           className="orbit-container"
-          viewBox={`0 0 ${width} ${height}`}
+          viewBox={`0 0 ${maxMdWidth ? shortSide : longSide} ${
+            maxMdWidth ? longSide : shortSide
+          }`}
           preserveAspectRatio="xMidYMid meet"
+          animate={controls}
         >
           <motion.g
             initial={{ scale: 0 }}
@@ -192,30 +226,40 @@ const Skills = forwardRef<HTMLElement>((props, ref) => {
             <CircularText text="FULL STACK" x={centerX - 63} y={centerY - 63} />
           </motion.g>
 
+          {/* TODO have it so that a line on top of the other line thicker and different color growws opposite direction when hovered skill */}
+
           <g className="skills-lines">
-            {iconsData.map((icon, index) => {
-              const connectedPosition =
+            {skillsData.map((icon, index) => {
+              const connectedSkill =
                 icon.connectedIndex !== undefined
-                  ? computedPositions[icon.connectedIndex]
+                  ? skillsData[icon.connectedIndex]
                   : null;
-              const { x, y } = computedPositions[index];
+              const xPosition = maxMdWidth
+                ? icon.x.vertical
+                : icon.x.horizontal;
+              const yPosition = maxMdWidth
+                ? icon.y.vertical
+                : icon.y.horizontal;
+              const xConnected = maxMdWidth
+                ? connectedSkill?.x.vertical
+                : connectedSkill?.x.horizontal;
+              const yConnected = maxMdWidth
+                ? connectedSkill?.y.vertical
+                : connectedSkill?.y.horizontal;
+
               return (
-                connectedPosition && (
+                connectedSkill && (
                   <motion.line
                     key={`line-${index}`}
-                    x1={connectedPosition.x}
-                    y1={connectedPosition.y}
-                    x2={x}
-                    y2={y}
+                    x1={xConnected}
+                    y1={yConnected}
+                    x2={xPosition}
+                    y2={yPosition}
                     stroke="white"
                     strokeWidth={2}
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{
-                      delay: icon.layer * 1,
-                      duration: 1,
-                      ease: 'easeOut',
-                    }}
+                    initial="hidden"
+                    animate={controls}
+                    variants={getLineVariants(icon)}
                     className={`skills-line ${icon.label}`}
                   />
                 )
@@ -223,19 +267,23 @@ const Skills = forwardRef<HTMLElement>((props, ref) => {
             })}
           </g>
           <g className="skills-icons">
-            {iconsData.map((icon, index) => {
-              const { x, y } = computedPositions[index];
+            {skillsData.map((icon, index) => {
+              // handle reveal, hoverIn and hoverOut states
+              const animateVar = isInitialMount
+                ? 'reveal'
+                : hoveredSkillIndex === index
+                  ? 'hover'
+                  : 'visible';
+
               return (
                 <motion.g
                   key={`icon-${index}`}
-                  initial={{ opacity: 0, scale: 0, x, y }}
-                  animate={{ opacity: 1, scale: 1, x, y }}
-                  transition={{
-                    delay: icon.layer * 1,
-                    duration: 0.5,
-                    ease: 'easeOut',
-                  }}
+                  initial={isInitialMount ? 'hidden' : 'visible'}
+                  animate={animateVar}
                   className="skills-icon"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                  variants={getSkillVariants(icon)}
                 >
                   {icon.layer === 1 ? (
                     <SkillsCategory
@@ -254,12 +302,23 @@ const Skills = forwardRef<HTMLElement>((props, ref) => {
                       height="68"
                     />
                   )}
-                  {iconsData[index].icon}
+                  <motion.g
+                    initial="visible"
+                    animate={hoveredSkillIndex === index ? 'hover' : 'visible'}
+                    variants={skillIconVariants}
+                  >
+                    <icon.icon
+                      width={icon.iconWidth}
+                      height={icon.iconHeight}
+                      x={icon.iconX}
+                      y={icon.iconY}
+                    />
+                  </motion.g>
                 </motion.g>
               );
             })}
           </g>
-        </svg>
+        </motion.svg>
       </div>
     </InViewSection>
   );
