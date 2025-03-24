@@ -16,7 +16,15 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
     ? skillsData[hoveredSkillIndex].icon
     : FullStackIcon;
 
-  return <Icon width="100" height="94" x={centerX - 50} y={centerY - 60} />;
+  return (
+    <Icon
+      width="100"
+      height="94"
+      x={centerX - 50}
+      y={centerY - 60}
+      color="var(--background-light)"
+    />
+  );
 };
 
 export default SkillsCenterIcon;
