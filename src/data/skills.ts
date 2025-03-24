@@ -276,7 +276,7 @@ export const skillsData: SkillsIcon[] = [
     iconWidth: 45,
     iconHeight: 40,
     iconX: (45 / 2) * -1,
-    iconY: (40 / 2) * -1,
+    iconY: -24,
     x: { horizontal: 99, vertical: 46 },
     y: { horizontal: 420, vertical: 99 },
   }, // 19

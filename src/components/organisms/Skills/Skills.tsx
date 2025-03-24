@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, Variants } from 'motion/react';
 import './Skills.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -11,6 +11,7 @@ import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 import { SkillsIcon } from '../../../types/skills.types';
 import { skillsData } from '../../../data/skills';
+import SkillsCenterIcon from '../../atoms/SkillsCenterIcon/SkillsCenterIcon';
 
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
@@ -22,13 +23,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     (state) => state.onSectionInViewActive,
   );
   const [isInViewReveal, setIsInViewReveal] = useState(false);
+  const [isInitialMount, setIsInitialMount] = useState(true);
   const [hoveredSkillIndex, setHoveredSkillIndex] = useState<number | null>(
     null,
   );
-  const [isInitialMount, setIsInitialMount] = useState(true);
-  const [connectedHoveredIndexes, setConnectedHoveredIndexes] = useState<
-    number[] | null
-  >(null);
+  const connectedHoveredIndexes = useRef<number[] | null>(null);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
@@ -56,13 +55,14 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       console.log(connectedIndexes);
 
       setHoveredSkillIndex(index);
-      setConnectedHoveredIndexes(connectedIndexes);
+      connectedHoveredIndexes.current = connectedIndexes;
     }
   };
 
   const handleMouseLeave = () => {
     if (!isInitialMount) {
       setHoveredSkillIndex(null);
+      connectedHoveredIndexes.current = null;
     }
   };
 
@@ -93,25 +93,114 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     };
   };
 
-  const skillIconVariants: Variants = {
+  const hoverTransition = {
+    duration: 0.2,
+    ease: 'easeInOut',
+  };
+
+  const polylineDuration = 0.2;
+
+  const centerCircleVariants: Variants = {
     hidden: {
-      color: 'var(--background-light)',
+      opacity: 0,
+      scale: 0,
+      borderRadius: '0px',
+      color: 'var(--secondary-color)',
     },
     reveal: {
-      color: 'var(--background-light)',
-    },
-    visible: {
-      color: 'var(--background-light)',
+      opacity: 1,
+      scale: 1,
+      color: 'var(--secondary-color)',
       transition: {
-        duration: 0.2,
-        ease: 'easeInOut',
+        duration: 0.5,
+        ease: 'easeOut',
       },
     },
-    hover: {
-      color: 'var(--primary-color)',
+    visible: {
+      opacity: 1,
+      scale: 1,
+      color: 'var(--secondary-color)',
+      transition: hoverTransition,
+    },
+    hoverConnected: {
+      color: 'var(--background-dark)',
       transition: {
-        duration: 0.2,
-        ease: 'easeInOut',
+        duration: 0,
+        delay:
+          polylineDuration *
+          (connectedHoveredIndexes.current
+            ? connectedHoveredIndexes.current.length + 1
+            : 0),
+      },
+    },
+  };
+
+  const centerCircleTextVariants: Variants = {
+    visible: {
+      color: 'var(--background-light)',
+      transition: hoverTransition,
+    },
+    hoverConnected: {
+      color: 'var(--secondary-color)',
+      transition: {
+        duration: 0,
+        delay:
+          polylineDuration *
+          (connectedHoveredIndexes.current
+            ? connectedHoveredIndexes.current.length + 1
+            : 0),
+      },
+    },
+  };
+
+  const getSkillIconVariants: (icon: SkillsIcon) => Variants = useCallback(
+    (icon) => {
+      return {
+        hidden: {
+          color: 'var(--background-light)',
+        },
+        reveal: {
+          color: 'var(--background-light)',
+        },
+        visible: {
+          color: 'var(--background-light)',
+          transition: {
+            duration: 0.2,
+            ease: 'easeInOut',
+          },
+        },
+        hover: {
+          color: 'var(--primary-color)',
+          transition: hoverTransition,
+        },
+        hoverConnected: {
+          color: 'var(--secondary-color)',
+          transition: {
+            // stagger the return path back to the center
+            // to match polyline growth
+            // ...hoverTransition,
+            duration: 0,
+            delay:
+              polylineDuration *
+              (connectedHoveredIndexes.current
+                ? connectedHoveredIndexes.current.length - icon.layer + 1
+                : 0),
+          },
+        },
+      };
+    },
+    [],
+  );
+
+  const polylineVariants: Variants = {
+    hidden: { pathLength: 0 },
+    visible: {
+      pathLength: 1,
+      transition: {
+        duration: connectedHoveredIndexes.current
+          ? (connectedHoveredIndexes.current.length + 1) * polylineDuration
+          : 0,
+        ease: 'easeOut',
       },
     },
   };
@@ -149,24 +238,55 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           scale: 1,
           color: 'var(--secondary-color)',
           stroke: '#1b1b21',
-          transition: {
-            duration: 0.2,
-            ease: 'easeInOut',
-          },
+          transition: hoverTransition,
         },
         hover: {
           scale: 1.3,
           color: 'var(--background-dark)',
-          stroke: '#1b1b21',
+          stroke: 'var(--primary-color)',
+          transition: hoverTransition,
+        },
+        hoverConnected: {
+          color: 'var(--background-dark)',
           transition: {
-            duration: 0.2,
-            ease: 'easeInOut',
+            duration: 0,
+            delay:
+              polylineDuration *
+              (connectedHoveredIndexes.current
+                ? connectedHoveredIndexes.current.length - icon.layer + 1
+                : 0),
           },
         },
       };
     },
     [maxMdWidth],
   );
+
+  const getPolylinePoints = () => {
+    const points = [];
+
+    if (hoveredSkillIndex !== null) {
+      const hoveredSkill = skillsData[hoveredSkillIndex];
+      points.push(
+        `${maxMdWidth ? hoveredSkill.x.vertical : hoveredSkill.x.horizontal},${
+          maxMdWidth ? hoveredSkill.y.vertical : hoveredSkill.y.horizontal
+        }`,
+      );
+    }
+
+    if (connectedHoveredIndexes.current) {
+      connectedHoveredIndexes.current.forEach((connectedIndex) => {
+        const skill = skillsData[connectedIndex];
+        points.push(
+          `${maxMdWidth ? skill.x.vertical : skill.x.horizontal},${
+            maxMdWidth ? skill.y.vertical : skill.y.horizontal
+          }`,
+        );
+      });
+    }
+
+    return points.join(' ');
+  };
 
   const longSide = 1000;
   const shortSide = 480;
@@ -211,10 +331,17 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           animate={controls}
         >
           <motion.g
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={isInitialMount ? 'hidden' : 'visible'}
+            animate={
+              isInitialMount
+                ? 'reveal'
+                : hoveredSkillIndex
+                  ? 'hoverConnected'
+                  : 'visible'
+            }
             transition={{ duration: 0.5 }}
             className="skills-center-container"
+            variants={centerCircleVariants}
           >
             <SkillsCenter
               className="skills-center-background"
@@ -223,11 +350,27 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
               width="170"
               height="170"
             />
-            <CircularText text="FULL STACK" x={centerX - 63} y={centerY - 63} />
+            <motion.g
+              initial="visible"
+              animate={hoveredSkillIndex ? 'hoverConnected' : 'visible'}
+              variants={centerCircleTextVariants}
+            >
+              <CircularText
+                text={
+                  hoveredSkillIndex
+                    ? skillsData[hoveredSkillIndex].label.toUpperCase()
+                    : 'FULL STACK'
+                }
+                x={centerX - 63}
+                y={centerY}
+              />
+              <SkillsCenterIcon
+                hoveredSkillIndex={hoveredSkillIndex}
+                centerX={centerX}
+                centerY={centerY}
+              />
+            </motion.g>
           </motion.g>
-
-          {/* TODO have it so that a line on top of the other line thicker and different color growws opposite direction when hovered skill */}
-
           <g className="skills-lines">
             {skillsData.map((icon, index) => {
               const connectedSkill =
@@ -265,6 +408,16 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                 )
               );
             })}
+            <motion.polyline
+              points={getPolylinePoints()}
+              fill="none"
+              stroke="#1b1b21"
+              strokeWidth="6"
+              animate={
+                connectedHoveredIndexes?.current?.length ? 'visible' : 'hidden'
+              }
+              variants={polylineVariants}
+            />
           </g>
           <g className="skills-icons">
             {skillsData.map((icon, index) => {
@@ -273,7 +426,9 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                 ? 'reveal'
                 : hoveredSkillIndex === index
                   ? 'hover'
-                  : 'visible';
+                  : connectedHoveredIndexes.current?.includes(index)
+                    ? 'hoverConnected'
+                    : 'visible';
 
               return (
                 <motion.g
@@ -304,8 +459,14 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                   )}
                   <motion.g
                     initial="visible"
-                    animate={hoveredSkillIndex === index ? 'hover' : 'visible'}
-                    variants={skillIconVariants}
+                    animate={
+                      hoveredSkillIndex === index
+                        ? 'hover'
+                        : connectedHoveredIndexes.current?.includes(index)
+                          ? 'hoverConnected'
+                          : 'visible'
+                    }
+                    variants={getSkillIconVariants(icon)}
                   >
                     <icon.icon
                       width={icon.iconWidth}

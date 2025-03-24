@@ -1,27 +1,30 @@
-import React from 'react';
+import './CircularText.scss';
 
 interface CircularTextProps {
   text: string;
   fontSize?: number;
+  fontWeight?: string;
   color?: string;
+  radius?: number;
   x: number;
   y: number;
 }
 
 const CircularText: React.FC<CircularTextProps> = ({
   text,
-  fontSize = 12,
+  fontSize = 18,
+  fontWeight = '900',
   color = 'currentColor',
+  radius = 63,
   x,
   y,
 }) => {
-  const radius = 63;
-
+  const diameter = radius * 2;
   return (
     <svg
-      width="126"
-      height="126"
-      viewBox="0 0 126 126"
+      width={diameter}
+      height={radius}
+      viewBox={`0 0 ${diameter} ${radius}`}
       xmlns="http://www.w3.org/2000/svg"
       x={x}
       y={y}
@@ -29,15 +32,22 @@ const CircularText: React.FC<CircularTextProps> = ({
       <defs>
         <path
           id="circlePath"
-          d={`M 63, 120 A ${radius}, ${radius} 0 0, 1 63, 3`}
+          d={`M 0, 0 A ${radius}, ${radius} 0 0,0 ${diameter}, 0`}
+          fill="none"
         />
       </defs>
 
-      <text fill={color} fontSize={fontSize} textAnchor="middle">
+      <text
+        fill={color}
+        fontSize={fontSize}
+        className="circular-text-copy"
+        fontWeight={fontWeight}
+      >
         <textPath
           href="#circlePath"
           startOffset="50%"
-          dominantBaseline="middle"
+          dominantBaseline="auto"
+          textAnchor="middle"
         >
           {text}
         </textPath>
