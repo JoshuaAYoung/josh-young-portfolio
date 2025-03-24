@@ -1,0 +1,20 @@
+.container {
+  aspect-ratio: 1000 / 466;
+  // width: 1000px;
+  width: 100%;
+  height: auto;
+  position: relative;
+
+  @media screen and (max-width: $max-medium) {
+    aspect-ratio: 466 / 1000;
+  }
+
+  .orbit-container {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: visible;
+  }
+}

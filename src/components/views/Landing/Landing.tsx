@@ -16,7 +16,8 @@ import './Landing.scss';
 
 function Landing() {
   // STATE
-  const [key, setKey] = useState(0);
+  const [homeKey, setHomeKey] = useState(0);
+  const [skillsKey, setSkillsKey] = useState(0);
 
   const sectionRefs = useJYStore((state) => state.sectionRefs);
   const isEasterEgg = useJYStore((state) => state.isEasterEgg);
@@ -31,22 +32,28 @@ function Landing() {
   useEffect(() => {
     // force remount of hero to restart animations to avoid weird
     // visual bugs when switching between window sizes
-    setKey((prevKey: number) => prevKey + 1);
+    setHomeKey((prevKey: number) => prevKey + 1);
   }, [maxLgWidth, maxMdWidth, maxSmWidth, maxSmHeight]);
+
+  useEffect(() => {
+    // force remount of skills to avoid moving svgs around
+    // with animations
+    setSkillsKey((prevKey: number) => prevKey + 1);
+  }, [maxMdWidth]);
 
   return (
     <div className="landing-container">
       {isEasterEgg && minLgWidth ? (
         <HeroEasterEgg ref={sectionRefs.Home} />
       ) : (
-        <Hero ref={sectionRefs.Home} key={key} />
+        <Hero ref={sectionRefs.Home} key={homeKey} />
       )}
       <div className="landing-about-experience">
         <About ref={sectionRefs.About} />
         <Experience ref={sectionRefs.Experience} />
       </div>
       <Projects ref={sectionRefs.Projects} />
-      <Skills ref={sectionRefs.Skills} />
+      <Skills ref={sectionRefs.Skills} key={skillsKey} />
       <Contact ref={sectionRefs.Contact} />
     </div>
   );

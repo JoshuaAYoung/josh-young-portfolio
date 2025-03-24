@@ -28,9 +28,7 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
   const activeSection = useJYStore((state) => state.activeSection);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
-  const [hoveredProject, setHoveredProject] = useState<string | null>(
-    'Nutrien Hub',
-  );
+  const [hoveredProject, setHoveredProject] = useState<string | null>('');
   const [isInitialMount, setIsInitialMount] = useState(true);
   const [tapLocked, setTapLocked] = useState(false);
 
