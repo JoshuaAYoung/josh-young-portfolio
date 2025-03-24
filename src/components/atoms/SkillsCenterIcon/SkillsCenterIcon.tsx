@@ -22,7 +22,7 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
       height="94"
       x={centerX - 50}
       y={centerY - 60}
-      color="var(--background-light)"
+      // color="var(--background-light)"
     />
   );
 };

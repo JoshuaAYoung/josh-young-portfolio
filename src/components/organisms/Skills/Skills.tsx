@@ -123,7 +123,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       transition: hoverTransition,
     },
     hoverConnected: {
-      color: 'var(--primary-color)',
+      color: 'var(--background-dark)',
       transition: {
         duration: 0,
         // delay:
@@ -135,23 +135,23 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     },
   };
 
-  // const centerCircleContentVariants: Variants = {
-  //   visible: {
-  //     color: 'var(--background-light)',
-  //     transition: hoverTransition,
-  //   },
-  //   hoverConnected: {
-  //     color: 'var(--secondary-color)',
-  //     transition: {
-  //       duration: 0,
-  //       delay:
-  //         polylineDuration *
-  //         (connectedHoveredIndexes.current
-  //           ? connectedHoveredIndexes.current.length + 1
-  //           : 0),
-  //     },
-  //   },
-  // };
+  const centerCircleContentVariants: Variants = {
+    visible: {
+      color: 'var(--background-light)',
+      transition: hoverTransition,
+    },
+    hoverConnected: {
+      color: 'var(--primary-color)',
+      transition: {
+        duration: 0,
+        // delay:
+        //   polylineDuration *
+        //   (connectedHoveredIndexes.current
+        //     ? connectedHoveredIndexes.current.length + 1
+        //     : 0),
+      },
+    },
+  };
 
   const getSkillIconVariants: (icon: SkillsIcon) => Variants = useCallback(
     (icon) => {
@@ -350,27 +350,26 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
               width="170"
               height="170"
             />
-            {/* <motion.g
+            <motion.g
               initial="visible"
               animate={hoveredSkillIndex ? 'hoverConnected' : 'visible'}
               variants={centerCircleContentVariants}
-            > */}
-            <CircularText
-              text={
-                hoveredSkillIndex
-                  ? skillsData[hoveredSkillIndex].label.toUpperCase()
-                  : 'FULL STACK'
-              }
-              x={centerX - 63}
-              y={centerY}
-              color="var(--background-light)"
-            />
-            <SkillsCenterIcon
-              hoveredSkillIndex={hoveredSkillIndex}
-              centerX={centerX}
-              centerY={centerY}
-            />
-            {/* </motion.g> */}
+            >
+              <CircularText
+                text={
+                  hoveredSkillIndex
+                    ? skillsData[hoveredSkillIndex].label.toUpperCase()
+                    : 'FULL STACK'
+                }
+                x={centerX - 63}
+                y={centerY}
+              />
+              <SkillsCenterIcon
+                hoveredSkillIndex={hoveredSkillIndex}
+                centerX={centerX}
+                centerY={centerY}
+              />
+            </motion.g>
           </motion.g>
           <g className="skills-lines">
             {skillsData.map((icon, index) => {
