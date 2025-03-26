@@ -1,25 +1,31 @@
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { motion, useAnimation, Variants } from 'motion/react';
 import './Skills.scss';
+import { throttle } from 'lodash-es';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import SkillsHexagon from '../../../assets/icons/tech/skills-hexagon.svg?react';
 import SkillsCenter from '../../../assets/icons/tech/skills-center-circle.svg?react';
-import SkillsCategory from '../../../assets/icons/tech/skills-category-circle.svg?react';
 import CircularText from '../../atoms/CircularText/CircularText';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
-import { SkillsIcon } from '../../../types/skills.types';
+import { SkillType } from '../../../types/skills.types';
 import { useSkillsData } from '../../../data/skills';
 import SkillsCenterIcon from '../../atoms/SkillsCenterIcon/SkillsCenterIcon';
+import SkillLine from '../../atoms/SkillLine/SkillLine';
+import SkillItem from '../../atoms/SkillItem/SkillItem';
 
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const controls = useAnimation();
   const skillsData = useSkillsData();
-
-  console.log('skillsData', skillsData);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -33,13 +39,16 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   const connectedHoveredIndexes = useRef<number[] | null>(null);
 
   // FUNCTION(S)
-  const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
-    if (isPartiallyOnScreen && !isInViewReveal) {
-      setIsInViewReveal(true);
-    }
-  };
+  const onSectionInViewReveal = useCallback(
+    (isPartiallyOnScreen: boolean) => {
+      if (isPartiallyOnScreen && !isInViewReveal) {
+        setIsInViewReveal(true);
+      }
+    },
+    [isInViewReveal],
+  );
 
-  const handleMouseEnter = (index: number) => {
+  const handleMouseEnter = throttle((index: number) => {
     if (!isInitialMount) {
       const connectedIndexes = [];
       let currentIndex = skillsData[index].connectedIndex;
@@ -55,19 +64,17 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         connectedIndexes.push(currentIndex); // Add the layer 1 index
       }
 
-      console.log(connectedIndexes);
-
       setHoveredSkillIndex(index);
       connectedHoveredIndexes.current = connectedIndexes;
     }
-  };
+  }, 200);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = throttle(() => {
     if (!isInitialMount) {
       setHoveredSkillIndex(null);
       connectedHoveredIndexes.current = null;
     }
-  };
+  }, 200);
 
   // EFFECT(S)
   useEffect(() => {
@@ -82,22 +89,22 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     startAnimation();
   }, [controls, isInViewReveal]);
 
-  const getLineVariants: (
-    skill: SkillsIcon,
-    connectedSkill: SkillsIcon,
-  ) => Variants = (skill, connectedSkill) => {
-    return {
-      hidden: { pathLength: 0 },
-      reveal: {
-        pathLength: 1,
-        transition: {
-          delay: connectedSkill.delay + revealSkillDuration,
-          duration: skill.delay - connectedSkill.delay - revealSkillDuration, // coordinate with skillData delayMultiplier
-          ease: 'easeOut',
+  const getLineVariants = useCallback(
+    (skill: SkillType, connectedSkill: SkillType) => {
+      return {
+        hidden: { pathLength: 0 },
+        reveal: {
+          pathLength: 1,
+          transition: {
+            delay: connectedSkill.delay + revealSkillDuration,
+            duration: skill.delay - connectedSkill.delay - revealSkillDuration,
+            ease: 'linear',
+          },
         },
-      },
-    };
-  };
+      };
+    },
+    [],
+  );
 
   const hoverTransition = {
     duration: 0.2,
@@ -131,11 +138,6 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       color: 'var(--background-dark)',
       transition: {
         duration: 0,
-        // delay:
-        //   polylineDuration *
-        //   (connectedHoveredIndexes.current
-        //     ? connectedHoveredIndexes.current.length + 1
-        //     : 0),
       },
     },
   };
@@ -149,17 +151,12 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       color: 'var(--primary-color)',
       transition: {
         duration: 0,
-        // delay:
-        //   polylineDuration *
-        //   (connectedHoveredIndexes.current
-        //     ? connectedHoveredIndexes.current.length + 1
-        //     : 0),
       },
     },
   };
 
-  const getSkillIconVariants: (icon: SkillsIcon) => Variants = useCallback(
-    (icon) => {
+  const getSkillItemVariants: (skill: SkillType) => Variants = useCallback(
+    (skill) => {
       return {
         hidden: {
           color: 'var(--background-light)',
@@ -181,14 +178,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         hoverConnected: {
           color: 'var(--secondary-color)',
           transition: {
-            // stagger the return path back to the center
-            // to match polyline growth
-            // ...hoverTransition,
             duration: 0,
             delay:
               polylineDuration *
               (connectedHoveredIndexes.current
-                ? connectedHoveredIndexes.current.length - icon.layer + 1
+                ? connectedHoveredIndexes.current.length - skill.layer + 1
                 : 0),
           },
         },
@@ -210,10 +204,13 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     },
   };
 
-  const getSkillVariants: (icon: SkillsIcon) => Variants = useCallback(
-    (icon) => {
-      const xPosition = maxMdWidth ? icon.x.vertical : icon.x.horizontal;
-      const yPosition = maxMdWidth ? icon.y.vertical : icon.y.horizontal;
+  const getSkillVariants = useCallback(
+    (skill: SkillType) => {
+      // Memoize the calculation of positions based on screen size
+      const xPosition = maxMdWidth ? skill.x.vertical : skill.x.horizontal;
+      const yPosition = maxMdWidth ? skill.y.vertical : skill.y.horizontal;
+      const skillLayer = skill.layer;
+      const skillDelaay = skill.delay;
 
       return {
         hidden: {
@@ -231,7 +228,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           x: xPosition,
           y: yPosition,
           transition: {
-            delay: icon.delay || 0,
+            delay: skillDelaay || 0,
             duration: revealSkillDuration,
             ease: 'easeOut',
           },
@@ -255,7 +252,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
             delay:
               polylineDuration *
               (connectedHoveredIndexes.current
-                ? connectedHoveredIndexes.current.length - icon.layer + 1
+                ? connectedHoveredIndexes.current.length - skillLayer + 1
                 : 0),
           },
         },
@@ -264,31 +261,30 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     [maxMdWidth],
   );
 
-  const getPolylinePoints = () => {
-    const points = [];
+  const polylinePoints = useMemo(() => {
+    if (hoveredSkillIndex === null || !connectedHoveredIndexes.current)
+      return '';
 
-    if (hoveredSkillIndex !== null) {
-      const hoveredSkill = skillsData[hoveredSkillIndex];
+    const points = [];
+    const hoveredSkill = skillsData[hoveredSkillIndex];
+
+    points.push(
+      `${maxMdWidth ? hoveredSkill.x.vertical : hoveredSkill.x.horizontal},${
+        maxMdWidth ? hoveredSkill.y.vertical : hoveredSkill.y.horizontal
+      }`,
+    );
+
+    connectedHoveredIndexes.current.forEach((connectedIndex) => {
+      const skill = skillsData[connectedIndex];
       points.push(
-        `${maxMdWidth ? hoveredSkill.x.vertical : hoveredSkill.x.horizontal},${
-          maxMdWidth ? hoveredSkill.y.vertical : hoveredSkill.y.horizontal
+        `${maxMdWidth ? skill.x.vertical : skill.x.horizontal},${
+          maxMdWidth ? skill.y.vertical : skill.y.horizontal
         }`,
       );
-    }
-
-    if (connectedHoveredIndexes.current) {
-      connectedHoveredIndexes.current.forEach((connectedIndex) => {
-        const skill = skillsData[connectedIndex];
-        points.push(
-          `${maxMdWidth ? skill.x.vertical : skill.x.horizontal},${
-            maxMdWidth ? skill.y.vertical : skill.y.horizontal
-          }`,
-        );
-      });
-    }
+    });
 
     return points.join(' ');
-  };
+  }, [hoveredSkillIndex, connectedHoveredIndexes, maxMdWidth, skillsData]);
 
   const longSide = 1000;
   const shortSide = 480;
@@ -379,39 +375,21 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                 skill.connectedIndex !== undefined
                   ? skillsData[skill.connectedIndex]
                   : null;
-              const xPosition = maxMdWidth
-                ? skill.x.vertical
-                : skill.x.horizontal;
-              const yPosition = maxMdWidth
-                ? skill.y.vertical
-                : skill.y.horizontal;
-              const xConnected = maxMdWidth
-                ? connectedSkill?.x.vertical
-                : connectedSkill?.x.horizontal;
-              const yConnected = maxMdWidth
-                ? connectedSkill?.y.vertical
-                : connectedSkill?.y.horizontal;
 
               return (
                 connectedSkill && (
-                  <motion.line
+                  <SkillLine
                     key={`line-${index}`}
-                    x1={xConnected}
-                    y1={yConnected}
-                    x2={xPosition}
-                    y2={yPosition}
-                    stroke="white"
-                    strokeWidth={2}
-                    initial="hidden"
-                    animate={controls}
+                    skill={skill}
                     variants={getLineVariants(skill, connectedSkill)}
-                    className={`skills-line ${skill.label}`}
+                    animate={controls}
+                    connectedSkill={connectedSkill}
                   />
                 )
               );
             })}
             <motion.polyline
-              points={getPolylinePoints()}
+              points={polylinePoints}
               fill="none"
               stroke="#1b1b21"
               strokeWidth="6"
@@ -422,63 +400,21 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
             />
           </g>
           <g className="skills-icons">
-            {skillsData.map((skill, index) => {
-              return (
-                <motion.g
-                  key={`icon-${index}`}
-                  initial={isInitialMount ? 'hidden' : 'visible'}
-                  animate={
-                    isInitialMount
-                      ? controls
-                      : hoveredSkillIndex === index
-                        ? 'hover'
-                        : connectedHoveredIndexes.current?.includes(index)
-                          ? 'hoverConnected'
-                          : 'visible'
-                  }
-                  className="skills-icon"
-                  onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseLeave={handleMouseLeave}
-                  variants={getSkillVariants(skill)}
-                >
-                  {skill.layer === 1 ? (
-                    <SkillsCategory
-                      className="skills-icon-background"
-                      x="-49"
-                      y="-49"
-                      width="98"
-                      height="98"
-                    />
-                  ) : (
-                    <SkillsHexagon
-                      className="skills-icon-background"
-                      x="-31"
-                      y="-34"
-                      width="62"
-                      height="68"
-                    />
-                  )}
-                  <motion.g
-                    initial="visible"
-                    animate={
-                      hoveredSkillIndex === index
-                        ? 'hover'
-                        : connectedHoveredIndexes.current?.includes(index)
-                          ? 'hoverConnected'
-                          : 'visible'
-                    }
-                    variants={getSkillIconVariants(skill)}
-                  >
-                    <skill.icon
-                      width={skill.iconWidth}
-                      height={skill.iconHeight}
-                      x={skill.iconX}
-                      y={skill.iconY}
-                    />
-                  </motion.g>
-                </motion.g>
-              );
-            })}
+            {skillsData.map((skill, index) => (
+              <SkillItem
+                key={`icon-${index}`}
+                skill={skill}
+                index={index}
+                isInitialMount={isInitialMount}
+                hoveredSkillIndex={hoveredSkillIndex}
+                connectedHoveredIndexes={connectedHoveredIndexes}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                getSkillVariants={getSkillVariants}
+                getSkillItemVariants={getSkillItemVariants}
+                controls={controls}
+              />
+            ))}
           </g>
         </motion.svg>
       </div>

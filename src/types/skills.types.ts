@@ -1,6 +1,6 @@
 import { FunctionComponent, SVGProps } from 'react';
 
-export interface SkillsIcon {
+export interface SkillType {
   label: string;
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
   layer: number;

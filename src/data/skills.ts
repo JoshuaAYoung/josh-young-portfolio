@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { SkillsIcon } from '../types/skills.types';
+import { SkillType } from '../types/skills.types';
 import Auth0Icon from '../assets/icons/tech/auth0.svg?react';
 import AwsIcon from '../assets/icons/tech/aws.svg?react';
 import BackendIcon from '../assets/icons/tech/backend.svg?react';
@@ -25,7 +25,7 @@ import TypescriptIcon from '../assets/icons/tech/typescript.svg?react';
 
 const delayMultiplier = 1;
 
-export const useSkillsData = (): SkillsIcon[] => {
+export const useSkillsData = (): SkillType[] => {
   const getRandomDelay = (): number => Math.random() * 0.8 - 0.4;
 
   const skillsLayerOne = useMemo(

@@ -16,44 +16,23 @@ import './Landing.scss';
 
 function Landing() {
   // STATE
-  const [homeKey, setHomeKey] = useState(0);
-  const [skillsKey, setSkillsKey] = useState(0);
-
   const sectionRefs = useJYStore((state) => state.sectionRefs);
   const isEasterEgg = useJYStore((state) => state.isEasterEgg);
   const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
-  const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
-  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
-  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
-  const maxSmHeight = useMediaQuery(
-    `(max-height: ${breakpoints['max-sm-height']})`,
-  );
-
-  useEffect(() => {
-    // force remount of hero to restart animations to avoid weird
-    // visual bugs when switching between window sizes
-    setHomeKey((prevKey: number) => prevKey + 1);
-  }, [maxLgWidth, maxMdWidth, maxSmWidth, maxSmHeight]);
-
-  useEffect(() => {
-    // force remount of skills to avoid moving svgs around
-    // with animations
-    setSkillsKey((prevKey: number) => prevKey + 1);
-  }, [maxMdWidth]);
 
   return (
     <div className="landing-container">
       {isEasterEgg && minLgWidth ? (
         <HeroEasterEgg ref={sectionRefs.Home} />
       ) : (
-        <Hero ref={sectionRefs.Home} key={homeKey} />
+        <Hero ref={sectionRefs.Home} />
       )}
       <div className="landing-about-experience">
         <About ref={sectionRefs.About} />
         <Experience ref={sectionRefs.Experience} />
       </div>
       <Projects ref={sectionRefs.Projects} />
-      <Skills ref={sectionRefs.Skills} key={skillsKey} />
+      <Skills ref={sectionRefs.Skills} />
       <Contact ref={sectionRefs.Contact} />
     </div>
   );
