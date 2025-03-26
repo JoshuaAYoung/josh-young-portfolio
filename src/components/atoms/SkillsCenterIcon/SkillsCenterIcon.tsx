@@ -1,4 +1,4 @@
-import { skillsData } from '../../../data/skills';
+import { useSkillsData } from '../../../data/skills';
 import FullStackIcon from '../../../assets/icons/tech/fullstack.svg?react';
 
 interface SkillsCenterIconProps {
@@ -12,6 +12,7 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
   centerX,
   centerY,
 }) => {
+  const skillsData = useSkillsData();
   const Icon = hoveredSkillIndex
     ? skillsData[hoveredSkillIndex].icon
     : FullStackIcon;

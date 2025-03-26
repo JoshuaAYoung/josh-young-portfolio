@@ -12,4 +12,5 @@ export interface SkillsIcon {
   x: { horizontal: number; vertical: number };
   y: { horizontal: number; vertical: number };
   connectedIndex?: number;
+  delay: number;
 }

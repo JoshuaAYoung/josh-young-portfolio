@@ -10,13 +10,16 @@ import CircularText from '../../atoms/CircularText/CircularText';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 import { SkillsIcon } from '../../../types/skills.types';
-import { skillsData } from '../../../data/skills';
+import { useSkillsData } from '../../../data/skills';
 import SkillsCenterIcon from '../../atoms/SkillsCenterIcon/SkillsCenterIcon';
 
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const controls = useAnimation();
+  const skillsData = useSkillsData();
+
+  console.log('skillsData', skillsData);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -79,14 +82,17 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     startAnimation();
   }, [controls, isInViewReveal]);
 
-  const getLineVariants: (icon: SkillsIcon) => Variants = (icon) => {
+  const getLineVariants: (
+    skill: SkillsIcon,
+    connectedSkill: SkillsIcon,
+  ) => Variants = (skill, connectedSkill) => {
     return {
       hidden: { pathLength: 0 },
       reveal: {
         pathLength: 1,
         transition: {
-          delay: icon.layer * 1,
-          duration: 1,
+          delay: connectedSkill.delay + revealSkillDuration,
+          duration: skill.delay - connectedSkill.delay - revealSkillDuration, // coordinate with skillData delayMultiplier
           ease: 'easeOut',
         },
       },
@@ -98,26 +104,25 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     ease: 'easeInOut',
   };
 
+  const revealSkillDuration = 0.4;
+
   const polylineDuration = 0.2;
 
   const centerCircleVariants: Variants = {
     hidden: {
-      opacity: 0,
       scale: 0,
       borderRadius: '0px',
       color: 'var(--secondary-color)',
     },
     reveal: {
-      opacity: 1,
       scale: 1,
       color: 'var(--secondary-color)',
       transition: {
-        duration: 0.5,
+        duration: revealSkillDuration,
         ease: 'easeOut',
       },
     },
     visible: {
-      opacity: 1,
       scale: 1,
       color: 'var(--secondary-color)',
       transition: hoverTransition,
@@ -212,7 +217,6 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
 
       return {
         hidden: {
-          opacity: 0,
           scale: 0,
           borderRadius: '0px',
           color: 'var(--secondary-color)',
@@ -221,20 +225,18 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           y: yPosition,
         },
         reveal: {
-          opacity: 1,
           scale: 1,
           color: 'var(--secondary-color)',
           stroke: '#1b1b21',
           x: xPosition,
           y: yPosition,
           transition: {
-            delay: icon.layer * 1,
-            duration: 0.5,
+            delay: icon.delay || 0,
+            duration: revealSkillDuration,
             ease: 'easeOut',
           },
         },
         visible: {
-          opacity: 1,
           scale: 1,
           color: 'var(--secondary-color)',
           stroke: '#1b1b21',
@@ -334,12 +336,12 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
             initial={isInitialMount ? 'hidden' : 'visible'}
             animate={
               isInitialMount
-                ? 'reveal'
+                ? controls
                 : hoveredSkillIndex
                   ? 'hoverConnected'
                   : 'visible'
             }
-            transition={{ duration: 0.5 }}
+            transition={{ duration: revealSkillDuration }}
             className="skills-center-container"
             variants={centerCircleVariants}
           >
@@ -372,17 +374,17 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
             </motion.g>
           </motion.g>
           <g className="skills-lines">
-            {skillsData.map((icon, index) => {
+            {skillsData.map((skill, index) => {
               const connectedSkill =
-                icon.connectedIndex !== undefined
-                  ? skillsData[icon.connectedIndex]
+                skill.connectedIndex !== undefined
+                  ? skillsData[skill.connectedIndex]
                   : null;
               const xPosition = maxMdWidth
-                ? icon.x.vertical
-                : icon.x.horizontal;
+                ? skill.x.vertical
+                : skill.x.horizontal;
               const yPosition = maxMdWidth
-                ? icon.y.vertical
-                : icon.y.horizontal;
+                ? skill.y.vertical
+                : skill.y.horizontal;
               const xConnected = maxMdWidth
                 ? connectedSkill?.x.vertical
                 : connectedSkill?.x.horizontal;
@@ -402,8 +404,8 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                     strokeWidth={2}
                     initial="hidden"
                     animate={controls}
-                    variants={getLineVariants(icon)}
-                    className={`skills-line ${icon.label}`}
+                    variants={getLineVariants(skill, connectedSkill)}
+                    className={`skills-line ${skill.label}`}
                   />
                 )
               );
@@ -420,27 +422,26 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
             />
           </g>
           <g className="skills-icons">
-            {skillsData.map((icon, index) => {
-              // handle reveal, hoverIn and hoverOut states
-              const animateVar = isInitialMount
-                ? 'reveal'
-                : hoveredSkillIndex === index
-                  ? 'hover'
-                  : connectedHoveredIndexes.current?.includes(index)
-                    ? 'hoverConnected'
-                    : 'visible';
-
+            {skillsData.map((skill, index) => {
               return (
                 <motion.g
                   key={`icon-${index}`}
                   initial={isInitialMount ? 'hidden' : 'visible'}
-                  animate={animateVar}
+                  animate={
+                    isInitialMount
+                      ? controls
+                      : hoveredSkillIndex === index
+                        ? 'hover'
+                        : connectedHoveredIndexes.current?.includes(index)
+                          ? 'hoverConnected'
+                          : 'visible'
+                  }
                   className="skills-icon"
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
-                  variants={getSkillVariants(icon)}
+                  variants={getSkillVariants(skill)}
                 >
-                  {icon.layer === 1 ? (
+                  {skill.layer === 1 ? (
                     <SkillsCategory
                       className="skills-icon-background"
                       x="-49"
@@ -466,13 +467,13 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                           ? 'hoverConnected'
                           : 'visible'
                     }
-                    variants={getSkillIconVariants(icon)}
+                    variants={getSkillIconVariants(skill)}
                   >
-                    <icon.icon
-                      width={icon.iconWidth}
-                      height={icon.iconHeight}
-                      x={icon.iconX}
-                      y={icon.iconY}
+                    <skill.icon
+                      width={skill.iconWidth}
+                      height={skill.iconHeight}
+                      x={skill.iconX}
+                      y={skill.iconY}
                     />
                   </motion.g>
                 </motion.g>
