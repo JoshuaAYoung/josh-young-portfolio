@@ -41,7 +41,8 @@ function HamburgerMenu() {
   const handleNavClick = (index: number) => {
     const targetElement = Object.values(sectionRefs)[index];
     if (targetElement) {
-      scrollToSection(targetElement, index);
+      // Add offset because of the weird padding on projects (index 3)
+      scrollToSection(targetElement, index, index === 3 ? -26 : 0);
       setIsOpen(false);
     }
   };

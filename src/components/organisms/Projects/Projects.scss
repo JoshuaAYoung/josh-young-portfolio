@@ -3,6 +3,8 @@
   padding: 6.5rem;
   margin-top: 10rem;
   margin-bottom: 5rem;
+  margin-right: 6.5rem;
+  margin-left: 6.5rem;
 
   @media screen and (max-width: $max-large) {
     // larger bottom padding for full width
@@ -10,6 +12,8 @@
     padding: 6.5rem 7rem 9rem;
     margin-top: 8rem;
     margin-bottom: 3rem;
+    margin-right: 0;
+    margin-left: 0;
   }
 
   @media screen and (max-width: $max-medium) {

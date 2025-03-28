@@ -44,8 +44,10 @@ function NavMenu() {
   const handleNavClick = (section: string) => {
     const index = PAGE_SECTIONS.indexOf(section);
     const targetElement = Object.values(sectionRefs)[index];
+    console.log('index', index);
     if (targetElement) {
-      scrollToSection(targetElement, index);
+      // Add offset because of the weird padding on projects (index 3)
+      scrollToSection(targetElement, index, index === 3 ? -36 : 0);
     }
   };
 
