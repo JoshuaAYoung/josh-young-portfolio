@@ -121,13 +121,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--high-contrast);
+            color: var(--primary-color);
             width: clamp(3.5rem, 11cqw, 4.2rem);
             height: clamp(3.5rem, 11cqw, 4.2rem);
 
             @media not all and (hover: none) {
               &:hover {
-                color: var(--primary-color);
+                color: var(--high-contrast);
               }
             }
 

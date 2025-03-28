@@ -41,27 +41,14 @@ const SkillItem = memo(
               ? 'hoverConnected'
               : 'visible'
       }
-      className="skills-icon"
       onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={handleMouseLeave}
       variants={getSkillVariants(skill)}
     >
       {skill.layer === 1 ? (
-        <SkillsCategory
-          className="skills-icon-background"
-          x="-49"
-          y="-49"
-          width="98"
-          height="98"
-        />
+        <SkillsCategory x="-49" y="-49" width="98" height="98" />
       ) : (
-        <SkillsHexagon
-          className="skills-icon-background"
-          x="-31"
-          y="-34"
-          width="62"
-          height="68"
-        />
+        <SkillsHexagon x="-31" y="-34" width="62" height="68" />
       )}
       <motion.g
         initial="visible"

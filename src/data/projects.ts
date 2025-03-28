@@ -32,7 +32,7 @@ export const projectData: ProjectItemType[] = [
     backgroundUrl: fireGraphScreenshot,
     title: 'Fire Graph',
     description:
-      'A simple-to-use React web utility that parses and heavily analyzes raw CSV output from kiln controllers to help the global pottery community visualize their firing data (Recharts graph) and troubleshoot kiln issues.',
+      'A simple-to-use React web utility that parses and heavily analyzes raw CSV output from kiln controllers to help the global pottery community visualize their firing data (via Recharts graph) and troubleshoot kiln issues.',
     techStack: [ReactIcon, TypescriptIcon],
     githubLink: 'https://github.com/JoshuaAYoung/firegraph-by-jay',
     demoLink: 'https://fire-graph.com',
@@ -42,7 +42,7 @@ export const projectData: ProjectItemType[] = [
     backgroundUrl: cloverScreenshot,
     title: 'Clover',
     description:
-      'Frontend development of a React-powered website for Clover, a leading point-of-sale platform. Enhanced user experience with seamless navigation, responsive design, and robust features for business management.',
+      "Frontend development on Clover's React website, a leading point-of-sale platform. Enhanced user experience with seamless navigation, responsive design, and robust features for business management.",
     techStack: [ReactIcon, JavascriptIcon, NodeIcon, PostgresIcon],
     demoLink: 'https://clover.com',
     categories: [ProjectCategory.WEB, ProjectCategory.PROFESSIONAL],

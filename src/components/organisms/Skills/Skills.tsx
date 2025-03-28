@@ -24,6 +24,7 @@ import SkillItem from '../../atoms/SkillItem/SkillItem';
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   const controls = useAnimation();
   const skillsData = useSkillsData();
 
@@ -52,14 +53,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   );
 
   const handleMouseEnter = throttle((index: number) => {
-    if (!isInitialMount) {
+    if (!isInitialMount && skillsData[index].layer !== 1) {
       const connectedIndexes = [];
       let currentIndex = skillsData[index].connectedIndex;
 
-      while (
-        currentIndex !== undefined &&
-        skillsData[currentIndex].layer !== 1
-      ) {
+      while (currentIndex !== undefined) {
         connectedIndexes.push(currentIndex);
         currentIndex = skillsData[currentIndex].connectedIndex!;
       }
@@ -322,10 +320,16 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       title="Skills"
       tooltipContent={
         isTouchDevice
-          ? 'Click on a skill from the tree for more info.'
-          : 'Hover over a skill from the tree for more info.'
+          ? [
+              'Click on a skill from the tree for more info.',
+              'Stars indicate proficiency level (out of 5).',
+            ]
+          : [
+              'Hover over a skill from the tree for more info.',
+              'Stars indicate proficiency level (out of 5).',
+            ]
       }
-      tooltipPosition={maxMdWidth ? 'bottom-left' : 'left'}
+      tooltipPosition={maxSmWidth ? 'bottom-left' : 'left'}
     >
       <div className="skills-container">
         <motion.svg

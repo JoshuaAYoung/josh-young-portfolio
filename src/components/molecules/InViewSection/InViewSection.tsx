@@ -24,7 +24,7 @@ interface InViewSectionProps {
   amountOnScreen?: number;
   title?: string;
   titleRef?: React.RefObject<HTMLDivElement>;
-  tooltipContent?: string;
+  tooltipContent?: string | string[];
   tooltipPosition?: 'left' | 'bottom-left';
   right?: JSX.Element;
   tooltipPopupClassName?: string;

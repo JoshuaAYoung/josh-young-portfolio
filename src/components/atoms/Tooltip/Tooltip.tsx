@@ -4,7 +4,7 @@ import './Tooltip.scss';
 import InfoIcon from '../../../assets/icons/info.svg?react';
 
 interface TooltipProps {
-  content: string;
+  content: string | string[];
   position?: 'left' | 'bottom-left';
   children?: ReactNode;
   tooltipPopupClassName?: string;
@@ -23,6 +23,8 @@ const Tooltip = ({
   const triangleViewBox = `0 0 ${triangleWidth} ${triangleHeight}`;
   const trianglePoints =
     position === 'bottom-left' ? '0,9 18,9 9,0' : '0,0 9,9 0,18';
+
+  const isContentArray = Array.isArray(content);
 
   return (
     <div
@@ -46,7 +48,15 @@ const Tooltip = ({
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ type: 'spring', stiffness: 150, damping: 15 }}
         >
-          {content}
+          {isContentArray ? (
+            content.map((paragraph, index) => (
+              <p key={index} className="tooltip-content">
+                {paragraph}
+              </p>
+            ))
+          ) : (
+            <p className="tooltip-content">{content}</p>
+          )}
           <svg
             className={`tooltip-triangle ${position}`}
             width={triangleWidth}
