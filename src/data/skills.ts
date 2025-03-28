@@ -23,12 +23,12 @@ import ReduxIcon from '../assets/icons/tech/redux.svg?react';
 import SequelizeIcon from '../assets/icons/tech/sequelize.svg?react';
 import TypescriptIcon from '../assets/icons/tech/typescript.svg?react';
 
-const delayMultiplier = 1;
-
 export const useSkillsData = (): SkillType[] => {
+  const delayMultiplier = 1;
+  const defaultCenterMultiplier = 1.6;
   const getRandomDelay = (): number => Math.random() * 0.8 - 0.4;
 
-  const skillsLayerOne = useMemo(
+  const skillsLayerOne: SkillType[] = useMemo(
     () => [
       {
         label: 'Backend',
@@ -73,7 +73,7 @@ export const useSkillsData = (): SkillType[] => {
     [],
   );
 
-  const skillsLayerTwo = useMemo(() => {
+  const skillsLayerTwo: SkillType[] = useMemo(() => {
     const getTotalDelayLayerTwo = (connectedIndex: number): number => {
       const calculatedDelay =
         skillsLayerOne[connectedIndex].delay +
@@ -96,6 +96,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 718, vertical: 421 },
         y: { horizontal: 45, vertical: 718 },
         delay: getTotalDelayLayerTwo(0),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 3 | 0
       {
         label: 'PostgreSQL',
@@ -110,6 +111,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 754, vertical: 323 },
         y: { horizontal: 143, vertical: 754 },
         delay: getTotalDelayLayerTwo(0),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 4 | 1
       {
         label: 'TypeScript',
@@ -124,6 +126,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 748, vertical: 225 },
         y: { horizontal: 241, vertical: 748 },
         delay: getTotalDelayLayerTwo(0),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 5 | 2
       {
         label: 'CI/CD',
@@ -138,6 +141,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 661, vertical: 88 },
         y: { horizontal: 378, vertical: 661 },
         delay: getTotalDelayLayerTwo(1),
+        centerMultiplier: 1.8,
       }, // 6 | 3
       {
         label: 'GitHub',
@@ -152,6 +156,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 583, vertical: 45 },
         y: { horizontal: 421, vertical: 583 },
         delay: getTotalDelayLayerTwo(1),
+        centerMultiplier: 1.8,
       }, // 7 | 4
       {
         label: 'AWS',
@@ -166,6 +171,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 478, vertical: 32 },
         y: { horizontal: 434, vertical: 478 },
         delay: getTotalDelayLayerTwo(1),
+        centerMultiplier: 2,
       }, // 8 | 5
       {
         label: 'Auth0',
@@ -180,6 +186,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 384, vertical: 59 },
         y: { horizontal: 407, vertical: 384 },
         delay: getTotalDelayLayerTwo(1),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 9 | 6
       {
         label: 'CSS3',
@@ -194,6 +201,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 282, vertical: 153 },
         y: { horizontal: 313, vertical: 282 },
         delay: getTotalDelayLayerTwo(2),
+        centerMultiplier: 2,
       }, // 10 | 7
       {
         label: 'TypeScript',
@@ -208,6 +216,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 247, vertical: 249 },
         y: { horizontal: 217, vertical: 247 },
         delay: getTotalDelayLayerTwo(2),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 11 | 8
       {
         label: 'HTML5',
@@ -222,11 +231,12 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 253, vertical: 355 },
         y: { horizontal: 111, vertical: 253 },
         delay: getTotalDelayLayerTwo(2),
+        centerMultiplier: 2,
       }, // 12 | 9
     ];
   }, []);
 
-  const skillsLayerThree = useMemo(() => {
+  const skillsLayerThree: SkillType[] = useMemo(() => {
     // must use the index of the subset array, not the connected index
     const getTotalDelayLayerThree = (connectedIndex: number): number => {
       const calculatedDelay =
@@ -250,6 +260,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 854, vertical: 212 },
         y: { horizontal: 254, vertical: 854 },
         delay: getTotalDelayLayerThree(2),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 13 | 0
       {
         label: 'GraphQL',
@@ -264,6 +275,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 814, vertical: 106 },
         y: { horizontal: 360, vertical: 814 },
         delay: getTotalDelayLayerThree(2),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 14 | 1
       {
         label: 'jQuery',
@@ -278,6 +290,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 171, vertical: 137 },
         y: { horizontal: 329, vertical: 171 },
         delay: getTotalDelayLayerThree(8),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 15 | 2
       {
         label: 'React',
@@ -292,11 +305,12 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 138, vertical: 284 },
         y: { horizontal: 182, vertical: 138 },
         delay: getTotalDelayLayerThree(8),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 16 | 3
     ];
   }, []);
 
-  const skillsLayerFour = useMemo(() => {
+  const skillsLayerFour: SkillType[] = useMemo(() => {
     // must use the index of the subset array, not the connected index
     const getTotalDelayLayerFour = (connectedIndex: number): number => {
       const calculatedDelay =
@@ -320,6 +334,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 965, vertical: 234 },
         y: { horizontal: 232, vertical: 965 },
         delay: getTotalDelayLayerFour(0),
+        centerMultiplier: 2,
       }, // 17
       {
         label: 'Sequelize',
@@ -334,6 +349,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 946, vertical: 146 },
         y: { horizontal: 320, vertical: 946 },
         delay: getTotalDelayLayerFour(0),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 18
       {
         label: 'Expo',
@@ -348,6 +364,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 99, vertical: 46 },
         y: { horizontal: 420, vertical: 99 },
         delay: getTotalDelayLayerFour(3),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 19
       {
         label: 'Framer Motion',
@@ -362,6 +379,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 52, vertical: 150 },
         y: { horizontal: 316, vertical: 52 },
         delay: getTotalDelayLayerFour(3),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 20
       {
         label: 'Redux',
@@ -376,6 +394,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 33, vertical: 250 },
         y: { horizontal: 216, vertical: 33 },
         delay: getTotalDelayLayerFour(3),
+        centerMultiplier: defaultCenterMultiplier,
       }, // 21
       {
         label: 'Jest',
@@ -390,6 +409,7 @@ export const useSkillsData = (): SkillType[] => {
         x: { horizontal: 37, vertical: 352 },
         y: { horizontal: 114, vertical: 37 },
         delay: getTotalDelayLayerFour(3),
+        centerMultiplier: 2,
       }, // 22
     ];
   }, []);

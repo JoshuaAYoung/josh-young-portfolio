@@ -11,15 +11,13 @@ import './Skills.scss';
 import { throttle } from 'lodash-es';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import SkillsCenter from '../../../assets/icons/tech/skills-center-circle.svg?react';
-import CircularText from '../../atoms/CircularText/CircularText';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 import { SkillType } from '../../../types/skills.types';
 import { useSkillsData } from '../../../data/skills';
-import SkillsCenterIcon from '../../atoms/SkillsCenterIcon/SkillsCenterIcon';
 import SkillLine from '../../atoms/SkillLine/SkillLine';
-import SkillItem from '../../atoms/SkillItem/SkillItem';
+import SkillItem from '../../molecules/SkillItem/SkillItem';
+import SkillsCenter from '../../molecules/SkillsCenter/SkillsCenter';
 
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
@@ -340,45 +338,15 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           preserveAspectRatio="xMidYMid meet"
           animate={controls}
         >
-          <motion.g
-            initial={isInitialMount ? 'hidden' : 'visible'}
-            animate={
-              isInitialMount
-                ? controls
-                : hoveredSkillIndex
-                  ? 'hoverConnected'
-                  : 'visible'
-            }
-            transition={{ duration: revealSkillDuration }}
-            variants={centerCircleVariants}
-          >
-            <SkillsCenter
-              x={centerX - 85}
-              y={centerY - 85}
-              width="170"
-              height="170"
-            />
-            <motion.g
-              initial="visible"
-              animate={hoveredSkillIndex ? 'hoverConnected' : 'visible'}
-              variants={centerCircleContentVariants}
-            >
-              <CircularText
-                text={
-                  hoveredSkillIndex
-                    ? skillsData[hoveredSkillIndex].label.toUpperCase()
-                    : 'FULL STACK'
-                }
-                x={centerX - 63}
-                y={centerY}
-              />
-              <SkillsCenterIcon
-                hoveredSkillIndex={hoveredSkillIndex}
-                centerX={centerX}
-                centerY={centerY}
-              />
-            </motion.g>
-          </motion.g>
+          <SkillsCenter
+            isInitialMount={isInitialMount}
+            controls={controls}
+            hoveredSkillIndex={hoveredSkillIndex}
+            centerX={centerX}
+            centerY={centerY}
+            centerCircleVariants={centerCircleVariants}
+            centerCircleContentVariants={centerCircleContentVariants}
+          />
           <g>
             {skillsData.map((skill, index) => {
               const connectedSkill =

@@ -13,16 +13,28 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
   centerY,
 }) => {
   const skillsData = useSkillsData();
-  const Icon = hoveredSkillIndex
-    ? skillsData[hoveredSkillIndex].icon
-    : FullStackIcon;
+  const hoveredSkill = hoveredSkillIndex ? skillsData[hoveredSkillIndex] : null;
+  const Icon = hoveredSkill ? hoveredSkill.icon : FullStackIcon;
+
+  const isDefaultIcon = hoveredSkillIndex === null;
+
+  let dynamicWidth = 100;
+  let dynamicHeight = 94;
+
+  if (hoveredSkill) {
+    dynamicWidth = hoveredSkill.iconWidth * hoveredSkill.centerMultiplier!;
+    dynamicHeight = hoveredSkill.iconHeight * hoveredSkill.centerMultiplier!;
+  }
+
+  const dynamicX = centerX - dynamicWidth / 2;
+  const dynamicY = isDefaultIcon ? centerY - 60 : centerY - dynamicHeight / 2;
 
   return (
     <Icon
-      width="100"
-      height="94"
-      x={centerX - 50}
-      y={centerY - 60}
+      width={dynamicWidth}
+      height={dynamicHeight}
+      x={dynamicX}
+      y={dynamicY}
       // color="var(--background-light)"
     />
   );

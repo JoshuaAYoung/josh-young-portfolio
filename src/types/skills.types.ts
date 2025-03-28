@@ -13,4 +13,5 @@ export interface SkillType {
   y: { horizontal: number; vertical: number };
   connectedIndex?: number;
   delay: number;
+  centerMultiplier?: number;
 }
