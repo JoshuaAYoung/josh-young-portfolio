@@ -8,16 +8,18 @@ import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';
 import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
 import { ProjectCategory } from '../../../types/projects.types';
-import TechStackIcons from '../../molecules/TechStackIcons/TechStackIcons';
+import TechStackIcons from '../../atoms/TechStackIcons/TechStackIcons';
 import {
   getProjectRevealVariants,
   overlayVariants,
   projectVariants,
 } from './projectsAnimations';
-import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
+import useMediaQuery from '../../../globalUtils/useMediaQuery';
+import { breakpoints } from '../../../constants/breakpoints';
 
 const Projects = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
+  const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   const controls = useAnimation();
   const hoveredProjectRefs = useRef(new Map<string, HTMLDivElement | null>());
 
@@ -114,105 +116,103 @@ const Projects = forwardRef<HTMLElement>((props, ref) => {
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
+      title="Projects"
+      tooltipContent={
+        isTouchDevice
+          ? 'Click on a project for more info.'
+          : 'Hover over a project for more info.'
+      }
+      tooltipPosition={maxSmWidth ? 'bottom-left' : 'left'}
+      right={
+        <ProjectsMenu
+          activeCategory={activeCategory}
+          onCategoryChange={(category: ProjectCategory) =>
+            setActiveCategory(category)
+          }
+        />
+      }
+      tooltipPopupClassName="projects-tooltip"
     >
-      <div className="projects-container">
-        <div className="projects-header-container">
-          <RevealWrapper isInView={isInViewReveal}>
-            <h2 className="section-title">
-              Projects
-              <span className="big-period">.</span>
-            </h2>
-          </RevealWrapper>
-          <ProjectsMenu
-            activeCategory={activeCategory}
-            onCategoryChange={(category: ProjectCategory) =>
-              setActiveCategory(category)
-            }
-          />
-        </div>
-        <motion.div className="projects-grid-container" layout>
-          <AnimatePresence mode="popLayout">
-            {filteredProjectData.map((project, index) => (
+      <motion.div className="projects-grid-container" layout>
+        <AnimatePresence mode="popLayout">
+          {filteredProjectData.map((project, index) => (
+            <motion.div
+              animate={controls}
+              layout
+              key={project.title}
+              initial={isInitialMount ? 'hidden' : 'visible'}
+              variants={getProjectRevealVariants(index)}
+            >
               <motion.div
-                animate={controls}
-                layout
-                key={project.title}
-                initial={isInitialMount ? 'hidden' : 'visible'}
-                variants={getProjectRevealVariants(index)}
+                className="projects-grid-item"
+                style={{ backgroundImage: `url(${project.backgroundUrl})` }}
+                initial={
+                  hoveredProject === project.title ? 'visible' : 'hidden'
+                }
+                animate={
+                  hoveredProject === project.title ? 'hoverIn' : 'visible'
+                }
+                exit="exit"
+                whileHover="hoverIn"
+                variants={projectVariants}
+                ref={(el) => hoveredProjectRefs.current.set(project.title, el)}
+                onAnimationComplete={(definition) => {
+                  if (definition === 'hoverIn' && isTouchDevice) {
+                    setTapLocked(false);
+                  }
+                }}
+                onTap={
+                  isTouchDevice
+                    ? () => handleProjectTap(project.title)
+                    : undefined
+                }
               >
                 <motion.div
-                  className="projects-grid-item"
-                  style={{ backgroundImage: `url(${project.backgroundUrl})` }}
-                  initial={
-                    hoveredProject === project.title ? 'visible' : 'hidden'
-                  }
-                  animate={
-                    hoveredProject === project.title ? 'hoverIn' : 'visible'
-                  }
-                  exit="exit"
-                  whileHover="hoverIn"
-                  variants={projectVariants}
-                  ref={(el) =>
-                    hoveredProjectRefs.current.set(project.title, el)
-                  }
-                  onAnimationComplete={(definition) => {
-                    if (definition === 'hoverIn' && isTouchDevice) {
-                      setTapLocked(false);
-                    }
-                  }}
-                  onTap={
-                    isTouchDevice
-                      ? () => handleProjectTap(project.title)
-                      : undefined
-                  }
+                  className="projects-grid-overlay"
+                  variants={overlayVariants}
                 >
-                  <motion.div
-                    className="projects-grid-overlay"
-                    variants={overlayVariants}
-                  >
-                    <div className="projects-grid-title-container">
-                      <h3 className="projects-grid-title">{project.title}</h3>
-                    </div>
-                    <div>
-                      <p className="projects-grid-description">
-                        {project.description}
-                      </p>
-                      <TechStackIcons
-                        techStack={project.techStack}
-                        projectKey={`${project.title}-${index}`}
-                      />
-                    </div>
-                    <div className="projects-grid-button-container">
-                      {project.githubLink && (
-                        <button
-                          onClick={() => handleButtonClick(project.githubLink)}
-                          disabled={tapLocked && isTouchDevice}
-                          aria-label="GitHub"
-                          className="projects-grid-link"
-                          type="button"
-                        >
-                          <GitHubIcon className="projects-grid-button" />
-                        </button>
-                      )}
-                      {project.demoLink && (
-                        <button
-                          onClick={() => handleButtonClick(project.demoLink)}
-                          disabled={tapLocked && isTouchDevice}
-                          aria-label="Demo"
-                          className="projects-grid-link"
-                          type="button"
-                        >
-                          <LinkIcon className="projects-grid-button" />
-                        </button>
-                      )}
-                    </div>
-                  </motion.div>
+                  <div className="projects-grid-title-container">
+                    <h3 className="projects-grid-title">{project.title}</h3>
+                  </div>
+                  <div>
+                    <p className="projects-grid-description">
+                      {project.description}
+                    </p>
+                    <TechStackIcons
+                      techStack={project.techStack}
+                      projectKey={`${project.title}-${index}`}
+                    />
+                  </div>
+                  <div className="projects-grid-button-container">
+                    {project.githubLink && (
+                      <button
+                        onClick={() => handleButtonClick(project.githubLink)}
+                        disabled={tapLocked && isTouchDevice}
+                        aria-label="GitHub"
+                        className="projects-grid-link"
+                        type="button"
+                      >
+                        <GitHubIcon className="projects-grid-button" />
+                      </button>
+                    )}
+                    {project.demoLink && (
+                      <button
+                        onClick={() => handleButtonClick(project.demoLink)}
+                        disabled={tapLocked && isTouchDevice}
+                        aria-label="Demo"
+                        className="projects-grid-link"
+                        type="button"
+                      >
+                        <LinkIcon className="projects-grid-button" />
+                      </button>
+                    )}
+                  </div>
                 </motion.div>
               </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </InViewSection>
   );
 });

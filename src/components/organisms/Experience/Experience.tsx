@@ -2,7 +2,7 @@ import { forwardRef, useRef, useState } from 'react';
 import './Experience.scss';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import ExperienceItem from '../../molecules/ExperienceItem/ExperienceItem';
+import ExperienceItem from '../../atoms/ExperienceItem/ExperienceItem';
 import { experienceData } from '../../../data/experiences';
 import { type Experience } from '../../../types/experience.types';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';

@@ -38,6 +38,9 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   );
   const connectedHoveredIndexes = useRef<number[] | null>(null);
 
+  // COMPUTED VAR(S)
+  const isTouchDevice = 'ontouchstart' in window;
+
   // FUNCTION(S)
   const onSectionInViewReveal = useCallback(
     (isPartiallyOnScreen: boolean) => {
@@ -206,7 +209,6 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
 
   const getSkillVariants = useCallback(
     (skill: SkillType) => {
-      // Memoize the calculation of positions based on screen size
       const xPosition = maxMdWidth ? skill.x.vertical : skill.x.horizontal;
       const yPosition = maxMdWidth ? skill.y.vertical : skill.y.horizontal;
       const skillLayer = skill.layer;
@@ -217,14 +219,14 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           scale: 0,
           borderRadius: '0px',
           color: 'var(--secondary-color)',
-          stroke: '#1b1b21',
+          stroke: 'var(--dark-fill)',
           x: xPosition,
           y: yPosition,
         },
         reveal: {
           scale: 1,
           color: 'var(--secondary-color)',
-          stroke: '#1b1b21',
+          stroke: 'var(--dark-fill)',
           x: xPosition,
           y: yPosition,
           transition: {
@@ -236,7 +238,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         visible: {
           scale: 1,
           color: 'var(--secondary-color)',
-          stroke: '#1b1b21',
+          stroke: 'var(--dark-fill)',
           transition: hoverTransition,
         },
         hover: {
@@ -318,10 +320,16 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
       title="Skills"
+      tooltipContent={
+        isTouchDevice
+          ? 'Click on a skill from the tree for more info.'
+          : 'Hover over a skill from the tree for more info.'
+      }
+      tooltipPosition={maxMdWidth ? 'bottom-left' : 'left'}
     >
-      <div className="container">
+      <div className="skills-container">
         <motion.svg
-          className="orbit-container"
+          className="skills-svg-container"
           viewBox={`0 0 ${maxMdWidth ? shortSide : longSide} ${
             maxMdWidth ? longSide : shortSide
           }`}
@@ -338,11 +346,9 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
                   : 'visible'
             }
             transition={{ duration: revealSkillDuration }}
-            className="skills-center-container"
             variants={centerCircleVariants}
           >
             <SkillsCenter
-              className="skills-center-background"
               x={centerX - 85}
               y={centerY - 85}
               width="170"
@@ -369,7 +375,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
               />
             </motion.g>
           </motion.g>
-          <g className="skills-lines">
+          <g>
             {skillsData.map((skill, index) => {
               const connectedSkill =
                 skill.connectedIndex !== undefined
@@ -391,7 +397,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
             <motion.polyline
               points={polylinePoints}
               fill="none"
-              stroke="#1b1b21"
+              stroke="var(--dark-fill)"
               strokeWidth="6"
               animate={
                 connectedHoveredIndexes?.current?.length ? 'visible' : 'hidden'
@@ -399,7 +405,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
               variants={polylineVariants}
             />
           </g>
-          <g className="skills-icons">
+          <g>
             {skillsData.map((skill, index) => (
               <SkillItem
                 key={`icon-${index}`}

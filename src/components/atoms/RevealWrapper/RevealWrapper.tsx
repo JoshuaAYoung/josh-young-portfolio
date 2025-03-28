@@ -9,6 +9,7 @@ interface RevealWrapperProps {
   isInView: boolean;
   containerClassName?: string;
   extraMargin?: boolean;
+  contentContainerClassName?: string;
 }
 
 const RevealWrapper = ({
@@ -17,6 +18,7 @@ const RevealWrapper = ({
   isInView,
   containerClassName = '',
   extraMargin = false,
+  contentContainerClassName = '',
 }: RevealWrapperProps) => {
   // This should only update and cause a rerender when one of the nav menu items is clicked.
   // So relying on this to pause animations should only help.
@@ -68,6 +70,7 @@ const RevealWrapper = ({
         initial="hidden"
         animate={mainControls}
         variants={mainVariants}
+        className={contentContainerClassName}
       >
         {children}
       </motion.div>

@@ -7,6 +7,7 @@
   --background-light-translucent: #34343b95;
   --background-medium: #2e2e35;
   --background-dark: #25252c;
+  --dark-fill: #1b1b21;
   --high-contrast: var(--background-dark);
   --invert-filter: none;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -36,6 +37,7 @@ html[data-theme='light'] {
   --background-light-translucent: #ffffff95;
   --background-medium: #f4f4f6;
   --background-dark: #e1e0e6;
+  --dark-fill: red;
   --high-contrast: var(--background-light);
   --invert-filter: hue-rotate(-40deg) brightness(550%) saturate(40%);
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -64,29 +66,4 @@ html[data-theme='light'] {
   font-size: 1.25em !important;
   color: var(--secondary-color) !important;
   line-height: 0 !important;
-}
-
-.section-reveal-wrapper {
-  margin-bottom: 3rem;
-
-  @media screen and (max-width: $max-medium) {
-    margin-bottom: 2.4rem;
-  }
-
-  @media screen and (max-width: $max-small) {
-    margin-bottom: 1.8rem;
-  }
-}
-
-.section-title {
-  font-size: 4.8rem;
-  color: var(--primary-color);
-
-  @media screen and (max-width: $max-medium) {
-    font-size: 4rem;
-  }
-
-  @media screen and (max-width: $max-xSmall) {
-    font-size: 3.6rem;
-  }
 }

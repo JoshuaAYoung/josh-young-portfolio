@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useRef } from 'react';
 import { useInView } from 'motion/react';
 import './InViewSection.scss';
 import RevealWrapper from '../../atoms/RevealWrapper/RevealWrapper';
+import Tooltip from '../../atoms/Tooltip/Tooltip';
 
 interface InViewSectionProps {
   children: React.ReactNode;
@@ -22,8 +23,11 @@ interface InViewSectionProps {
    */
   amountOnScreen?: number;
   title?: string;
-  containerStyle?: React.CSSProperties;
   titleRef?: React.RefObject<HTMLDivElement>;
+  tooltipContent?: string;
+  tooltipPosition?: 'left' | 'bottom-left';
+  right?: JSX.Element;
+  tooltipPopupClassName?: string;
 }
 
 const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
@@ -35,8 +39,11 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
       onSectionInViewRevealCallback,
       amountOnScreen = 0.1,
       title,
-      containerStyle,
       titleRef,
+      tooltipContent,
+      tooltipPosition,
+      right,
+      tooltipPopupClassName,
     },
     scrollRef,
   ) => {
@@ -72,11 +79,10 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
         ref={scrollRef}
         data-section={sectionName}
         className={`page-section ${sectionName.toLowerCase()}`}
-        style={containerStyle}
       >
         <div ref={inViewRef as React.RefObject<HTMLDivElement>}>
           {title && (
-            <div ref={titleRef}>
+            <div ref={titleRef} className="section-header">
               <RevealWrapper
                 isInView={isPartiallyOnScreen}
                 containerClassName="section-reveal-wrapper"
@@ -86,6 +92,18 @@ const InViewSection = forwardRef<HTMLElement, InViewSectionProps>(
                   <span className="big-period">.</span>
                 </h2>
               </RevealWrapper>
+              {(tooltipContent || right) && (
+                <div className="section-right-container">
+                  {tooltipContent && (
+                    <Tooltip
+                      content={tooltipContent}
+                      position={tooltipPosition}
+                      tooltipPopupClassName={tooltipPopupClassName}
+                    />
+                  )}
+                  {right && right}
+                </div>
+              )}
             </div>
           )}
           {children}

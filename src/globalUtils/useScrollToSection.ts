@@ -18,18 +18,27 @@ let currentAnimation: ReturnType<typeof animate> | null = null;
 
 export const useScrollToSection = () => {
   const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
+  const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
+  const maxLgWidth = useMediaQuery(`(max-width: ${breakpoints['max-large']})`);
   const setIsScrolling = useJYStore((state) => state.setIsScrolling);
   const setActiveSection = useJYStore((state) => state.setActiveSection);
-  // TODO change 90 for smaller breakpoints based on the section padding
+
+  const getSectionPadding = () => {
+    if (maxSmWidth) return 40;
+    if (maxMdWidth) return 60;
+    if (maxLgWidth) return 70;
+    return 90;
+  };
+
   const stickyHeaderVariable =
     ((maxSmWidth ? STICKY_HEADER_HEIGHT_MEDIUM : STICKY_HEADER_HEIGHT_LARGE) -
-      75) *
+      getSectionPadding()) *
     -1;
 
   const scrollToSection = (
     ref: RefObject,
     activeSectionIndex: number,
-    offset?: number,
+    offset: number = 0,
   ): void => {
     if (!ref.current) return;
 
@@ -38,7 +47,7 @@ export const useScrollToSection = () => {
     // for home, disregard offset and scroll to 0 (top)
     const targetPosition =
       activeSectionIndex !== 0
-        ? offsetTop + (offset || stickyHeaderVariable)
+        ? offsetTop + (offset + stickyHeaderVariable)
         : 0;
     const currentScrollY = window.scrollY;
 

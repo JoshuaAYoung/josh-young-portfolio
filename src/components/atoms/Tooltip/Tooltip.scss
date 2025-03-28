@@ -1,0 +1,111 @@
+:root {
+  --trigger-dimension: 2.6rem;
+  --tringle-long-dimension: 18px;
+  --tringle-short-dimension: 9px;
+  --tooltip-padding: 0.6rem;
+}
+
+@media screen and (max-width: $max-medium) {
+  :root {
+    --trigger-dimension: 2.2rem;
+  }
+}
+
+@media screen and (max-width: $max-xSmall) {
+  :root {
+    --trigger-dimension: 2rem;
+  }
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  height: calc(var(--trigger-dimension) + (var(--tooltip-padding) * 2));
+
+  .tooltip-popup {
+    position: absolute;
+    background-color: var(--background-dark);
+    color: var(--primary-color);
+    padding: 0.8rem 1.2rem;
+    font-size: 1.4rem;
+    font-family: 'Nunito', sans-serif;
+    white-space: nowrap;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    &.bottom-left {
+      top: calc(
+        var(--trigger-dimension) + (var(--tooltip-padding) * 2) +
+          var(--tringle-short-dimension)
+      );
+      right: 0;
+    }
+
+    &.left {
+      right: calc(
+        var(--trigger-dimension) + (var(--tooltip-padding) * 2) +
+          var(--tringle-short-dimension)
+      );
+      top: calc((var(--trigger-dimension) / 2) - (var(--tooltip-padding) * 2));
+    }
+
+    // TODO delete if left unused
+    // &.right {
+    //   left: 100%;
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    // }
+
+    // &.top {
+    //   bottom: var(--trigger-dimension);
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    // }
+
+    .tooltip-triangle {
+      position: absolute;
+      fill: var(--background-dark);
+
+      &.bottom-left {
+        top: calc(var(--tringle-short-dimension) * -1);
+        right: calc(
+          (var(--trigger-dimension) / 2) + var(--tooltip-padding) - var(
+              --tringle-long-dimension
+            ) / 2
+        );
+      }
+
+      &.left {
+        right: calc(var(--tringle-short-dimension) * -1);
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      // TODO delete if left unused
+      // &.top {
+      //   bottom: -6px;
+      //   left: 50%;
+      //   transform: translateX(-50%) rotate(180deg);
+      // }
+
+      // &.right {
+      //   left: 12px;
+      //   top: 50%;
+      //   transform: translateX(-50%) rotate(-90deg);
+      // }
+    }
+  }
+
+  .tooltip-trigger {
+    padding: var(--tooltip-padding);
+    height: calc(var(--trigger-dimension) + (var(--tooltip-padding) * 2));
+
+    .tooltip-icon {
+      width: var(--trigger-dimension);
+      height: var(--trigger-dimension);
+    }
+  }
+}

@@ -15,13 +15,51 @@
     padding: 5rem 2rem 2rem;
   }
 
-  // See global.scss for .section-title and .section-reveal-wrapper
-
   &.contact {
     padding-bottom: 8rem;
 
     @media screen and (max-width: $max-large) {
       padding-bottom: 7rem;
+    }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    justify-content: space-between;
+    width: 100%;
+
+    @media screen and (max-width: $max-medium) {
+      margin-bottom: 2.4rem;
+    }
+
+    @media screen and (max-width: $max-small) {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-right-container {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: center;
+
+      @media screen and (max-width: $max-medium) {
+        gap: 0.6rem;
+      }
+    }
+  }
+
+  .section-title {
+    font-size: 4.8rem;
+    color: var(--primary-color);
+
+    @media screen and (max-width: $max-medium) {
+      font-size: 4rem;
+    }
+
+    @media screen and (max-width: $max-xSmall) {
+      font-size: 3.6rem;
     }
   }
 }

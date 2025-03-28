@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import HeroEasterEgg from '../../organisms/HeroAnimatedPop/HeroAnimatedPop';
 import Hero from '../../organisms/HeroAnimatedTyping/HeroAnimatedTyping';
 import Contact from '../../organisms/Contact/Contact';

@@ -1,20 +1,30 @@
-.container {
-  aspect-ratio: 1000 / 466;
-  // width: 1000px;
-  width: 100%;
-  height: auto;
-  position: relative;
+.page-section.skills {
+  .section-header {
+    margin-bottom: 0;
 
-  @media screen and (max-width: $max-medium) {
-    aspect-ratio: 466 / 1000;
+    @media screen and (max-width: $max-medium) {
+      margin-bottom: 2rem;
+    }
   }
 
-  .orbit-container {
+  .skills-container {
+    aspect-ratio: 1000 / 466;
+    // width: 1000px;
     width: 100%;
     height: auto;
-    position: absolute;
-    left: 0;
-    top: 0;
-    overflow: visible;
+    position: relative;
+
+    @media screen and (max-width: $max-medium) {
+      aspect-ratio: 466 / 1000;
+    }
+
+    .skills-svg-container {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: visible;
+    }
   }
 }
