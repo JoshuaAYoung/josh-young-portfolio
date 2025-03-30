@@ -14,4 +14,5 @@ export interface SkillType {
   connectedIndex?: number;
   delay: number;
   centerMultiplier?: number;
+  stars: number;
 }

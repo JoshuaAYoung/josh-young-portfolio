@@ -29,17 +29,31 @@ const SkillLine = memo(
       : connectedSkill?.y.horizontal;
 
     return (
-      <motion.line
-        x1={xConnected}
-        y1={yConnected}
-        x2={xPosition}
-        y2={yPosition}
-        stroke="white"
-        strokeWidth={2}
-        initial="hidden"
-        animate={animate}
-        variants={variants}
-      />
+      <g>
+        <motion.line
+          x1={xConnected}
+          y1={yConnected}
+          x2={xPosition}
+          y2={yPosition}
+          stroke="var(--primary-color"
+          strokeWidth={2}
+          initial="hidden"
+          animate={animate}
+          variants={variants}
+        />
+        {skill.label === 'Python' && (
+          <line
+            x1={xConnected}
+            y1={yConnected}
+            x2={xPosition}
+            y2={yPosition}
+            strokeWidth={3}
+            strokeDasharray={5.5}
+            strokeMiterlimit={10}
+            stroke="var(--background-light)"
+          />
+        )}
+      </g>
     );
   },
 );

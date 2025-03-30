@@ -3,6 +3,7 @@ import { AnimationControls, motion, Variants } from 'motion/react';
 import SkillsCategory from '../../../assets/icons/tech/skills-category-circle.svg?react';
 import SkillsHexagon from '../../../assets/icons/tech/skills-hexagon.svg?react';
 import { SkillType } from '../../../types/skills.types';
+import CircularText from '../../atoms/CircularText/CircularText';
 
 interface SkillItemProps {
   skill: SkillType;
@@ -61,6 +62,18 @@ const SkillItem = memo(
         }
         variants={getSkillItemVariants(skill)}
       >
+        {skill.layer === 1 && (
+          <CircularText
+            text={skill.label.toUpperCase()}
+            x={-38}
+            y={0}
+            radius={38}
+            fontSize={12}
+            iconIndex={index}
+            fontWeight="800"
+            letterSpacing={2}
+          />
+        )}
         <skill.icon
           width={skill.iconWidth}
           height={skill.iconHeight}

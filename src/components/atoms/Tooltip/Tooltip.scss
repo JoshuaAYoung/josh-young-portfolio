@@ -29,6 +29,7 @@
     padding: 0.9rem 1.2rem;
     font-size: 1.4rem;
     font-family: 'Nunito', sans-serif;
+    font-weight: var(--tooltip-weight);
     white-space: nowrap;
     z-index: 10;
     display: flex;
@@ -53,19 +54,6 @@
       top: 0;
     }
 
-    // TODO delete if left unused
-    // &.right {
-    //   left: 100%;
-    //   top: 50%;
-    //   transform: translateY(-50%);
-    // }
-
-    // &.top {
-    //   bottom: var(--trigger-dimension);
-    //   left: 50%;
-    //   transform: translateX(-50%);
-    // }
-
     .tooltip-triangle {
       position: absolute;
       fill: var(--background-dark);
@@ -83,19 +71,6 @@
         top: calc((var(--trigger-dimension) / 2) + var(--tooltip-padding));
         transform: translateY(-50%);
       }
-
-      // TODO delete if left unused
-      // &.top {
-      //   bottom: -6px;
-      //   left: 50%;
-      //   transform: translateX(-50%) rotate(180deg);
-      // }
-
-      // &.right {
-      //   left: 12px;
-      //   top: 50%;
-      //   transform: translateX(-50%) rotate(-90deg);
-      // }
     }
   }
 

@@ -95,7 +95,11 @@
     }
 
     @media screen and (max-width: $max-small) {
-      margin: 3rem 0;
+      margin: 4.5rem 0 3rem;
+
+      &.expanded {
+        margin: 3rem 0;
+      }
     }
   }
 

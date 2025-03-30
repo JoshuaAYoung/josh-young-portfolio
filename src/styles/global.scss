@@ -13,8 +13,9 @@
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
   --box-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.15),
     0 2px 8px rgba(0, 0, 0, 0.1);
-  --header-footer-padding-x: 6.5rem;
+  --tooltip-weight: 400;
 
+  --header-footer-padding-x: 6.5rem;
   --transition-duration: 0.4s ease-in-out;
   --xxLarge-content-margin: 8%;
   --xxxLarge-content-margin: 12%;
@@ -42,6 +43,7 @@ html[data-theme='light'] {
   --invert-filter: hue-rotate(-40deg) brightness(550%) saturate(40%);
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
   --box-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.1);
+  --tooltip-weight: 600;
 }
 
 :root {

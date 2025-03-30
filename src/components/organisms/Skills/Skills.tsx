@@ -18,6 +18,7 @@ import { useSkillsData } from '../../../data/skills';
 import SkillLine from '../../atoms/SkillLine/SkillLine';
 import SkillItem from '../../molecules/SkillItem/SkillItem';
 import SkillsCenter from '../../molecules/SkillsCenter/SkillsCenter';
+import SkillsOuterRing from '../../../assets/icons/tech/skills-outer-ring.svg?react';
 
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
@@ -118,11 +119,13 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     hidden: {
       scale: 0,
       borderRadius: '0px',
+      stroke: 'var(--dark-fill)',
       color: 'var(--secondary-color)',
     },
     reveal: {
       scale: 1,
       color: 'var(--secondary-color)',
+      stroke: 'var(--dark-fill)',
       transition: {
         duration: revealSkillDuration,
         ease: 'easeOut',
@@ -131,10 +134,12 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     visible: {
       scale: 1,
       color: 'var(--secondary-color)',
+      stroke: 'var(--dark-fill)',
       transition: hoverTransition,
     },
     hoverConnected: {
       color: 'var(--background-dark)',
+      stroke: 'var(--primary-color)',
       transition: {
         duration: 0,
       },
@@ -214,15 +219,27 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         hidden: {
           scale: 0,
           borderRadius: '0px',
-          color: 'var(--secondary-color)',
-          stroke: 'var(--dark-fill)',
+          color:
+            skill.label === 'Python'
+              ? 'var(--background-dark)'
+              : 'var(--secondary-color)',
+          stroke:
+            skill.label === 'Python'
+              ? 'var(--secondary-color)'
+              : 'var(--dark-fill)',
           x: xPosition,
           y: yPosition,
         },
         reveal: {
           scale: 1,
-          color: 'var(--secondary-color)',
-          stroke: 'var(--dark-fill)',
+          color:
+            skill.label === 'Python'
+              ? 'var(--background-dark)'
+              : 'var(--secondary-color)',
+          stroke:
+            skill.label === 'Python'
+              ? 'var(--secondary-color)'
+              : 'var(--dark-fill)',
           x: xPosition,
           y: yPosition,
           transition: {
@@ -233,8 +250,15 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         },
         visible: {
           scale: 1,
-          color: 'var(--secondary-color)',
-          stroke: 'var(--dark-fill)',
+          color:
+            skill.label === 'Python'
+              ? 'var(--background-dark)'
+              : 'var(--secondary-color)',
+          stroke:
+            skill.label === 'Python'
+              ? 'var(--secondary-color)'
+              : 'var(--dark-fill)',
+
           transition: hoverTransition,
         },
         hover: {
@@ -307,6 +331,21 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   //   [skillsData],
   // );
 
+  const skillsOuterRingVariants: Variants = {
+    hidden: {
+      scale: 0.8,
+      opacity: 0,
+    },
+    reveal: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: revealSkillDuration,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <InViewSection
       sectionName="Skills"
@@ -320,11 +359,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         isTouchDevice
           ? [
               'Click on a skill from the tree for more info.',
-              'Stars indicate proficiency level (out of 5).',
+              'Heart meter indicates proficiency level (out of 5).',
             ]
           : [
               'Hover over a skill from the tree for more info.',
-              'Stars indicate proficiency level (out of 5).',
+              'Heart meter indicates proficiency level (out of 5).',
             ]
       }
       tooltipPosition={maxSmWidth ? 'bottom-left' : 'left'}
@@ -338,6 +377,19 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           preserveAspectRatio="xMidYMid meet"
           animate={controls}
         >
+          <motion.g
+            variants={skillsOuterRingVariants}
+            initial="hidden"
+            animate={controls}
+          >
+            <SkillsOuterRing
+              x={centerX - 152}
+              y={centerY - 152}
+              width="304"
+              height="304"
+              stroke="var(--dark-fill)"
+            />
+          </motion.g>
           <SkillsCenter
             isInitialMount={isInitialMount}
             controls={controls}

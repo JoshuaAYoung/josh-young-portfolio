@@ -25,7 +25,7 @@ import TypescriptIcon from '../assets/icons/tech/typescript.svg?react';
 
 export const useSkillsData = (): SkillType[] => {
   const delayMultiplier = 1;
-  const defaultCenterMultiplier = 1.6;
+  const defaultCenterMultiplier = 1.4;
   const getRandomDelay = (): number => Math.random() * 0.8 - 0.4;
 
   const skillsLayerOne: SkillType[] = useMemo(
@@ -41,6 +41,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -34,
         x: { horizontal: 650, vertical: 287 },
         y: { horizontal: 179, vertical: 650 },
+        stars: 0,
         delay: delayMultiplier + Math.round(getRandomDelay() * 100) / 100,
       }, // 0
       {
@@ -54,6 +55,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -34,
         x: { horizontal: 500, vertical: 137 },
         y: { horizontal: 329, vertical: 500 },
+        stars: 0,
         delay: delayMultiplier + Math.round(getRandomDelay() * 100) / 100,
       }, // 1
       {
@@ -67,6 +69,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -34,
         x: { horizontal: 350, vertical: 287 },
         y: { horizontal: 179, vertical: 350 },
+        stars: 0,
         delay: delayMultiplier + Math.round(getRandomDelay() * 100) / 100,
       }, // 2
     ],
@@ -95,6 +98,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -18,
         x: { horizontal: 718, vertical: 421 },
         y: { horizontal: 45, vertical: 718 },
+        stars: 1,
         delay: getTotalDelayLayerTwo(0),
         centerMultiplier: defaultCenterMultiplier,
       }, // 3 | 0
@@ -110,8 +114,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -19,
         x: { horizontal: 754, vertical: 323 },
         y: { horizontal: 143, vertical: 754 },
+        stars: 4,
         delay: getTotalDelayLayerTwo(0),
-        centerMultiplier: defaultCenterMultiplier,
+        centerMultiplier: 1.5,
       }, // 4 | 1
       {
         label: 'TypeScript',
@@ -125,6 +130,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (36 / 2) * -1,
         x: { horizontal: 748, vertical: 225 },
         y: { horizontal: 241, vertical: 748 },
+        stars: 5,
         delay: getTotalDelayLayerTwo(0),
         centerMultiplier: defaultCenterMultiplier,
       }, // 5 | 2
@@ -140,8 +146,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (36 / 2) * -1,
         x: { horizontal: 661, vertical: 88 },
         y: { horizontal: 378, vertical: 661 },
+        stars: 3,
         delay: getTotalDelayLayerTwo(1),
-        centerMultiplier: 1.8,
+        centerMultiplier: 1.7,
       }, // 6 | 3
       {
         label: 'GitHub',
@@ -155,8 +162,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (42 / 2) * -1,
         x: { horizontal: 583, vertical: 45 },
         y: { horizontal: 421, vertical: 583 },
+        stars: 5,
         delay: getTotalDelayLayerTwo(1),
-        centerMultiplier: 1.8,
+        centerMultiplier: 1.7,
       }, // 7 | 4
       {
         label: 'AWS',
@@ -170,8 +178,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -12,
         x: { horizontal: 478, vertical: 32 },
         y: { horizontal: 434, vertical: 478 },
+        stars: 3,
         delay: getTotalDelayLayerTwo(1),
-        centerMultiplier: 2,
+        centerMultiplier: 1.6,
       }, // 8 | 5
       {
         label: 'Auth0',
@@ -185,6 +194,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -18,
         x: { horizontal: 384, vertical: 59 },
         y: { horizontal: 407, vertical: 384 },
+        stars: 3,
         delay: getTotalDelayLayerTwo(1),
         centerMultiplier: defaultCenterMultiplier,
       }, // 9 | 6
@@ -200,8 +210,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -17,
         x: { horizontal: 282, vertical: 153 },
         y: { horizontal: 313, vertical: 282 },
+        stars: 5,
         delay: getTotalDelayLayerTwo(2),
-        centerMultiplier: 2,
+        centerMultiplier: 1.6,
       }, // 10 | 7
       {
         label: 'TypeScript',
@@ -215,6 +226,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (36 / 2) * -1,
         x: { horizontal: 247, vertical: 249 },
         y: { horizontal: 217, vertical: 247 },
+        stars: 5,
         delay: getTotalDelayLayerTwo(2),
         centerMultiplier: defaultCenterMultiplier,
       }, // 11 | 8
@@ -230,8 +242,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -17,
         x: { horizontal: 253, vertical: 355 },
         y: { horizontal: 111, vertical: 253 },
+        stars: 5,
         delay: getTotalDelayLayerTwo(2),
-        centerMultiplier: 2,
+        centerMultiplier: 1.6,
       }, // 12 | 9
     ];
   }, []);
@@ -259,6 +272,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -25,
         x: { horizontal: 854, vertical: 212 },
         y: { horizontal: 254, vertical: 854 },
+        stars: 5,
         delay: getTotalDelayLayerThree(2),
         centerMultiplier: defaultCenterMultiplier,
       }, // 13 | 0
@@ -274,6 +288,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (54 / 2) * -1,
         x: { horizontal: 814, vertical: 106 },
         y: { horizontal: 360, vertical: 814 },
+        stars: 4,
         delay: getTotalDelayLayerThree(2),
         centerMultiplier: defaultCenterMultiplier,
       }, // 14 | 1
@@ -289,6 +304,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (42 / 2) * -1,
         x: { horizontal: 171, vertical: 137 },
         y: { horizontal: 329, vertical: 171 },
+        stars: 4,
         delay: getTotalDelayLayerThree(8),
         centerMultiplier: defaultCenterMultiplier,
       }, // 15 | 2
@@ -304,6 +320,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (44 / 2) * -1,
         x: { horizontal: 138, vertical: 284 },
         y: { horizontal: 182, vertical: 138 },
+        stars: 5,
         delay: getTotalDelayLayerThree(8),
         centerMultiplier: defaultCenterMultiplier,
       }, // 16 | 3
@@ -333,8 +350,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (26 / 2) * -1,
         x: { horizontal: 965, vertical: 234 },
         y: { horizontal: 232, vertical: 965 },
+        stars: 4,
         delay: getTotalDelayLayerFour(0),
-        centerMultiplier: 2,
+        centerMultiplier: 1.6,
       }, // 17
       {
         label: 'Sequelize',
@@ -348,6 +366,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (47 / 2) * -1,
         x: { horizontal: 946, vertical: 146 },
         y: { horizontal: 320, vertical: 946 },
+        stars: 4,
         delay: getTotalDelayLayerFour(0),
         centerMultiplier: defaultCenterMultiplier,
       }, // 18
@@ -363,6 +382,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -24,
         x: { horizontal: 99, vertical: 46 },
         y: { horizontal: 420, vertical: 99 },
+        stars: 3,
         delay: getTotalDelayLayerFour(3),
         centerMultiplier: defaultCenterMultiplier,
       }, // 19
@@ -378,6 +398,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (44 / 2) * -1,
         x: { horizontal: 52, vertical: 150 },
         y: { horizontal: 316, vertical: 52 },
+        stars: 4,
         delay: getTotalDelayLayerFour(3),
         centerMultiplier: defaultCenterMultiplier,
       }, // 20
@@ -393,6 +414,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -25,
         x: { horizontal: 33, vertical: 250 },
         y: { horizontal: 216, vertical: 33 },
+        stars: 5,
         delay: getTotalDelayLayerFour(3),
         centerMultiplier: defaultCenterMultiplier,
       }, // 21
@@ -408,8 +430,9 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (37 / 2) * -1,
         x: { horizontal: 37, vertical: 352 },
         y: { horizontal: 114, vertical: 37 },
+        stars: 5,
         delay: getTotalDelayLayerFour(3),
-        centerMultiplier: 2,
+        centerMultiplier: 1.7,
       }, // 22
     ];
   }, []);

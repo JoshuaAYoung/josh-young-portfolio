@@ -90,7 +90,7 @@ const About = forwardRef<HTMLElement>((props, ref) => {
         )}
         <RevealWrapper
           isInView={isInViewReveal}
-          containerClassName="about-fact-list"
+          containerClassName={`about-fact-list ${isExpanded ? 'expanded' : ''}`}
         >
           <ul>
             {Object.entries(aboutData.factList).map(([key, value], index) => (

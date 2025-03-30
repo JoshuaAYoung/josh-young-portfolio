@@ -1,5 +1,6 @@
 import { AnimationControls, motion, Variants } from 'motion/react';
 import CircularText from '../../atoms/CircularText/CircularText';
+import CircularRating from '../../atoms/CircularRating/CircularRating';
 import SkillsCenterIcon from '../../atoms/SkillsCenterIcon/SkillsCenterIcon';
 import SkillsCenterBackground from '../../../assets/icons/tech/skills-center-circle.svg?react';
 import { useSkillsData } from '../../../data/skills';
@@ -24,6 +25,7 @@ const SkillsCenter: React.FC<SkillsCenterProps> = ({
   centerCircleContentVariants,
 }) => {
   const skillsData = useSkillsData();
+  const hoveredSkill = hoveredSkillIndex ? skillsData[hoveredSkillIndex] : null;
 
   return (
     <motion.g
@@ -49,14 +51,19 @@ const SkillsCenter: React.FC<SkillsCenterProps> = ({
         variants={centerCircleContentVariants}
       >
         <CircularText
-          text={
-            hoveredSkillIndex
-              ? skillsData[hoveredSkillIndex].label.toUpperCase()
-              : 'FULL STACK'
-          }
+          text={hoveredSkill ? hoveredSkill.label.toUpperCase() : 'FULL STACK'}
           x={centerX - 63}
           y={centerY}
+          iconIndex={999} // fake unique index, technically skill index 0 is backend
         />
+        {hoveredSkill && (
+          <CircularRating
+            x={centerX - 56}
+            y={centerY - 56}
+            radius={56}
+            stars={hoveredSkill.stars}
+          />
+        )}
         <SkillsCenterIcon
           hoveredSkillIndex={hoveredSkillIndex}
           centerX={centerX}

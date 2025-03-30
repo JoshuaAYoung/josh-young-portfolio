@@ -8,6 +8,8 @@ interface CircularTextProps {
   radius?: number;
   x: number;
   y: number;
+  iconIndex: number;
+  letterSpacing?: number;
 }
 
 const CircularText: React.FC<CircularTextProps> = ({
@@ -18,6 +20,8 @@ const CircularText: React.FC<CircularTextProps> = ({
   radius = 63,
   x,
   y,
+  iconIndex,
+  letterSpacing = 2.5,
 }) => {
   const diameter = radius * 2;
   return (
@@ -28,10 +32,11 @@ const CircularText: React.FC<CircularTextProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       x={x}
       y={y}
+      overflow="visible"
     >
       <defs>
         <path
-          id="circlePath"
+          id={`circlePath${iconIndex}`}
           d={`M 0, 0 A ${radius}, ${radius} 0 0,0 ${diameter}, 0`}
           fill="none"
         />
@@ -42,12 +47,14 @@ const CircularText: React.FC<CircularTextProps> = ({
         fontSize={fontSize}
         className="circular-text-copy"
         fontWeight={fontWeight}
+        letterSpacing={letterSpacing}
       >
         <textPath
-          href="#circlePath"
+          href={`#circlePath${iconIndex}`}
           startOffset="50%"
           dominantBaseline="auto"
           textAnchor="middle"
+          stroke="none"
         >
           {text}
         </textPath>

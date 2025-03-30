@@ -1,5 +1,6 @@
 import { useSkillsData } from '../../../data/skills';
 import FullStackIcon from '../../../assets/icons/tech/fullstack.svg?react';
+import PythonIcon from '../../../assets/icons/tech/python.svg?react';
 
 interface SkillsCenterIconProps {
   hoveredSkillIndex: number | null;
@@ -14,7 +15,12 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
 }) => {
   const skillsData = useSkillsData();
   const hoveredSkill = hoveredSkillIndex ? skillsData[hoveredSkillIndex] : null;
-  const Icon = hoveredSkill ? hoveredSkill.icon : FullStackIcon;
+
+  let Icon = FullStackIcon;
+
+  if (hoveredSkill) {
+    Icon = hoveredSkill?.label === 'Python' ? PythonIcon : hoveredSkill.icon;
+  }
 
   const isDefaultIcon = hoveredSkillIndex === null;
 
@@ -22,8 +28,13 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
   let dynamicHeight = 94;
 
   if (hoveredSkill) {
-    dynamicWidth = hoveredSkill.iconWidth * hoveredSkill.centerMultiplier!;
-    dynamicHeight = hoveredSkill.iconHeight * hoveredSkill.centerMultiplier!;
+    if (hoveredSkill?.label !== 'Python') {
+      dynamicWidth = hoveredSkill.iconWidth * hoveredSkill.centerMultiplier!;
+      dynamicHeight = hoveredSkill.iconHeight * hoveredSkill.centerMultiplier!;
+    } else {
+      dynamicWidth = 69;
+      dynamicHeight = 70;
+    }
   }
 
   const dynamicX = centerX - dynamicWidth / 2;
@@ -35,7 +46,6 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
       height={dynamicHeight}
       x={dynamicX}
       y={dynamicY}
-      // color="var(--background-light)"
     />
   );
 };
