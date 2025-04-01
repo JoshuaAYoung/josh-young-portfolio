@@ -304,7 +304,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: (42 / 2) * -1,
         x: { horizontal: 171, vertical: 137 },
         y: { horizontal: 329, vertical: 171 },
-        stars: 4,
+        stars: 3,
         delay: getTotalDelayLayerThree(8),
         centerMultiplier: defaultCenterMultiplier,
       }, // 15 | 2
@@ -414,7 +414,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -25,
         x: { horizontal: 33, vertical: 250 },
         y: { horizontal: 216, vertical: 33 },
-        stars: 5,
+        stars: 4,
         delay: getTotalDelayLayerFour(3),
         centerMultiplier: defaultCenterMultiplier,
       }, // 21

@@ -22,6 +22,7 @@ import SkillsOuterRing from '../../../assets/icons/tech/skills-outer-ring.svg?re
 
 const Skills = forwardRef<HTMLElement>((_, ref) => {
   // HOOK(S)
+  // horizontal layout to vertical at medium breakpoint
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const maxSmWidth = useMediaQuery(`(max-width: ${breakpoints['max-small']})`);
   const controls = useAnimation();
@@ -80,6 +81,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   useEffect(() => {
     const startAnimation = async () => {
       if (isInViewReveal) {
+        // Reset animation when passing md breakpoint threshold
+        if (!isInitialMount) {
+          controls.stop();
+          await controls.start('hidden');
+        }
         await controls.start('reveal');
         setIsInitialMount(false);
         controls.start('visible');
@@ -87,7 +93,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
     };
 
     startAnimation();
-  }, [controls, isInViewReveal]);
+  }, [isInViewReveal, maxMdWidth]);
 
   const getLineVariants = useCallback(
     (skill: SkillType, connectedSkill: SkillType) => {
@@ -354,7 +360,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
       }
       onSectionInViewRevealCallback={onSectionInViewReveal}
       ref={ref}
-      title="Skills"
+      title="Skill Tree"
       tooltipContent={
         isTouchDevice
           ? [

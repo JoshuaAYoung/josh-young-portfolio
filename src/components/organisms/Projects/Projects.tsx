@@ -3,7 +3,7 @@ import './Projects.scss';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
 import useJYStore from '../../../store/useJYStore';
-import GitHubIcon from '../../../assets/icons/tech/github.svg?react';
+import GitHubIcon from '../../../assets/icons/github-filled.svg?react';
 import LinkIcon from '../../../assets/icons/link.svg?react';
 import { projectData } from '../../../data/projects';
 import ProjectsMenu from '../../molecules/ProjectsMenu/ProjectsMenu';
