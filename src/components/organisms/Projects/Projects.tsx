@@ -119,8 +119,8 @@ const Projects = forwardRef<HTMLElement>((_, ref) => {
       title="Projects"
       tooltipContent={
         isTouchDevice
-          ? 'Click on a project for more info.'
-          : 'Hover over a project for more info.'
+          ? 'Click on a project for more info, or use the menu to filter projects.'
+          : 'Hover over a project for more info, or use the menu to filter projects..'
       }
       tooltipPosition={maxSmWidth ? 'bottom-left' : 'left'}
       right={
