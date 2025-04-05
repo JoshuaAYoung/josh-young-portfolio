@@ -1,4 +1,4 @@
-import React from 'react';
+// import { useState } from 'react';
 import './SwipeButton.scss';
 
 interface SwipeButtonProps {
@@ -8,6 +8,7 @@ interface SwipeButtonProps {
   containerClassName?: string;
   size?: 'large' | 'medium' | 'small';
   extraWide?: boolean;
+  isSubmit?: boolean;
 }
 
 const SwipeButton: React.FC<SwipeButtonProps> = ({
@@ -17,12 +18,19 @@ const SwipeButton: React.FC<SwipeButtonProps> = ({
   containerClassName,
   size = 'medium',
   extraWide = false,
+  isSubmit = false,
 }) => {
+  // const [buttonState, setButtonState] = useState("neutral");
+
   const compiledClassName = `swipe-button ${variant ? `${variant}` : ''} ${
     containerClassName || ''
   } ${size} ${extraWide ? 'extra-wide' : ''}`;
   return (
-    <button onClick={onClick} type="button" className={compiledClassName}>
+    <button
+      onClick={onClick}
+      type={isSubmit ? 'submit' : 'button'}
+      className={compiledClassName}
+    >
       {children}
     </button>
   );

@@ -30,7 +30,7 @@ const Projects = forwardRef<HTMLElement>((_, ref) => {
   const activeSection = useJYStore((state) => state.activeSection);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [activeCategory, setActiveCategory] = useState(ProjectCategory.ALL);
-  const [hoveredProject, setHoveredProject] = useState<string | null>('NPMM');
+  const [hoveredProject, setHoveredProject] = useState<string | null>('');
   const [isInitialMount, setIsInitialMount] = useState(true);
   const [tapLocked, setTapLocked] = useState(false);
 

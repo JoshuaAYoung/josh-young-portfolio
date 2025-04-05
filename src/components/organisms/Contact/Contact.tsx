@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import './Contact.scss';
 import { motion } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -24,6 +24,14 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   );
   const isDarkMode = useJYStore((state) => state.isDarkMode);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [infoData, setInfoData] = useState({
+    phone: 'KDMwMykgOTE0LTY5NTU=',
+    address: 'MzIwIERlYXJib3JuIEF2ZQ==',
+    cityStateZip: 'TWlzc291bGEsIE1UIDU5ODAx',
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,13 +49,100 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
+    setSubmitError(false);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    // TODO Handle form submission and validation logic here
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    setSubmitLoading(true);
+    setSubmitError(false);
+
+    if (!window.grecaptcha) {
+      console.error('reCAPTCHA not yet loaded');
+      setSubmitLoading(false);
+      setSubmitError(true);
+      return;
+    }
+
+    try {
+      const token = await window.grecaptcha.execute(
+        '6LdCigorAAAAADeS2z6QgarsScvc7iM_txku2Tum',
+        {
+          action: 'submit',
+        },
+      );
+
+      if (!token) {
+        throw new Error('No token received from reCAPTCHA');
+      }
+
+      const formDataToSend = {
+        ...formData,
+        'g-recaptcha-response': token,
+        access_key: 'your-access-key-here',
+      };
+
+      // Fetch request with better error handling
+      const res = await fetch('https://formcarry.com/s/eSqR9o7Q8wM', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(formDataToSend),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSubmitSuccess(true);
+        setSubmitLoading(false);
+      } else {
+        setSubmitLoading(false);
+        setSubmitError(true);
+        console.error('Form submission failed:', data);
+      }
+    } catch (err) {
+      setSubmitLoading(false);
+      setSubmitError(true);
+      // Enhanced error logging
+      console.error('Error submitting form:', err);
+      if (err instanceof Error) {
+        console.error('Error message:', err.message);
+      }
+    }
   };
+
+  // EFFECT(S)
+  useEffect(() => {
+    // Check recaptchaV3 score and decode info if passes
+    const runRecaptcha = async () => {
+      if (!window.grecaptcha) return;
+      const token = await window.grecaptcha.execute(
+        '6LcpkgorAAAAAJ5nZVExcf5VlHB23ldzleJDDcTm',
+        {
+          action: 'contact_info',
+        },
+      );
+
+      const scoreRes = await fetch('/api/verify-recaptcha', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
+
+      const data = await scoreRes.json();
+      if (data.success && data.score > 0.5) {
+        const decodedInfoData = Object.fromEntries(
+          Object.entries(infoData).map(([key, value]) => [key, atob(value)]),
+        ) as { phone: string; address: string; cityStateZip: string };
+        setInfoData(decodedInfoData);
+      }
+    };
+    if (isInViewReveal) {
+      runRecaptcha();
+    }
+  }, [isInViewReveal]);
 
   return (
     <InViewSection
@@ -124,8 +219,8 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
           />
           <SwipeButton
             variant="solid-secondary"
-            onClick={handleSubmit}
             extraWide
+            isSubmit
             containerClassName="contact-submit-button"
             size={maxMdWidth ? 'small' : 'medium'}
           >

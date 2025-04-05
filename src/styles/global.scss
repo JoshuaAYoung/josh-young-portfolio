@@ -69,3 +69,7 @@ html[data-theme='light'] {
   color: var(--secondary-color) !important;
   line-height: 0 !important;
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
