@@ -27,6 +27,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [passedRecaptcha, setPassedRecaptcha] = useState(false);
   const [infoData, setInfoData] = useState({
     phone: 'KDMwMykgOTE0LTY5NTU=',
     address: 'MzIwIERlYXJib3JuIEF2ZQ==',
@@ -136,6 +137,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
         const decodedInfoData = Object.fromEntries(
           Object.entries(infoData).map(([key, value]) => [key, atob(value)]),
         ) as { phone: string; address: string; cityStateZip: string };
+        setPassedRecaptcha(true);
         setInfoData(decodedInfoData);
       }
     };
@@ -242,7 +244,9 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               <PhoneIcon className="contact-info-icon" width="3rem" />
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Phone</h3>
-                <p className="contact-info-text">(303) 913-6955</p>
+                <p className="contact-info-text">
+                  {passedRecaptcha ? infoData.phone : '(###) ###-#####'}
+                </p>
               </div>
             </a>
             <a
@@ -267,9 +271,14 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Location</h3>
                 <p className="contact-info-text">
-                  341 North Ave East
+                  {passedRecaptcha
+                    ? infoData.address
+                    : '123 Failed Recaptcha St.'}
                   <span className="contact-info-break">,</span>
-                  <br className="contact-info-break" /> Missoula, MT 59801
+                  <br className="contact-info-break" />{' '}
+                  {passedRecaptcha
+                    ? infoData.cityStateZip
+                    : 'AreYou, ABot 12345'}
                 </p>
               </div>
             </a>
