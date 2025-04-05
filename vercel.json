@@ -14,6 +14,10 @@
     {
       "src": "/api/verify-recaptcha",
       "dest": "/api/verify-recaptcha.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
