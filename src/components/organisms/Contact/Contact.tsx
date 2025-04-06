@@ -30,7 +30,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   const [passedRecaptcha, setPassedRecaptcha] = useState(false);
   const [infoData, setInfoData] = useState({
     phone: 'KDMwMykgOTEzLTY5NTU=',
-    address: 'MzIwIERlYXJib3JuIEF2ZQ==',
+    address: 'MzQxIE5vcnRoIEF2ZSBFYXN0',
     cityStateZip: 'TWlzc291bGEsIE1UIDU5ODAx',
   });
   const [formData, setFormData] = useState({
