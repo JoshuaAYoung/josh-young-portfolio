@@ -271,14 +271,12 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Location</h3>
                 <p className="contact-info-text">
-                  {passedRecaptcha
-                    ? infoData.address
-                    : '123 Failed Recaptcha St.'}
+                  {passedRecaptcha ? infoData.address : '123 You Failed'}
                   <span className="contact-info-break">,</span>
                   <br className="contact-info-break" />{' '}
                   {passedRecaptcha
                     ? infoData.cityStateZip
-                    : 'AreYou, ABot 12345'}
+                    : 'The, ReCaptcha 12345'}
                 </p>
               </div>
             </a>
