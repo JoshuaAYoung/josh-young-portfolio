@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import './Contact.scss';
 import { motion } from 'motion/react';
 import InViewSection from '../../molecules/InViewSection/InViewSection';
@@ -7,16 +7,22 @@ import SwipeButton from '../../atoms/SwipeButton/SwipeButton';
 import EmailIcon from '../../../assets/icons/email.svg?react';
 import PhoneIcon from '../../../assets/icons/phone.svg?react';
 import LocationIcon from '../../../assets/icons/location.svg?react';
+import AlertIcon from '../../../assets/icons/alert.svg?react';
 import missoulaMapDark from '../../../assets/images/missoula-map-dark.png';
 import missoulaMapLight from '../../../assets/images/missoula-map-light.png';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
 import { breakpoints } from '../../../constants/breakpoints';
 import { getContactRevealVariants } from './contactAnimations';
 
+// Recaptcha fails locally without the vercel serverless API running
+const DISABLE_RECAPTCHA = import.meta.env.VITE_DISABLE_RECAPTCHA;
+const FORM_LOCAL_TESTING = import.meta.env.VITE_FORM_LOCAL_TESTING;
+
 const Contact = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
   const maxMdWidth = useMediaQuery(`(max-width: ${breakpoints['max-medium']})`);
   const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const isInfoDecoded = useRef(false);
 
   // STATE
   const onSectionInViewActive = useJYStore(
@@ -25,8 +31,9 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   const isDarkMode = useJYStore((state) => state.isDarkMode);
   const [isInViewReveal, setIsInViewReveal] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitFailure, setSubmitFailure] = useState(false);
   const [passedRecaptcha, setPassedRecaptcha] = useState(false);
   const [infoData, setInfoData] = useState({
     phone: 'KDMwMykgOTEzLTY5NTU=',
@@ -50,41 +57,56 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setSubmitError(false);
+    setSubmitError('');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e?.preventDefault();
-    setSubmitLoading(true);
-    setSubmitError(false);
+  const handleSubmitFailure = (errorMessage: string) => {
+    setSubmitLoading(false);
+    setSubmitFailure(true);
+    setSubmitError(errorMessage);
+  };
 
-    if (!window.grecaptcha) {
-      console.error('reCAPTCHA not yet loaded');
+  const handlePostLocalTesting = async () => {
+    setSubmitLoading(true);
+    setTimeout(() => {
+      const shouldSucceed = Math.random() > 0.5;
+      if (shouldSucceed) {
+        setSubmitSuccess(true);
+      } else {
+        setSubmitFailure(true);
+        setSubmitError('Simulated form submission failure.');
+      }
       setSubmitLoading(false);
-      setSubmitError(true);
+    }, 3000);
+  };
+
+  const handleFormCarryPost = async () => {
+    if (!window.grecaptcha && !DISABLE_RECAPTCHA) {
+      handleSubmitFailure('reCAPTCHA not yet loaded');
       return;
     }
 
     try {
-      const token = await window.grecaptcha.execute(
-        '6LdCigorAAAAADeS2z6QgarsScvc7iM_txku2Tum',
-        {
-          action: 'submit',
-        },
-      );
+      let token = '';
+      if (!DISABLE_RECAPTCHA) {
+        token = await window.grecaptcha.execute(
+          '6LdCigorAAAAADeS2z6QgarsScvc7iM_txku2Tum',
+          {
+            action: 'submit',
+          },
+        );
+      }
 
-      if (!token) {
-        throw new Error('No token received from reCAPTCHA');
+      if (!token && !DISABLE_RECAPTCHA) {
+        handleSubmitFailure('No token received from reCAPTCHA');
       }
 
       const formDataToSend = {
         ...formData,
-        'g-recaptcha-response': token,
-        access_key: 'your-access-key-here',
+        ...(!DISABLE_RECAPTCHA && { 'g-recaptcha-response': token }),
       };
 
-      // Fetch request with better error handling
       const res = await fetch('https://formcarry.com/s/eSqR9o7Q8wM', {
         method: 'POST',
         headers: {
@@ -95,22 +117,49 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
       });
 
       const data = await res.json();
-      if (data.success) {
+      if (data.status === 'success') {
         setSubmitSuccess(true);
         setSubmitLoading(false);
       } else {
-        setSubmitLoading(false);
-        setSubmitError(true);
-        console.error('Form submission failed:', data);
+        handleSubmitFailure('Form submission failed, please try again.');
       }
     } catch (err) {
-      setSubmitLoading(false);
-      setSubmitError(true);
-      // Enhanced error logging
+      handleSubmitFailure(
+        'An error occurred while submitting the form. Please try again later.',
+      );
       console.error('Error submitting form:', err);
       if (err instanceof Error) {
         console.error('Error message:', err.message);
       }
+    }
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    setSubmitLoading(true);
+    setSubmitError('');
+    if (submitSuccess) {
+      setSubmitSuccess(false);
+    }
+
+    if (submitFailure) {
+      setSubmitFailure(false);
+    }
+
+    if (FORM_LOCAL_TESTING) {
+      handlePostLocalTesting();
+    } else {
+      handleFormCarryPost();
+    }
+  };
+
+  const handleInfoDecode = () => {
+    if (!isInfoDecoded.current) {
+      const decodedInfoData = Object.fromEntries(
+        Object.entries(infoData).map(([key, value]) => [key, atob(value)]),
+      ) as { phone: string; address: string; cityStateZip: string };
+      isInfoDecoded.current = true;
+      setPassedRecaptcha(true);
+      setInfoData(decodedInfoData);
     }
   };
 
@@ -134,15 +183,13 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
 
       const data = await scoreRes.json();
       if (data.success && data.score > 0.5) {
-        const decodedInfoData = Object.fromEntries(
-          Object.entries(infoData).map(([key, value]) => [key, atob(value)]),
-        ) as { phone: string; address: string; cityStateZip: string };
-        setPassedRecaptcha(true);
-        setInfoData(decodedInfoData);
+        handleInfoDecode();
       }
     };
-    if (isInViewReveal) {
+    if (isInViewReveal && !DISABLE_RECAPTCHA) {
       runRecaptcha();
+    } else if (isInViewReveal && DISABLE_RECAPTCHA) {
+      handleInfoDecode();
     }
   }, [isInViewReveal]);
 
@@ -157,6 +204,12 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
       title="Get In Touch"
     >
       <div className="contact-container">
+        {submitError && (
+          <div className="contact-error">
+            <AlertIcon className="contact-error-icon" />
+            <p className="contact-error-text">{submitError}</p>
+          </div>
+        )}
         <motion.form
           className="contact-form"
           onSubmit={handleSubmit}
@@ -225,6 +278,12 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
             isSubmit
             containerClassName="contact-submit-button"
             size={maxMdWidth ? 'small' : 'medium'}
+            loading={submitLoading}
+            showStatus
+            success={submitSuccess}
+            setSuccess={setSubmitSuccess}
+            failure={submitFailure}
+            setFailure={setSubmitFailure}
           >
             SEND MESSAGE
           </SwipeButton>
@@ -273,7 +332,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
                 <p className="contact-info-text">
                   {passedRecaptcha ? infoData.address : '123 You Failed'}
                   <span className="contact-info-break">,</span>
-                  <br className="contact-info-break" />{' '}
+                  <br className="contact-info-break" />
                   {passedRecaptcha
                     ? infoData.cityStateZip
                     : 'The, ReCaptcha 12345'}

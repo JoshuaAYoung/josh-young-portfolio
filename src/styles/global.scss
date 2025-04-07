@@ -9,6 +9,8 @@
   --background-dark: #25252c;
   --dark-fill: #1b1b21;
   --high-contrast: var(--background-dark);
+  --success-color: #51d682;
+  --alert-color: #d84343;
   --invert-filter: none;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
   --box-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.15),
@@ -39,6 +41,7 @@ html[data-theme='light'] {
   --background-medium: #f4f4f6;
   --background-dark: #e1e0e6;
   --dark-fill: red;
+  --alert-color: #ff6f3c;
   --high-contrast: var(--background-light);
   --invert-filter: hue-rotate(-40deg) brightness(550%) saturate(40%);
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);

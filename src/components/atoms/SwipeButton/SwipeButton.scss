@@ -2,7 +2,7 @@
   position: relative;
   z-index: 0;
   background: transparent;
-  padding: 12px 18px;
+  padding: 0 18px;
   border-radius: 1.4rem;
   overflow: hidden;
   border: 2px solid var(--secondary-color);
@@ -11,17 +11,31 @@
   font-weight: 800;
   letter-spacing: 2px;
   color: var(--secondary-color);
+  height: 4.8rem;
   transition:
     color 0.8s,
     background-color 0.8s;
 
   &.large {
     font-size: 1.6rem;
-    padding: 12px 24px;
+    padding: 0 24px;
   }
 
   &.small {
-    padding: 8px 16px;
+    height: 4rem;
+    padding: 0 16px;
+
+    .status-content-container {
+      .status-icon-container {
+        height: 2rem;
+        width: 2rem;
+
+        .swipe-button-icon {
+          height: 2rem;
+          width: 2rem;
+        }
+      }
+    }
   }
 
   &::after {
@@ -92,6 +106,43 @@
       &::after {
         bottom: -30px;
         transform: rotate(0deg);
+      }
+    }
+  }
+
+  &.loading {
+    color: var(--high-contrast);
+    filter: saturate(50%);
+    pointer-events: none;
+  }
+
+  &.success {
+    color: var(--high-contrast);
+    background-color: var(--success-color);
+    border: none;
+    pointer-events: none;
+  }
+
+  &.failure {
+    color: var(--high-contrast);
+    background-color: var(--alert-color);
+    border: none;
+    pointer-events: none;
+  }
+
+  .status-content-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .status-icon-container {
+      height: 2.4rem;
+      width: 2.4rem;
+      overflow: hidden;
+
+      .swipe-button-icon {
+        height: 2.4rem;
+        width: 2.4rem;
       }
     }
   }
