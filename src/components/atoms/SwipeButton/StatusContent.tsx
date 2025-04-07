@@ -1,33 +1,72 @@
 import { AnimatePresence, motion } from 'motion/react';
+import LoadingIcon from '../../../assets/icons/loading.svg?react';
+import SuccessIcon from '../../../assets/icons/success.svg?react';
+import FailureIcon from '../../../assets/icons/fail.svg?react';
 
 interface StatusContentProps {
-  content?: React.ReactNode;
-  visible?: boolean;
+  children?: React.ReactNode;
+  loading?: boolean;
+  success?: boolean;
+  failure?: boolean;
 }
 
-const StatusContent: React.FC<StatusContentProps> = ({ content, visible }) => {
+const StatusContent: React.FC<StatusContentProps> = ({
+  children,
+  loading,
+  success,
+  failure,
+}) => {
+  const fadeVariant = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.1 },
+  };
+
+  const spinVariant = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, rotate: 360 },
+    exit: { opacity: 0 },
+    transition: {
+      opacity: { duration: 0.1 },
+      rotate: { repeat: Infinity, duration: 1.5, ease: 'linear' },
+    },
+  };
+
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{
-            // y: -12,
-            opacity: 0,
-          }}
-          animate={{
-            y: 0,
-            opacity: 1,
-          }}
-          exit={{
-            // y: 12,
-            opacity: 0,
-          }}
-          className="button-content-container"
-        >
-          {content}
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="status-content-container">
+      <AnimatePresence mode="wait">
+        {loading ? (
+          <motion.div
+            key="loading"
+            {...spinVariant}
+            className="status-icon-container"
+          >
+            <LoadingIcon className="swipe-button-icon" />
+          </motion.div>
+        ) : success ? (
+          <motion.div
+            key="success"
+            {...fadeVariant}
+            className="status-icon-container"
+          >
+            <SuccessIcon className="swipe-button-icon" />
+          </motion.div>
+        ) : failure ? (
+          <motion.div
+            key="failure"
+            {...fadeVariant}
+            className="status-icon-container"
+          >
+            <FailureIcon className="swipe-button-icon" />
+          </motion.div>
+        ) : (
+          <motion.div key="default" {...fadeVariant} className="text">
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import './SwipeButton.scss';
-import StatusContentContainer from './StatusContentContainer';
+import StatusContent from './StatusContent';
 
 interface SwipeButtonProps {
   variant?: 'outline-dark' | 'outline-secondary' | 'solid-secondary';
@@ -65,13 +65,9 @@ const SwipeButton: React.FC<SwipeButtonProps> = ({
       disabled={loading || success || failure}
     >
       {showStatus ? (
-        <StatusContentContainer
-          loading={loading}
-          success={success}
-          failure={failure}
-        >
+        <StatusContent loading={loading} success={success} failure={failure}>
           {children}
-        </StatusContentContainer>
+        </StatusContent>
       ) : (
         children
       )}
