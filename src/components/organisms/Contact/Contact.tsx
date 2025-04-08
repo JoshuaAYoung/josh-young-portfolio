@@ -120,6 +120,12 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
       if (data.status === 'success') {
         setSubmitSuccess(true);
         setSubmitLoading(false);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
       } else {
         handleSubmitFailure('Form submission failed, please try again.');
       }
