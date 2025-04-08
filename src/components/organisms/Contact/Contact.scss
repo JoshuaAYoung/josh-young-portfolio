@@ -36,6 +36,27 @@
       height: 2.4rem;
       stroke: var(--alert-color);
     }
+
+    @media screen and (max-width: $max-medium) {
+      font-size: 1.3rem;
+      top: -25px;
+
+      .contact-error-icon {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    @media screen and (max-width: $max-xSmall) {
+      font-size: 1.2rem;
+      top: -20px;
+
+      .contact-error-icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        stroke: var(--alert-color);
+      }
+    }
   }
 
   .contact-form {
@@ -136,10 +157,6 @@
         grid-template-columns: repeat(1, 1fr);
         padding: 2.4rem 3rem;
       }
-
-      // @media screen and (min-width: $min-xLarge) and (max-width: $max-xxLarge) {
-      //   padding: 3rem 4rem;
-      // }
 
       .contact-info-item {
         display: flex;

@@ -51,12 +51,14 @@
     z-index: -1;
   }
 
-  &:hover {
-    color: var(--high-contrast);
+  @media not all and (hover: none) {
+    &:hover {
+      color: var(--high-contrast);
 
-    &::after {
-      bottom: -30px;
-      transform: rotate(0deg);
+      &::after {
+        bottom: -30px;
+        transform: rotate(0deg);
+      }
     }
   }
 
@@ -69,11 +71,13 @@
       background: var(--primary-color);
     }
 
-    &:hover {
-      color: var(--high-contrast);
+    @media not all and (hover: none) {
+      &:hover {
+        color: var(--high-contrast);
 
-      &::after {
-        background: var(--primary-color);
+        &::after {
+          background: var(--primary-color);
+        }
       }
     }
   }
@@ -86,11 +90,13 @@
       background: var(--high-contrast);
     }
 
-    &:hover {
-      color: var(--secondary-color);
+    @media not all and (hover: none) {
+      &:hover {
+        color: var(--secondary-color);
 
-      &::after {
-        background: var(--high-contrast);
+        &::after {
+          background: var(--high-contrast);
+        }
       }
     }
 
@@ -122,10 +128,12 @@
       bottom: 150%;
     }
 
-    &:hover {
-      &::after {
-        bottom: -30px;
-        transform: rotate(0deg);
+    @media not all and (hover: none) {
+      &:hover {
+        &::after {
+          bottom: -30px;
+          transform: rotate(0deg);
+        }
       }
     }
   }
