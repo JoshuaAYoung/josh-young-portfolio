@@ -91,7 +91,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
       let token = '';
       if (!DISABLE_RECAPTCHA) {
         token = await window.grecaptcha.execute(
-          '6LdCigorAAAAADeS2z6QgarsScvc7iM_txku2Tum',
+          '6LcpkgorAAAAAJ5nZVExcf5VlHB23ldzleJDDcTm',
           {
             action: 'submit',
           },
