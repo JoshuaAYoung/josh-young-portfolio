@@ -1,5 +1,3 @@
-// TODO
-// tracking like GA but easier
 import '@fontsource/open-sans/300.css'; // Light
 import '@fontsource/open-sans/400.css'; // Regular
 import '@fontsource/open-sans/600.css'; // SemiBold

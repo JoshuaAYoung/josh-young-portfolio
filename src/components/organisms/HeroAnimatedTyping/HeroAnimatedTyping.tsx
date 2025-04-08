@@ -313,7 +313,6 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   </motion.span>
                 ))}
               </motion.div>
-              {/* TODO Get rid of this BR and combine "with" with the rest of the headline? */}
               <motion.br variants={getBreakVariants('headlineWithType')} />
               <motion.div
                 variants={getTypeStaggerVariants(

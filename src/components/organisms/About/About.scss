@@ -5,7 +5,6 @@
   .about-text-container {
     @media screen and (max-width: $max-medium) {
       position: relative;
-      // TODO coordinate this height with size of text (in case we shrink for smaller breakpoints)
       max-height: 29.5rem;
       overflow: hidden;
       transition: max-height 0.3s ease;

@@ -62,7 +62,8 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         currentIndex = skillsData[currentIndex].connectedIndex!;
       }
       if (currentIndex !== undefined) {
-        connectedIndexes.push(currentIndex); // Add the layer 1 index
+        // Add the layer 1 index
+        connectedIndexes.push(currentIndex);
       }
 
       setHoveredSkillIndex(index);
@@ -319,7 +320,7 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   const centerX = maxMdWidth ? 287 : longSide / 2;
   const centerY = maxMdWidth ? longSide / 2 : 179;
 
-  // KEEP IN CASE WE NEED TO RECALCULATE
+  // KEEP IN CASE WE NEED TO RECALCULATE LATER
   // const orbitRadii = [150, 256, 362, 468];
   // const responsiveRotation = maxMdWidth ? 90 : 0;
 
@@ -336,6 +337,8 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
   //     }),
   //   [skillsData],
   // );
+
+  // console.log('computedPositions', computedPositions);
 
   const skillsOuterRingVariants: Variants = {
     hidden: {

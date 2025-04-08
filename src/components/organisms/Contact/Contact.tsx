@@ -15,8 +15,8 @@ import { breakpoints } from '../../../constants/breakpoints';
 import { getContactRevealVariants } from './contactAnimations';
 
 // Recaptcha fails locally without the vercel serverless API running
-const DISABLE_RECAPTCHA = import.meta.env.VITE_DISABLE_RECAPTCHA;
-const FORM_LOCAL_TESTING = import.meta.env.VITE_FORM_LOCAL_TESTING;
+const DISABLE_RECAPTCHA = import.meta.env.VITE_DISABLE_RECAPTCHA === 'true';
+const FORM_LOCAL_TESTING = import.meta.env.VITE_FORM_LOCAL_TESTING === 'true';
 
 const Contact = forwardRef<HTMLElement>((props, ref) => {
   // HOOK(S)
@@ -46,8 +46,6 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
     subject: '',
     message: '',
   });
-
-  console.log('DISABLE_RECAPTCHA', DISABLE_RECAPTCHA, FORM_LOCAL_TESTING);
 
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {

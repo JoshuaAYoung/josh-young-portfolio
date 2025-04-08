@@ -28,8 +28,6 @@ const RevealWrapper = ({
   const slideControls = useAnimation();
 
   useEffect(() => {
-    // TODO check to make sure that we want to wait until we're done scrolling to reveal everything.
-    // If that doesn't look great, remove the isScrolling check.
     const startAnimation = async () => {
       if (isInView) {
         await slideControls.start('grow');

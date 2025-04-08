@@ -43,7 +43,7 @@ const HeroEasterEgg = forwardRef<HTMLElement>((props, ref) => {
 
   // EFFECT(S)
   useEffect(() => {
-    if (mounted.current) return; // Prevent starting animation if already mounted
+    if (mounted.current) return;
     mounted.current = true;
 
     const sequence = async () => {

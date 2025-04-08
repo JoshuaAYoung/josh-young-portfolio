@@ -50,7 +50,7 @@ const ExperienceItem = ({
     const startDate = new Date(start);
     const endDate = end === 'Present' ? new Date() : new Date(end);
     const diffYears = endDate.getFullYear() - startDate.getFullYear();
-    const diffMonths = endDate.getMonth() - startDate.getMonth() + 1; // Include the end month
+    const diffMonths = endDate.getMonth() - startDate.getMonth() + 1;
 
     let years = diffYears;
     let months = diffMonths;
