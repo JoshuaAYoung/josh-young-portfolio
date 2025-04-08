@@ -47,6 +47,8 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
     message: '',
   });
 
+  console.log('DISABLE_RECAPTCHA', DISABLE_RECAPTCHA, FORM_LOCAL_TESTING);
+
   // FUNCTION(S)
   const onSectionInViewReveal = (isPartiallyOnScreen: boolean) => {
     if (isPartiallyOnScreen && !isInViewReveal) {
@@ -300,7 +302,9 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               className="contact-info-item"
               aria-label="Call Me"
             >
-              <PhoneIcon className="contact-info-icon" width="3rem" />
+              <div className="contact-info-icon-container">
+                <PhoneIcon className="contact-info-icon" width="3rem" />
+              </div>
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Phone</h3>
                 <p className="contact-info-text">
@@ -313,7 +317,9 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               className="contact-info-item"
               aria-label="Email Me"
             >
-              <EmailIcon className="contact-info-icon" width="3.6rem" />
+              <div className="contact-info-icon-container">
+                <EmailIcon className="contact-info-icon" width="3.6rem" />
+              </div>
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Email</h3>
                 <p className="contact-info-text">joshua@young.net</p>
@@ -326,7 +332,9 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
               rel="noopener noreferrer"
               aria-label="Google Maps Location"
             >
-              <LocationIcon className="contact-info-icon" width="2.8rem" />
+              <div className="contact-info-icon-container">
+                <LocationIcon className="contact-info-icon" width="2.8rem" />
+              </div>
               <div className="contact-info-text-container">
                 <h3 className="contact-info-title">Location</h3>
                 <p className="contact-info-text">

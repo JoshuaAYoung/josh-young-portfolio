@@ -186,9 +186,16 @@
             grid-column: span 2;
           }
         }
+        .contact-info-icon-container {
+          // coordinate with width of largest icon
+          width: 3.6rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-        .contact-info-icon {
-          flex-shrink: 0;
+          .contact-info-icon {
+            flex-shrink: 0;
+          }
         }
 
         .contact-info-text-container {
