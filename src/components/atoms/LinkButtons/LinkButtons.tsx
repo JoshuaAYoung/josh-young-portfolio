@@ -7,6 +7,8 @@ import EasterEggIcon from '../../../assets/icons/easter-egg.svg?react';
 import useJYStore from '../../../store/useJYStore';
 import { breakpoints } from '../../../constants/breakpoints';
 import useMediaQuery from '../../../globalUtils/useMediaQuery';
+import { useScrollToSection } from '../../../globalUtils/useScrollToSection';
+import { PAGE_SECTIONS } from '../../../constants/navigation';
 
 function LinkButtons({
   containerClassName,
@@ -17,12 +19,21 @@ function LinkButtons({
 }) {
   // HOOK(S)
   const minLgWidth = useMediaQuery(`(min-width: ${breakpoints['min-large']})`);
+  const { scrollToSection } = useScrollToSection();
 
   // STATE
   const isDarkMode = useJYStore((state) => state.isDarkMode);
   const isEasterEgg = useJYStore((state) => state.isEasterEgg);
   const toggleDarkMode = useJYStore((state) => state.toggleDarkMode);
   const toggleEasterEgg = useJYStore((state) => state.toggleEasterEgg);
+  const sectionRefs = useJYStore((state) => state.sectionRefs);
+
+  const onToggleEasterEgg = () => {
+    toggleEasterEgg(!isEasterEgg);
+    const homeKey = 'Home';
+    const homeIndex = PAGE_SECTIONS.findIndex((section) => section === homeKey);
+    scrollToSection(sectionRefs[homeKey], homeIndex);
+  };
 
   return (
     <div className={`link-buttons-container ${containerClassName}`}>
@@ -69,7 +80,7 @@ function LinkButtons({
       )}
       {minLgWidth && (
         <button
-          onClick={() => toggleEasterEgg(!isEasterEgg)}
+          onClick={onToggleEasterEgg}
           aria-label="Toggle Easter Egg Hero"
           className="link-button"
           tabIndex={!isOpen ? -1 : 0}
