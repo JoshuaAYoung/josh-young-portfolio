@@ -37,7 +37,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
   const [passedRecaptcha, setPassedRecaptcha] = useState(false);
   const [infoData, setInfoData] = useState({
     phone: 'KDMwMykgOTEzLTY5NTU=',
-    address: 'MzQxIE5vcnRoIEF2ZSBFYXN0',
+    address: 'MzIwIERlYXJib3JuIEF2ZQ==',
     cityStateZip: 'TWlzc291bGEsIE1UIDU5ODAx',
   });
   const [formData, setFormData] = useState({
@@ -343,7 +343,7 @@ const Contact = forwardRef<HTMLElement>((props, ref) => {
                 <h3 className="contact-info-title">Location</h3>
                 <p className="contact-info-text">
                   {passedRecaptcha ? infoData.address : '123 You Failed'}
-                  <span className="contact-info-break">,</span>
+                  <span className="contact-info-comma">, </span>
                   <br className="contact-info-break" />
                   {passedRecaptcha
                     ? infoData.cityStateZip

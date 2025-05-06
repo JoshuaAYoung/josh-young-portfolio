@@ -15,9 +15,9 @@ import GraphqlIcon from '../assets/icons/tech/gql.svg?react';
 import HtmlIcon from '../assets/icons/tech/html.svg?react';
 import JestIcon from '../assets/icons/tech/jest.svg?react';
 import JQueryIcon from '../assets/icons/tech/jquery.svg?react';
-import LockIcon from '../assets/icons/tech/lock.svg?react';
 import NodeIcon from '../assets/icons/tech/node.svg?react';
 import PostgresIcon from '../assets/icons/tech/postgresql.svg?react';
+import PythonIcon from '../assets/icons/tech/python.svg?react';
 import ReactIcon from '../assets/icons/tech/react.svg?react';
 import ReduxIcon from '../assets/icons/tech/redux.svg?react';
 import SequelizeIcon from '../assets/icons/tech/sequelize.svg?react';
@@ -88,19 +88,19 @@ export const useSkillsData = (): SkillType[] => {
     return [
       {
         label: 'Python',
-        icon: LockIcon,
+        icon: PythonIcon,
         layer: 2,
         angle: 328.5,
         connectedIndex: 0,
-        iconWidth: 25,
-        iconHeight: 32,
-        iconX: (25 / 2) * -1,
-        iconY: -18,
+        iconWidth: 42,
+        iconHeight: 43,
+        iconX: (42 / 2) * -1,
+        iconY: -22,
         x: { horizontal: 718, vertical: 421 },
         y: { horizontal: 45, vertical: 718 },
-        stars: 1,
+        stars: 3,
         delay: getTotalDelayLayerTwo(0),
-        centerMultiplier: defaultCenterMultiplier,
+        centerMultiplier: 1.6,
       }, // 3 | 0
       {
         label: 'PostgreSQL',

@@ -41,7 +41,7 @@ const SkillLine = memo(
           animate={animate}
           variants={variants}
         />
-        {skill.label === 'Python' && (
+        {skill.label === 'Locked' && (
           <line
             x1={xConnected}
             y1={yConnected}

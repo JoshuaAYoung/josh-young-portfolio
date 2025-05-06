@@ -225,6 +225,12 @@
               font-size: 1.4rem;
             }
 
+            .contact-info-comma {
+              @media screen and (max-width: $max-xLarge) and (min-width: $min-medium) {
+                display: none;
+              }
+            }
+
             .contact-info-break {
               @media screen and (min-width: $min-xLarge) {
                 display: none;

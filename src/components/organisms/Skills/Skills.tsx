@@ -227,11 +227,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
           scale: 0,
           borderRadius: '0px',
           color:
-            skill.label === 'Python'
+            skill.label === 'Lock'
               ? 'var(--background-dark)'
               : 'var(--secondary-color)',
           stroke:
-            skill.label === 'Python'
+            skill.label === 'Lock'
               ? 'var(--secondary-color)'
               : 'var(--dark-fill)',
           x: xPosition,
@@ -240,11 +240,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         reveal: {
           scale: 1,
           color:
-            skill.label === 'Python'
+            skill.label === 'Lock'
               ? 'var(--background-dark)'
               : 'var(--secondary-color)',
           stroke:
-            skill.label === 'Python'
+            skill.label === 'Lock'
               ? 'var(--secondary-color)'
               : 'var(--dark-fill)',
           x: xPosition,
@@ -258,11 +258,11 @@ const Skills = forwardRef<HTMLElement>((_, ref) => {
         visible: {
           scale: 1,
           color:
-            skill.label === 'Python'
+            skill.label === 'Lock'
               ? 'var(--background-dark)'
               : 'var(--secondary-color)',
           stroke:
-            skill.label === 'Python'
+            skill.label === 'Lock'
               ? 'var(--secondary-color)'
               : 'var(--dark-fill)',
 

@@ -19,7 +19,7 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
   let Icon = FullStackIcon;
 
   if (hoveredSkill) {
-    Icon = hoveredSkill?.label === 'Python' ? PythonIcon : hoveredSkill.icon;
+    Icon = hoveredSkill?.label === 'Lock' ? PythonIcon : hoveredSkill.icon;
   }
 
   const isDefaultIcon = hoveredSkillIndex === null;
@@ -28,7 +28,7 @@ const SkillsCenterIcon: React.FC<SkillsCenterIconProps> = ({
   let dynamicHeight = 94;
 
   if (hoveredSkill) {
-    if (hoveredSkill?.label !== 'Python') {
+    if (hoveredSkill?.label !== 'Lock') {
       dynamicWidth = hoveredSkill.iconWidth * hoveredSkill.centerMultiplier!;
       dynamicHeight = hoveredSkill.iconHeight * hoveredSkill.centerMultiplier!;
     } else {
