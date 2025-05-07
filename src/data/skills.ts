@@ -98,7 +98,7 @@ export const useSkillsData = (): SkillType[] => {
         iconY: -22,
         x: { horizontal: 718, vertical: 421 },
         y: { horizontal: 45, vertical: 718 },
-        stars: 3,
+        stars: 2,
         delay: getTotalDelayLayerTwo(0),
         centerMultiplier: 1.6,
       }, // 3 | 0

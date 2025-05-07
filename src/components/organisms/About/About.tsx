@@ -93,12 +93,34 @@ const About = forwardRef<HTMLElement>((props, ref) => {
           containerClassName={`about-fact-list ${isExpanded ? 'expanded' : ''}`}
         >
           <ul>
-            {Object.entries(aboutData.factList).map(([key, value], index) => (
-              <li key={index}>
-                <span className="about-fact-label">{key.toUpperCase()}:</span>{' '}
-                {value}
-              </li>
-            ))}
+            {Object.entries(aboutData.factList).map(([key, value], index) => {
+              if (key === 'notable achievement') {
+                return (
+                  <li key={index}>
+                    <span className="about-fact-label">
+                      {key.toUpperCase()}:
+                    </span>{' '}
+                    Designed and built a{' '}
+                    <span className="about-fact-link">
+                      <a
+                        href="https://www.archdaily.com/772843/nakai-residence-designbuildbluf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        house
+                      </a>
+                    </span>{' '}
+                    on the Navajo Reservation
+                  </li>
+                );
+              }
+              return (
+                <li key={index}>
+                  <span className="about-fact-label">{key.toUpperCase()}:</span>{' '}
+                  {value}
+                </li>
+              );
+            })}
           </ul>
         </RevealWrapper>
         {maxMdWidth ? (

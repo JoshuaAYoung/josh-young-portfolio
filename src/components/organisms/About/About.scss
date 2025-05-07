@@ -93,6 +93,12 @@
       font-weight: 800;
     }
 
+    .about-fact-link {
+      color: var(--secondary-color);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
     @media screen and (max-width: $max-small) {
       margin: 4.5rem 0 3rem;
 
