@@ -9,6 +9,5 @@ export const aboutData = {
     'undergraduate degree': 'B.S - Computer Science, C.U. Boulder',
     'previous career': 'Licensed Architect',
     'favorite pasttime': 'Pottery',
-    'notable achievement': 'Designed and built a house',
   },
 };
