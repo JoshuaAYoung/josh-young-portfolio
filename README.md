@@ -1,8 +1,34 @@
-### Captains log
+# Josh Young's Portfolio
 
-## November 3rd, 2024
+Welcome to the source code for [Josh Young's Portfolio](https://github.com/JoshuaAYoung/josh-young-portfolio), a modern developer portfolio site showcasing professional and personal projects, technical skills, and background information.
 
-- needed to track scrolling for reveal animations (one time, partially in view sets true) as well as for the menu (only one active at a time with no bouncing between). Accomplished this with one ref invoking useInView hook from framer motion twice. Third party hook uses react-intersection-observer under the hood and is memo'd up, so it ended up being a fairly performative and responsive solution.
-- switched over to Zustand from context as the inView and scrolling progress states change so frequently and I'd like to selectively subscribe to changes for those to avoid rerenders.
-- controlling the "in view" state locally for the reveal animation means I can easily adjust classNames in each section, with an easy sort of cascade effect (react solution). Shouldn't need to prop drill these boolean values much either since my it's a true SPA and my file structure is pretty shallow.
--
+## Getting Started
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/JoshuaAYoung/josh-young-portfolio.git
+   cd josh-young-portfolio
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## 🚫 License
+
+This project is **proprietary and closed-source**.  
+All rights are reserved by jay-klay-pots, and you may not use, copy, modify, or distribute any part of this project without explicit permission.
+
+For licensing inquiries, please contact: joshua@young.net
+
